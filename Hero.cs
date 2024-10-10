@@ -10,6 +10,8 @@ public partial class Hero : CharacterBody2D
     private bool _canClimb = false; //if the player enter the area of a ladder, he can climb
     private bool _isClimbing = false; //tell if the player is currently climbing (he can't go on the left or right)
 
+    private string _collectedItem = null; //current item in the inventory
+
 
     public override void _Ready()
     {
@@ -18,7 +20,6 @@ public partial class Hero : CharacterBody2D
         ladderArea.LadderEntered += OnLadderAreaEntered;
         ladderArea.LadderExited += OnLadderAreaExited;
 
-
     }
 
     public override void _PhysicsProcess(double delta)
@@ -26,6 +27,7 @@ public partial class Hero : CharacterBody2D
         var velocity = Vector2.Zero; 
         var animatedSprite2D = GetNode<AnimatedSprite2D>("HeroSprites");
 
+        //if the player decided to climb, we update the value of is_climbing
         if(_canClimb && (Input.IsActionJustPressed("move_up") || Input.IsActionJustPressed("move_down"))) {
             _isClimbing = true;
         }
@@ -36,7 +38,7 @@ public partial class Hero : CharacterBody2D
             var isMoving = false;
             if (Input.IsActionPressed("move_up"))
             {
-                velocity.Y -= 1;
+                velocity.Y -= 1; //go up
                 isMoving = true;
             }
             else if (Input.IsActionPressed("move_down"))
@@ -47,6 +49,7 @@ public partial class Hero : CharacterBody2D
            
             animatedSprite2D.Animation = "ladder";
             velocity = velocity.Normalized() * Speed;
+            //isMoving variable is used to know if we have to play the animation
             if (isMoving)
             {
                 animatedSprite2D.Play();
@@ -55,24 +58,22 @@ public partial class Hero : CharacterBody2D
             {
                 animatedSprite2D.Stop();
             }
-            
-            
         }
         else
         {
             if (Input.IsActionPressed("move_right"))
             {
-                velocity.X += 1;
+                velocity.X += 1; //right
             }
 
             if (Input.IsActionPressed("move_left"))
             {
-                velocity.X -= 1;
+                velocity.X -= 1; //left
             }
 
             if (velocity.Length() > 0)
             {
-                velocity = velocity.Normalized() * Speed;
+                velocity = velocity.Normalized() * Speed; //we normalize the vector
                 animatedSprite2D.Play();
 
                 if (velocity.X < 0)
@@ -86,11 +87,13 @@ public partial class Hero : CharacterBody2D
             }
             else
             {
+                //when the player doesn't move, we stop the animation
                 animatedSprite2D.Stop();
-                animatedSprite2D.Animation = "default"; // Animation par défaut
+                animatedSprite2D.Animation = "default"; 
             }
         }
 
+        //update the position of the player
         Position += velocity * (float)delta;
         Position = new Vector2(
             x: Mathf.Clamp(Position.X, 0, ScreenSize.X),
@@ -109,5 +112,32 @@ public partial class Hero : CharacterBody2D
     {
         _isClimbing = false; // Le joueur ne peut plus grimper
         _canClimb = false;
+    }
+
+
+    public void CollectItem(string itemType)
+    {
+        /**
+         * Method used to collect an item. This method doesn't check that the inventory is empty! 
+         * throw InvalidOperationException if you try to collect an item even if your inventory is full
+         */
+        if (_collectedItem == null)
+        {
+            _collectedItem = itemType;  // Ajoute l'objet à l'inventaire
+            GD.Print("Objet collecté : " + itemType);
+            // Vous pouvez ajouter d'autres actions ici (comme des effets visuels, des sons, etc.)
+        }
+        else
+        {
+            GD.Print("Vous avez déjà un objet : " + _collectedItem);
+            throw new InvalidOperationException("You are trying to collect an item but the inventory is full!");
+        }
+    }
+
+
+    public bool CanPickItem()
+    {
+        //check if it's possible to pick an item (the inventory is empty)
+        return _collectedItem == null;
     }
 }
