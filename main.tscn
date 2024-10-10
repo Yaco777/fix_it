@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://cpm4gp75y7pni"]
+
+[ext_resource type="PackedScene" uid="uid://lm01vdyu1xgl" path="res://hero.tscn" id="1_easg4"]
+[ext_resource type="PackedScene" uid="uid://bi2r111jr3iak" path="res://ladder.tscn" id="2_su768"]
+
+[node name="Main" type="Node"]
+
+[node name="Hero" parent="." instance=ExtResource("1_easg4")]
+z_index = 1
+
+[node name="Camera2D" type="Camera2D" parent="Hero"]
+
+[node name="Ladder" parent="." instance=ExtResource("2_su768")]
+position = Vector2(200, 302)

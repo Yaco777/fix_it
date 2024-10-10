@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://bi2r111jr3iak"]
+
+[ext_resource type="Texture2D" uid="uid://dc0suivgipmvc" path="res://building/ladder.png" id="1_ia7nv"]
+[ext_resource type="Script" path="res://LadderArea.cs" id="1_p615m"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_oyqnr"]
+size = Vector2(103, 326)
+
+[node name="Ladder" type="Node2D"]
+
+[node name="LadderArea" type="Area2D" parent="."]
+script = ExtResource("1_p615m")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LadderArea"]
+position = Vector2(0.5, 1)
+shape = SubResource("RectangleShape2D_oyqnr")
+
+[node name="LadderSprite" type="Sprite2D" parent="."]
+texture = ExtResource("1_ia7nv")
+
+[connection signal="body_entered" from="LadderArea" to="LadderArea" method="OnBodyEntered"]
+[connection signal="body_exited" from="LadderArea" to="LadderArea" method="OnBodyExited"]
