@@ -97,7 +97,7 @@ public partial class Hero : CharacterBody2D
         var animatedSprite2D = GetNode<AnimatedSprite2D>("HeroSprites");
 
         //if the player decided to climb, we update the value of is_climbing
-        if(_canClimb && (Input.IsActionJustPressed("move_up") || Input.IsActionJustPressed("move_down"))) {
+        if(_canClimb && ((Input.IsActionJustPressed("move_up") && _canGoUp) || (_canGoDown && Input.IsActionJustPressed("move_down")))) {
             _isClimbing = true;
         }
 
@@ -115,6 +115,7 @@ public partial class Hero : CharacterBody2D
                 else
                 {
                     _isClimbing = false; //if the player wants to go up but he can't, that means that he touched the floor
+
                 }
                 
             }
