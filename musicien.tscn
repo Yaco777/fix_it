@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://b8wyebxsxftek"]
+
+[ext_resource type="Script" path="res://Musicien.cs" id="1_l0d7b"]
+[ext_resource type="Texture2D" uid="uid://b7t7nj7fni50h" path="res://characters/musicien/MusicienFace.png" id="1_vds6e"]
+[ext_resource type="AudioStream" uid="uid://5fedk6fxiv3a" path="res://audio/music.mp3" id="3_u7alc"]
+
+[node name="Musicien" type="Node2D"]
+script = ExtResource("1_l0d7b")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("1_vds6e")
+
+[node name="Music" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_u7alc")

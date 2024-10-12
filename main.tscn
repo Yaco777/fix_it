@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://cpm4gp75y7pni"]
+[gd_scene load_steps=7 format=3 uid="uid://cpm4gp75y7pni"]
 
 [ext_resource type="PackedScene" uid="uid://lm01vdyu1xgl" path="res://hero.tscn" id="1_easg4"]
-[ext_resource type="PackedScene" uid="uid://bi2r111jr3iak" path="res://ladder.tscn" id="2_su768"]
 [ext_resource type="PackedScene" uid="uid://bqavjipbvgds2" path="res://collectible.tscn" id="3_mldgo"]
 [ext_resource type="Texture2D" uid="uid://c1ivtn4kytex7" path="res://building/collectible/horn.png" id="4_qpyr7"]
 [ext_resource type="Texture2D" uid="uid://cj3pxegbcgssb" path="res://building/collectible/enora.png" id="5_ud60s"]
+[ext_resource type="PackedScene" uid="uid://b22i1xe7x8eus" path="res://building.tscn" id="6_ltln6"]
+[ext_resource type="PackedScene" uid="uid://b8wyebxsxftek" path="res://musicien.tscn" id="6_y1b1w"]
 
 [node name="Main" type="Node"]
 
@@ -14,10 +15,8 @@ Speed = 410
 
 [node name="Camera2D" type="Camera2D" parent="Hero"]
 
-[node name="Ladder" parent="." instance=ExtResource("2_su768")]
-position = Vector2(200, 302)
-
 [node name="Ob1" parent="." instance=ExtResource("3_mldgo")]
+z_index = 1
 position = Vector2(818, 212)
 ObjectTexture = ExtResource("4_qpyr7")
 Name = "Horn"
@@ -26,3 +25,8 @@ Name = "Horn"
 position = Vector2(1233, 208)
 ObjectTexture = ExtResource("5_ud60s")
 Name = "Eno"
+
+[node name="Musicien" parent="." instance=ExtResource("6_y1b1w")]
+
+[node name="Building" parent="." instance=ExtResource("6_ltln6")]
+position = Vector2(-41, 2248)

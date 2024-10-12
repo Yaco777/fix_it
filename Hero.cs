@@ -11,15 +11,84 @@ public partial class Hero : CharacterBody2D
     private bool _isClimbing = false; //tell if the player is currently climbing (he can't go on the left or right)
 
     private string _collectedItem = null; //current item in the inventory
+    private bool _canGoUp = true; //check if there is a floor at the top of the player
+    private bool _canGoDown = true; //check if there is a floor below the player
 
 
     public override void _Ready()
     {
         ScreenSize = GetViewportRect().Size;
-        var ladderArea = GetNode<LadderArea>("../Ladder/LadderArea"); 
-        ladderArea.LadderEntered += OnLadderAreaEntered;
-        ladderArea.LadderExited += OnLadderAreaExited;
+        var ladders = GetNode<Node2D>("../Building/Ladders").GetChildren();
 
+        //we add the actions for the ladder, all the ladders are in the building
+        foreach (var ladder in ladders)
+        {
+            if (ladder is Node2D ladderNode && ladderNode.HasNode("LadderArea"))
+            {
+                var ladderArea = ladderNode.GetNode<LadderArea>("LadderArea");
+                ladderArea.LadderEntered += OnLadderAreaEntered;
+                ladderArea.LadderExited += OnLadderAreaExited;
+            }
+        }
+
+        //we do the same for the floors
+        var floors = GetNode<Node2D>("../Building/Floors").GetChildren();
+        foreach (var floor in floors)
+        {
+            if (floor is Area2D floorArea)
+            {
+                floorArea.BodyEntered += (body) => OnFloorEntered(body, floorArea);
+                floorArea.BodyExited += (body) => OnFloorExited(body, floorArea);
+            }
+        }
+
+        //test
+        var employee = GetNode<Employee>("../Musicien");
+        employee.EmployeeStateChanged += OnEmployeeStateChanged;
+
+    }
+
+    private void OnFloorEntered(Node body, Area2D floorArea)
+        /**
+         * Method called when the player enter the Area2D of a floor. He won't be able to, either go up or go down (based on its position)
+         */
+    {
+        if (body is Hero)
+        {
+            _isClimbing = false;  //we stop the climb animation
+            if (floorArea != null)
+            {
+              
+                if (Position.Y < floorArea.Position.Y)
+                {
+                    _canGoUp = false; // the floor is on top of the player
+                }
+                else
+                {
+                    _canGoDown = false; //the floor is below the player
+                   
+                }
+            }
+
+        }
+    }
+
+    private void OnFloorExited(Node body, Area2D area)
+        /**
+         * Method called when the player isn't in the area2D of a floor
+         */
+    {
+        if (body is Hero)
+        {
+            _canGoUp = true; //we allow the player to go up and down 
+            _canGoDown = true;
+        }
+    }
+
+    private void OnEmployeeStateChanged(int newState)
+    {
+        //Test
+        GD.Print("Hey ! Changement : "+ (Employee.EmployeeState)newState);
     }
 
     public override void _PhysicsProcess(double delta)
@@ -36,15 +105,31 @@ public partial class Hero : CharacterBody2D
         if (_isClimbing)
         {
             var isMoving = false;
-            if (Input.IsActionPressed("move_up"))
+            if (Input.IsActionPressed("move_up") && _canGoUp)
             {
-                velocity.Y -= 1; //go up
-                isMoving = true;
+                if(_canGoUp)
+                {
+                    velocity.Y -= 1; // go up
+                    isMoving = true;
+                }
+                else
+                {
+                    _isClimbing = false; //if the player wants to go up but he can't, that means that he touched the floor
+                }
+                
             }
             else if (Input.IsActionPressed("move_down"))
             {
-                velocity.Y += 1; // go down
-                isMoving = true;
+                if(_canGoDown)
+                {
+                    velocity.Y += 1; // go down
+                    isMoving = true;
+                }
+                else
+                {
+                    _isClimbing = false; //if the player wants to go down but he can't, that means that he touched the floor
+                }
+                
             }
            
             animatedSprite2D.Animation = "ladder";
@@ -110,8 +195,8 @@ public partial class Hero : CharacterBody2D
     // when the player get out of the area2D of a ladder
     private void OnLadderAreaExited()
     {
-        _isClimbing = false; // Le joueur ne peut plus grimper
-        _canClimb = false;
+        _isClimbing = false; 
+        _canClimb = false; //the player cannot climb anymore
     }
 
 
@@ -123,13 +208,13 @@ public partial class Hero : CharacterBody2D
          */
         if (_collectedItem == null)
         {
-            _collectedItem = itemType;  // Ajoute l'objet à l'inventaire
+            _collectedItem = itemType;  //we collect the item
             GD.Print("Objet collecté : " + itemType);
-            // Vous pouvez ajouter d'autres actions ici (comme des effets visuels, des sons, etc.)
         }
         else
         {
             GD.Print("Vous avez déjà un objet : " + _collectedItem);
+            //this exception should never be thrown
             throw new InvalidOperationException("You are trying to collect an item but the inventory is full!");
         }
     }
