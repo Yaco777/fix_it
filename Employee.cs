@@ -5,20 +5,29 @@ using System.Collections.Generic;
 
 public partial class Employee : Node2D
 {
-    private bool _playerInRange = false;
-    private RichTextLabel _dialogueLabel;
-    private Hero _hero;
+    /**
+     * Represent an employee of our game. ALl employee have a working state and can interact with the player
+     */
 
-    private List<string> _chat = new List<string>();
-    private List<string> _stopWorkingChat = new List<string>();
-    private List<string> _backToWorkChat = new List<string>();
+    private bool _playerInRange = false; //boolean to check if the player is close to the employee
+    private RichTextLabel _dialogueLabel; //dialogue label for interactions
+    private Hero _hero; 
+
+    private List<string> _chat = new List<string>(); //messages shown when the player interact and the employee is working
+    private List<string> _stopWorkingChat = new List<string>(); //same thing but when the employee isn't working
+    private List<string> _backToWorkChat = new List<string>(); //when the employee go back to work
     private Random random = new Random();
+    private bool currentTimerPresent = false; //we wants to only have 1 timer (to avoid having multiples messages at the same time)
+    private static int WAIT_TIME = 3; //the time the message will appear
+    private string _nameOfEmployee;
 
-    public Employee(List<string> chat, List<string> stopWorkingChat, List<string> backToWork)
+
+    public Employee(List<string> chat, List<string> stopWorkingChat, List<string> backToWork, string nameOfEmployee)
     {
         _chat = chat;
         _stopWorkingChat = stopWorkingChat;
         _backToWorkChat = backToWork;
+        _nameOfEmployee = nameOfEmployee;
     }
 
     public enum EmployeeState
@@ -31,32 +40,28 @@ public partial class Employee : Node2D
     public EmployeeState CurrentState { get; private set; } = EmployeeState.Working;
 
     [Signal]
-    public delegate void EmployeeStateChangedEventHandler(int newState);
+    public delegate void EmployeeStateChangedEventHandler(int newState, string nameOfEmployee);
 
 
     public override void _Ready()
     {
         _dialogueLabel = GetNode<RichTextLabel>("RichTextLabel");
+        _dialogueLabel.BbcodeEnabled = true;
         _dialogueLabel.Visible = false;
         var area = GetNode<Area2D>("EmployeeArea");
         area.BodyEntered += OnBodyEntered;
         area.BodyExited += OnBodyExited;
     }
 
-    public Area2D Area { get; private set; }
-
     public void OnBodyEntered(Node2D body)
     {
 
         if (body is Hero)
         {
-            _playerInRange = true;
-            _hero = (Hero)body;
-            if(CurrentState == EmployeeState.Working)
-            {
-                ShowDialogue("Press E to talk.");
-            }
-            
+            _playerInRange = true; //we update the variable
+            _hero = (Hero)body; //we keep the hero
+            ShowDialogue("[center][color=red] Press [b]E[/b] to interact [/color][/center]");
+
         }
     }
 
@@ -64,10 +69,9 @@ public partial class Employee : Node2D
     {
         if (body is Hero)
         {
-            GD.Print("Au revoir...");
             _playerInRange = false;
             _hero = null;
-            _dialogueLabel.Visible = false;
+            _dialogueLabel.Visible = false; //the player won't be able to see the label if he is far
         }
     }
 
@@ -76,7 +80,7 @@ public partial class Employee : Node2D
 
         if(_playerInRange && Input.IsActionJustPressed("interact_with_employees"))
         {
-            Interact(_hero);
+            Interact(_hero); //methode redefined by all the employees
         }
 
         if (new Random().NextDouble() < 0.001)
@@ -90,10 +94,14 @@ public partial class Employee : Node2D
 
     public void SetState(EmployeeState newState)
     {
+        /**
+         * Switch the state to the other one and emit a signal
+         */
+
         if (CurrentState != newState)
         {
             CurrentState = newState;
-            EmitSignal(SignalName.EmployeeStateChanged, (int)newState);
+            EmitSignal(SignalName.EmployeeStateChanged, (int)newState, _nameOfEmployee);
         }
 
         // Appliquer les actions selon l'Ã©tat
@@ -111,25 +119,27 @@ public partial class Employee : Node2D
 
     public virtual void StartWorking()
     {
-        GD.Print("L'employÃ© commence Ã  travailler.");
         CurrentState = EmployeeState.Working;
     }
 
     public virtual void StopWorking()
     {
-        GD.Print("L'employÃ© arrÃªte de travailler.");
         CurrentState = EmployeeState.NotWorking;
     }
 
     public void ShowDialogue(string text)
     {
+        /**
+         * Show a dialogue that won't diseppear
+         */
+
         _dialogueLabel.Text = text;
         _dialogueLabel.Visible = true;
     }
 
     public virtual void Interact(Hero hero)
     {
-        GD.Print("Interaction avec l'employÃÂ©.");
+        GD.Print("Interaction ! (Employee)"); //method that need to be redefined by the employees, that's why there is the keyword "virtual"
     }
 
     public string getRandomChat()
@@ -149,23 +159,29 @@ public partial class Employee : Node2D
 
     public void ShowTemporaryDialog(string text)
     {
-        ShowDialogue(text);
-        var timer = new Timer();
-        timer.WaitTime = 3;
-        timer.Name = "DialogTimer";
-        timer.OneShot = true;
-        timer.Timeout += OnTemporaryDialogTimeout;
-        AddChild(timer);
-        timer.Start();
-        GD.Print("On démarre !");
+        //this method will display a message for a specific ammount of time (wait_time) by using a timer
+        if(!currentTimerPresent)
+        {
+            ShowDialogue(text);
+            var timer = new Timer();
+            timer.WaitTime = WAIT_TIME;
+            timer.Name = "DialogTimer";
+            timer.OneShot = true;
+            timer.Timeout += OnTemporaryDialogTimeout;
+            AddChild(timer);
+            timer.Start();
+            currentTimerPresent = true; //we use this variable to avoid having multiple timers
+        }
+        
     }
 
     private void OnTemporaryDialogTimeout()
     {
-        GD.Print("c'est terminé");
+        //remove the timer and update the currentTimePresent variable
         _dialogueLabel.Visible= false;
         var timer = GetNode<Timer>("DialogTimer");
         RemoveChild(timer);
+        currentTimerPresent = false; //now we can interact again
         timer.QueueFree();
         
     }

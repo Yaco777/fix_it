@@ -54,9 +54,10 @@ public partial class Hero : CharacterBody2D
             }
         }
 
-        //test
-        var employee = GetNode<Employee>("../Musicien");
-        employee.EmployeeStateChanged += OnEmployeeStateChanged;
+       
+        
+       
+        
 
     }
 
@@ -135,11 +136,7 @@ public partial class Hero : CharacterBody2D
 
 
 
-    private void OnEmployeeStateChanged(int newState)
-    {
-        //Test
-        GD.Print("Hey ! Changement : "+ (Employee.EmployeeState)newState);
-    }
+    
 
     public override void _PhysicsProcess(double delta)
     {

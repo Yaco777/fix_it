@@ -24,10 +24,13 @@ public partial class Collectible : Area2D
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
+
+     
         //we assign the texture
         _sprite = GetNode<Sprite2D>("CollectibleSprite");
         _sprite.Texture = ObjectTexture;
-
+       
+        
         //we assign the sound
         _audioPlayer = GetNode<AudioStreamPlayer>("PickupSound");
         _audioPlayer.Stream = PickUpSound;

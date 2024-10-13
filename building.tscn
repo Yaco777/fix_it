@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://b22i1xe7x8eus"]
+[gd_scene load_steps=7 format=3 uid="uid://b22i1xe7x8eus"]
 
 [ext_resource type="Script" path="res://Building.cs" id="1_fta1s"]
 [ext_resource type="Texture2D" uid="uid://d3euoal1sakgo" path="res://building/building.png" id="1_hsmv8"]
@@ -9,6 +9,9 @@ size = Vector2(1754, 31)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_b6mni"]
 size = Vector2(452, 21)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_ks06e"]
+a = Vector2(1096, 16)
 
 [node name="Building" type="Node2D"]
 script = ExtResource("1_fta1s")
@@ -78,3 +81,12 @@ metadata/_edit_group_ = true
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Roofs/Roof3"]
 position = Vector2(5, 0.5)
 shape = SubResource("RectangleShape2D_b6mni")
+
+[node name="ItemsGenerationArea" type="Node2D" parent="."]
+
+[node name="Area1" type="Area2D" parent="ItemsGenerationArea"]
+position = Vector2(60, -2357)
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ItemsGenerationArea/Area1"]
+shape = SubResource("SegmentShape2D_ks06e")

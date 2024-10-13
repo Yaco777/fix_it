@@ -1,9 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://cpm4gp75y7pni"]
+[gd_scene load_steps=7 format=3 uid="uid://cpm4gp75y7pni"]
 
 [ext_resource type="PackedScene" uid="uid://lm01vdyu1xgl" path="res://hero.tscn" id="1_easg4"]
 [ext_resource type="PackedScene" uid="uid://bqavjipbvgds2" path="res://collectible.tscn" id="3_mldgo"]
-[ext_resource type="Texture2D" uid="uid://c1ivtn4kytex7" path="res://building/collectible/horn.png" id="4_qpyr7"]
-[ext_resource type="AudioStream" uid="uid://cpjm615dcbtrg" path="res://audio/collectible/horn_pickup.mp3" id="4_y0gr5"]
 [ext_resource type="Texture2D" uid="uid://cj3pxegbcgssb" path="res://building/collectible/enora.png" id="5_ud60s"]
 [ext_resource type="PackedScene" uid="uid://b22i1xe7x8eus" path="res://building.tscn" id="6_ltln6"]
 [ext_resource type="AudioStream" uid="uid://cqt5af1n2s41y" path="res://audio/collectible/brush_pickup.mp3" id="6_ufp6i"]
@@ -18,22 +16,17 @@ Speed = 410
 
 [node name="Camera2D" type="Camera2D" parent="Hero"]
 
-[node name="Ob1" parent="." instance=ExtResource("3_mldgo")]
-z_index = 1
-position = Vector2(695, 630)
-ObjectTexture = ExtResource("4_qpyr7")
-CollectibleName = "Horn"
-PickUpSound = ExtResource("4_y0gr5")
-
-[node name="Ob2" parent="." instance=ExtResource("3_mldgo")]
+[node name="Brush" parent="." instance=ExtResource("3_mldgo")]
 position = Vector2(1110, 626)
 ObjectTexture = ExtResource("5_ud60s")
 CollectibleName = "Eno"
 PickUpSound = ExtResource("6_ufp6i")
 
-[node name="Musicien" parent="." instance=ExtResource("6_y1b1w")]
-z_index = 1
-position = Vector2(832, 249)
-
 [node name="Building" parent="." instance=ExtResource("6_ltln6")]
 position = Vector2(-164, 2683)
+
+[node name="Employees" type="Node2D" parent="."]
+
+[node name="Musicien" parent="Employees" instance=ExtResource("6_y1b1w")]
+z_index = 1
+position = Vector2(832, 249)
