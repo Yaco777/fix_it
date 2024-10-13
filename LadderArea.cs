@@ -34,9 +34,6 @@ public partial class LadderArea : Area2D
 
     public void OnBodyExited(Node2D body)
     {
-        if(body is Hero)
-        {
-            EmitSignal(SignalName.LadderExited);
-        }
+        EmitSignal(SignalName.LadderExited);
     }
 }

@@ -35,5 +35,7 @@ offset_bottom = -43.0
 bbcode_enabled = true
 text = "[center][color=red]You already have an item [/color][/center]"
 
+[node name="PickupSound" type="AudioStreamPlayer" parent="."]
+
 [connection signal="body_entered" from="." to="." method="OnBodyEntered"]
 [connection signal="body_exited" from="." to="." method="OnBodyExited"]

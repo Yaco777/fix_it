@@ -1,17 +1,20 @@
-[gd_scene load_steps=5 format=3 uid="uid://b22i1xe7x8eus"]
+[gd_scene load_steps=6 format=3 uid="uid://b22i1xe7x8eus"]
 
 [ext_resource type="Script" path="res://Building.cs" id="1_fta1s"]
 [ext_resource type="Texture2D" uid="uid://d3euoal1sakgo" path="res://building/building.png" id="1_hsmv8"]
 [ext_resource type="PackedScene" uid="uid://bi2r111jr3iak" path="res://ladder.tscn" id="2_2u2e5"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_avprm"]
-size = Vector2(3150, 20)
+size = Vector2(1754, 31)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_b6mni"]
+size = Vector2(452, 21)
 
 [node name="Building" type="Node2D"]
 script = ExtResource("1_fta1s")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(509, -60)
+position = Vector2(509, -61)
 scale = Vector2(8, 8)
 texture = ExtResource("1_hsmv8")
 
@@ -22,12 +25,56 @@ z_index = 5
 position = Vector2(1963, -1993)
 
 [node name="Ladder2" parent="Ladders" instance=ExtResource("2_2u2e5")]
-position = Vector2(-948, -1391)
+position = Vector2(273, -1854)
+
+[node name="Ladder3" parent="Ladders" instance=ExtResource("2_2u2e5")]
+position = Vector2(1429, -2425)
 
 [node name="Floors" type="Node2D" parent="."]
 
 [node name="Floor1" type="Area2D" parent="Floors"]
+position = Vector2(1214, -1818)
+metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Floors/Floor1"]
-position = Vector2(508, -1820)
 shape = SubResource("RectangleShape2D_avprm")
+
+[node name="Floor2" type="Area2D" parent="Floors"]
+position = Vector2(634, -2239)
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floors/Floor2"]
+shape = SubResource("RectangleShape2D_avprm")
+
+[node name="Floor3" type="Area2D" parent="Floors"]
+position = Vector2(2428, -3636)
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floors/Floor3"]
+shape = SubResource("RectangleShape2D_avprm")
+
+[node name="Roofs" type="Node2D" parent="."]
+
+[node name="Roof1" type="Area2D" parent="Roofs"]
+position = Vector2(2076, -2381)
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Roofs/Roof1"]
+position = Vector2(5, 0.5)
+shape = SubResource("RectangleShape2D_b6mni")
+
+[node name="Roof2" type="Area2D" parent="Roofs"]
+position = Vector2(1438, -2687)
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Roofs/Roof2"]
+position = Vector2(5, 0.5)
+shape = SubResource("RectangleShape2D_b6mni")
+
+[node name="Roof3" type="Area2D" parent="Roofs"]
+position = Vector2(288, -2110)
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Roofs/Roof3"]
+position = Vector2(5, 0.5)
+shape = SubResource("RectangleShape2D_b6mni")

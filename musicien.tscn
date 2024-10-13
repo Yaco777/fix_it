@@ -1,15 +1,35 @@
-[gd_scene load_steps=4 format=3 uid="uid://b8wyebxsxftek"]
+[gd_scene load_steps=6 format=3 uid="uid://b8wyebxsxftek"]
 
 [ext_resource type="Script" path="res://Musicien.cs" id="1_l0d7b"]
 [ext_resource type="Texture2D" uid="uid://b7t7nj7fni50h" path="res://characters/musicien/MusicienFace.png" id="1_vds6e"]
 [ext_resource type="AudioStream" uid="uid://5fedk6fxiv3a" path="res://audio/music.mp3" id="3_u7alc"]
+[ext_resource type="AudioStream" uid="uid://ryxgln2crwxx" path="res://audio/snoring.mp3" id="4_nm0v4"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0qbg8"]
+size = Vector2(199, 318)
 
 [node name="Musicien" type="Node2D"]
 script = ExtResource("1_l0d7b")
+
+[node name="EmployeeArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EmployeeArea"]
+position = Vector2(-1.5, 14)
+shape = SubResource("RectangleShape2D_0qbg8")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("1_vds6e")
 
-[node name="Music" type="AudioStreamPlayer2D" parent="."]
+[node name="Snoring" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_nm0v4")
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_u7alc")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+offset_left = -108.0
+offset_top = -188.0
+offset_right = 187.0
+offset_bottom = -148.0
+text = "HIIII"

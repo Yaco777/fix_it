@@ -37,8 +37,20 @@ public partial class Hero : CharacterBody2D
         {
             if (floor is Area2D floorArea)
             {
+                
                 floorArea.BodyEntered += (body) => OnFloorEntered(body, floorArea);
                 floorArea.BodyExited += (body) => OnFloorExited(body, floorArea);
+            }
+        }
+
+        var roofs = GetNode<Node2D>("../Building/Roofs").GetChildren();
+        foreach (var roof in roofs)
+        {
+            if (roof is Area2D roofArea)
+            {
+
+                roofArea.BodyEntered += (body) => OnRoofEntered(body, roofArea);
+                roofArea.BodyExited += (body) => OnRoofExited(body, roofArea);
             }
         }
 
@@ -48,42 +60,80 @@ public partial class Hero : CharacterBody2D
 
     }
 
+   
+
+
     private void OnFloorEntered(Node body, Area2D floorArea)
         /**
          * Method called when the player enter the Area2D of a floor. He won't be able to, either go up or go down (based on its position)
          */
     {
+   
         if (body is Hero)
         {
             _isClimbing = false;  //we stop the climb animation
             if (floorArea != null)
             {
-              
-                if (Position.Y < floorArea.Position.Y)
-                {
-                    _canGoUp = false; // the floor is on top of the player
-                }
-                else
-                {
-                    _canGoDown = false; //the floor is below the player
-                   
-                }
+                _canGoDown = false; //the floor is below the player
+                _canGoUp = true;
             }
 
         }
     }
+
 
     private void OnFloorExited(Node body, Area2D area)
         /**
          * Method called when the player isn't in the area2D of a floor
          */
     {
+       
         if (body is Hero)
         {
             _canGoUp = true; //we allow the player to go up and down 
             _canGoDown = true;
+           
         }
     }
+
+
+    private void OnRoofEntered(Node body, Area2D floorArea)
+    /**
+     * Method called when the player enter the Area2D of a floor. He won't be able to, either go up or go down (based on its position)
+     */
+    {
+   
+        if (body is Hero)
+        {
+            _isClimbing = false;  //we stop the climb animation
+            if (floorArea != null)
+            {
+                _canGoDown = true; //the floor is below the player
+                _canGoUp = false;
+            }
+
+        }
+    }
+    private void OnRoofExited(Node body, Area2D floorArea)
+    /**
+     * Method called when the player enter the Area2D of a floor. He won't be able to, either go up or go down (based on its position)
+     */
+    {
+     
+        if (body is Hero)
+        {
+           
+            if (floorArea != null)
+            {
+                _canGoDown = true; //the floor is below the player
+                _canGoUp = true;
+            }
+
+        }
+    }
+
+
+
 
     private void OnEmployeeStateChanged(int newState)
     {
@@ -96,10 +146,12 @@ public partial class Hero : CharacterBody2D
         var velocity = Vector2.Zero; 
         var animatedSprite2D = GetNode<AnimatedSprite2D>("HeroSprites");
 
+     
         //if the player decided to climb, we update the value of is_climbing
         if(_canClimb && ((Input.IsActionJustPressed("move_up") && _canGoUp) || (_canGoDown && Input.IsActionJustPressed("move_down")))) {
             _isClimbing = true;
         }
+
 
         //if the player is climbing, he can't go on the left or the right
         if (_isClimbing)
@@ -111,10 +163,12 @@ public partial class Hero : CharacterBody2D
                 {
                     velocity.Y -= 1; // go up
                     isMoving = true;
+                 
                 }
                 else
                 {
                     _isClimbing = false; //if the player wants to go up but he can't, that means that he touched the floor
+                 
 
                 }
                 
@@ -129,6 +183,7 @@ public partial class Hero : CharacterBody2D
                 else
                 {
                     _isClimbing = false; //if the player wants to go down but he can't, that means that he touched the floor
+                    
                 }
                 
             }
@@ -190,7 +245,7 @@ public partial class Hero : CharacterBody2D
     // when the player enter the area2D of a ladder
     private void OnLadderAreaEntered()
     {
-        _canClimb = true; ;
+        _canClimb = true;
     }
 
     // when the player get out of the area2D of a ladder
@@ -198,6 +253,7 @@ public partial class Hero : CharacterBody2D
     {
         _isClimbing = false; 
         _canClimb = false; //the player cannot climb anymore
+   
     }
 
 
@@ -225,5 +281,15 @@ public partial class Hero : CharacterBody2D
     {
         //check if it's possible to pick an item (the inventory is empty)
         return _collectedItem == null;
+    }
+
+    public bool HasItem(string itemType)
+    {
+        return _collectedItem == itemType;
+    }
+
+    public void RemoveItem()
+    {
+        _collectedItem = null;
     }
 }

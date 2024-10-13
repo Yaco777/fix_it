@@ -1,10 +1,25 @@
 ﻿using Godot;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 
 public partial class Employee : Node2D
 {
     private bool _playerInRange = false;
     private RichTextLabel _dialogueLabel;
+    private Hero _hero;
+
+    private List<string> _chat = new List<string>();
+    private List<string> _stopWorkingChat = new List<string>();
+    private List<string> _backToWorkChat = new List<string>();
+    private Random random = new Random();
+
+    public Employee(List<string> chat, List<string> stopWorkingChat, List<string> backToWork)
+    {
+        _chat = chat;
+        _stopWorkingChat = stopWorkingChat;
+        _backToWorkChat = backToWork;
+    }
 
     public enum EmployeeState
     {
@@ -23,14 +38,25 @@ public partial class Employee : Node2D
     {
         _dialogueLabel = GetNode<RichTextLabel>("RichTextLabel");
         _dialogueLabel.Visible = false;
+        var area = GetNode<Area2D>("EmployeeArea");
+        area.BodyEntered += OnBodyEntered;
+        area.BodyExited += OnBodyExited;
     }
+
+    public Area2D Area { get; private set; }
 
     public void OnBodyEntered(Node2D body)
     {
+
         if (body is Hero)
         {
             _playerInRange = true;
-            ShowDialogue("Press E to talk.");
+            _hero = (Hero)body;
+            if(CurrentState == EmployeeState.Working)
+            {
+                ShowDialogue("Press E to talk.");
+            }
+            
         }
     }
 
@@ -38,7 +64,9 @@ public partial class Employee : Node2D
     {
         if (body is Hero)
         {
+            GD.Print("Au revoir...");
             _playerInRange = false;
+            _hero = null;
             _dialogueLabel.Visible = false;
         }
     }
@@ -46,10 +74,16 @@ public partial class Employee : Node2D
     public override void _Process(double delta)
     {
 
+        if(_playerInRange && Input.IsActionJustPressed("interact_with_employees"))
+        {
+            Interact(_hero);
+        }
+
         if (new Random().NextDouble() < 0.001)
         {
             if(CurrentState == EmployeeState.Working) {
                 SetState(EmployeeState.NotWorking);
+                _dialogueLabel.Visible = false;
             }
         }
     }
@@ -87,15 +121,53 @@ public partial class Employee : Node2D
         CurrentState = EmployeeState.NotWorking;
     }
 
-    private void ShowDialogue(string text)
+    public void ShowDialogue(string text)
     {
         _dialogueLabel.Text = text;
         _dialogueLabel.Visible = true;
     }
 
-    public virtual void Interact()
+    public virtual void Interact(Hero hero)
     {
         GD.Print("Interaction avec l'employÃÂ©.");
+    }
+
+    public string getRandomChat()
+    {
+        return _chat[this.random.Next(_chat.Count)];
+    }
+
+    public string getRandomStopWorkingChat()
+    {
+        return _stopWorkingChat[this.random.Next(_stopWorkingChat.Count)];
+    }
+
+    public string getRandomBackToWorkChat()
+    {
+        return _backToWorkChat[this.random.Next(_backToWorkChat.Count)];
+    }
+
+    public void ShowTemporaryDialog(string text)
+    {
+        ShowDialogue(text);
+        var timer = new Timer();
+        timer.WaitTime = 3;
+        timer.Name = "DialogTimer";
+        timer.OneShot = true;
+        timer.Timeout += OnTemporaryDialogTimeout;
+        AddChild(timer);
+        timer.Start();
+        GD.Print("On démarre !");
+    }
+
+    private void OnTemporaryDialogTimeout()
+    {
+        GD.Print("c'est terminé");
+        _dialogueLabel.Visible= false;
+        var timer = GetNode<Timer>("DialogTimer");
+        RemoveChild(timer);
+        timer.QueueFree();
+        
     }
 
 
