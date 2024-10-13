@@ -45,9 +45,11 @@ stream = ExtResource("5_mmg6g")
 script = ExtResource("6_nwfdn")
 
 [node name="Note2" type="Sprite2D" parent="Notes"]
+visible = false
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("7_mbxbs")
 
 [node name="Note1" type="Sprite2D" parent="Notes"]
+visible = false
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("6_t6agm")
