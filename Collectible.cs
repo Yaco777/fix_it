@@ -81,7 +81,7 @@ Represent a collectible object. Every collectible have an unique name
             UpdateDisplay(hero);
 
             //if the hero can pick the item, we play the pickupsound and hide the sprite
-            if (hero.CanPickItem())
+            if (hero.CollectedItemIsNull())
             {
                 _pickLabel.Visible = false;
                 _cannotPickLabel.Visible = false;
@@ -110,7 +110,7 @@ Represent a collectible object. Every collectible have an unique name
 
         if (_playerInRange)
         {
-            if (hero.CanPickItem())
+            if (hero.CollectedItemIsNull())
             {
                 _pickLabel.Visible = true;
                 _cannotPickLabel.Visible = false;

@@ -305,7 +305,7 @@ public partial class Hero : CharacterBody2D
          * Method used to collect an item. This method doesn't check that the inventory is empty! 
          * throw InvalidOperationException if you try to collect an item even if your inventory is full
          */
-        if (CanPickItem())
+        if (_collectedItem == null)
         {
             _collectedItem = itemType;  //we collect the item
             GD.Print("Objet collecté : " + itemType);
@@ -324,6 +324,11 @@ public partial class Hero : CharacterBody2D
     {
         //check if it's possible to pick an item (the inventory is empty)
         return _collectedItem == null && _dropItemCooldown == 0;
+    }
+
+    public bool CollectedItemIsNull()
+    {
+        return _collectedItem == null;
     }
 
     public bool HasItem(string itemType)
