@@ -47,9 +47,6 @@ public partial class Musicien : Employee
 
     }
 
-
-
-
     public override void StartWorking()
     {
         //when the employee work, the music start
@@ -125,26 +122,19 @@ public partial class Musicien : Employee
          * The interaction with the Musicien will display a message according to it's working state.
          * If the Hero has the REQUIRED_ITEM, the musicien will work again
          */
-        string message;
-        if(EmployeeState.Working == CurrentState)
+        if(EmployeeState.NotWorking == CurrentState && hero.HasItem(REQUIRED_ITEM))
         {
-            message = getRandomChat(); 
-        }
-        else if(hero.HasItem(REQUIRED_ITEM))
-        {
-            GD.Print("On souhaite supprimer l'objet du joueur !!");
+            ShowBackToWorkChat();
             hero.RemoveItem();
             SetState(EmployeeState.Working);
-            
             _hornMusicPlayer.Play();
-            message = getRandomBackToWorkChat();
-       
+           
         }
         else
         {
-            message = getRandomStopWorkingChat();
+            base.Interact(hero);
         }
-        ShowTemporaryDialog(message);
+        
     }
 
 

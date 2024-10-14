@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://b055q6lnsj1mk"]
+
+[ext_resource type="Script" path="res://Painter.cs" id="1_jy6js"]
+[ext_resource type="Texture2D" uid="uid://b7t7nj7fni50h" path="res://characters/musicien/MusicienFace.png" id="1_vu2j2"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hoq2j"]
+size = Vector2(199, 318)
+
+[node name="Painter" type="Node2D"]
+script = ExtResource("1_jy6js")
+
+[node name="EmployeeArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EmployeeArea"]
+position = Vector2(-1.5, 14)
+shape = SubResource("RectangleShape2D_hoq2j")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("1_vu2j2")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+offset_left = -108.0
+offset_top = -188.0
+offset_right = 187.0
+offset_bottom = -148.0
+text = "HIIII"

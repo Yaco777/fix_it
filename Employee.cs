@@ -86,12 +86,12 @@ public partial class Employee : Node2D
     public override void _Process(double delta)
     {
 
-        if(_playerInRange && Input.IsActionJustPressed("interact_with_employees"))
+        if(_playerInRange && Input.IsActionJustPressed("interact_with_employees") && _hero.CooldownIsZero())
         {
             Interact(_hero); //methode redefined by all the employees
         }
 
-        if (new Random().NextDouble() < 0.01)
+        if (new Random().NextDouble() < 0.001)
         {
             if(CurrentState == EmployeeState.Working) {
                 SetState(EmployeeState.NotWorking);
@@ -147,7 +147,22 @@ public partial class Employee : Node2D
 
     public virtual void Interact(Hero hero)
     {
-        GD.Print("Interaction ! (Employee)"); //method that need to be redefined by the employees, that's why there is the keyword "virtual"
+        //method that need to be redefined by the employees, that's why there is the keyword "virtual"
+        string message;
+        if (EmployeeState.Working == CurrentState)
+        {
+            message = getRandomChat();
+        }
+        else
+        {
+            message = getRandomStopWorkingChat();
+        }
+        ShowTemporaryDialog(message);
+    }
+
+    public void ShowBackToWorkChat()
+    {
+        ShowTemporaryDialog(getRandomBackToWorkChat());
     }
 
     public string getRandomChat()

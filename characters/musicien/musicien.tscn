@@ -1,11 +1,11 @@
 [gd_scene load_steps=10 format=3 uid="uid://b8wyebxsxftek"]
 
-[ext_resource type="Script" path="res://Musicien.cs" id="1_l0d7b"]
+[ext_resource type="Script" path="res://characters/musicien/Musicien.cs" id="1_l0d7b"]
 [ext_resource type="Texture2D" uid="uid://b7t7nj7fni50h" path="res://characters/musicien/MusicienFace.png" id="1_vds6e"]
 [ext_resource type="AudioStream" uid="uid://5fedk6fxiv3a" path="res://audio/music.mp3" id="3_u7alc"]
 [ext_resource type="AudioStream" uid="uid://ryxgln2crwxx" path="res://audio/snoring.mp3" id="4_nm0v4"]
 [ext_resource type="AudioStream" uid="uid://dh3jbeikd4krg" path="res://audio/horn_play.mp3" id="5_mmg6g"]
-[ext_resource type="Script" path="res://Notes.cs" id="6_nwfdn"]
+[ext_resource type="Script" path="res://characters/musicien/Notes.cs" id="6_nwfdn"]
 [ext_resource type="Texture2D" uid="uid://l3cgven1strb" path="res://audio/collectible/note1.png" id="6_t6agm"]
 [ext_resource type="Texture2D" uid="uid://bfuxin7673d8w" path="res://building/effects/note2.png" id="7_mbxbs"]
 

@@ -1,10 +1,12 @@
-[gd_scene load_steps=6 format=3 uid="uid://cpm4gp75y7pni"]
+[gd_scene load_steps=8 format=3 uid="uid://cpm4gp75y7pni"]
 
-[ext_resource type="PackedScene" uid="uid://lm01vdyu1xgl" path="res://hero.tscn" id="1_easg4"]
+[ext_resource type="PackedScene" uid="uid://lm01vdyu1xgl" path="res://characters/hero/hero.tscn" id="1_easg4"]
 [ext_resource type="PackedScene" uid="uid://cbba76f1vals2" path="res://camera.tscn" id="2_0u86b"]
+[ext_resource type="PackedScene" uid="uid://b055q6lnsj1mk" path="res://painter.tscn" id="6_k8bna"]
 [ext_resource type="PackedScene" uid="uid://b22i1xe7x8eus" path="res://building.tscn" id="6_ltln6"]
-[ext_resource type="PackedScene" uid="uid://b8wyebxsxftek" path="res://musicien.tscn" id="6_y1b1w"]
+[ext_resource type="PackedScene" uid="uid://b8wyebxsxftek" path="res://characters/musicien/musicien.tscn" id="6_y1b1w"]
 [ext_resource type="PackedScene" uid="uid://bws7e6gipvnq3" path="res://ui.tscn" id="7_5josr"]
+[ext_resource type="Script" path="res://GlobalSignals.cs" id="7_shkg7"]
 
 [node name="Main" type="Node"]
 
@@ -18,10 +20,16 @@ Speed = 410
 [node name="Camera" parent="Hero" instance=ExtResource("2_0u86b")]
 
 [node name="Building" parent="." instance=ExtResource("6_ltln6")]
-position = Vector2(-164, 2683)
+position = Vector2(-165, 2683)
 
 [node name="Employees" type="Node2D" parent="."]
 
 [node name="Musicien" parent="Employees" instance=ExtResource("6_y1b1w")]
 z_index = 1
 position = Vector2(832, 249)
+
+[node name="Painter" parent="Employees" instance=ExtResource("6_k8bna")]
+position = Vector2(194, 276)
+
+[node name="GlobalSignals" type="Node2D" parent="."]
+script = ExtResource("7_shkg7")

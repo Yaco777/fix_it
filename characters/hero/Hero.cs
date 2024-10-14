@@ -14,10 +14,10 @@ public partial class Hero : CharacterBody2D
     private bool _canGoUp = true; //check if there is a floor at the top of the player
     private bool _canGoDown = true; //check if there is a floor below the player
 
-    private int _dropItemCooldown = 0; //cooldown to prevent duplication for the items (by spamming)
+    private int _actionCooldown = 0; //cooldown to prevent duplication for the items (by spamming)
 
     [Export]
-    private int _defaultItemCooldown = 100;
+    private int _defaultCooldown = 100;
 
 
     private UI _ui;
@@ -249,9 +249,9 @@ public partial class Hero : CharacterBody2D
         var animatedSprite2D = GetNode<AnimatedSprite2D>("HeroSprites");
 
      
-        if(_dropItemCooldown > 0)
+        if(_actionCooldown > 0)
         {
-            _dropItemCooldown--;
+            _actionCooldown--;
         }
        
 
@@ -278,7 +278,7 @@ public partial class Hero : CharacterBody2D
         );
 
         //drop the item
-        if (Input.IsActionJustPressed("drop_item") && _dropItemCooldown == 0 && _collectedItem != null)
+        if (Input.IsActionJustPressed("drop_item") && _actionCooldown == 0 && _collectedItem != null)
         {
             DropItem();
         }
@@ -305,15 +305,15 @@ public partial class Hero : CharacterBody2D
          * Method used to collect an item. This method doesn't check that the inventory is empty! 
          * throw InvalidOperationException if you try to collect an item even if your inventory is full
          */
-        if (_collectedItem == null)
+        if (CanPickItem())
         {
+            
             _collectedItem = itemType;  //we collect the item
-            GD.Print("Objet collecté : " + itemType);
             _ui.UpdateCollectedItem(itemType);
+            ResetCooldown();
         }
         else
         {
-            GD.Print("Vous avez déjà un objet : " + _collectedItem);
             //this exception should never be thrown
             throw new InvalidOperationException("You are trying to collect an item but the inventory is full!");
         }
@@ -323,7 +323,7 @@ public partial class Hero : CharacterBody2D
     public bool CanPickItem()
     {
         //check if it's possible to pick an item (the inventory is empty)
-        return _collectedItem == null && _dropItemCooldown == 0;
+        return _collectedItem == null && _actionCooldown == 0;
     }
 
     public bool CollectedItemIsNull()
@@ -340,21 +340,32 @@ public partial class Hero : CharacterBody2D
     {
         _collectedItem = null;
         _ui.ClearItem();
-        _dropItemCooldown = _defaultItemCooldown;
-        GD.Print("On a supprimé !");
+        ResetCooldown();
     }
 
     private void DropItem()
     {
-        _dropItemCooldown = _defaultItemCooldown;
-         var collectible = Collectible.CreateCollectible(_collectedItem);
+
+        ResetCooldown();
+        var collectible = Collectible.CreateCollectible(_collectedItem);
         collectible.Position = Position;
         
         GetParent().AddChild(collectible);
         collectible.PlayDropSound();
         RemoveItem();
+        
 
 
 
+    }
+
+    public bool CooldownIsZero()
+    {
+        return _actionCooldown == 0;
+    }
+
+    public void ResetCooldown()
+    {
+        _actionCooldown = _defaultCooldown;
     }
 }
