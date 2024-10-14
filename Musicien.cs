@@ -83,7 +83,7 @@ public partial class Musicien : Employee
                 CreateNote();
             }
             
-            await ToSignal(GetTree().CreateTimer(2f - random.Next(1)), "timeout"); //we wait a little bit before creating the next notes
+            await ToSignal(GetTree().CreateTimer(1f - random.Next(1)), "timeout"); //we wait a little bit before creating the next notes
         }
     }
 
@@ -132,8 +132,10 @@ public partial class Musicien : Employee
         }
         else if(hero.HasItem(REQUIRED_ITEM))
         {
-            SetState(EmployeeState.Working);
+            GD.Print("On souhaite supprimer l'objet du joueur !!");
             hero.RemoveItem();
+            SetState(EmployeeState.Working);
+            
             _hornMusicPlayer.Play();
             message = getRandomBackToWorkChat();
        

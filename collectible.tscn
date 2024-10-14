@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://bqavjipbvgds2"]
+[gd_scene load_steps=5 format=3 uid="uid://bqavjipbvgds2"]
 
 [ext_resource type="Texture2D" uid="uid://c1ivtn4kytex7" path="res://building/collectible/horn.png" id="1_8nsx7"]
 [ext_resource type="Script" path="res://Collectible.cs" id="1_ne2md"]
+[ext_resource type="AudioStream" uid="uid://dnkdwm138cqng" path="res://audio/drop_item.mp3" id="3_vkshq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_agpj4"]
 size = Vector2(218, 163)
@@ -36,6 +37,9 @@ bbcode_enabled = true
 text = "[center][color=red]You already have an item [/color][/center]"
 
 [node name="PickupSound" type="AudioStreamPlayer" parent="."]
+
+[node name="DropSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_vkshq")
 
 [connection signal="body_entered" from="." to="." method="OnBodyEntered"]
 [connection signal="body_exited" from="." to="." method="OnBodyExited"]

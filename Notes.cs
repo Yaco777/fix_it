@@ -45,6 +45,10 @@ public partial class Notes : Node2D
         _initialColor = new Color(1, 1, 1, GD.Randf());
         _sprite.Modulate = _initialColor;
         _sprite.Rotate(random.Next(90));
+        var scalingFactor = GD.Randf();
+        var basicScaleX = _sprite.Scale.X;
+        var basicScaleY = _sprite.Scale.Y;
+        _sprite.Scale = new Vector2(scalingFactor * basicScaleX, scalingFactor * basicScaleY);
     }
 
     public override void _Process(double delta)

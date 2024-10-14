@@ -14,6 +14,14 @@ public partial class Hero : CharacterBody2D
     private bool _canGoUp = true; //check if there is a floor at the top of the player
     private bool _canGoDown = true; //check if there is a floor below the player
 
+    private int _dropItemCooldown = 0; //cooldown to prevent duplication for the items (by spamming)
+
+    [Export]
+    private int _defaultItemCooldown = 100;
+
+
+    private UI _ui;
+
 
     public override void _Ready()
     {
@@ -21,6 +29,17 @@ public partial class Hero : CharacterBody2D
         var ladders = GetNode<Node2D>("../Building/Ladders").GetChildren();
 
         //we add the actions for the ladder, all the ladders are in the building
+        SetupLadders();
+        SetupFloorsAndRoofs();
+        _ui = GetNode<UI>("../UI");
+    }
+
+    private void SetupLadders()
+    {
+        /**
+         * The hero will listen to the "ladder entered" and "ladder exited" signal to be able to climb a ladder
+         */
+        var ladders = GetNode<Node2D>("../Building/Ladders").GetChildren();
         foreach (var ladder in ladders)
         {
             if (ladder is Node2D ladderNode && ladderNode.HasNode("LadderArea"))
@@ -30,14 +49,20 @@ public partial class Hero : CharacterBody2D
                 ladderArea.LadderExited += OnLadderAreaExited;
             }
         }
+    }
 
-        //we do the same for the floors
+    private void SetupFloorsAndRoofs()
+    {
+
+        /**
+         * We also listen to the body signals of the floors and the roofs. They prevent the player from getting in an illegal position
+         */
         var floors = GetNode<Node2D>("../Building/Floors").GetChildren();
         foreach (var floor in floors)
         {
             if (floor is Area2D floorArea)
             {
-                
+
                 floorArea.BodyEntered += (body) => OnFloorEntered(body, floorArea);
                 floorArea.BodyExited += (body) => OnFloorExited(body, floorArea);
             }
@@ -53,16 +78,7 @@ public partial class Hero : CharacterBody2D
                 roofArea.BodyExited += (body) => OnRoofExited(body, roofArea);
             }
         }
-
-       
-        
-       
-        
-
     }
-
-   
-
 
     private void OnFloorEntered(Node body, Area2D floorArea)
         /**
@@ -135,25 +151,14 @@ public partial class Hero : CharacterBody2D
 
 
 
-
-    
-
-    public override void _PhysicsProcess(double delta)
+    private Vector2 ClimbLadder(Vector2 velocity, AnimatedSprite2D animatedSprite2D)
     {
-        var velocity = Vector2.Zero; 
-        var animatedSprite2D = GetNode<AnimatedSprite2D>("HeroSprites");
-
-     
-        //if the player decided to climb, we update the value of is_climbing
-        if(_canClimb && ((Input.IsActionJustPressed("move_up") && _canGoUp) || (_canGoDown && Input.IsActionJustPressed("move_down")))) {
-            _isClimbing = true;
-        }
-
-
-        //if the player is climbing, he can't go on the left or the right
-        if (_isClimbing)
-        {
-            var isMoving = false;
+        /**
+         * Method used to climb a ladder. It's possible only if the player is in the area of a ladder and the movment is legal :
+         * if the player wants to go up and is in the area of a roof, we won't allow the move
+         * if the play wants to go down and is in the area of a floor, we won't allow the move
+         */
+        var isMoving = false;
             if (Input.IsActionPressed("move_up") && _canGoUp)
             {
                 if(_canGoUp)
@@ -196,39 +201,73 @@ public partial class Hero : CharacterBody2D
             {
                 animatedSprite2D.Stop();
             }
-        }
-        else
+
+            return velocity;
+    }
+
+    private Vector2 MoveLeftRight(Vector2 velocity, AnimatedSprite2D animatedSprite2D)
+    {
+        /**
+         * Move the player to the left or right depending on the action pressed
+         */
+        if (Input.IsActionPressed("move_right"))
         {
-            if (Input.IsActionPressed("move_right"))
-            {
-                velocity.X += 1; //right
-            }
+            velocity.X += 1; //right
+        }
 
-            if (Input.IsActionPressed("move_left"))
-            {
-                velocity.X -= 1; //left
-            }
+        if (Input.IsActionPressed("move_left"))
+        {
+            velocity.X -= 1; //left
+        }
 
-            if (velocity.Length() > 0)
-            {
-                velocity = velocity.Normalized() * Speed; //we normalize the vector
-                animatedSprite2D.Play();
+        if (velocity.Length() > 0)
+        {
+            velocity = velocity.Normalized() * Speed; //we normalize the vector
+            animatedSprite2D.Play();
 
-                if (velocity.X < 0)
-                {
-                    animatedSprite2D.Animation = "left";
-                }
-                else
-                {
-                    animatedSprite2D.Animation = "right";
-                }
+            if (velocity.X < 0)
+            {
+                animatedSprite2D.Animation = "left";
             }
             else
             {
-                //when the player doesn't move, we stop the animation
-                animatedSprite2D.Stop();
-                animatedSprite2D.Animation = "default"; 
+                animatedSprite2D.Animation = "right";
             }
+        }
+        else
+        {
+            //when the player doesn't move, we stop the animation
+            animatedSprite2D.Stop();
+            animatedSprite2D.Animation = "default";
+        }
+        return velocity;
+    }
+
+    public override void _PhysicsProcess(double delta)
+    {
+        var velocity = Vector2.Zero; 
+        var animatedSprite2D = GetNode<AnimatedSprite2D>("HeroSprites");
+
+     
+        if(_dropItemCooldown > 0)
+        {
+            _dropItemCooldown--;
+        }
+       
+
+        //if the player decided to climb, we update the value of is_climbing
+        if(_canClimb && ((Input.IsActionJustPressed("move_up") && _canGoUp) || (_canGoDown && Input.IsActionJustPressed("move_down")))) {
+            _isClimbing = true;
+        }
+
+        //if the player is climbing, he can't go on the left or the right
+        if (_isClimbing)
+        {
+            velocity = ClimbLadder(velocity,animatedSprite2D);
+        }
+        else
+        {
+            velocity = MoveLeftRight(velocity,animatedSprite2D);
         }
 
         //update the position of the player
@@ -237,6 +276,12 @@ public partial class Hero : CharacterBody2D
             x: Mathf.Clamp(Position.X, 0, ScreenSize.X),
             y: Mathf.Clamp(Position.Y, 0, ScreenSize.Y)
         );
+
+        //drop the item
+        if (Input.IsActionJustPressed("drop_item") && _dropItemCooldown == 0 && _collectedItem != null)
+        {
+            DropItem();
+        }
     }
 
     // when the player enter the area2D of a ladder
@@ -260,10 +305,11 @@ public partial class Hero : CharacterBody2D
          * Method used to collect an item. This method doesn't check that the inventory is empty! 
          * throw InvalidOperationException if you try to collect an item even if your inventory is full
          */
-        if (_collectedItem == null)
+        if (CanPickItem())
         {
             _collectedItem = itemType;  //we collect the item
             GD.Print("Objet collecté : " + itemType);
+            _ui.UpdateCollectedItem(itemType);
         }
         else
         {
@@ -277,7 +323,7 @@ public partial class Hero : CharacterBody2D
     public bool CanPickItem()
     {
         //check if it's possible to pick an item (the inventory is empty)
-        return _collectedItem == null;
+        return _collectedItem == null && _dropItemCooldown == 0;
     }
 
     public bool HasItem(string itemType)
@@ -288,5 +334,22 @@ public partial class Hero : CharacterBody2D
     public void RemoveItem()
     {
         _collectedItem = null;
+        _ui.ClearItem();
+        _dropItemCooldown = _defaultItemCooldown;
+        GD.Print("On a supprimé !");
+    }
+
+    private void DropItem()
+    {
+        _dropItemCooldown = _defaultItemCooldown;
+         var collectible = Collectible.CreateCollectible(_collectedItem);
+        collectible.Position = Position;
+        
+        GetParent().AddChild(collectible);
+        collectible.PlayDropSound();
+        RemoveItem();
+
+
+
     }
 }

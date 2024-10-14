@@ -1,26 +1,19 @@
-[gd_scene load_steps=7 format=3 uid="uid://cpm4gp75y7pni"]
+[gd_scene load_steps=6 format=3 uid="uid://cpm4gp75y7pni"]
 
 [ext_resource type="PackedScene" uid="uid://lm01vdyu1xgl" path="res://hero.tscn" id="1_easg4"]
-[ext_resource type="PackedScene" uid="uid://bqavjipbvgds2" path="res://collectible.tscn" id="3_mldgo"]
-[ext_resource type="Texture2D" uid="uid://cj3pxegbcgssb" path="res://building/collectible/enora.png" id="5_ud60s"]
+[ext_resource type="PackedScene" uid="uid://cbba76f1vals2" path="res://camera.tscn" id="2_0u86b"]
 [ext_resource type="PackedScene" uid="uid://b22i1xe7x8eus" path="res://building.tscn" id="6_ltln6"]
-[ext_resource type="AudioStream" uid="uid://cqt5af1n2s41y" path="res://audio/collectible/brush_pickup.mp3" id="6_ufp6i"]
 [ext_resource type="PackedScene" uid="uid://b8wyebxsxftek" path="res://musicien.tscn" id="6_y1b1w"]
+[ext_resource type="PackedScene" uid="uid://bws7e6gipvnq3" path="res://ui.tscn" id="7_5josr"]
 
 [node name="Main" type="Node"]
 
 [node name="Hero" parent="." instance=ExtResource("1_easg4")]
 z_index = 10
-position = Vector2(367, 673)
+position = Vector2(367, 300)
 Speed = 410
 
-[node name="Camera2D" type="Camera2D" parent="Hero"]
-
-[node name="Brush" parent="." instance=ExtResource("3_mldgo")]
-position = Vector2(1110, 626)
-ObjectTexture = ExtResource("5_ud60s")
-CollectibleName = "Eno"
-PickUpSound = ExtResource("6_ufp6i")
+[node name="Camera" parent="Hero" instance=ExtResource("2_0u86b")]
 
 [node name="Building" parent="." instance=ExtResource("6_ltln6")]
 position = Vector2(-164, 2683)
@@ -30,3 +23,5 @@ position = Vector2(-164, 2683)
 [node name="Musicien" parent="Employees" instance=ExtResource("6_y1b1w")]
 z_index = 1
 position = Vector2(832, 249)
+
+[node name="UI" parent="." instance=ExtResource("7_5josr")]

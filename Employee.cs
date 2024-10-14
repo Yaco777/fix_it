@@ -91,7 +91,7 @@ public partial class Employee : Node2D
             Interact(_hero); //methode redefined by all the employees
         }
 
-        if (new Random().NextDouble() < 0.0001)
+        if (new Random().NextDouble() < 0.01)
         {
             if(CurrentState == EmployeeState.Working) {
                 SetState(EmployeeState.NotWorking);

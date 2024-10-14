@@ -36,16 +36,12 @@ public partial class Building : Node2D
     private void OnEmployeeStateChanged(int newState, string n)
     {
         
-        GD.Print("Hey (building) ! Changement : " + (Employee.EmployeeState)newState + " avec n = " + n);
         if (n == "Musicien" && (EmployeeState)newState == EmployeeState.NotWorking)
         {
             var collectibleScene = GD.Load<PackedScene>("res://collectible.tscn");
-        
+
             // we create a collectible
-            var collectible = collectibleScene.Instantiate<Collectible>();
-            collectible.CollectibleName = "Horn";
-            collectible.ObjectTexture = (Texture2D)GD.Load("res://building/collectible/horn.png");
-            collectible.PickUpSound = (AudioStream)GD.Load("res://audio/collectible/horn_pickup.mp3");
+            var collectible = Collectible.CreateCollectible("Horn");
 
 
             // we select a random area
@@ -80,7 +76,6 @@ public partial class Building : Node2D
             }
 
             // we add the collectible
-            collectible.ZIndex = 1;
             GetTree().Root.GetChild(0).AddChild(collectible);
            
             
