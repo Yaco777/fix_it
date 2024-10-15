@@ -148,7 +148,7 @@ public partial class Hero : CharacterBody2D
 
         }
     }
-
+ 
 
 
     private Vector2 ClimbLadder(Vector2 velocity, AnimatedSprite2D animatedSprite2D)
