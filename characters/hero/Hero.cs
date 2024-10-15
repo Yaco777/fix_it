@@ -154,7 +154,7 @@ public partial class Hero : CharacterBody2D
  
 
 
-    private Vector2 ClimbLadder(Vector2 velocity, AnimatedSprite2D animatedSprite2D)
+    private Vector2 ClimbLadder(Vector2 velocity)
     {
         /**
          * Method used to climb a ladder. It's possible only if the player is in the area of a ladder and the movment is legal :
@@ -192,23 +192,23 @@ public partial class Hero : CharacterBody2D
                 }
                 
             }
-           
-            animatedSprite2D.Animation = "ladder";
+
+            _animatedSprite2D.Animation = "ladder";
             velocity = velocity.Normalized() * Speed;
             //isMoving variable is used to know if we have to play the animation
             if (isMoving)
             {
-                animatedSprite2D.Play();
+                _animatedSprite2D.Play();
             }
             else
             {
-                animatedSprite2D.Stop();
+                _animatedSprite2D.Stop();
             }
 
             return velocity;
     }
 
-    private Vector2 MoveLeftRight(Vector2 velocity, AnimatedSprite2D animatedSprite2D)
+    private Vector2 MoveLeftRight(Vector2 velocity)
     {
         /**
          * Move the player to the left or right depending on the action pressed
@@ -226,22 +226,22 @@ public partial class Hero : CharacterBody2D
         if (velocity.Length() > 0)
         {
             velocity = velocity.Normalized() * Speed; //we normalize the vector
-            animatedSprite2D.Play();
+            _animatedSprite2D.Play();
 
             if (velocity.X < 0)
             {
-                animatedSprite2D.Animation = "left";
+                _animatedSprite2D.Animation = "left";
             }
             else
             {
-                animatedSprite2D.Animation = "right";
+                _animatedSprite2D.Animation = "right";
             }
         }
         else
         {
             //when the player doesn't move, we stop the animation
-            animatedSprite2D.Stop();
-            animatedSprite2D.Animation = "default";
+            _animatedSprite2D.Stop();
+            _animatedSprite2D.Animation = "default";
         }
         return velocity;
     }
@@ -266,11 +266,11 @@ public partial class Hero : CharacterBody2D
         //if the player is climbing, he can't go on the left or the right
         if (_isClimbing)
         {
-            velocity = ClimbLadder(velocity,animatedSprite2D);
+            velocity = ClimbLadder(velocity);
         }
         else
         {
-            velocity = MoveLeftRight(velocity,animatedSprite2D);
+            velocity = MoveLeftRight(velocity);
         }
 
         //update the position of the player
