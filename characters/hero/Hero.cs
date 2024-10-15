@@ -18,6 +18,7 @@ public partial class Hero : CharacterBody2D
 
     [Export]
     private int _defaultCooldown = 100;
+    private AnimatedSprite2D _animatedSprite2D;
 
 
     private UI _ui;
@@ -32,6 +33,8 @@ public partial class Hero : CharacterBody2D
         SetupLadders();
         SetupFloorsAndRoofs();
         _ui = GetNode<UI>("../UI");
+        _animatedSprite2D = GetNode<AnimatedSprite2D>("HeroSprites");
+
     }
 
     private void SetupLadders()
@@ -246,7 +249,7 @@ public partial class Hero : CharacterBody2D
     public override void _PhysicsProcess(double delta)
     {
         var velocity = Vector2.Zero; 
-        var animatedSprite2D = GetNode<AnimatedSprite2D>("HeroSprites");
+        
 
      
         if(_actionCooldown > 0)
