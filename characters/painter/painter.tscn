@@ -1,0 +1,60 @@
+[gd_scene load_steps=9 format=3 uid="uid://b055q6lnsj1mk"]
+
+[ext_resource type="Script" path="res://characters/painter/Painter.cs" id="1_jy6js"]
+[ext_resource type="Texture2D" uid="uid://ces5eks1bhnjx" path="res://characters/painter/PeintrePeint01.png" id="2_283yh"]
+[ext_resource type="Texture2D" uid="uid://by1m2oi2fl3qs" path="res://characters/painter/PeintreFace01.png" id="2_quko2"]
+[ext_resource type="Texture2D" uid="uid://diaxeqwl3b703" path="res://characters/painter/PeintrePeint02.png" id="3_0tl8x"]
+[ext_resource type="Texture2D" uid="uid://dkbou64ym56eu" path="res://characters/painter/PeintrePeint03.png" id="4_k3ib5"]
+[ext_resource type="Texture2D" uid="uid://h51amdvfofef" path="res://characters/painter/PeintrePeint04.png" id="5_wm60i"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hoq2j"]
+size = Vector2(199, 318)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_mitkp"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_quko2")
+}],
+"loop": true,
+"name": &"not_working",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_283yh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_0tl8x")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_k3ib5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_wm60i")
+}],
+"loop": true,
+"name": &"working",
+"speed": 2.0
+}]
+
+[node name="Painter" type="Node2D"]
+script = ExtResource("1_jy6js")
+
+[node name="EmployeeArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EmployeeArea"]
+position = Vector2(-1.5, 14)
+shape = SubResource("RectangleShape2D_hoq2j")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+offset_left = -108.0
+offset_top = -188.0
+offset_right = 187.0
+offset_bottom = -148.0
+text = "HIIII"
+
+[node name="PainterSprites" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.2, 0.2)
+sprite_frames = SubResource("SpriteFrames_mitkp")
+animation = &"working"

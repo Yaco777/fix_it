@@ -9,6 +9,7 @@ public partial class Painter : Employee
 	public static List<string> CurrentColors { get; set; } = new List<string>();
 	public static List<string> ColorsMissings { get; set; } = new List<string>();
 	private GlobalSignals _globalSignals;
+	private AnimatedSprite2D _painterAnimation;
 
     private static List<string> REQUIRED_ITEMS = new List<string>
 	{
@@ -59,14 +60,24 @@ public partial class Painter : Employee
 	{
 		base._Ready();
 		_globalSignals = GetNode<GlobalSignals>("../../GlobalSignals");
+		_painterAnimation = GetNode<AnimatedSprite2D>("PainterSprites");
 		SetState(EmployeeState.NotWorking);
+		_painterAnimation.Play();
 
     }
+
+	public override void StartWorking()
+	{
+		base.StartWorking();
+		_globalSignals.EmitColorLost("Green brush");
+		_painterAnimation.Animation = "working";
+	}
 
 	public override void StopWorking()
 	{
 		base.StopWorking();
 		_globalSignals.EmitColorLost("Green brush");
+		_painterAnimation.Animation = "not_working";
 	}
 
 
