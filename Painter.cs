@@ -5,10 +5,19 @@ using System.Collections.Generic;
 public partial class Painter : Employee
 {
 
-	private List<string> _colorsUnlocked = new List<string>();
+	public static List<string> ColorsUnlocked {  get; set; } = new List<string>();
+	public static List<string> CurrentColors { get; set; } = new List<string>();
+	public static List<string> ColorsMissings { get; set; } = new List<string>();
 	private GlobalSignals _globalSignals;
 
-	private static List<string> _chatMessages = new List<string>
+    private static List<string> REQUIRED_ITEMS = new List<string>
+	{
+    "Red brush",
+    "Blue brush",
+    "Green brush"
+	};
+
+    private static List<string> _chatMessages = new List<string>
 
 	{
 		"In a single brushstroke!",
@@ -29,30 +38,84 @@ public partial class Painter : Employee
 		"My inspiration is back!"
 	};
 
-	public Painter() : base(_chatMessages, _stopWorkingMessages, _backToWork, "Painter")
+    private static List<string> _oneColorUnlocked = new List<string>
+    {
+        "It's better than nothing",
+        "One more...?"
+    };
+
+
+
+    public Painter() : base(_chatMessages, _stopWorkingMessages, _backToWork, "Painter")
 	{
-		_colorsUnlocked.Add("Red");
-	}
+		ColorsUnlocked.Add("Green brush");
+
+		ColorsMissings.Add("Green brush");
+
+    }
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
 		base._Ready();
 		_globalSignals = GetNode<GlobalSignals>("../../GlobalSignals");
-		StopWorking();
-	}
+		SetState(EmployeeState.NotWorking);
+
+    }
 
 	public override void StopWorking()
 	{
 		base.StopWorking();
-		GD.Print("envoi du signal...");
-		_globalSignals.EmitColorLost("Red");
+		_globalSignals.EmitColorLost("Green brush");
 	}
+
 
 
 
 	public override void Interact(Hero hero)
 	{
-		base.Interact(hero);
+		var hasOneItem = false;
+		foreach (var item in REQUIRED_ITEMS)
+		{
+			if (hero.HasItem(item))
+			{
+                hasOneItem = true;
+
+                ColorsMissings.Remove(item);
+				_globalSignals.EmitColorBack(item);
+				
+				hero.RemoveItem();
+			
+
+			}
+
+		}
+
+		
+		if(hasOneItem && ColorsMissings.Count != 0) 
+		{
+            ShowNewColorUnlocked();
+        }
+		else if(hasOneItem && ColorsMissings.Count == 0) {
+            ShowBackToWorkChat();
+            SetState(EmployeeState.Working);
+        }
+		else
+		{
+			base.Interact(hero);
+		}
+        
+    }
+
+	private void ShowNewColorUnlocked()
+	{
+		base.ShowTemporaryDialog(GetRandomColorBackMessage());
 	}
+
+	private string GetRandomColorBackMessage()
+	{
+		var random = new Random();
+		return _oneColorUnlocked[random.Next(_oneColorUnlocked.Count)];
+
+    }
 }

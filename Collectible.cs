@@ -138,14 +138,16 @@ Represent a collectible object. Every collectible have an unique name
 
         var collectibleScene = GD.Load<PackedScene>("res://collectible.tscn");
         var collectible = (Collectible)collectibleScene.Instantiate();
-        var texture = nameOfTheObject switch
-        {
-            "Horn" => (Texture2D)GD.Load("res://building/collectible/horn.png"),
-            _ => null
-        };
+        GD.Print("on va créer : " + nameOfTheObject);
+        var texture = getTextureOfCollectible(nameOfTheObject);
+
+
         var pickUpSound = nameOfTheObject switch
         {
             "Horn" => (AudioStream)GD.Load("res://audio/collectible/horn_pickup.mp3"),
+            "Blue brush" => (AudioStream)GD.Load("res://audio/collectible/brush_pickup.mp3"),
+            "Green brush" => (AudioStream)GD.Load("res://audio/collectible/brush_pickup.mp3"),
+            "Red brush" => (AudioStream)GD.Load("res://audio/collectible/brush_pickup.mp3"),
             _ => null
         };
 
@@ -168,6 +170,20 @@ Represent a collectible object. Every collectible have an unique name
         _dropSoundPlayer.Play();
         _dropSoundPlayer.Finished += () => _dropSoundPlayer.QueueFree();
 
+    }
+
+
+    public static Texture2D getTextureOfCollectible(string nameOfTheObject)
+    {
+        return nameOfTheObject switch
+        {
+
+            "Red brush" => (Texture2D)GD.Load("res://building/collectible/red_brush.png"),
+            "Blue brush " => (Texture2D)GD.Load("res://building/collectible/blue_brush.png"),
+            "Green brush" => (Texture2D)GD.Load("res://building/collectible/green_brush.png"),
+            "Horn" => (Texture2D)GD.Load("res://building/collectible/horn.png"),
+            _ => null
+        };
     }
 
 }

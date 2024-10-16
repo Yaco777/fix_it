@@ -42,44 +42,63 @@ public partial class Building : Node2D
 
             // we create a collectible
             var collectible = Collectible.CreateCollectible("Horn");
-
-
             // we select a random area
-            var areas = _itemsGenerationsArea.GetChildren().OfType<Area2D>().ToArray();
-            if (areas.Length > 0)
-            {
-                var selectedArea = areas[random.Next(areas.Length)];
-
-               
-                var collisionShape = selectedArea.GetNode<CollisionShape2D>("CollisionShape2D");
-                if (collisionShape != null)
-                {
-                    
-                    if (collisionShape.Shape is SegmentShape2D segmentShape)
-                    {
-                        
-                        float t = (float)GD.Randf(); //t will be a number between 0 and 1
-                        var xPos = segmentShape.A.X + (segmentShape.B.X - segmentShape.A.X) * t;
-                        // we compute the xPos of the collectible. The Y pos will be the same than the selectedArea
-                        
-                        collectible.GlobalPosition = new Vector2(xPos,selectedArea.GlobalPosition.Y);
-                    }
-                    else
-                    {
-                        throw new InvalidOperationException("The collision shape of an area used to generate items is invalid");
-                    }
-                }
-            }
-            else
-            {
-                throw new InvalidOperationException("There is no area2D in the area used to genereate items");
-            }
-
+            collectible.GlobalPosition = GetRandomPositionForItem();
             // we add the collectible
             GetTree().Root.GetChild(0).AddChild(collectible);
-           
-            
         }
+        if(n == "Painter" && (EmployeeState)newState == EmployeeState.NotWorking)
+        {
+            GD.Print("mais oui monsieur");
+            foreach (var brushColors in Painter.ColorsMissings) {
+
+                var color = brushColors;
+                var itemName = color;
+                var collectibleScene = GD.Load<PackedScene>("res://collectible.tscn");
+                var collectible = Collectible.CreateCollectible(itemName);
+                collectible.GlobalPosition = GetRandomPositionForItem();
+                GetTree().Root.GetChild(0).CallDeferred("add_child", collectible);
+            }
+            
+
+
+        }
+        
+    }
+
+    public  Vector2 GetRandomPositionForItem()
+    {
+        var areas = _itemsGenerationsArea.GetChildren().OfType<Area2D>().ToArray();
+        if (areas.Length > 0)
+        {
+            var selectedArea = areas[random.Next(areas.Length)];
+
+
+            var collisionShape = selectedArea.GetNode<CollisionShape2D>("CollisionShape2D");
+            if (collisionShape != null)
+            {
+
+                if (collisionShape.Shape is SegmentShape2D segmentShape)
+                {
+
+                    float t = (float)GD.Randf(); //t will be a number between 0 and 1
+                    var xPos = segmentShape.A.X + (segmentShape.B.X - segmentShape.A.X) * t;
+                    // we compute the xPos of the collectible. The Y pos will be the same than the selectedArea
+
+                    return new Vector2(xPos, selectedArea.GlobalPosition.Y);
+                }
+                else
+                {
+                    throw new InvalidOperationException("The collision shape of an area used to generate items is invalid");
+                }
+            }
+        }
+        else
+        {
+            throw new InvalidOperationException("There is no area2D in the area used to genereate items");
+        }
+        //this return cannot happen
+        return new Vector2(0,0);
     }
 
 }

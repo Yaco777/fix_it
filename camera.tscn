@@ -5,9 +5,11 @@
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_dw214"]
 shader = ExtResource("1_jpihk")
-shader_parameter/mode_current = 0
-shader_parameter/mode_target = 0
-shader_parameter/transition = 0.0
+shader_parameter/mode = 1
+shader_parameter/red_transition = 0.0
+shader_parameter/green_transition = 0.0
+shader_parameter/blue_transition = 0.0
+shader_parameter/bw_transition = 0.0
 
 [node name="Camera" type="Camera2D"]
 

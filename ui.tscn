@@ -8,6 +8,7 @@ shader = ExtResource("2_nd7in")
 shader_parameter/vector_movment_x = 10.0
 shader_parameter/vector_movment_y = 10.0
 shader_parameter/scaling_factor = 0.1
+shader_parameter/max_scale_factor = 1.01
 
 [node name="UI" type="CanvasLayer"]
 script = ExtResource("1_hgs1d")
@@ -21,10 +22,11 @@ offset_bottom = 145.0
 [node name="ObjectIcon" type="TextureRect" parent="."]
 z_index = 20
 material = SubResource("ShaderMaterial_8jcn5")
-offset_left = 1807.0
-offset_top = 31.0
-offset_right = 1939.0
-offset_bottom = 159.0
+offset_left = 1786.0
+offset_top = 18.0
+offset_right = 1918.0
+offset_bottom = 146.0
+expand_mode = 3
 
 [node name="ObjectName" type="RichTextLabel" parent="."]
 z_index = 20

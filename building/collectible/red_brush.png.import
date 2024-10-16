@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cj3pxegbcgssb"
-path="res://.godot/imported/enora.png-a8a32783bf01c1dcbfcbe5b9e0dba7cc.ctex"
+uid="uid://dpa6cm0smu2ah"
+path="res://.godot/imported/red_brush.png-9a233e44f109c35b122dce0e827fca97.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://building/collectible/enora.png"
-dest_files=["res://.godot/imported/enora.png-a8a32783bf01c1dcbfcbe5b9e0dba7cc.ctex"]
+source_file="res://building/collectible/red_brush.png"
+dest_files=["res://.godot/imported/red_brush.png-9a233e44f109c35b122dce0e827fca97.ctex"]
 
 [params]
 

@@ -1,38 +1,32 @@
 shader_type canvas_item;
 
-uniform sampler2D SCREEN_TEXTURE : hint_screen_texture;
-uniform int mode_current = 0;  // Current mode
-uniform int mode_target = 0;   // Target mode
-uniform float transition = 0.0; // Transition value (0.0 to 1.0)
-
-vec3 apply_mode(int mode, vec3 color) {
-    if (mode == 0) {
-        // Black and white mode
-        float gray = dot(color, vec3(0.3, 0.59, 0.11));
-        return vec3(gray);
-    } else if (mode == 1) {
-        // No red mode
-        return vec3(color.r, 0, 0);
-    } else if (mode == 2) {
-        // No green mode
-        return vec3(0, color.g, 0);
-    } else if (mode == 3) {
-        // No blue mode
-        return vec3(0, 0, color.b);
-    }
-    return color; // Default return (no modification)
-}
+uniform sampler2D screen_texture : hint_screen_texture; // Utilisation de hint_screen_texture
+uniform int mode = 0; // 0 pour noir et blanc, 1 pour couleur normale
+uniform float red_transition = 1.0; // Transition pour le rouge
+uniform float green_transition = 1.0; // Transition pour le vert
+uniform float blue_transition = 1.0; // Transition pour le bleu
+uniform float bw_transition = 0.0; // Transition vers le noir et blanc
 
 void fragment() {
-    vec3 color = texture(SCREEN_TEXTURE, SCREEN_UV).rgb;
+    // Récupérer la couleur d'origine à partir de l'écran
+    vec3 color = texture(screen_texture, SCREEN_UV).rgb;
 
-    // Apply the current mode and the target mode
-    vec3 color_current = apply_mode(mode_current, color);
-    vec3 color_target = apply_mode(mode_target, color);
+    if (mode == 0) {
+        // Mode noir et blanc
+        float gray = dot(color, vec3(0.3, 0.59, 0.11)); // Calculer la valeur en niveaux de gris
+        vec3 bwColor = vec3(gray); // Couleur grise
 
-    // Interpolate between the current mode and target mode
-    vec3 final_color = mix(color_current, color_target, transition);
+        // Interpoler entre la couleur d'origine et la couleur grise
+        COLOR = vec4(mix(color, bwColor, bw_transition), 1.0); // Interpoler en fonction de bw_transition
+    } else {
+        // Mode couleur normale avec transitions
+        vec3 finalColor = vec3(
+            mix(color.r, 0.0, red_transition),   // Appliquer la transition pour le rouge
+            mix(color.g, 0.0, green_transition), // Appliquer la transition pour le vert
+            mix(color.b, 0.0, blue_transition)   // Appliquer la transition pour le bleu
+        );
 
-    // Apply the final color
-    COLOR = vec4(final_color, 1.0);
+        // Appliquer la couleur finale
+        COLOR = vec4(finalColor, 1.0);
+    }
 }
