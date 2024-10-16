@@ -111,6 +111,7 @@ public partial class CanvasWithShader : Godot.CanvasLayer
     public void OnColorLost(String name)
     {
         // Update the state of colors
+        GD.Print("On detecte la perte de la couleur !");
         _ = name.ToLower() switch
         {
             "red brush" => redEnabled = false,
@@ -142,7 +143,8 @@ public partial class CanvasWithShader : Godot.CanvasLayer
         shaderMaterial.SetShaderParameter("blue_transition", blueTransition);
         shaderMaterial.SetShaderParameter("bw_transition", bwTransition); // Add black and white transition
 
-     
+  
+
 
     }
 }

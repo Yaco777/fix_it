@@ -138,7 +138,7 @@ Represent a collectible object. Every collectible have an unique name
 
         var collectibleScene = GD.Load<PackedScene>("res://collectible.tscn");
         var collectible = (Collectible)collectibleScene.Instantiate();
-        GD.Print("on va créer : " + nameOfTheObject);
+ 
         var texture = getTextureOfCollectible(nameOfTheObject);
 
 
@@ -179,10 +179,10 @@ Represent a collectible object. Every collectible have an unique name
         {
 
             "Red brush" => (Texture2D)GD.Load("res://building/collectible/red_brush.png"),
-            "Blue brush " => (Texture2D)GD.Load("res://building/collectible/blue_brush.png"),
+            "Blue brush" => (Texture2D)GD.Load("res://building/collectible/blue_brush.png"),
             "Green brush" => (Texture2D)GD.Load("res://building/collectible/green_brush.png"),
             "Horn" => (Texture2D)GD.Load("res://building/collectible/horn.png"),
-            _ => null
+            _ => throw new ArgumentException("The name of the object is wrong (for applying the texture) "+nameOfTheObject)
         };
     }
 

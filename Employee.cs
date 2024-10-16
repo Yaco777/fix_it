@@ -37,7 +37,7 @@ public partial class Employee : Node2D
     }
 
     [Export]
-    public EmployeeState CurrentState { get; private set; } = EmployeeState.Working;
+    public EmployeeState CurrentState { get;  set; } = EmployeeState.Working;
 
     [Signal]
     public delegate void EmployeeStateChangedEventHandler(int newState, string nameOfEmployee);
@@ -99,6 +99,8 @@ public partial class Employee : Node2D
             }
         }
     }
+
+    
 
     public void SetState(EmployeeState newState)
     {

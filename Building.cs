@@ -10,9 +10,9 @@ public partial class Building : Node2D
     private Node2D _itemsGenerationsArea;
     private Random random = new Random();
 
-	// Called when the node enters the scene tree for the first time.
-	public override void _Ready()
-	{
+    // Called when the node enters the scene tree for the first time.
+    public override void _Ready()
+    {
         var employees = GetNode<Node2D>("../Employees").GetChildren();
         foreach (var emp in employees)
         {
@@ -28,14 +28,15 @@ public partial class Building : Node2D
 
     }
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
-	{
-	}
+    // Called every frame. 'delta' is the elapsed time since the previous frame.
+    public override void _Process(double delta)
+    {
+    }
 
     private void OnEmployeeStateChanged(int newState, string n)
     {
-        
+
+        GD.Print("Changement d'état pour : " + n + ")");
         if (n == "Musicien" && (EmployeeState)newState == EmployeeState.NotWorking)
         {
             var collectibleScene = GD.Load<PackedScene>("res://collectible.tscn");
@@ -47,10 +48,11 @@ public partial class Building : Node2D
             // we add the collectible
             GetTree().Root.GetChild(0).AddChild(collectible);
         }
-        if(n == "Painter" && (EmployeeState)newState == EmployeeState.NotWorking)
+        if (n == "Painter" && (EmployeeState)newState == EmployeeState.NotWorking)
         {
-            GD.Print("mais oui monsieur");
-            foreach (var brushColors in Painter.ColorsMissings) {
+            GD.Print("mais oui monsieur, les missings sont : "+Painter.ColorsMissings.Count);
+            foreach (var brushColors in Painter.ColorsMissings)
+            {
 
                 var color = brushColors;
                 var itemName = color;
@@ -59,14 +61,14 @@ public partial class Building : Node2D
                 collectible.GlobalPosition = GetRandomPositionForItem();
                 GetTree().Root.GetChild(0).CallDeferred("add_child", collectible);
             }
-            
+
 
 
         }
-        
+
     }
 
-    public  Vector2 GetRandomPositionForItem()
+    public Vector2 GetRandomPositionForItem()
     {
         var areas = _itemsGenerationsArea.GetChildren().OfType<Area2D>().ToArray();
         if (areas.Length > 0)
@@ -98,7 +100,7 @@ public partial class Building : Node2D
             throw new InvalidOperationException("There is no area2D in the area used to genereate items");
         }
         //this return cannot happen
-        return new Vector2(0,0);
+        return new Vector2(0, 0);
     }
 
 }
