@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://cpm4gp75y7pni"]
+[gd_scene load_steps=9 format=3 uid="uid://cpm4gp75y7pni"]
 
 [ext_resource type="PackedScene" uid="uid://lm01vdyu1xgl" path="res://characters/hero/hero.tscn" id="1_easg4"]
 [ext_resource type="PackedScene" uid="uid://cbba76f1vals2" path="res://camera.tscn" id="2_0u86b"]
-[ext_resource type="PackedScene" uid="uid://b055q6lnsj1mk" path="res://painter.tscn" id="6_k8bna"]
+[ext_resource type="Texture2D" uid="uid://dvrcccxeq0ww2" path="res://building/furnitures/PeintreChevalet.png" id="5_s2ysv"]
+[ext_resource type="PackedScene" uid="uid://b055q6lnsj1mk" path="res://characters/painter/painter.tscn" id="6_k8bna"]
 [ext_resource type="PackedScene" uid="uid://b22i1xe7x8eus" path="res://building.tscn" id="6_ltln6"]
 [ext_resource type="PackedScene" uid="uid://b8wyebxsxftek" path="res://characters/musicien/musicien.tscn" id="6_y1b1w"]
 [ext_resource type="PackedScene" uid="uid://bws7e6gipvnq3" path="res://ui.tscn" id="7_5josr"]
@@ -21,6 +22,13 @@ Speed = 410
 
 [node name="Building" parent="." instance=ExtResource("6_ltln6")]
 position = Vector2(-165, 2683)
+
+[node name="Furnitures" type="Node2D" parent="Building"]
+
+[node name="PeintreChevalet" type="Sprite2D" parent="Building/Furnitures"]
+position = Vector2(260, -2415)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("5_s2ysv")
 
 [node name="Employees" type="Node2D" parent="."]
 
