@@ -36,7 +36,7 @@ public partial class Building : Node2D
     private void OnEmployeeStateChanged(int newState, string n)
     {
 
-        GD.Print("Changement d'état pour : " + n + ")");
+      
         if (n == "Musicien" && (EmployeeState)newState == EmployeeState.NotWorking)
         {
             var collectibleScene = GD.Load<PackedScene>("res://collectible.tscn");
@@ -50,7 +50,7 @@ public partial class Building : Node2D
         }
         if (n == "Painter" && (EmployeeState)newState == EmployeeState.NotWorking)
         {
-            GD.Print("mais oui monsieur, les missings sont : "+Painter.ColorsMissings.Count);
+            
             foreach (var brushColors in Painter.ColorsMissings)
             {
 

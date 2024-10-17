@@ -69,6 +69,7 @@ public partial class Musicien : Employee
 		_musicPlayer.Stop();
 		_snoringMusicPlayer.Play();
 		_musicianAnimation.Animation = "sleeping";
+	
 		
 	}
 

@@ -51,12 +51,6 @@ public partial class Painter : Employee
 
     public Painter() : base(_chatMessages, _stopWorkingMessages, _backToWork, "Painter")
     {
-
-
-
-
-
-
     }
 
     // Called when the node enters the scene tree for the first time.

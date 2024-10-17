@@ -93,6 +93,7 @@ public partial class Employee : Node2D
 
         if (new Random().NextDouble() < 0.001)
         {
+            
             if(CurrentState == EmployeeState.Working) {
                 SetState(EmployeeState.NotWorking);
                 _dialogueLabel.Visible = false;

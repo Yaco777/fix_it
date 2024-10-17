@@ -11,7 +11,6 @@ public partial class GlobalSignals : Node2D
 
     public void EmitColorLost(string colorName)
     {
-        GD.Print("Emission ici !!");
         EmitSignal(SignalName.ColorLost, colorName);
     }
 

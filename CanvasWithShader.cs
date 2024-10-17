@@ -111,7 +111,6 @@ public partial class CanvasWithShader : Godot.CanvasLayer
     public void OnColorLost(String name)
     {
         // Update the state of colors
-        GD.Print("On detecte la perte de la couleur !");
         _ = name.ToLower() switch
         {
             "red brush" => redEnabled = false,
@@ -123,7 +122,7 @@ public partial class CanvasWithShader : Godot.CanvasLayer
 
     public void OnColorBack(string name)
     {
-        GD.Print("La couleur est de retour : " + name);
+       
 
         // Reset the color states
         _ = name.ToLower() switch
