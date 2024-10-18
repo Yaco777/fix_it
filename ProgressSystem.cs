@@ -79,16 +79,11 @@ public partial class ProgressSystem : CanvasLayer
             {
                 if (achievement.IsCompleted())
                 {
-                    GD.Print("rÃÂ©ussite de : " + achievement.ToDictionary());
                     playerAchievements.Add(achievement);
                     AnimateStarsProgress(achievement.NumberOfStars);
                     _achievementDisplay.ShowAchievement(achievement);
                 }
-                else
-                {
-                    GD.Print("Non ! : " + employee.NumberOfTimeWorked);
-
-                }
+                
             }
         }
 

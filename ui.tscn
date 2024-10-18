@@ -6,8 +6,6 @@
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8jcn5"]
 shader = ExtResource("2_nd7in")
-shader_parameter/vector_movment_x = 10.0
-shader_parameter/vector_movment_y = 10.0
 shader_parameter/scaling_factor = 0.1
 shader_parameter/max_scale_factor = 1.01
 

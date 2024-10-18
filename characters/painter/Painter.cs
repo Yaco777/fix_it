@@ -8,6 +8,8 @@ public partial class Painter : Employee
     public static List<string> ColorsUnlocked { get; set; } = new List<string>(); //the colors that the player has unlocked
     public static List<string> CurrentColors { get; set; } = new List<string>(); //the current colors of the camera
     public static List<string> ColorsMissings { get; set; } = new List<string>(); //the missing colors
+
+
     private GlobalSignals _globalSignals; 
     private AnimatedSprite2D _painterAnimation;
 

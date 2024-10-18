@@ -58,3 +58,5 @@ text = "HIIII"
 scale = Vector2(0.2, 0.2)
 sprite_frames = SubResource("SpriteFrames_mitkp")
 animation = &"working"
+frame = 2
+frame_progress = 0.241469

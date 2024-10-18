@@ -18,7 +18,7 @@ public partial class AchievementDisplay : Control
 
     public void ShowAchievement(Achievement achievement)
     {
-        t
+        
         _label.Text = achievement.Name; //we change the text of the label
 
        
