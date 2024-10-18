@@ -19,7 +19,9 @@ public partial class Employee : Node2D
     private Random random = new Random();
     private bool currentTimerPresent = false; //we wants to only have 1 timer (to avoid having multiples messages at the same time)
     private static int WAIT_TIME = 3; //the time the message will appear
-    private string _nameOfEmployee;
+    public string NameOfEmployee { get; private set; }
+
+    public int NumberOfTimeWorked { get; private set; }  //number of time this employee returned to work
 
 
     public Employee(List<string> chat, List<string> stopWorkingChat, List<string> backToWork, string nameOfEmployee)
@@ -27,7 +29,7 @@ public partial class Employee : Node2D
         _chat = chat;
         _stopWorkingChat = stopWorkingChat;
         _backToWorkChat = backToWork;
-        _nameOfEmployee = nameOfEmployee;
+        NameOfEmployee = nameOfEmployee;
     }
 
     public enum EmployeeState
@@ -112,7 +114,7 @@ public partial class Employee : Node2D
         if (CurrentState != newState)
         {
             CurrentState = newState;
-            EmitSignal(SignalName.EmployeeStateChanged, (int)newState, _nameOfEmployee);
+            EmitSignal(SignalName.EmployeeStateChanged, (int)newState, NameOfEmployee);
         }
 
         // Appliquer les actions selon l'Ã©tat
@@ -131,6 +133,8 @@ public partial class Employee : Node2D
     public virtual void StartWorking()
     {
         CurrentState = EmployeeState.Working;
+        NumberOfTimeWorked++;
+        GD.Print("mtn la valeur vaut : " + NumberOfTimeWorked);
     }
 
     public virtual void StopWorking()

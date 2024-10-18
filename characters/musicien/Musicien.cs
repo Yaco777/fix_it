@@ -55,6 +55,7 @@ public partial class Musicien : Employee
 	public override void StartWorking()
 	{
 		//when the employee work, the music start
+		base.StartWorking();
 		_snoringMusicPlayer.Stop();
 		_musicPlayer.Play();
 		StartGeneratingNotes();
@@ -65,8 +66,9 @@ public partial class Musicien : Employee
 
 	public override void StopWorking()
 	{
-		//when the employee stop working, the music will stop and we will hear him snoring and a horn will be generated in the building
-		_musicPlayer.Stop();
+        base.StopWorking();
+        //when the employee stop working, the music will stop and we will hear him snoring and a horn will be generated in the building
+        _musicPlayer.Stop();
 		_snoringMusicPlayer.Play();
 		_musicianAnimation.Animation = "sleeping";
 	

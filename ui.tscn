@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://bws7e6gipvnq3"]
+[gd_scene load_steps=5 format=3 uid="uid://bws7e6gipvnq3"]
 
 [ext_resource type="Script" path="res://UI.cs" id="1_hgs1d"]
 [ext_resource type="Shader" path="res://shaders/object_shader.gdshader" id="2_nd7in"]
+[ext_resource type="PackedScene" uid="uid://ii230guo57ev" path="res://progress_system.tscn" id="3_307xp"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8jcn5"]
 shader = ExtResource("2_nd7in")
@@ -12,6 +13,9 @@ shader_parameter/max_scale_factor = 1.01
 
 [node name="UI" type="CanvasLayer"]
 script = ExtResource("1_hgs1d")
+
+[node name="ProgressSystem" parent="." instance=ExtResource("3_307xp")]
+script = null
 
 [node name="ColorRect" type="ColorRect" parent="."]
 offset_left = 1784.0

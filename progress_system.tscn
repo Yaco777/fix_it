@@ -1,0 +1,53 @@
+[gd_scene load_steps=5 format=3 uid="uid://ii230guo57ev"]
+
+[ext_resource type="Texture2D" uid="uid://bpkeii4j7tlau" path="res://UI/star_bg.png" id="1_ay3ug"]
+[ext_resource type="Script" path="res://ProgressSystem.cs" id="1_n1j43"]
+[ext_resource type="Texture2D" uid="uid://blkaosxqhqxrs" path="res://UI/star_full.png" id="2_inc0j"]
+[ext_resource type="Script" path="res://AchievementDisplay.cs" id="4_affpk"]
+
+[node name="ProgressSystem" type="CanvasLayer"]
+script = ExtResource("1_n1j43")
+
+[node name="TotalProgress" type="ProgressBar" parent="."]
+offset_left = 213.0
+offset_top = 55.0
+offset_right = 495.0
+offset_bottom = 116.0
+theme_override_font_sizes/font_size = 30
+step = 1.0
+value = 30.0
+
+[node name="StarsProgress" type="TextureProgressBar" parent="."]
+offset_left = 12.0
+offset_top = 7.0
+offset_right = 524.0
+offset_bottom = 519.0
+scale = Vector2(0.3, 0.3)
+fill_mode = 4
+texture_under = ExtResource("1_ay3ug")
+texture_progress = ExtResource("2_inc0j")
+tint_under = Color(1, 1, 1, 0.286275)
+
+[node name="AchievementDisplay" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("4_affpk")
+
+[node name="AchievementRect" type="ColorRect" parent="AchievementDisplay"]
+layout_mode = 0
+offset_left = 393.0
+offset_top = 165.0
+offset_right = 1376.0
+offset_bottom = 348.0
+color = Color(0.0560259, 0.578931, 0.745283, 1)
+
+[node name="AchievementName" type="Label" parent="AchievementDisplay/AchievementRect"]
+layout_mode = 0
+offset_left = 147.0
+offset_top = 36.0
+offset_right = 841.0
+offset_bottom = 132.0
+theme_override_font_sizes/font_size = 70
+text = "[AchievementName}"

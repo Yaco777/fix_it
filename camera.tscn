@@ -17,6 +17,8 @@ shader_parameter/bw_transition = 0.0
 script = ExtResource("1_x0eti")
 
 [node name="TechnicienBlackRectangle" type="ColorRect" parent="CanvasWithShader"]
+light_mask = 3
+visibility_layer = 3
 offset_left = -1090.0
 offset_top = -568.0
 offset_right = 2410.0

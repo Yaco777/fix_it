@@ -29,6 +29,10 @@ project/assembly_name="fixIt"
 version_control/plugin_name="GitPlugin"
 version_control/autoload_on_startup=true
 
+[gui]
+
+theme/custom="res://UI/progressBarTheme.tres"
+
 [input]
 
 move_left={
