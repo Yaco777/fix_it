@@ -11,7 +11,7 @@ public partial class Employee : Node2D
 
     private bool _playerInRange = false; //boolean to check if the player is close to the employee
     private RichTextLabel _dialogueLabel; //dialogue label for interactions
-    private Hero _hero; 
+    private Hero _hero;
 
     private List<string> _chat = new List<string>(); //messages shown when the player interact and the employee is working
     private List<string> _stopWorkingChat = new List<string>(); //same thing but when the employee isn't working
@@ -21,7 +21,7 @@ public partial class Employee : Node2D
     private static int WAIT_TIME = 3; //the time the message will appear
     public string NameOfEmployee { get; private set; }
 
-    public int NumberOfTimeWorked { get; private set; }  //number of time this employee returned to work
+    public int NumberOfTimeWorked { get; private set; } = 0; //number of time this employee returned to work
 
 
     public Employee(List<string> chat, List<string> stopWorkingChat, List<string> backToWork, string nameOfEmployee)
@@ -39,10 +39,13 @@ public partial class Employee : Node2D
     }
 
     [Export]
-    public EmployeeState CurrentState { get;  set; } = EmployeeState.Working;
+    public EmployeeState CurrentState { get; set; } = EmployeeState.Working;
 
     [Signal]
     public delegate void EmployeeStateChangedEventHandler(int newState, string nameOfEmployee);
+
+    [Signal]
+    public delegate void CheckAchievementEventHandler(int newState, string nameOfEmployee);
 
 
     public override void _Ready()
@@ -77,7 +80,7 @@ public partial class Employee : Node2D
 
 
             //we remove the timer
-            if(currentTimerPresent)
+            if (currentTimerPresent)
             {
                 OnTemporaryDialogTimeout();
                 currentTimerPresent = false;
@@ -88,22 +91,23 @@ public partial class Employee : Node2D
     public override void _Process(double delta)
     {
 
-        if(_playerInRange && Input.IsActionJustPressed("interact_with_employees") && _hero.CooldownIsZero())
+        if (_playerInRange && Input.IsActionJustPressed("interact_with_employees") && _hero.CooldownIsZero())
         {
             Interact(_hero); //methode redefined by all the employees
         }
 
         if (new Random().NextDouble() < 0.001)
         {
-            
-            if(CurrentState == EmployeeState.Working) {
+
+            if (CurrentState == EmployeeState.Working)
+            {
                 SetState(EmployeeState.NotWorking);
                 _dialogueLabel.Visible = false;
             }
         }
     }
 
-    
+
 
     public void SetState(EmployeeState newState)
     {
@@ -111,9 +115,14 @@ public partial class Employee : Node2D
          * Switch the state to the other one and emit a signal
          */
 
+        if (newState == EmployeeState.Working)
+        {
+            NumberOfTimeWorked++;
+        }
+
         if (CurrentState != newState)
         {
-            NumberOfTimeWorked++; //we update the numberOfTimeWorked before emitting the signal
+
             CurrentState = newState;
             EmitSignal(SignalName.EmployeeStateChanged, (int)newState, NameOfEmployee);
         }
@@ -133,12 +142,15 @@ public partial class Employee : Node2D
 
     public virtual void StartWorking()
     {
+        //we update the numberOfTimeWorked before emitting the signal
+        EmitSignal(SignalName.CheckAchievement, (int)CurrentState, NameOfEmployee);
         CurrentState = EmployeeState.Working;
 
     }
 
     public virtual void StopWorking()
     {
+        EmitSignal(SignalName.CheckAchievement, (int)CurrentState, NameOfEmployee);
         CurrentState = EmployeeState.NotWorking;
     }
 
@@ -190,7 +202,7 @@ public partial class Employee : Node2D
     public void ShowTemporaryDialog(string text)
     {
         //this method will display a message for a specific ammount of time (wait_time) by using a timer
-        if(!currentTimerPresent)
+        if (!currentTimerPresent)
         {
             ShowDialogue(text);
             var timer = new Timer();
@@ -202,18 +214,18 @@ public partial class Employee : Node2D
             timer.Start();
             currentTimerPresent = true; //we use this variable to avoid having multiple timers
         }
-        
+
     }
 
     private void OnTemporaryDialogTimeout()
     {
         //remove the timer and update the currentTimePresent variable
-        _dialogueLabel.Visible= false;
+        _dialogueLabel.Visible = false;
         var timer = GetNode<Timer>("DialogTimer");
         RemoveChild(timer);
         currentTimerPresent = false; //now we can interact again
         timer.QueueFree();
-        
+
     }
 
 

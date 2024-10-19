@@ -9,6 +9,7 @@
 
 [node name="ProgressSystem" type="CanvasLayer"]
 script = ExtResource("1_n1j43")
+WaitTimeBeforeLevelUp = 3.0
 
 [node name="StarsPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("5_eprkb")
@@ -23,7 +24,6 @@ offset_right = 495.0
 offset_bottom = 116.0
 theme_override_font_sizes/font_size = 30
 step = 1.0
-value = 30.0
 
 [node name="StarsProgress" type="TextureProgressBar" parent="."]
 offset_left = 12.0
@@ -54,9 +54,22 @@ color = Color(0.0560259, 0.578931, 0.745283, 1)
 [node name="AchievementName" type="Label" parent="AchievementDisplay/AchievementRect"]
 layout_mode = 0
 offset_right = 1000.0
-offset_bottom = 180.0
+offset_bottom = 111.0
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/outline_size = 7
 theme_override_font_sizes/font_size = 50
 text = "[AchievementName}"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="AchievementDescription" type="Label" parent="AchievementDisplay/AchievementRect"]
+layout_mode = 0
+offset_top = 134.0
+offset_right = 1000.0
+offset_bottom = 174.0
+theme_override_font_sizes/font_size = 30
+text = "[description}"
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 3

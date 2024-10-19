@@ -6,20 +6,20 @@ public partial class UI : CanvasLayer
     private TextureRect _objectIcon;
     private RichTextLabel _objectName;
 
-   
+
     private Vector2 targetScale = new Vector2(1f, 1f); //basic scale
 
     [Export]
-    private  float ScaleSpeed = 4.0f; // transition speed
+    private float ScaleSpeed = 4.0f; // transition speed
 
     [Export]
-    private  float animationScaleX = 2f;
+    private float animationScaleX = 2f;
 
     [Export]
-    private  float animationScaleY = 2f;
+    private float animationScaleY = 2f;
 
-   
-   
+
+
 
     public override void _Ready()
     {

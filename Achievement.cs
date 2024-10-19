@@ -4,7 +4,7 @@ using System;
 
 public class Achievement
 {
-    public string Name { get; private  set; }
+    public string Name { get; private set; }
     public string Description { get; private set; }
     public int NumberOfStars { get; private set; }
 
@@ -30,7 +30,7 @@ public class Achievement
 
     public bool IsCompleted()
     {
-        return Condition != null &&  Condition();
+        return Condition != null && Condition();
     }
 
 

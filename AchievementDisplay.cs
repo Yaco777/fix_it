@@ -1,81 +1,89 @@
 ﻿using Godot;
-using System;
+using System.Collections.Generic;
 
 public partial class AchievementDisplay : Control
 {
     private ColorRect _colorRect;
-    private Label _label;
+    private Label _labelAchievementName;
+    private Label _labelAchievementDescription;
 
     [Export]
-    private float AchievementDisplayTime { get; set; } = 4f;
+    public float AchievementDisplayTime { get; set; } = 4f;
 
     [Export]
-    private float AchievementFadeInTime { get; set; } = 0.2f;
+    public float AchievementFadeInTime { get; set; } = 0.2f;
 
     [Export]
-    private float AchievementFadeOutTime { get; set; } = 0.2f;
+    public float AchievementFadeOutTime { get; set; } = 0.2f;
 
-
+    private Queue<Achievement> _achievementQueue = new Queue<Achievement>();
+    private bool _isDisplaying = false;
 
     public override void _Ready()
     {
         _colorRect = GetNode<ColorRect>("AchievementRect");
-        _label = GetNode<Label>("AchievementRect/AchievementName");
+        _labelAchievementName = GetNode<Label>("AchievementRect/AchievementName");
+        _labelAchievementDescription = GetNode<Label>("AchievementRect/AchievementDescription");
         _colorRect.Visible = false;
     }
 
-
     public void ShowAchievement(Achievement achievement)
     {
-        
-        _label.Text = achievement.Name; //we change the text of the label
+        _achievementQueue.Enqueue(achievement);
+        if (!_isDisplaying)
+        {
+            DisplayNextAchievement();
+        }
+    }
 
-       
+    private void DisplayNextAchievement()
+    {
+        if (_achievementQueue.Count == 0)
+        {
+            _isDisplaying = false;
+            return;
+        }
+
+        _isDisplaying = true;
+        var achievement = _achievementQueue.Dequeue();
+        _labelAchievementName.Text = achievement.Name;
+        _labelAchievementDescription.Text = achievement.Description;
+
         _colorRect.Visible = true;
-        _colorRect.Modulate = new Color(_colorRect.Modulate.R, _colorRect.Modulate.G, _colorRect.Modulate.B, 0); 
-        // the alpha start at 0
+        _colorRect.Modulate = new Color(_colorRect.Modulate.R, _colorRect.Modulate.G, _colorRect.Modulate.B, 0);
 
-        Tween tween = CreateTween();
-
-       
-        tween.TweenProperty(
+        Tween fadeInTween = CreateTween();
+        fadeInTween.TweenProperty(
             _colorRect,
-            "modulate:a", // //we will change the alpha value
-            1,           //max value
-           AchievementFadeInTime         //duration of animation
+            "modulate:a",
+            1,
+            AchievementFadeInTime
         );
 
-        //after 5 second, we will make it dissepear
-        tween.Finished += () =>
+        fadeInTween.Finished += () =>
         {
-            
             var timer = GetTree().CreateTimer(AchievementDisplayTime);
             timer.Timeout += () =>
             {
-                //tween used for the fading out effect
                 Tween fadeOutTween = CreateTween();
                 fadeOutTween.TweenProperty(
                     _colorRect,
-                    "modulate:a", 
-                    0,            //  0 = transparent
+                    "modulate:a",
+                    0,
                     AchievementFadeOutTime
                 );
 
-                // we hide the color rect
                 fadeOutTween.Finished += () =>
                 {
                     _colorRect.Visible = false;
-                    _colorRect.Modulate = new Color(_colorRect.Modulate.R, _colorRect.Modulate.G, _colorRect.Modulate.B, 1); 
+                    _colorRect.Modulate = new Color(_colorRect.Modulate.R, _colorRect.Modulate.G, _colorRect.Modulate.B, 1);
+                    DisplayNextAchievement(); // Show the next achievement after this one fades out
                 };
 
-                fadeOutTween.Play(); 
+                fadeOutTween.Play();
             };
-
-            
         };
-        //we play the fade in animation
-        tween.Play();
+
+        fadeInTween.Play();
     }
-
-
 }

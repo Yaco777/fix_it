@@ -10,7 +10,7 @@ public partial class Painter : Employee
     public static List<string> ColorsMissings { get; set; } = new List<string>(); //the missing colors
 
 
-    private GlobalSignals _globalSignals; 
+    private GlobalSignals _globalSignals;
     private AnimatedSprite2D _painterAnimation;
 
     private Random _random = new Random();
@@ -48,6 +48,10 @@ public partial class Painter : Employee
         "It's better than nothing",
         "One more...?"
     };
+
+    public bool firstTimeGettingRed = false;
+    public bool firstTimeGettingGreen = false;
+    public bool firstTimeGettingBlue = false;
 
 
 
@@ -108,11 +112,24 @@ public partial class Painter : Employee
             if (hero.HasItem(item))
             {
                 hasOneItem = true;
-
+                if (item == "Red brush" && firstTimeGettingRed == false)
+                {
+                    firstTimeGettingRed = true;
+                }
+                else if (item == "Blue brush" && firstTimeGettingBlue == false)
+                {
+                    firstTimeGettingBlue = true;
+                }
+                else if (item == "Green brush" && firstTimeGettingGreen == false)
+                {
+                    firstTimeGettingGreen = true;
+                }
+                EmitSignal(SignalName.CheckAchievement, (int)CurrentState, NameOfEmployee);
                 _globalSignals.EmitColorBack(item);
                 ColorsMissings.Remove(item);
                 CurrentColors.Add(item);
                 hero.RemoveItem();
+
 
             }
 
