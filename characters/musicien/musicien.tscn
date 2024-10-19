@@ -11,8 +11,8 @@
 [ext_resource type="AudioStream" uid="uid://dh3jbeikd4krg" path="res://audio/horn_play.mp3" id="5_mmg6g"]
 [ext_resource type="Texture2D" uid="uid://dsger6s3udj5a" path="res://characters/musicien/MusicienSleeping.png" id="6_ep4h3"]
 [ext_resource type="Script" path="res://characters/musicien/Notes.cs" id="6_nwfdn"]
-[ext_resource type="Texture2D" uid="uid://l3cgven1strb" path="res://audio/collectible/note1.png" id="6_t6agm"]
 [ext_resource type="Texture2D" uid="uid://bfuxin7673d8w" path="res://building/effects/note2.png" id="7_mbxbs"]
+[ext_resource type="Texture2D" uid="uid://b8fwrcl0xwkqq" path="res://building/effects/note1.png" id="13_t35h7"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_rdvps"]
 animations = [{
@@ -93,4 +93,4 @@ texture = ExtResource("7_mbxbs")
 [node name="Note1" type="Sprite2D" parent="Notes"]
 visible = false
 scale = Vector2(0.2, 0.2)
-texture = ExtResource("6_t6agm")
+texture = ExtResource("13_t35h7")

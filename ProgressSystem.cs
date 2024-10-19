@@ -4,13 +4,18 @@ using System.Collections.Generic;
 
 public partial class ProgressSystem : CanvasLayer
 {
-    private List<Achievement> playerAchievements = new List<Achievement>();
+    private List<Achievement> playerAchievements = new List<Achievement>(); //we store all the achievements of the player
     private Dictionary<Employee, List<Achievement>> allAchievements = new Dictionary<Employee, List<Achievement>>();
+    //all achievements of the game
     private List<Employee> allEmployees = new List<Employee>();
     private int totalStars = 0;
-    private TextureProgressBar _starsProgressBar;
-    private ProgressBar _totalProgressBar;
-    private AchievementDisplay _achievementDisplay;
+    private TextureProgressBar _starsProgressBar; //the circular progress bar
+    private ProgressBar _totalProgressBar; //the global progress bar
+    private AchievementDisplay _achievementDisplay; //shown when the player get an achievements
+
+    //audio stram for the progress bar and the stars 
+    private AudioStreamPlayer _starsPlayer;
+    private AudioStreamPlayer _totalProgressPlayer;
 
 
 
@@ -22,13 +27,15 @@ public partial class ProgressSystem : CanvasLayer
         _totalProgressBar = GetNode<ProgressBar>("TotalProgress");
         _starsProgressBar = GetNode<TextureProgressBar>("StarsProgress");
         _achievementDisplay = GetNode<AchievementDisplay>("AchievementDisplay");
+        _starsPlayer = GetNode<AudioStreamPlayer>("StarsPlayer");
+        _totalProgressPlayer = GetNode<AudioStreamPlayer>("TotalProgressPlayer");
         var employees = GetNode<Node2D>("../Employees").GetChildren();
         foreach (var emp in employees)
         {
 
             if (emp is Employee)
             {
-
+                //we store all employees and when the state of the employee change we will call CheckNewAchievements
                 var empConv = (Employee)emp;
                 allEmployees.Add((Employee)emp);
                 empConv.EmployeeStateChanged += CheckNewAchievements;
@@ -42,6 +49,11 @@ public partial class ProgressSystem : CanvasLayer
 
     private void CreateAchievements()
     {
+        /**
+         * Create all the achievements of the game
+         */
+
+        //---achievements of the musicien---
         var musicien = allEmployees.Find(emp => emp.NameOfEmployee == "Musicien");
         var achievementMusicien = new Achievement(
             "After the last breath, only the silence remains",
@@ -58,6 +70,8 @@ public partial class ProgressSystem : CanvasLayer
         );
 
 
+
+        //we add all the achievements
         allAchievements[musicien].Add(achievementMusicien);
         allAchievements[musicien].Add(achievementMusicien2);
 
@@ -65,6 +79,9 @@ public partial class ProgressSystem : CanvasLayer
 
     private void CheckNewAchievements(int newState, string employeeName)
     {
+        /**
+         *  Check if an achievements has been unlocked for the employee "employeeName"
+         */
 
         //we get the employee
         var employee = allEmployees.Find(emp => emp.NameOfEmployee == employeeName);
@@ -75,19 +92,30 @@ public partial class ProgressSystem : CanvasLayer
         var achivements = allAchievements[employee];
         foreach (Achievement achievement in achivements)
         {
-            if (!playerAchievements.Contains(achievement))
-            {
-                if (achievement.IsCompleted())
-                {
-                    playerAchievements.Add(achievement);
-                    AnimateStarsProgress(achievement.NumberOfStars);
-                    _achievementDisplay.ShowAchievement(achievement);
-                }
-                
-            }
+            CheckIndividualAchievement(achievement);
+            
         }
 
 
+    }
+
+    private void CheckIndividualAchievement(Achievement achievement)
+    {
+        /**
+         * Check if a specific achievement has been completed
+         */
+        if (!playerAchievements.Contains(achievement))
+        {
+            if (achievement.IsCompleted())
+            {
+                playerAchievements.Add(achievement);
+                AnimateStarsProgress(achievement.NumberOfStars);
+                _achievementDisplay.ShowAchievement(achievement);
+                _starsPlayer.Play();
+
+            }
+
+        }
     }
 
     private void AnimateStarsProgress(int stars)

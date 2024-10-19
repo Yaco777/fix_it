@@ -6,6 +6,15 @@ public partial class AchievementDisplay : Control
     private ColorRect _colorRect;
     private Label _label;
 
+    [Export]
+    private float AchievementDisplayTime { get; set; } = 4f;
+
+    [Export]
+    private float AchievementFadeInTime { get; set; } = 0.2f;
+
+    [Export]
+    private float AchievementFadeOutTime { get; set; } = 0.2f;
+
 
 
     public override void _Ready()
@@ -33,14 +42,14 @@ public partial class AchievementDisplay : Control
             _colorRect,
             "modulate:a", // //we will change the alpha value
             1,           //max value
-            1.0f         //duration of animation
+           AchievementFadeInTime         //duration of animation
         );
 
         //after 5 second, we will make it dissepear
         tween.Finished += () =>
         {
             
-            var timer = GetTree().CreateTimer(5.0f);
+            var timer = GetTree().CreateTimer(AchievementDisplayTime);
             timer.Timeout += () =>
             {
                 //tween used for the fading out effect
@@ -49,7 +58,7 @@ public partial class AchievementDisplay : Control
                     _colorRect,
                     "modulate:a", 
                     0,            //  0 = transparent
-                    1.0f        
+                    AchievementFadeOutTime
                 );
 
                 // we hide the color rect

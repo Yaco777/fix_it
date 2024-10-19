@@ -113,7 +113,7 @@ public partial class Employee : Node2D
 
         if (CurrentState != newState)
         {
-            NumberOfTimeWorked++;
+            NumberOfTimeWorked++; //we update the numberOfTimeWorked before emitting the signal
             CurrentState = newState;
             EmitSignal(SignalName.EmployeeStateChanged, (int)newState, NameOfEmployee);
         }
@@ -134,8 +134,7 @@ public partial class Employee : Node2D
     public virtual void StartWorking()
     {
         CurrentState = EmployeeState.Working;
-        
-        GD.Print("mtn la valeur vaut : " + NumberOfTimeWorked);
+
     }
 
     public virtual void StopWorking()
