@@ -1,7 +1,8 @@
-[gd_scene load_steps=11 format=3 uid="uid://cpm4gp75y7pni"]
+[gd_scene load_steps=12 format=3 uid="uid://cpm4gp75y7pni"]
 
 [ext_resource type="PackedScene" uid="uid://lm01vdyu1xgl" path="res://characters/hero/hero.tscn" id="1_easg4"]
 [ext_resource type="PackedScene" uid="uid://cbba76f1vals2" path="res://camera.tscn" id="2_0u86b"]
+[ext_resource type="Texture2D" uid="uid://crkbv1gws7a8n" path="res://building/mainRoom.png" id="5_oceu3"]
 [ext_resource type="Texture2D" uid="uid://dvrcccxeq0ww2" path="res://building/furnitures/PeintreChevalet.png" id="5_s2ysv"]
 [ext_resource type="PackedScene" uid="uid://b055q6lnsj1mk" path="res://characters/painter/painter.tscn" id="6_k8bna"]
 [ext_resource type="PackedScene" uid="uid://b22i1xe7x8eus" path="res://building.tscn" id="6_ltln6"]
@@ -26,6 +27,11 @@ Speed = 410
 position = Vector2(-165, 2683)
 
 [node name="Furnitures" type="Node2D" parent="Building"]
+
+[node name="MainRoom" type="Sprite2D" parent="Building/Furnitures"]
+position = Vector2(793, -2550)
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("5_oceu3")
 
 [node name="PeintreChevalet" type="Sprite2D" parent="Building/Furnitures"]
 position = Vector2(260, -2415)
