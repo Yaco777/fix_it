@@ -17,11 +17,11 @@ void fragment() {
         vec3 bwColor = vec3(gray); 
         COLOR = vec4(mix(color, bwColor, bw_transition), 1.0); 
     } else {
-   
+   		
         vec3 finalColor = vec3(
             mix(color.r, 0.0, red_transition),   
             mix(color.g, 0.0, green_transition), 
-            mix(color.b, 0.0, blue_transition)  
+            mix(color.b , 0.0, blue_transition) 
         );
         COLOR = vec4(finalColor, 1.0);
     }

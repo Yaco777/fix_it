@@ -19,6 +19,10 @@ public partial class CanvasWithShader : Godot.CanvasLayer
     private bool greenEnabled = false;
     private bool blueEnabled = false;
 
+    [Export]
+    private float minColorValueWhenOnlyShowingBlue = 0.8f;
+
+
     public override void _Ready()
     {
         // Initialize the ShaderMaterial
@@ -64,47 +68,72 @@ public partial class CanvasWithShader : Godot.CanvasLayer
 
     private void HandleColorTransitions(double delta)
     {
+
+        //when we only show the blue color, we add a little bit of the other colors
+        if (blueEnabled && redEnabled == false && greenEnabled == false)
+        {
+            if(redTransition > minColorValueWhenOnlyShowingBlue)
+            {
+                redTransition -= (float)(transitionSpeed * delta);
+            }
+            if(greenTransition > minColorValueWhenOnlyShowingBlue)
+            {
+                greenTransition -= (float)(transitionSpeed * delta);
+            }
+            if (blueEnabled && blueTransition > 0.0f)
+            {
+
+                blueTransition -= (float)(transitionSpeed * delta);
+                if (blueTransition < 0.0f) blueTransition = 0.0f;
+            }
+
+            return;
+        }
+
+
         // Handle red transition
         if (redEnabled && redTransition > 0.0f)
         {
-            // If the color is enabled, decrease the transition value towards 0.0
+            
             redTransition -= (float)(transitionSpeed * delta);
-            if (redTransition < 0.0f) redTransition = 0.0f; // Limit to 0
+            if (redTransition < 0.0f) redTransition = 0.0f; 
         }
         else if (!redEnabled && redTransition < 1.0f)
         {
-            // If the color is disabled, increase the transition value towards 1.0
+            
             redTransition += (float)(transitionSpeed * delta);
-            if (redTransition > 1.0f) redTransition = 1.0f; // Limit to 1.0
+            if (redTransition > 1.0f) redTransition = 1.0f; 
         }
 
         // Handle green transition
         if (greenEnabled && greenTransition > 0.0f)
         {
-            // If the color is enabled, decrease the transition value towards 0.0
+            
             greenTransition -= (float)(transitionSpeed * delta);
-            if (greenTransition < 0.0f) greenTransition = 0.0f; // Limit to 0
+            if (greenTransition < 0.0f) greenTransition = 0.0f;
         }
         else if (!greenEnabled && greenTransition < 1.0f)
         {
-            // If the color is disabled, increase the transition value towards 1.0
+            
             greenTransition += (float)(transitionSpeed * delta);
-            if (greenTransition > 1.0f) greenTransition = 1.0f; // Limit to 1.0
+            if (greenTransition > 1.0f) greenTransition = 1.0f;
         }
 
         // Handle blue transition
         if (blueEnabled && blueTransition > 0.0f)
         {
-            // If the color is enabled, decrease the transition value towards 0.0
+            
             blueTransition -= (float)(transitionSpeed * delta);
-            if (blueTransition < 0.0f) blueTransition = 0.0f; // Limit to 0
+            if (blueTransition < 0.0f) blueTransition = 0.0f; 
         }
         else if (!blueEnabled && blueTransition < 1.0f)
         {
-            // If the color is disabled, increase the transition value towards 1.0
+            
             blueTransition += (float)(transitionSpeed * delta);
-            if (blueTransition > 1.0f) blueTransition = 1.0f; // Limit to 1.0
+            if (blueTransition > 1.0f) blueTransition = 1.0f;
         }
+
+        
     }
 
 

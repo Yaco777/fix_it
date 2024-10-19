@@ -50,6 +50,7 @@ public partial class ProgressSystem : CanvasLayer
         var employees = GetNode<Node2D>("../Employees").GetChildren();
         _starsProgressBar.MaxValue = MaxStarsValue;
         _totalProgressBar.MaxValue = MaxProgressValue;
+        _achievementDisplay.Visible = true;
         WaitTimeBeforeNextAchievement = _achievementDisplay.AchievementDisplayTime + _achievementDisplay.AchievementFadeInTime + _achievementDisplay.AchievementFadeOutTime;
 
 
