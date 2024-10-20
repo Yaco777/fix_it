@@ -13,7 +13,6 @@ shader_parameter/max_scale_factor = 1.01
 script = ExtResource("1_hgs1d")
 
 [node name="ProgressSystem" parent="." instance=ExtResource("3_307xp")]
-script = null
 
 [node name="ColorRect" type="ColorRect" parent="."]
 offset_left = 1784.0

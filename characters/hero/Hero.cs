@@ -16,6 +16,8 @@ public partial class Hero : CharacterBody2D
 
     private int _actionCooldown = 0; //cooldown to prevent duplication for the items (by spamming)
 
+    private GlobalSignals _globalSignals;
+
     [Export]
     private int _defaultCooldown = 100;
     private AnimatedSprite2D _animatedSprite2D;
@@ -34,6 +36,8 @@ public partial class Hero : CharacterBody2D
         SetupFloorsAndRoofs();
         _ui = GetNode<UI>("../UI");
         _animatedSprite2D = GetNode<AnimatedSprite2D>("HeroSprites");
+        _globalSignals = GetNode<GlobalSignals>("../GlobalSignals");
+
 
     }
 
@@ -310,9 +314,16 @@ public partial class Hero : CharacterBody2D
          */
         if (CanPickItem())
         {
+            if(itemType == "Frog")
+            {
+                _globalSignals.EmitFrogCollected(); //we won't pick up the frog
+            }   
+            else
+            {
+                _collectedItem = itemType;  //we collect the item
+                _ui.UpdateCollectedItem(itemType);
+            }
             
-            _collectedItem = itemType;  //we collect the item
-            _ui.UpdateCollectedItem(itemType);
             ResetCooldown();
         }
         else

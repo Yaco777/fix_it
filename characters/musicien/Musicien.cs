@@ -10,6 +10,8 @@ public partial class Musicien : Employee
     private static string REQUIRED_ITEM = "Horn";
     private AnimatedSprite2D _musicianAnimation;
     private Node2D _noteNode;
+    private GlobalSignals _globalSignals;
+    private bool _isAlarmOn = false;
     private static List<string> _chatMessages = new List<string>
 
 
@@ -46,8 +48,14 @@ public partial class Musicien : Employee
         _hornMusicPlayer = GetNode<AudioStreamPlayer2D>("Horn");
         _musicianAnimation = GetNode<AnimatedSprite2D>("MusicianSprites");
         _noteNode = GetNode<Node2D>("Notes");
+        _globalSignals = GetNode<GlobalSignals>("../../GlobalSignals");
+        _globalSignals.AlarmStateChanged += UpdateMusicAccordingToAlarm;
         StartWorking();
-        _musicianAnimation.Play();
+        if(_isAlarmOn == false)
+        {
+            _musicianAnimation.Play();
+        }
+        
 
 
     }
@@ -57,10 +65,13 @@ public partial class Musicien : Employee
         //when the employee work, the music start
         base.StartWorking();
         _snoringMusicPlayer.Stop();
-        _musicPlayer.Play();
+        if (_isAlarmOn == false)
+        {
+            _musicPlayer.Play();
+        }
+        
         StartGeneratingNotes();
         _musicianAnimation.Animation = "playing";
-
 
     }
 
@@ -69,7 +80,11 @@ public partial class Musicien : Employee
         base.StopWorking();
         //when the employee stop working, the music will stop and we will hear him snoring and a horn will be generated in the building
         _musicPlayer.Stop();
-        _snoringMusicPlayer.Play();
+        if (_isAlarmOn == false)
+        {
+            _snoringMusicPlayer.Play();
+        }
+        
         _musicianAnimation.Animation = "sleeping";
 
 
@@ -138,7 +153,11 @@ public partial class Musicien : Employee
             ShowBackToWorkChat();
             hero.RemoveItem();
             SetState(EmployeeState.Working);
-            _hornMusicPlayer.Play();
+            if(_isAlarmOn == false)
+            {
+                _hornMusicPlayer.Play();
+            }
+            
 
         }
         else
@@ -146,6 +165,31 @@ public partial class Musicien : Employee
             base.Interact(hero);
         }
 
+    }
+
+    private void UpdateMusicAccordingToAlarm(bool newAlarm)
+    {
+        //if the alarm is on, we disable all the sounds
+        if (newAlarm)
+        {
+            _isAlarmOn = true;
+            _musicPlayer.Stop();
+            _snoringMusicPlayer.Stop();
+        }
+        else
+        {
+            _isAlarmOn = false;
+            //we go back at the default state
+            if (CurrentState == EmployeeState.Working)
+            {
+                _musicPlayer.Play();
+            }
+            else
+            {
+                _snoringMusicPlayer.Play();
+            }
+
+        }
     }
 
 

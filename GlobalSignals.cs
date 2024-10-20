@@ -13,6 +13,14 @@ public partial class GlobalSignals : Node2D
     [Signal]
     public delegate void NewAchievementCollecteddEventHandler(Dictionary achievement);
 
+    [Signal]
+    public delegate void AlarmStateChangedEventHandler(bool isAlarmOn);
+
+    [Signal]
+    public delegate void FrogCollectedEventHandler();
+
+
+
     public void EmitColorLost(string colorName)
     {
         EmitSignal(SignalName.ColorLost, colorName);
@@ -28,5 +36,14 @@ public partial class GlobalSignals : Node2D
         EmitSignal(SignalName.NewAchievementCollectedd,achievement.ToDictionary());
     }
 
+    public void EmitAlartStateChanged(bool isAlarmOn)
+    {
+        EmitSignal(SignalName.AlarmStateChanged, isAlarmOn);
+    }
+
+    public void EmitFrogCollected()
+    {
+        EmitSignal(SignalName.FrogCollected);
+    }
     
 }

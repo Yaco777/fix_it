@@ -44,8 +44,14 @@ Represent a collectible object. Every collectible have an unique name
         //we hide all the labels
         _pickLabel.Visible = false;
         _cannotPickLabel.Visible = false;
+        if (CollectibleName == "Frog")
+        {
+            _pickLabel.Text = "[center][color=red] Press [b]E[/b] to scare away: {item_name} [/color][/center]";
+        }
         _pickLabel.Text = _pickLabel.Text.Replace("{item_name}", CollectibleName); //replace the placeholder with the name of the item
         _dropSoundPlayer = GetNode<AudioStreamPlayer>("DropSound");
+
+        
 
     }
 
@@ -148,6 +154,7 @@ Represent a collectible object. Every collectible have an unique name
             "Blue brush" => (AudioStream)GD.Load("res://audio/collectible/brush_pickup.mp3"),
             "Green brush" => (AudioStream)GD.Load("res://audio/collectible/brush_pickup.mp3"),
             "Red brush" => (AudioStream)GD.Load("res://audio/collectible/brush_pickup.mp3"),
+            "Frog" => (AudioStream)GD.Load("res://audio/collectible/frog.mp3"), 
             _ => null
         };
 
@@ -156,7 +163,7 @@ Represent a collectible object. Every collectible have an unique name
         collectible.PickUpSound = pickUpSound;
         collectible.CollectibleName = nameOfTheObject;
         collectible.ZIndex = 1;
-        //collectible.DropSound = (AudioStream)GD.Load("res://audio/drop_item.mp3");
+       
 
         return collectible;
     }
@@ -182,6 +189,7 @@ Represent a collectible object. Every collectible have an unique name
             "Blue brush" => (Texture2D)GD.Load("res://building/collectible/blue_brush.png"),
             "Green brush" => (Texture2D)GD.Load("res://building/collectible/green_brush.png"),
             "Horn" => (Texture2D)GD.Load("res://building/collectible/horn.png"),
+            "Frog" => (Texture2D)GD.Load("res://building/collectible/horn.png"), //TODO CHANGE
             _ => throw new ArgumentException("The name of the object is wrong (for applying the texture) " + nameOfTheObject)
         };
     }

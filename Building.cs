@@ -7,8 +7,8 @@ public partial class Building : Node2D
 {
 
 
-    private Node2D _itemsGenerationsArea;
-    private Random random = new Random();
+    private static Node2D _itemsGenerationsArea;
+    private static Random random = new Random();
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
@@ -68,7 +68,30 @@ public partial class Building : Node2D
 
     }
 
-    public Vector2 GetRandomPositionForItem()
+    public static Vector2 getRandomPositionForItemForSpecificArea(Area2D selectedArea)
+    {
+        var collisionShape = selectedArea.GetNode<CollisionShape2D>("CollisionShape2D");
+        if (collisionShape != null)
+        {
+
+            if (collisionShape.Shape is SegmentShape2D segmentShape)
+            {
+
+                float t = (float)GD.Randf(); //t will be a number between 0 and 1
+                var xPos = segmentShape.A.X + (segmentShape.B.X - segmentShape.A.X) * t;
+                // we compute the xPos of the collectible. The Y pos will be the same than the selectedArea
+
+                return new Vector2(xPos, selectedArea.GlobalPosition.Y);
+            }
+            else
+            {
+                throw new InvalidOperationException("The collision shape of an area used to generate items is invalid");
+            }
+        }
+        return new Vector2(0, 0);
+    }
+
+    public static Vector2 GetRandomPositionForItem()
     {
         var areas = _itemsGenerationsArea.GetChildren().OfType<Area2D>().ToArray();
         if (areas.Length > 0)
@@ -76,31 +99,19 @@ public partial class Building : Node2D
             var selectedArea = areas[random.Next(areas.Length)];
 
 
-            var collisionShape = selectedArea.GetNode<CollisionShape2D>("CollisionShape2D");
-            if (collisionShape != null)
-            {
-
-                if (collisionShape.Shape is SegmentShape2D segmentShape)
-                {
-
-                    float t = (float)GD.Randf(); //t will be a number between 0 and 1
-                    var xPos = segmentShape.A.X + (segmentShape.B.X - segmentShape.A.X) * t;
-                    // we compute the xPos of the collectible. The Y pos will be the same than the selectedArea
-
-                    return new Vector2(xPos, selectedArea.GlobalPosition.Y);
-                }
-                else
-                {
-                    throw new InvalidOperationException("The collision shape of an area used to generate items is invalid");
-                }
-            }
+            return getRandomPositionForItemForSpecificArea(selectedArea);
         }
         else
         {
             throw new InvalidOperationException("There is no area2D in the area used to genereate items");
         }
-        //this return cannot happen
-        return new Vector2(0, 0);
+    
+    }
+
+    public static Area2D getRandomArea2D()
+    {
+        var areas = _itemsGenerationsArea.GetChildren().OfType<Area2D>().ToArray();
+        return areas[random.Next(areas.Length)];
     }
 
 }

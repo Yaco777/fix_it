@@ -47,7 +47,7 @@ public partial class ProgressSystem : CanvasLayer
         _achievementDisplay = GetNode<AchievementDisplay>("AchievementDisplay");
         _starsPlayer = GetNode<AudioStreamPlayer>("StarsPlayer");
         _totalProgressPlayer = GetNode<AudioStreamPlayer>("TotalProgressPlayer");
-        var employees = GetNode<Node2D>("../Employees").GetChildren();
+        var employees = GetNode<Node2D>("../../Employees").GetChildren();
         _starsProgressBar.MaxValue = MaxStarsValue;
         _totalProgressBar.MaxValue = MaxProgressValue;
         _achievementDisplay.Visible = true;

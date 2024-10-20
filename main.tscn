@@ -10,7 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://bws7e6gipvnq3" path="res://ui.tscn" id="7_5josr"]
 [ext_resource type="Script" path="res://GlobalSignals.cs" id="7_shkg7"]
 [ext_resource type="PackedScene" uid="uid://fbolxmgf0o2k" path="res://technicien.tscn" id="8_tnvqt"]
-[ext_resource type="PackedScene" uid="uid://ii230guo57ev" path="res://progress_system.tscn" id="10_jdpq0"]
+[ext_resource type="PackedScene" uid="uid://bcqdyx3wy771g" path="res://security.tscn" id="10_8mm32"]
 
 [node name="Main" type="Node"]
 
@@ -42,15 +42,16 @@ texture = ExtResource("5_s2ysv")
 
 [node name="Musicien" parent="Employees" instance=ExtResource("6_y1b1w")]
 z_index = 1
-position = Vector2(1069, 254)
+position = Vector2(1520, 254)
 
 [node name="Painter" parent="Employees" instance=ExtResource("6_k8bna")]
 position = Vector2(194, 276)
 
 [node name="Technicien" parent="Employees" instance=ExtResource("8_tnvqt")]
-position = Vector2(738, 247)
+position = Vector2(1041, 249)
+
+[node name="Security" parent="Employees" instance=ExtResource("10_8mm32")]
+position = Vector2(737, 254)
 
 [node name="GlobalSignals" type="Node2D" parent="."]
 script = ExtResource("7_shkg7")
-
-[node name="ProgressSystem" parent="." instance=ExtResource("10_jdpq0")]
