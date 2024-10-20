@@ -21,6 +21,7 @@ public partial class GlobalSignals : Node2D
 
 
 
+
     public void EmitColorLost(string colorName)
     {
         EmitSignal(SignalName.ColorLost, colorName);
