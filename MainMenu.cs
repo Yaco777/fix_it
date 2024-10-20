@@ -61,13 +61,23 @@ public partial class MainMenu : Control
     public void PlayGame()
     {
         //method used to play the game
-        var game_scene = GD.Load<PackedScene>("res://main.tscn");
-        GetTree().ChangeSceneToPacked(game_scene);
+        foreach (Node child in GetChildren())
+        {
+            child.QueueFree();
+        }
+        //var game_scene = GD.Load<PackedScene>("res://main.tscn");
+
+        GetTree().ChangeSceneToFile("res://main.tscn");
+        //RemoveAllCollectibles();
+        
     }
+
+    
 
     public void QuitGame()
     {
         //method used to quit the game
+        
         GetTree().Quit();
     }
 }

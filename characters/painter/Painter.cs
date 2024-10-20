@@ -5,9 +5,9 @@ using System.Collections.Generic;
 public partial class Painter : Employee
 {
 
-    public static List<string> ColorsUnlocked { get; set; } = new List<string>(); //the colors that the player has unlocked
-    public static List<string> CurrentColors { get; set; } = new List<string>(); //the current colors of the camera
-    public static List<string> ColorsMissings { get; set; } = new List<string>(); //the missing colors
+    private  HashSet<string> ColorsUnlocked { get; set; } = new HashSet<string>(); //the colors that the player has unlocked
+    private  HashSet<string> CurrentColors { get; set; } = new HashSet<string>(); //the current colors of the camera
+    public static HashSet<string> ColorsMissings { get; set; } = new HashSet<string>(); //the missing colors, it need to be static to be accessible by the building
 
 
     private GlobalSignals _globalSignals;
@@ -165,7 +165,8 @@ public partial class Painter : Employee
     private string RemoveOneRandomColor()
     {
         //the painter will loose one random color
-        var color = CurrentColors[_random.Next(CurrentColors.Count)];
+        var colorList = new List<string>(CurrentColors);
+        var color = colorList[_random.Next(colorList.Count)];
         CurrentColors.Remove(color);
         ColorsMissings.Add(color);
         return color;

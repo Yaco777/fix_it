@@ -222,10 +222,15 @@ public partial class Employee : Node2D
         //remove the timer and update the currentTimePresent variable
         _dialogueLabel.Visible = false;
         var timer = GetNode<Timer>("DialogTimer");
-        RemoveChild(timer);
+        CallDeferred(nameof(RemoveChildDeferred), timer);
         currentTimerPresent = false; //now we can interact again
         timer.QueueFree();
 
+    }
+
+    private void RemoveChildDeferred(Node node)
+    {
+        RemoveChild(node);
     }
 
 
