@@ -20,6 +20,7 @@ shader_parameter/bw_transition = 0.0
 [node name="Camera" type="Camera2D"]
 
 [node name="CanvasWithShader" type="CanvasLayer" parent="."]
+process_mode = 1
 script = ExtResource("1_x0eti")
 
 [node name="SecurityWarningRectangle" type="TextureRect" parent="CanvasWithShader"]

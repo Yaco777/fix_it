@@ -15,14 +15,14 @@ public partial class Painter : Employee
 
     private Random _random = new Random();
 
-    private static List<string> REQUIRED_ITEMS = new List<string>
+    private static readonly List<string> REQUIRED_ITEMS = new List<string>
     {
     "Red brush",
     "Blue brush",
     "Green brush"
     };
 
-    private static List<string> _chatMessages = new List<string>
+    private static readonly List<string> _chatMessages = new List<string>
 
     {
         "In a single brushstroke!",
@@ -31,19 +31,19 @@ public partial class Painter : Employee
         "Music soothes aches and pains!"
     };
 
-    private static List<string> _stopWorkingMessages = new List<string>
+    private static readonly List<string> _stopWorkingMessages = new List<string>
     {
         "Where is it ? Here ? No...",
         "AHHHHHHHHH"
     };
 
-    private static List<string> _backToWork = new List<string>
+    private static readonly List<string> _backToWork = new List<string>
     {
         "Me? Lose something? Never",
         "My inspiration is back!"
     };
 
-    private static List<string> _oneColorUnlocked = new List<string>
+    private List<string> _oneColorUnlocked = new List<string>
     {
         "It's better than nothing",
         "One more...?"

@@ -12,10 +12,6 @@ public partial class Security : Employee
     public int FrogSpeed { get; set; } = 200;
     private bool _hasRemovedFrog;
     private static List<string> _chatMessages = new List<string>
-    
-
-
-
     {
         "I am your shield, fear nothing",
         "V",

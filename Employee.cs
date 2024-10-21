@@ -18,7 +18,7 @@ public partial class Employee : Node2D
     private List<string> _backToWorkChat = new List<string>(); //when the employee go back to work
     private Random random = new Random();
     private bool currentTimerPresent = false; //we wants to only have 1 timer (to avoid having multiples messages at the same time)
-    private static int WAIT_TIME = 3; //the time the message will appear
+    private int WAIT_TIME = 3; //the time the message will appear
     public string NameOfEmployee { get; private set; }
 
     public int NumberOfTimeWorked { get; private set; } = 0; //number of time this employee returned to work
