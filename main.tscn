@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://cpm4gp75y7pni"]
+[gd_scene load_steps=14 format=3 uid="uid://cpm4gp75y7pni"]
 
 [ext_resource type="PackedScene" uid="uid://lm01vdyu1xgl" path="res://characters/hero/hero.tscn" id="1_easg4"]
 [ext_resource type="PackedScene" uid="uid://cbba76f1vals2" path="res://camera.tscn" id="2_0u86b"]
@@ -11,6 +11,7 @@
 [ext_resource type="Script" path="res://GlobalSignals.cs" id="7_shkg7"]
 [ext_resource type="PackedScene" uid="uid://fbolxmgf0o2k" path="res://technicien.tscn" id="8_tnvqt"]
 [ext_resource type="PackedScene" uid="uid://bcqdyx3wy771g" path="res://security.tscn" id="10_8mm32"]
+[ext_resource type="PackedScene" uid="uid://cmpmyoh2setes" path="res://marketing.tscn" id="11_5c6um"]
 [ext_resource type="PackedScene" uid="uid://dwdwl1d6gut1r" path="res://pause_menu.tscn" id="13_fls8b"]
 
 [node name="Main" type="Node"]
@@ -43,16 +44,19 @@ texture = ExtResource("5_s2ysv")
 
 [node name="Musicien" parent="Employees" instance=ExtResource("6_y1b1w")]
 z_index = 1
-position = Vector2(1520, 254)
+position = Vector2(1154, 268)
 
 [node name="Painter" parent="Employees" instance=ExtResource("6_k8bna")]
 position = Vector2(194, 276)
 
 [node name="Technicien" parent="Employees" instance=ExtResource("8_tnvqt")]
-position = Vector2(1041, 249)
+position = Vector2(1462, 254)
 
 [node name="Security" parent="Employees" instance=ExtResource("10_8mm32")]
-position = Vector2(737, 254)
+position = Vector2(867, 262)
+
+[node name="Marketing" parent="Employees" instance=ExtResource("11_5c6um")]
+position = Vector2(609, 284)
 
 [node name="GlobalSignals" type="Node2D" parent="."]
 script = ExtResource("7_shkg7")

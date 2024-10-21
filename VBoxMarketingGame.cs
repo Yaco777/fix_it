@@ -6,16 +6,16 @@ using System.Linq;
 public partial class VBoxMarketingGame : VBoxContainer
 {
     [Export]
-    public int MinNumberQuestions { get; set; } = 1;
+    public int MinNumberQuestions { get; set; } = 2;
 
     [Export]
-    public int MaxNumberQuestions { get; set; } = 1;
+    public int MaxNumberQuestions { get; set; } = 4;
 
     [Export]
-    public int NumbersMaxValue { get; set; } = 10;
+    public int NumbersMaxValue { get; set; } = 10; //the maximum value (not included) for the numbers in the questions
 
     [Export]
-    private int DefaultFontSize { get; set; } = 40;
+    private int DefaultFontSize { get; set; } = 40; //font size of the the labels
 
     private Random _random = new Random();
 
@@ -23,12 +23,36 @@ public partial class VBoxMarketingGame : VBoxContainer
 
     private Button _validateButton;
 
+    private Button _giveUpButton;
+
+    private GlobalSignals _globalSignals;
+
 
     public override void _Ready()
     {
         _validateButton = GetNode<Button>("CenterContainer/Validate");
         _validateButton.Pressed += CheckAnswers;
+        _giveUpButton = GetNode<Button>("../../../GiveUp");
+        _globalSignals = GetNode<GlobalSignals>("../../../../../../../GlobalSignals");
+        _giveUpButton.Pressed += GiveUp;
 
+        ResetAll();
+        
+    }
+
+    public void ResetAll()
+    {
+        //we first remove all the HBoxContainer
+        foreach(var child in GetChildren())
+        {
+            if(child is HBoxContainer)
+            {
+                RemoveChild(child);
+            }
+        }
+        _questionsAnswers.Clear();
+
+        //then we create the questions
         var nbQuestions = MinNumberQuestions + _random.Next(MaxNumberQuestions - MinNumberQuestions);
         for (int i = 0; i < nbQuestions; i++)
         {
@@ -65,12 +89,14 @@ public partial class VBoxMarketingGame : VBoxContainer
 
     private String GetRandomOperation()
     {
+        //return a random operator
         string[] operations = { "+", "-", "*" };
         return operations[_random.Next(operations.Length)];
     }
 
     private int CalculateResult(int num1, int num2, string operation)
     {
+     //compture the result of the question   
         return operation switch
         {
             "+" => num1 + num2,
@@ -82,20 +108,20 @@ public partial class VBoxMarketingGame : VBoxContainer
 
     public void CheckAnswers()
     {
-        GD.Print("on verifie !");
+        //check if all the answers are correct 
+
         var index = 0;
         var isCorrect = true;
-        foreach(var child in GetChildren())
+        foreach (var child in GetChildren())
         {
-            if(child is HBoxContainer)
+            if (child is HBoxContainer)
             {
                 var childBox = (HBoxContainer)child;
                 var answer = childBox.GetNode<LineEdit>("Answer");
-                GD.Print("Le texte est : "+answer.Text);
                 int answerToInt;
-                if(int.TryParse(answer.Text, out answerToInt))
+                if (int.TryParse(answer.Text, out answerToInt)) //we try to cast the answer in int
                 {
-                    if(answerToInt == _questionsAnswers[index])
+                    if (answerToInt == _questionsAnswers[index]) 
                     {
                         index++;
                     }
@@ -110,11 +136,31 @@ public partial class VBoxMarketingGame : VBoxContainer
                     isCorrect = false;
                     break;
                 }
-                
+
             }
         }
 
-        GD.Print("correct ? :" + isCorrect);
+        if (isCorrect)
+        {
+            _globalSignals.EmitMarketingMinigameSuccess();
+            GiveUp(); //we use the give up method to hide the canvas
+            ResetAll();
+        }
+        else
+        {
+            //TODO ?
+        }
+
     }
+
+    private void GiveUp()
+    {
+        /**
+         * Hide the canvas layer
+         */
+        var marketingGame = GetNode<CanvasLayer>("../../../..");
+        marketingGame.Visible = false;
+    }
+
 
 }

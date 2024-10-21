@@ -1,16 +1,14 @@
-[gd_scene load_steps=2 format=3 uid="uid://d1qylfvt05e2a"]
+[gd_scene load_steps=2 format=3 uid="uid://c6kup0modcr05"]
 
 [ext_resource type="Script" path="res://VBoxMarketingGame.cs" id="1_i2tc2"]
 
-[node name="MarketingMinigame" type="Node2D"]
+[node name="MarketingMinigame" type="CanvasLayer"]
 
-[node name="MarketingCanvas" type="CanvasLayer" parent="."]
-
-[node name="MarketingGameColorRect" type="ColorRect" parent="MarketingCanvas"]
+[node name="MarketingGameColorRect" type="ColorRect" parent="."]
 offset_right = 919.0
 offset_bottom = 779.0
 
-[node name="ScrollContainer" type="ScrollContainer" parent="MarketingCanvas/MarketingGameColorRect"]
+[node name="ScrollContainer" type="ScrollContainer" parent="MarketingGameColorRect"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -20,7 +18,7 @@ grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="MarginContainer" type="MarginContainer" parent="MarketingCanvas/MarketingGameColorRect/ScrollContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="MarketingGameColorRect/ScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 6
@@ -29,16 +27,25 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="VBoxMarketingGame" type="VBoxContainer" parent="MarketingCanvas/MarketingGameColorRect/ScrollContainer/MarginContainer"]
+[node name="VBoxMarketingGame" type="VBoxContainer" parent="MarketingGameColorRect/ScrollContainer/MarginContainer"]
 layout_mode = 2
 size_flags_vertical = 4
 theme_override_constants/separation = 12
 script = ExtResource("1_i2tc2")
 
-[node name="CenterContainer" type="CenterContainer" parent="MarketingCanvas/MarketingGameColorRect/ScrollContainer/MarginContainer/VBoxMarketingGame"]
+[node name="CenterContainer" type="CenterContainer" parent="MarketingGameColorRect/ScrollContainer/MarginContainer/VBoxMarketingGame"]
 layout_mode = 2
 
-[node name="Validate" type="Button" parent="MarketingCanvas/MarketingGameColorRect/ScrollContainer/MarginContainer/VBoxMarketingGame/CenterContainer"]
+[node name="Validate" type="Button" parent="MarketingGameColorRect/ScrollContainer/MarginContainer/VBoxMarketingGame/CenterContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 60
 text = "Validate"
+
+[node name="GiveUp" type="Button" parent="MarketingGameColorRect"]
+layout_mode = 0
+offset_left = 673.0
+offset_top = 14.0
+offset_right = 895.0
+offset_bottom = 106.0
+theme_override_font_sizes/font_size = 40
+text = "Give up"
