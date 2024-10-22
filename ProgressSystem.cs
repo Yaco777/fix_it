@@ -32,6 +32,7 @@ public partial class ProgressSystem : CanvasLayer
 
     private Queue<Achievement> achievementQueue = new Queue<Achievement>();
     private bool isProcessingAchievements = false;
+    private int _currentAmountsOfStars = 0;
 
 
 
@@ -51,7 +52,7 @@ public partial class ProgressSystem : CanvasLayer
         _starsProgressBar.MaxValue = MaxStarsValue;
         _totalProgressBar.MaxValue = MaxProgressValue;
         _achievementDisplay.Visible = true;
-        WaitTimeBeforeNextAchievement = _achievementDisplay.AchievementDisplayTime + _achievementDisplay.AchievementFadeInTime + _achievementDisplay.AchievementFadeOutTime;
+        WaitTimeBeforeNextAchievement = _achievementDisplay.AchievementDisplayTime + _achievementDisplay.AchievementFadeInTime + _achievementDisplay.AchievementFadeOutTime; ;
 
 
 
@@ -130,6 +131,22 @@ public partial class ProgressSystem : CanvasLayer
             () => painter.firstTimeGettingRed == true && painter.firstTimeGettingBlue == true && painter.firstTimeGettingRed == true
         );
 
+        var achievementPainter5 = new Achievement(
+            "It was a little bit too hard alone, so we both held hands",
+            "You worked 5 times with the painter, you unlocked a new color",
+            40,
+            () => painter.NumberOfTimeWorked == 1
+        );
+
+        var achievementPainter6 = new Achievement(
+            "Only the two of us was a little bit sad, so we made a circle of three",
+            "You worked 10 times with the painter, you unlocked a new color",
+            40,
+            () => painter.NumberOfTimeWorked == 2
+        );
+
+
+
 
 
 
@@ -142,6 +159,8 @@ public partial class ProgressSystem : CanvasLayer
         allAchievements[painter].Add(achievementPainter2);
         allAchievements[painter].Add(achievementPainter3);
         allAchievements[painter].Add(achievementPainter4);
+        allAchievements[painter].Add(achievementPainter5);
+        allAchievements[painter].Add(achievementPainter6);
 
     }
 
@@ -192,12 +211,14 @@ public partial class ProgressSystem : CanvasLayer
         }
 
         var achievement = achievementQueue.Dequeue();
+
         if (!playerAchievements.Contains(achievement))
         {
             playerAchievements.Add(achievement);
             AnimateProgress(achievement.NumberOfStars, _starsProgressBar);
             _achievementDisplay.ShowAchievement(achievement);
             _starsPlayer.Play();
+            _currentAmountsOfStars += achievement.NumberOfStars;
         }
 
 
@@ -237,35 +258,72 @@ public partial class ProgressSystem : CanvasLayer
 
     private void IncreaseLevel()
     {
-        //we reset the number of stars and increase the total progress bar value
-        AnimateProgress((int)-_starsProgressBar.Value, _starsProgressBar);
+        if(_currentAmountsOfStars < _starsProgressBar.MaxValue)
+        {
+            return;
+        }
+        if (_starsProgressBar.Value == _starsProgressBar.MaxValue)
+        {
+            AnimateProgress((int)-(2* _starsProgressBar.Value - _currentAmountsOfStars), _starsProgressBar);
+        }
+        else
+        {
+            AnimateProgress((int)-(_starsProgressBar.Value), _starsProgressBar);
+        }
+        _currentAmountsOfStars = 0;
         AnimateProgress(20, _totalProgressBar);
+
     }
+
+    private bool isTweening = false;
+    private Queue<(int stars, Godot.Range node)> animationQueue = new Queue<(int stars, Godot.Range node)>();
 
     private void AnimateProgress(int stars, Godot.Range node)
     {
-        /**
-         * We create a smooth animation when we add new stars by using a tween
-         */
+        if (isTweening)
+        {
+            // Si une animation est en cours, on ajoute simplement à la file d'attente
+            animationQueue.Enqueue((stars, node));
+            return;
+        }
+
+        StartTween(stars, node);
+    }
+
+    private void StartTween(int stars, Godot.Range node)
+    {
+        isTweening = true;
 
         var targetValue = node.Value + stars;
-
 
         Tween tween = CreateTween();
         tween.SetEase(Tween.EaseType.Out);
         tween.SetTrans(Tween.TransitionType.Sine);
 
+        tween.TweenProperty(node, "value", targetValue, 1.0f);
 
-        tween.TweenProperty(
-        node,
-        "value",
-        targetValue,
-        1.0f
-    );
+        tween.Finished += () =>
+        {
+            isTweening = false;
+
+            // On vérifie si la barre des étoiles a atteint le maximum
+            if (node == _starsProgressBar && node.Value >= _starsProgressBar.MaxValue)
+            {
+                _totalProgressPlayer.Play();
+                IncreaseLevel();
+            }
+
+            // Si des animations sont en attente, on traite la suivante
+            if (animationQueue.Count > 0)
+            {
+                var nextAnimation = animationQueue.Dequeue();
+                StartTween(nextAnimation.stars, nextAnimation.node);
+            }
+        };
 
         tween.Play();
-
     }
+
 
 
 

@@ -27,6 +27,25 @@ public partial class VBoxMarketingGame : VBoxContainer
 
     private GlobalSignals _globalSignals;
 
+    private AudioStreamPlayer _failurePlayer;
+
+    private AudioStreamPlayer _successPlayer;
+
+    private Panel _marketingGamePanel;
+
+    [Export]
+
+    public Color FailureColor { get; set; } = new Color(0.7f, 0, 0, 1f);
+
+    [Export]
+    public Color DefaultBackgroundColor { get; set; } = new Color(0.458f, 0.642f, 0.627f, 1f);
+
+    [Export]
+    public Color CorrectAnswerColor { get; set; } = new Color(0.585f, 0.909f, 0.755f, 1);
+
+    [Export]
+    public Color WrongAnswerColor { get; set; } = new Color(1, 0.611f, 0.639f, 1);
+
 
     public override void _Ready()
     {
@@ -35,15 +54,19 @@ public partial class VBoxMarketingGame : VBoxContainer
         _giveUpButton = GetNode<Button>("../../../GiveUp");
         _globalSignals = GetNode<GlobalSignals>("../../../../../../../GlobalSignals");
         _giveUpButton.Pressed += GiveUp;
-
+        _failurePlayer = GetNode<AudioStreamPlayer>("Failure");
+        _successPlayer = GetNode<AudioStreamPlayer>("Success");
+        _marketingGamePanel = GetNode<Panel>("../../..");
+        ResetPanelColor();
         ResetAll();
         
     }
 
     public void ResetAll()
     {
+        ResetPanelColor();
         //we first remove all the HBoxContainer
-        foreach(var child in GetChildren())
+        foreach (var child in GetChildren())
         {
             if(child is HBoxContainer)
             {
@@ -82,7 +105,9 @@ public partial class VBoxMarketingGame : VBoxContainer
         var result = CalculateResult(num1, num2, operation);
         _questionsAnswers.Add(result); //we add the answer to the question
         label.Text = $"{num1} {operation} {num2} = ";
-        label.AddThemeColorOverride("font_color", new Color(0, 0, 0));
+        label.Name = "Label";
+        
+        //label.AddThemeColorOverride("font_color", new Color(0, 0, 0));
         label.AddThemeFontSizeOverride("font_size", DefaultFontSize);
         return label;
     }
@@ -101,7 +126,7 @@ public partial class VBoxMarketingGame : VBoxContainer
         {
             "+" => num1 + num2,
             "-" => num1 - num2,
-            "*" => num1 - num2,
+            "*" => num1 * num2,
             _ => 0
         };
     }
@@ -109,7 +134,7 @@ public partial class VBoxMarketingGame : VBoxContainer
     public void CheckAnswers()
     {
         //check if all the answers are correct 
-
+       
         var index = 0;
         var isCorrect = true;
         foreach (var child in GetChildren())
@@ -118,17 +143,24 @@ public partial class VBoxMarketingGame : VBoxContainer
             {
                 var childBox = (HBoxContainer)child;
                 var answer = childBox.GetNode<LineEdit>("Answer");
+                var label = childBox.GetNode<Label>("Label");
                 int answerToInt;
                 if (int.TryParse(answer.Text, out answerToInt)) //we try to cast the answer in int
                 {
                     if (answerToInt == _questionsAnswers[index]) 
                     {
                         index++;
+                        ChangeAnswerBackgroundColor(answer, CorrectAnswerColor);
+                       
+                        //make answer bg in green
+
                     }
                     else
                     {
                         isCorrect = false;
-                        break;
+                        ChangeAnswerBackgroundColor(answer, WrongAnswerColor);
+                        //make answer bg in red
+                        index++;
                     }
                 }
                 else
@@ -142,15 +174,58 @@ public partial class VBoxMarketingGame : VBoxContainer
 
         if (isCorrect)
         {
+
+            _successPlayer.Play();
             _globalSignals.EmitMarketingMinigameSuccess();
             GiveUp(); //we use the give up method to hide the canvas
+            //ChangePanelColor(new Color(0, 1, 0));
             ResetAll();
         }
         else
         {
-            //TODO ?
+            _failurePlayer.Play();
+            //ChangePanelColor(FailureColor);
         }
 
+    }
+
+    private void ChangeAnswerBackgroundColor(LineEdit answer, Color color)
+    {
+       
+        var originalStyle = answer.GetThemeStylebox("normal") as StyleBoxFlat;
+        if (originalStyle != null)
+        {
+            
+            var newStyle = new StyleBoxFlat();
+         
+
+            // Changer la couleur de fond
+            newStyle.BgColor = color;
+
+            // Appliquer la nouvelle StyleBox au `LineEdit`
+            answer.AddThemeStyleboxOverride("normal", newStyle);
+        }
+    }
+
+    private void ChangePanelColor(Color color)
+    {
+        // Create a new StyleBoxFlat and set its background color
+        /*var styleBox = new StyleBoxFlat();
+        styleBox.BgColor = color;
+        var st
+        // Apply the StyleBox to the Panel
+        _marketingGamePanel.AddThemeStyleboxOverride("panel", styleBox);*/
+        var style = _marketingGamePanel.GetThemeStylebox("panel") as StyleBoxFlat;
+        style.BgColor = color;
+        _marketingGamePanel.AddThemeStyleboxOverride("panel", style);
+
+
+    }
+
+    private void ResetPanelColor()
+    {
+        // Reset the panel background to a neutral color (e.g., white or transparent)
+        ChangePanelColor(DefaultBackgroundColor); // Transparent by default, or choose another color
     }
 
     private void GiveUp()
@@ -161,6 +236,8 @@ public partial class VBoxMarketingGame : VBoxContainer
         var marketingGame = GetNode<CanvasLayer>("../../../..");
         marketingGame.Visible = false;
     }
+
+
 
 
 }

@@ -37,7 +37,6 @@ texture_progress = ExtResource("2_inc0j")
 tint_under = Color(1, 1, 1, 0.286275)
 
 [node name="AchievementDisplay" type="Control" parent="."]
-visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
@@ -47,9 +46,9 @@ script = ExtResource("4_affpk")
 [node name="AchievementRect" type="ColorRect" parent="AchievementDisplay"]
 layout_mode = 0
 offset_left = 393.0
-offset_top = 165.0
+offset_top = 134.0
 offset_right = 1393.0
-offset_bottom = 345.0
+offset_bottom = 314.0
 color = Color(0.0560259, 0.578931, 0.745283, 1)
 
 [node name="AchievementName" type="Label" parent="AchievementDisplay/AchievementRect"]

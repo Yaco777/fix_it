@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://cpm4gp75y7pni"]
+[gd_scene load_steps=13 format=3 uid="uid://cpm4gp75y7pni"]
 
 [ext_resource type="PackedScene" uid="uid://lm01vdyu1xgl" path="res://characters/hero/hero.tscn" id="1_easg4"]
 [ext_resource type="PackedScene" uid="uid://cbba76f1vals2" path="res://camera.tscn" id="2_0u86b"]
@@ -9,7 +9,6 @@
 [ext_resource type="PackedScene" uid="uid://b8wyebxsxftek" path="res://characters/musicien/musicien.tscn" id="6_y1b1w"]
 [ext_resource type="PackedScene" uid="uid://bws7e6gipvnq3" path="res://ui.tscn" id="7_5josr"]
 [ext_resource type="Script" path="res://GlobalSignals.cs" id="7_shkg7"]
-[ext_resource type="PackedScene" uid="uid://fbolxmgf0o2k" path="res://technicien.tscn" id="8_tnvqt"]
 [ext_resource type="PackedScene" uid="uid://bcqdyx3wy771g" path="res://security.tscn" id="10_8mm32"]
 [ext_resource type="PackedScene" uid="uid://cmpmyoh2setes" path="res://marketing.tscn" id="11_5c6um"]
 [ext_resource type="PackedScene" uid="uid://dwdwl1d6gut1r" path="res://pause_menu.tscn" id="13_fls8b"]
@@ -47,10 +46,7 @@ z_index = 1
 position = Vector2(1154, 268)
 
 [node name="Painter" parent="Employees" instance=ExtResource("6_k8bna")]
-position = Vector2(194, 276)
-
-[node name="Technicien" parent="Employees" instance=ExtResource("8_tnvqt")]
-position = Vector2(1462, 254)
+position = Vector2(188, 345)
 
 [node name="Security" parent="Employees" instance=ExtResource("10_8mm32")]
 position = Vector2(867, 262)

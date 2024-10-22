@@ -1,14 +1,32 @@
-[gd_scene load_steps=2 format=3 uid="uid://c6kup0modcr05"]
+[gd_scene load_steps=5 format=3 uid="uid://c6kup0modcr05"]
 
 [ext_resource type="Script" path="res://VBoxMarketingGame.cs" id="1_i2tc2"]
+[ext_resource type="AudioStream" uid="uid://mr7p1jaqesur" path="res://audio/failure_marketing_game.mp3" id="2_7koyp"]
+[ext_resource type="AudioStream" uid="uid://ctgfy2s672by8" path="res://audio/success_marketing_game.mp3" id="3_fq0jh"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s0t5p"]
+resource_local_to_scene = true
+bg_color = Color(0.45819, 0.641672, 0.627229, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+corner_radius_top_left = 40
+corner_radius_top_right = 40
+corner_radius_bottom_right = 40
+corner_radius_bottom_left = 40
+shadow_color = Color(0.305217, 0.194847, 1, 0.6)
+shadow_size = 5
 
 [node name="MarketingMinigame" type="CanvasLayer"]
 
-[node name="MarketingGameColorRect" type="ColorRect" parent="."]
-offset_right = 919.0
-offset_bottom = 779.0
+[node name="MarketingGameRect" type="Panel" parent="."]
+offset_right = 911.0
+offset_bottom = 778.0
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_s0t5p")
 
-[node name="ScrollContainer" type="ScrollContainer" parent="MarketingGameColorRect"]
+[node name="ScrollContainer" type="ScrollContainer" parent="MarketingGameRect"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -18,7 +36,7 @@ grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="MarginContainer" type="MarginContainer" parent="MarketingGameColorRect/ScrollContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="MarketingGameRect/ScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 6
@@ -27,21 +45,29 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="VBoxMarketingGame" type="VBoxContainer" parent="MarketingGameColorRect/ScrollContainer/MarginContainer"]
+[node name="VBoxMarketingGame" type="VBoxContainer" parent="MarketingGameRect/ScrollContainer/MarginContainer"]
 layout_mode = 2
 size_flags_vertical = 4
 theme_override_constants/separation = 12
 script = ExtResource("1_i2tc2")
+CorrectAnswerColor = Color(0.170094, 0.380924, 0.288977, 1)
+WrongAnswerColor = Color(0.557046, 0, 0.170377, 1)
 
-[node name="CenterContainer" type="CenterContainer" parent="MarketingGameColorRect/ScrollContainer/MarginContainer/VBoxMarketingGame"]
+[node name="CenterContainer" type="CenterContainer" parent="MarketingGameRect/ScrollContainer/MarginContainer/VBoxMarketingGame"]
 layout_mode = 2
 
-[node name="Validate" type="Button" parent="MarketingGameColorRect/ScrollContainer/MarginContainer/VBoxMarketingGame/CenterContainer"]
+[node name="Validate" type="Button" parent="MarketingGameRect/ScrollContainer/MarginContainer/VBoxMarketingGame/CenterContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 60
 text = "Validate"
 
-[node name="GiveUp" type="Button" parent="MarketingGameColorRect"]
+[node name="Failure" type="AudioStreamPlayer" parent="MarketingGameRect/ScrollContainer/MarginContainer/VBoxMarketingGame"]
+stream = ExtResource("2_7koyp")
+
+[node name="Success" type="AudioStreamPlayer" parent="MarketingGameRect/ScrollContainer/MarginContainer/VBoxMarketingGame"]
+stream = ExtResource("3_fq0jh")
+
+[node name="GiveUp" type="Button" parent="MarketingGameRect"]
 layout_mode = 0
 offset_left = 673.0
 offset_top = 14.0

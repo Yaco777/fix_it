@@ -5,10 +5,22 @@ using System.Collections.Generic;
 public partial class Painter : Employee
 {
 
-    private  HashSet<string> ColorsUnlocked { get; set; } = new HashSet<string>(); //the colors that the player has unlocked
-    private  HashSet<string> CurrentColors { get; set; } = new HashSet<string>(); //the current colors of the camera
+    private HashSet<string> ColorsUnlocked { get; set; } = new HashSet<string>(); //the colors that the player has unlocked
+    private HashSet<string> CurrentColors { get; set; } = new HashSet<string>(); //the current colors of the camera
     public static HashSet<string> ColorsMissings { get; set; } = new HashSet<string>(); //the missing colors, it need to be static to be accessible by the building
 
+    [Export]
+    public string FirstBrush { get; set; } = "Red brush";
+
+    [Export]
+    public string NewColorUnlockedMessage { get; set; } = "Look what I've found! A new color!";
+
+    [Export]
+
+    public int NumberOfWorkToUnlockedSecondColor { get; set; } = 1;
+
+    [Export]
+    public int NumberOfWorkToUnlockedThirdColor { get; set; } = 2;
 
     private GlobalSignals _globalSignals;
     private AnimatedSprite2D _painterAnimation;
@@ -57,6 +69,7 @@ public partial class Painter : Employee
 
     public Painter() : base(_chatMessages, _stopWorkingMessages, _backToWork, "Painter")
     {
+        ColorsMissings.Clear(); //we clear the static hashSet
     }
 
     // Called when the node enters the scene tree for the first time.
@@ -65,12 +78,8 @@ public partial class Painter : Employee
         base._Ready();
         _globalSignals = GetNode<GlobalSignals>("../../GlobalSignals");
         _painterAnimation = GetNode<AnimatedSprite2D>("PainterSprites");
-        ColorsUnlocked.Add("Green brush");
-        ColorsUnlocked.Add("Red brush");
-        ColorsUnlocked.Add("Blue brush");
-        CurrentColors.Add("Green brush");
-        CurrentColors.Add("Red brush");
-        CurrentColors.Add("Blue brush");
+        ColorsUnlocked.Add(FirstBrush);
+        CurrentColors.Add(FirstBrush);
         StopWorking();
 
         _painterAnimation.Play();
@@ -81,6 +90,8 @@ public partial class Painter : Employee
     {
 
         _painterAnimation.Animation = "working";
+
+        
     }
 
     public override void StopWorking()
@@ -141,8 +152,15 @@ public partial class Painter : Employee
         }
         else if (hasOneItem && ColorsMissings.Count == 0)
         {
-            ShowBackToWorkChat(); //if all items have been collected, the painter will go back to work
             SetState(EmployeeState.Working);
+            if(!CheckNewColors()) //we either show the new color message or the back to work message
+            {
+                ShowBackToWorkChat(); //if all items have been collected, the painter will go back to work
+
+            }
+          
+            
+            
         }
         else
         {
@@ -150,6 +168,39 @@ public partial class Painter : Employee
         }
 
     }
+
+    private bool CheckNewColors()
+    {
+        //we check if we need to unlock the second color
+        if (NumberOfTimeWorked == NumberOfWorkToUnlockedSecondColor)
+        {
+            var allRemaingColors = new List<string>(REQUIRED_ITEMS);
+            allRemaingColors.Remove(FirstBrush);
+            var color = allRemaingColors[_random.Next(allRemaingColors.Count)];
+            ColorsUnlocked.Add(color);
+            CurrentColors.Add(color);
+            ShowTemporaryDialog(NewColorUnlockedMessage);
+            return true;
+
+        }
+        //we unlock the third color
+        else if (NumberOfTimeWorked == NumberOfWorkToUnlockedThirdColor)
+        {
+            ColorsUnlocked.Clear();
+            CurrentColors.Clear();
+            foreach (var color in REQUIRED_ITEMS)
+            {
+                ColorsUnlocked.Add(color);
+                CurrentColors.Add(color);
+
+            }
+            ShowTemporaryDialog(NewColorUnlockedMessage);
+            return true;
+
+        }
+        return false;
+    }
+
 
     private void ShowNewColorUnlocked()
     {
