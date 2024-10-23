@@ -182,7 +182,7 @@ Represent a collectible object. Every collectible have an unique name
 
     public static Texture2D getTextureOfCollectible(string nameOfTheObject)
     {
-        return nameOfTheObject switch
+        var a = nameOfTheObject switch
         {
 
             "Red brush" => (Texture2D)GD.Load("res://building/collectible/red_brush.png"),

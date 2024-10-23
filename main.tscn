@@ -9,8 +9,8 @@
 [ext_resource type="PackedScene" uid="uid://b8wyebxsxftek" path="res://characters/musicien/musicien.tscn" id="6_y1b1w"]
 [ext_resource type="PackedScene" uid="uid://bws7e6gipvnq3" path="res://ui.tscn" id="7_5josr"]
 [ext_resource type="Script" path="res://GlobalSignals.cs" id="7_shkg7"]
-[ext_resource type="PackedScene" uid="uid://bcqdyx3wy771g" path="res://security.tscn" id="10_8mm32"]
-[ext_resource type="PackedScene" uid="uid://cmpmyoh2setes" path="res://marketing.tscn" id="11_5c6um"]
+[ext_resource type="PackedScene" uid="uid://bcqdyx3wy771g" path="res://characters/security/security.tscn" id="10_8mm32"]
+[ext_resource type="PackedScene" uid="uid://cmpmyoh2setes" path="res://characters/marketing/marketing.tscn" id="11_5c6um"]
 [ext_resource type="PackedScene" uid="uid://dwdwl1d6gut1r" path="res://pause_menu.tscn" id="13_fls8b"]
 
 [node name="Main" type="Node"]

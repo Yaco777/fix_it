@@ -17,6 +17,9 @@ public partial class ProgressSystem : CanvasLayer
     private AudioStreamPlayer _starsPlayer;
     private AudioStreamPlayer _totalProgressPlayer;
 
+    private List<string> _unlockableEmployeeOrder = new List<string>();
+   
+
     [Export]
     private int MaxStarsValue { get; set; } = 100;
 
@@ -42,7 +45,7 @@ public partial class ProgressSystem : CanvasLayer
     public override void _Ready()
     {
 
-
+        InitUnlockableEmployee();
         _totalProgressBar = GetNode<ProgressBar>("TotalProgress");
         _starsProgressBar = GetNode<TextureProgressBar>("StarsProgress");
         _achievementDisplay = GetNode<AchievementDisplay>("AchievementDisplay");
@@ -161,6 +164,29 @@ public partial class ProgressSystem : CanvasLayer
         allAchievements[painter].Add(achievementPainter4);
         allAchievements[painter].Add(achievementPainter5);
         allAchievements[painter].Add(achievementPainter6);
+
+    }
+
+    private void InitUnlockableEmployee()
+    {
+        _unlockableEmployeeOrder.Add("Painter");
+        _unlockableEmployeeOrder.Add("Technicien");
+        _unlockableEmployeeOrder.Add("Security");
+        _unlockableEmployeeOrder.Add("Marketing");
+        //TODO ADD OTHER EMPLOYEE EHRE
+    }
+
+    private void AddNewEmployee()
+    {
+
+        if(_unlockableEmployeeOrder.Count <= 0)
+        {
+            return;
+        }
+        var name = _unlockableEmployeeOrder[0];
+        _unlockableEmployeeOrder.RemoveAt(0);
+        var employee = Employee.createEmployee(name);
+       
 
     }
 

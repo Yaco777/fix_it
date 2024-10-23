@@ -24,12 +24,17 @@ public partial class Employee : Node2D
     public int NumberOfTimeWorked { get; private set; } = 0; //number of time this employee returned to work
 
 
+    [Export]
+    public Vector2 SpawnPosition { get; set; } //spawn position of the employee in the building
+
+
     public Employee(List<string> chat, List<string> stopWorkingChat, List<string> backToWork, string nameOfEmployee)
     {
         _chat = chat;
         _stopWorkingChat = stopWorkingChat;
         _backToWorkChat = backToWork;
         NameOfEmployee = nameOfEmployee;
+        
     }
 
     public enum EmployeeState
@@ -56,6 +61,8 @@ public partial class Employee : Node2D
         var area = GetNode<Area2D>("EmployeeArea");
         area.BodyEntered += OnBodyEntered;
         area.BodyExited += OnBodyExited;
+        GD.Print(Position+ "employeeNam : e"+NameOfEmployee);
+     
     }
 
     public void OnBodyEntered(Node2D body)
@@ -233,5 +240,20 @@ public partial class Employee : Node2D
         RemoveChild(node);
     }
 
+    public static PackedScene createEmployee(string name)
+    {
+        // Appliquer les actions selon l'Ã©tat
+        PackedScene employee = name switch
+        {
+            "Painter" => GD.Load<PackedScene>("res://characters/painter/painter.tscn"),
+            "Musicien" => GD.Load<PackedScene>("res://characters/musicien/musicien.tscn"),
+            "Marketing" => GD.Load<PackedScene>("res://characters/marketing/marketing.tscn"),
+            "Security" => GD.Load<PackedScene>("res://characters/security/security.tscn"),
+            "Technicien" => GD.Load<PackedScene>("res://characters/technicien/technicien.tscn"),
+            _ => throw new ArgumentException("The name of the employee : " + name + " is invalid, it's impossible to create the employee")
+        };
 
+        var scene = (Node2D) employee.Instantiate();
+        return employee;
+    }
 }

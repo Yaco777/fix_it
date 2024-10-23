@@ -22,6 +22,8 @@ public partial class Painter : Employee
     [Export]
     public int NumberOfWorkToUnlockedThirdColor { get; set; } = 2;
 
+  
+
     private GlobalSignals _globalSignals;
     private AnimatedSprite2D _painterAnimation;
 
