@@ -23,8 +23,20 @@ public partial class VBoxAchievementsDisplay : VBoxContainer
         _exitArea.InputEvent += HideAchievementsInput;
         ShowAchievements();
         _optionButton.ItemSelected += UpdateDisplay;
-        
-        
+        DisplayBasedOnCurrentButtonState();
+        VisibilityChanged += OnVisibilityChanged; //when the visiblity change, we update the achievements
+
+
+    }
+
+    private void OnVisibilityChanged()
+    {
+        DisplayBasedOnCurrentButtonState();
+    }
+
+    public void DisplayBasedOnCurrentButtonState()
+    {
+        UpdateDisplay(_optionButton.Selected);
     }
 
     private void UpdateDisplay(long index)
@@ -93,8 +105,12 @@ public partial class VBoxAchievementsDisplay : VBoxContainer
         panel.AddChild(label);
         hboxContainer.AddChild(panel);
         label.Text = achievement.Name;
+        label.HorizontalAlignment = HorizontalAlignment.Center;
+        label.VerticalAlignment = VerticalAlignment.Center;
+        label.SetAnchorsPreset(LayoutPreset.FullRect);
         panel.SizeFlagsHorizontal = SizeFlags.ExpandFill;
         panel.CustomMinimumSize = new Vector2(panel.CustomMinimumSize.X, PanelSize);
+        label.AddThemeFontSizeOverride("font_size", 40);
         
     
 

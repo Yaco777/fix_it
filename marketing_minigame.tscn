@@ -41,7 +41,6 @@ texture = ExtResource("4_ua58b")
 
 [node name="ExitSpriteCollision" type="CollisionShape2D" parent="MarketingGameRect/ExitSprite/ExitSpriteArea"]
 position = Vector2(0.000244141, 7.5)
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_4p4gd")
 
 [node name="ScrollContainer" type="ScrollContainer" parent="MarketingGameRect"]

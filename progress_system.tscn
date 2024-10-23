@@ -37,6 +37,7 @@ texture_progress = ExtResource("2_inc0j")
 tint_under = Color(1, 1, 1, 0.286275)
 
 [node name="AchievementDisplay" type="Control" parent="."]
+visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0

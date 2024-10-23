@@ -54,7 +54,6 @@ metadata/_edit_group_ = true
 
 [node name="ExitSpriteCollision" type="CollisionShape2D" parent="AchievementRect/ExitSprite/ExitSpriteArea"]
 position = Vector2(0.000244141, 7.5)
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_ckeky")
 
 [node name="ScrollContainer" type="ScrollContainer" parent="AchievementRect"]
@@ -83,18 +82,6 @@ size_flags_vertical = 4
 theme_override_constants/separation = 12
 script = ExtResource("2_vhaev")
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="AchievementRect/ScrollContainer/MarginContainer/VBoxAchievementsDisplay"]
-layout_mode = 2
-
-[node name="Panel" type="Panel" parent="AchievementRect/ScrollContainer/MarginContainer/VBoxAchievementsDisplay/HBoxContainer2"]
-custom_minimum_size = Vector2(0, 50)
-layout_mode = 2
-
-[node name="Label" type="Label" parent="AchievementRect/ScrollContainer/MarginContainer/VBoxAchievementsDisplay/HBoxContainer2/Panel"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
-
 [node name="HBoxContainer" type="HBoxContainer" parent="AchievementRect/ScrollContainer/MarginContainer/VBoxAchievementsDisplay"]
 layout_mode = 2
 
@@ -114,6 +101,28 @@ size_flags_horizontal = 3
 text = "Bravo à tous !!!"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="AchievementRect/ScrollContainer/MarginContainer/VBoxAchievementsDisplay"]
+layout_mode = 2
+
+[node name="Panel" type="Panel" parent="AchievementRect/ScrollContainer/MarginContainer/VBoxAchievementsDisplay/HBoxContainer2"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="AchievementRect/ScrollContainer/MarginContainer/VBoxAchievementsDisplay/HBoxContainer2/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Salut"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Panel2" type="Panel" parent="AchievementRect/ScrollContainer/MarginContainer/VBoxAchievementsDisplay/HBoxContainer2"]
+layout_mode = 2
 
 [node name="OptionButton" type="OptionButton" parent="AchievementRect"]
 layout_mode = 0
