@@ -351,10 +351,37 @@ public partial class ProgressSystem : CanvasLayer
     }
 
 
-
-
-    // Called every frame. 'delta' is the elapsed time since the previous frame.
-    public override void _Process(double delta)
+    public List<Achievement> GetUnlockedAchievements()
     {
+        return playerAchievements;
     }
+
+    public List<Achievement> GetAllAchievements()
+    {
+        var list = new List<Achievement>();
+        foreach( var achievements in allAchievements.Values)
+        {
+            foreach(var achievement in achievements)
+            {
+                list.Add(achievement);
+            }
+        }
+        return list;
+    }
+
+    public List<Achievement> GetLockedAchievements()
+    {
+        var list = new List<Achievement>();
+        var allAchievementsList = GetAllAchievements();
+        foreach(var achievement in allAchievementsList)
+        {
+            if(!playerAchievements.Contains(achievement))
+            {
+                list.Add(achievement);
+            }
+        }
+        return list;
+    }
+
+    
 }

@@ -21,7 +21,8 @@ Represent a collectible object. Every collectible have an unique name
     private AudioStreamPlayer _audioPlayer;
     private AudioStreamPlayer _dropSoundPlayer;
     private Sprite2D _sprite;
-
+    private AnimatedSprite2D _collectAnimation;
+    private bool _isRemoving; //tell if the object should not be visible
 
 
     // Called when the node enters the scene tree for the first time.
@@ -32,6 +33,8 @@ Represent a collectible object. Every collectible have an unique name
         //we assign the texture
         _sprite = GetNode<Sprite2D>("CollectibleSprite");
         _sprite.Texture = ObjectTexture;
+        _collectAnimation = GetNode<AnimatedSprite2D>("CollectAnimation");
+        _collectAnimation.Visible = false;
 
 
         //we assign the sound
@@ -44,6 +47,7 @@ Represent a collectible object. Every collectible have an unique name
         //we hide all the labels
         _pickLabel.Visible = false;
         _cannotPickLabel.Visible = false;
+
         if (CollectibleName == "Frog")
         {
             _pickLabel.Text = "[center][color=red] Press [b]E[/b] to scare away: {item_name} [/color][/center]";
@@ -80,20 +84,26 @@ Represent a collectible object. Every collectible have an unique name
     public override void _Process(double delta)
     {
 
-        if (_playerInRange && Input.IsActionJustPressed("interact_with_objects"))
+        if (_playerInRange)
         {
-
+            if(_isRemoving)
+            {
+                return;
+            }
             Hero hero = GetParent().GetNode<Hero>("Hero");
             UpdateDisplay(hero);
 
             //if the hero can pick the item, we play the pickupsound and hide the sprite
-            if (hero.CollectedItemIsNull() && hero.CooldownIsZero())
+            if (hero.CollectedItemIsNull() && hero.CooldownIsZero() && Input.IsActionJustPressed("interact_with_objects"))
             {
                 _pickLabel.Visible = false;
                 _cannotPickLabel.Visible = false;
+                _collectAnimation.Visible = false;
                 hero.CollectItem(CollectibleName);
                 _audioPlayer.Play();
                 _sprite.Visible = false;
+                _isRemoving = true;
+                
 
 
 
@@ -103,6 +113,8 @@ Represent a collectible object. Every collectible have an unique name
 
     }
 
+
+   
     private void OnAudioFinished()
     {
         QueueFree(); // we will delete the object when the pickup item sound will be done
@@ -116,20 +128,26 @@ Represent a collectible object. Every collectible have an unique name
 
         if (_playerInRange)
         {
+            _collectAnimation.Visible = true;
             if (hero.CollectedItemIsNull())
             {
-                _pickLabel.Visible = true;
-                _cannotPickLabel.Visible = false;
+
+                _collectAnimation.Animation = "can_interact";
+                //_pickLabel.Visible = true;
+                //_cannotPickLabel.Visible = false;
 
             }
             else
             {
-                _cannotPickLabel.Visible = true;
-                _pickLabel.Visible = false;
+                _collectAnimation.Animation = "cannot_interact";
+                //_cannotPickLabel.Visible = true;
+                //_pickLabel.Visible = false;
             }
+            _collectAnimation.Play();
         }
         else
         {
+            _collectAnimation.Visible = false;
             //if the player isn't in range, we hide the two labels
             _cannotPickLabel.Visible = false;
             _pickLabel.Visible = false;
@@ -182,7 +200,7 @@ Represent a collectible object. Every collectible have an unique name
 
     public static Texture2D getTextureOfCollectible(string nameOfTheObject)
     {
-        var a = nameOfTheObject switch
+        return nameOfTheObject switch
         {
 
             "Red brush" => (Texture2D)GD.Load("res://building/collectible/red_brush.png"),
@@ -192,6 +210,7 @@ Represent a collectible object. Every collectible have an unique name
             "Frog" => (Texture2D)GD.Load("res://building/collectible/horn.png"), //TODO CHANGE
             _ => throw new ArgumentException("The name of the object is wrong (for applying the texture) " + nameOfTheObject)
         };
+      
     }
 
 }

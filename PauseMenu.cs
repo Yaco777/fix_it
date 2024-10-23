@@ -9,12 +9,17 @@ public partial class PauseMenu : CanvasLayer
     private Button _resumeButton;
     private Button _returnToMainMenu;
     private Button _exitButton;
+    private Button _achievementsButton;
+    private CanvasLayer _achievementsDisplay;
 
     public override void _Ready()
     {
         _resumeButton = GetNode<Button>("VBoxContainer/Resume");
         _exitButton = GetNode<Button>("VBoxContainer/Exit");
         _returnToMainMenu = GetNode<Button>("VBoxContainer/MainMenu");
+        _achievementsButton = GetNode<Button>("VBoxContainer/Achievements");
+        _achievementsDisplay = GetNode<CanvasLayer>("../AchievementsDisplay");
+        _achievementsDisplay.Visible = false;
 
 
 
@@ -23,7 +28,7 @@ public partial class PauseMenu : CanvasLayer
     {
 
    
-        if (Input.IsActionJustPressed("pause_game"))
+        if (Input.IsActionJustPressed("pause_game") && _achievementsDisplay.Visible == false)
         {
             _paused = !_paused;
             Pause();
@@ -71,6 +76,13 @@ public partial class PauseMenu : CanvasLayer
        
         GetTree().ChangeSceneToFile("res://main_menu.tscn");
       
+    }
+
+    public void ShowAchievements()
+    {
+        
+        _achievementsDisplay.Visible = true;
+       
     }
 
 }

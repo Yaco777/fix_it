@@ -23,6 +23,8 @@ public partial class Employee : Node2D
 
     public int NumberOfTimeWorked { get; private set; } = 0; //number of time this employee returned to work
 
+    private AnimatedSprite2D _interactAnimation;
+
 
     [Export]
     public Vector2 SpawnPosition { get; set; } //spawn position of the employee in the building
@@ -61,8 +63,12 @@ public partial class Employee : Node2D
         var area = GetNode<Area2D>("EmployeeArea");
         area.BodyEntered += OnBodyEntered;
         area.BodyExited += OnBodyExited;
-        GD.Print(Position+ "employeeNam : e"+NameOfEmployee);
-     
+        //GD.Print(Position+ "employeeNam : e"+NameOfEmployee);
+        _interactAnimation = GetNode<AnimatedSprite2D>("InteractAnimation");
+        _interactAnimation.ZIndex = 11;
+        _interactAnimation.Visible = false; 
+
+
     }
 
     public void OnBodyEntered(Node2D body)
@@ -72,7 +78,10 @@ public partial class Employee : Node2D
         {
             _playerInRange = true; //we update the variable
             _hero = (Hero)body; //we keep the hero
-            ShowDialogue("[center][color=red] Press [b]E[/b] to interact [/color][/center]");
+            //ShowDialogue("[center][color=red] Press [b]E[/b] to interact [/color][/center]");
+            _interactAnimation.Visible = true;
+            _interactAnimation.Animation = "can_interact";
+            _interactAnimation.Play();
 
         }
     }
@@ -84,7 +93,7 @@ public partial class Employee : Node2D
             _playerInRange = false;
             _hero = null;
             _dialogueLabel.Visible = false; //the player won't be able to see the label if he is far
-
+            _interactAnimation.Visible = false;
 
             //we remove the timer
             if (currentTimerPresent)
@@ -97,6 +106,8 @@ public partial class Employee : Node2D
 
     public override void _Process(double delta)
     {
+
+        
 
         if (_playerInRange && Input.IsActionJustPressed("interact_with_employees") && _hero.CooldownIsZero())
         {
@@ -166,9 +177,13 @@ public partial class Employee : Node2D
         /**
          * Show a dialogue that won't diseppear
          */
-
+        _interactAnimation.Visible = false;
         _dialogueLabel.Text = text;
-        _dialogueLabel.Visible = true;
+        if(_playerInRange)
+        {
+            _dialogueLabel.Visible = true;
+        }
+        
     }
 
     public virtual void Interact(Hero hero)
@@ -232,6 +247,11 @@ public partial class Employee : Node2D
         CallDeferred(nameof(RemoveChildDeferred), timer);
         currentTimerPresent = false; //now we can interact again
         timer.QueueFree();
+        if(_playerInRange)
+        {
+            _interactAnimation.Visible = true;
+        }
+        
 
     }
 

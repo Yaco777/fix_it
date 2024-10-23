@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://b8wyebxsxftek"]
+[gd_scene load_steps=17 format=3 uid="uid://b8wyebxsxftek"]
 
 [ext_resource type="Script" path="res://characters/musicien/Musicien.cs" id="1_l0d7b"]
 [ext_resource type="Texture2D" uid="uid://b7t7nj7fni50h" path="res://characters/musicien/MusicienFace.png" id="1_vds6e"]
@@ -13,6 +13,7 @@
 [ext_resource type="Script" path="res://characters/musicien/Notes.cs" id="6_nwfdn"]
 [ext_resource type="Texture2D" uid="uid://bfuxin7673d8w" path="res://building/effects/note2.png" id="7_mbxbs"]
 [ext_resource type="Texture2D" uid="uid://b8fwrcl0xwkqq" path="res://building/effects/note1.png" id="13_t35h7"]
+[ext_resource type="SpriteFrames" uid="uid://dxvd8we5cp3eh" path="res://spriteAnimationCollect.tres" id="14_08tq7"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_rdvps"]
 animations = [{
@@ -95,3 +96,10 @@ texture = ExtResource("7_mbxbs")
 visible = false
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("13_t35h7")
+
+[node name="InteractAnimation" type="AnimatedSprite2D" parent="."]
+z_index = 11
+position = Vector2(1, -148)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("14_08tq7")
+animation = &"can_interact"

@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://b055q6lnsj1mk"]
+[gd_scene load_steps=10 format=3 uid="uid://b055q6lnsj1mk"]
 
 [ext_resource type="Script" path="res://characters/painter/Painter.cs" id="1_jy6js"]
 [ext_resource type="Texture2D" uid="uid://ces5eks1bhnjx" path="res://characters/painter/PeintrePeint01.png" id="2_283yh"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://diaxeqwl3b703" path="res://characters/painter/PeintrePeint02.png" id="3_0tl8x"]
 [ext_resource type="Texture2D" uid="uid://dkbou64ym56eu" path="res://characters/painter/PeintrePeint03.png" id="4_k3ib5"]
 [ext_resource type="Texture2D" uid="uid://h51amdvfofef" path="res://characters/painter/PeintrePeint04.png" id="5_wm60i"]
+[ext_resource type="SpriteFrames" uid="uid://dxvd8we5cp3eh" path="res://spriteAnimationCollect.tres" id="7_28nr8"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hoq2j"]
 size = Vector2(199, 318)
@@ -61,3 +62,10 @@ sprite_frames = SubResource("SpriteFrames_mitkp")
 animation = &"working"
 frame = 2
 frame_progress = 0.241469
+
+[node name="InteractAnimation" type="AnimatedSprite2D" parent="."]
+z_index = 11
+position = Vector2(1, -148)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("7_28nr8")
+animation = &"can_interact"

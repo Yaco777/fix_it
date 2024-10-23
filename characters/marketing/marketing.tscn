@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://cmpmyoh2setes"]
+[gd_scene load_steps=6 format=3 uid="uid://cmpmyoh2setes"]
 
 [ext_resource type="Texture2D" uid="uid://dgeexyx2cit4b" path="res://characters/musicien/MusicienFace01.png" id="1_5v3ru"]
 [ext_resource type="Script" path="res://characters/marketing/Marketing.cs" id="1_pihcc"]
 [ext_resource type="PackedScene" uid="uid://c6kup0modcr05" path="res://marketing_minigame.tscn" id="3_27ru2"]
+[ext_resource type="SpriteFrames" uid="uid://dxvd8we5cp3eh" path="res://spriteAnimationCollect.tres" id="4_kompq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3ukut"]
 size = Vector2(199, 318)
@@ -30,3 +31,10 @@ text = "HIIII"
 
 [node name="MarketingMinigame" parent="." instance=ExtResource("3_27ru2")]
 visible = false
+
+[node name="InteractAnimation" type="AnimatedSprite2D" parent="."]
+z_index = 11
+position = Vector2(1, -148)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("4_kompq")
+animation = &"can_interact"

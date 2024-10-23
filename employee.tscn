@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://kxbt3ofkmtd1"]
+[gd_scene load_steps=4 format=3 uid="uid://kxbt3ofkmtd1"]
 
 [ext_resource type="Script" path="res://Employee.cs" id="1_ve25y"]
+[ext_resource type="SpriteFrames" uid="uid://dxvd8we5cp3eh" path="res://spriteAnimationCollect.tres" id="2_i3gxa"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g8rmv"]
 size = Vector2(265, 274)
@@ -24,6 +25,12 @@ offset_right = 148.0
 offset_bottom = -118.0
 bbcode_enabled = true
 text = "[center][color=red] Press [b]E[/b] to interact [/color][/center]"
+
+[node name="InteractAnimation" type="AnimatedSprite2D" parent="."]
+position = Vector2(1, -148)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("2_i3gxa")
+animation = &"can_interact"
 
 [connection signal="body_entered" from="EmployeeArea" to="." method="OnBodyEntered"]
 [connection signal="body_exited" from="EmployeeArea" to="." method="OnBodyExited"]

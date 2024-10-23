@@ -23,7 +23,7 @@ public partial class VBoxMarketingGame : VBoxContainer
 
     private Button _validateButton;
 
-    private Button _giveUpButton;
+    private Area2D _exitArea;
 
     private GlobalSignals _globalSignals;
 
@@ -32,6 +32,7 @@ public partial class VBoxMarketingGame : VBoxContainer
     private AudioStreamPlayer _successPlayer;
 
     private Panel _marketingGamePanel;
+
 
     [Export]
 
@@ -51,9 +52,9 @@ public partial class VBoxMarketingGame : VBoxContainer
     {
         _validateButton = GetNode<Button>("CenterContainer/Validate");
         _validateButton.Pressed += CheckAnswers;
-        _giveUpButton = GetNode<Button>("../../../GiveUp");
+        _exitArea = GetNode<Area2D>("../../../ExitSprite/ExitSpriteArea");
         _globalSignals = GetNode<GlobalSignals>("../../../../../../../GlobalSignals");
-        _giveUpButton.Pressed += GiveUp;
+        _exitArea.InputEvent += GiveUp;
         _failurePlayer = GetNode<AudioStreamPlayer>("Failure");
         _successPlayer = GetNode<AudioStreamPlayer>("Success");
         _marketingGamePanel = GetNode<Panel>("../../..");
@@ -62,8 +63,11 @@ public partial class VBoxMarketingGame : VBoxContainer
         
     }
 
+    
+
     public void ResetAll()
     {
+        Input.MouseMode = Input.MouseModeEnum.Visible;
         ResetPanelColor();
         //we first remove all the HBoxContainer
         foreach (var child in GetChildren())
@@ -177,7 +181,7 @@ public partial class VBoxMarketingGame : VBoxContainer
 
             _successPlayer.Play();
             _globalSignals.EmitMarketingMinigameSuccess();
-            GiveUp(); //we use the give up method to hide the canvas
+            HideGame(); //we hide the game
             //ChangePanelColor(new Color(0, 1, 0));
             ResetAll();
         }
@@ -226,16 +230,34 @@ public partial class VBoxMarketingGame : VBoxContainer
     {
         // Reset the panel background to a neutral color (e.g., white or transparent)
         ChangePanelColor(DefaultBackgroundColor); // Transparent by default, or choose another color
+
     }
 
-    private void GiveUp()
+    private void GiveUp(Node viewport, InputEvent @event, long shapeIdx)
     {
         /**
          * Hide the canvas layer
          */
+        if (@event is InputEventMouseButton mouseEvent && mouseEvent.Pressed)
+        {
+            
+            // we check that it's a left click
+            if (mouseEvent.ButtonIndex == MouseButton.Left)
+            {
+                HideGame();  
+            }
+        }
+        
+    }
+
+    private void HideGame()
+    {
         var marketingGame = GetNode<CanvasLayer>("../../../..");
         marketingGame.Visible = false;
+        Input.MouseMode = Input.MouseModeEnum.Captured;
     }
+
+   
 
 
 

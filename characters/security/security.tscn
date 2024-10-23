@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://bcqdyx3wy771g"]
+[gd_scene load_steps=6 format=3 uid="uid://bcqdyx3wy771g"]
 
 [ext_resource type="Texture2D" uid="uid://dgeexyx2cit4b" path="res://characters/musicien/MusicienFace01.png" id="1_6luk5"]
 [ext_resource type="Script" path="res://characters/security/Security.cs" id="1_viv4g"]
 [ext_resource type="AudioStream" uid="uid://3yn40q6ss0ia" path="res://audio/alert.mp3" id="2_d28o1"]
+[ext_resource type="SpriteFrames" uid="uid://dxvd8we5cp3eh" path="res://spriteAnimationCollect.tres" id="4_jj4sw"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ox7ii"]
 size = Vector2(199, 318)
@@ -30,3 +31,9 @@ text = "HIIII"
 
 [node name="Alert" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("2_d28o1")
+
+[node name="InteractAnimation" type="AnimatedSprite2D" parent="."]
+position = Vector2(1, -148)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("4_jj4sw")
+animation = &"can_interact"

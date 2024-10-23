@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://fbolxmgf0o2k"]
+[gd_scene load_steps=12 format=3 uid="uid://fbolxmgf0o2k"]
 
 [ext_resource type="Texture2D" uid="uid://dsger6s3udj5a" path="res://characters/musicien/MusicienSleeping.png" id="1_4tyga"]
 [ext_resource type="Script" path="res://characters/technicien/Technicien.cs" id="1_xc8k4"]
@@ -8,6 +8,7 @@
 [ext_resource type="AudioStream" uid="uid://d16d3krfnjbu" path="res://audio/light_turn_off.mp3" id="3_e52bi"]
 [ext_resource type="Texture2D" uid="uid://dpkcsfe5tc87j" path="res://characters/musicien/MusicienFace03.png" id="4_vo8i6"]
 [ext_resource type="Texture2D" uid="uid://dtc1du44xdhi1" path="res://characters/musicien/MusicienFace04.png" id="5_iru5p"]
+[ext_resource type="SpriteFrames" uid="uid://dxvd8we5cp3eh" path="res://spriteAnimationCollect.tres" id="9_owf4v"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_vtjic"]
 animations = [{
@@ -66,3 +67,10 @@ text = "HIIII"
 [node name="LightOnSound" type="AudioStreamPlayer" parent="."]
 
 [node name="LightOffSound" type="AudioStreamPlayer" parent="."]
+
+[node name="InteractAnimation" type="AnimatedSprite2D" parent="."]
+z_index = 11
+position = Vector2(1, -148)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("9_owf4v")
+animation = &"can_interact"

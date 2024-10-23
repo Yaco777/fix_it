@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://bqavjipbvgds2"]
+[gd_scene load_steps=6 format=3 uid="uid://bqavjipbvgds2"]
 
 [ext_resource type="Texture2D" uid="uid://c1ivtn4kytex7" path="res://building/collectible/horn.png" id="1_8nsx7"]
 [ext_resource type="Script" path="res://Collectible.cs" id="1_ne2md"]
 [ext_resource type="AudioStream" uid="uid://dnkdwm138cqng" path="res://audio/drop_item.mp3" id="3_vkshq"]
+[ext_resource type="SpriteFrames" uid="uid://dxvd8we5cp3eh" path="res://spriteAnimationCollect.tres" id="4_gldy5"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_agpj4"]
 size = Vector2(218, 163)
@@ -40,6 +41,12 @@ text = "[center][color=red]You already have an item [/color][/center]"
 
 [node name="DropSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_vkshq")
+
+[node name="CollectAnimation" type="AnimatedSprite2D" parent="."]
+position = Vector2(2, -71)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("4_gldy5")
+animation = &"cannot_interact"
 
 [connection signal="body_entered" from="." to="." method="OnBodyEntered"]
 [connection signal="body_exited" from="." to="." method="OnBodyExited"]

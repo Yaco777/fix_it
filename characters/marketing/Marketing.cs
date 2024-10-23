@@ -61,6 +61,7 @@ public partial class Marketing : Employee
         if (CurrentState == EmployeeState.NotWorking && _miniGameSuccess == false)
         {
             _marketingMinigame.Visible = true;
+            Input.MouseMode = Input.MouseModeEnum.Visible;
 
         }
         else if (CurrentState == EmployeeState.NotWorking && _miniGameSuccess == true)

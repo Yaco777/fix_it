@@ -1,0 +1,132 @@
+[gd_scene load_steps=5 format=3 uid="uid://muqjui1qrko3"]
+
+[ext_resource type="Texture2D" uid="uid://bfjs7ynu8dk13" path="res://building/effects/delete.png" id="1_ulguj"]
+[ext_resource type="Script" path="res://VBoxAchievementsDisplay.cs" id="2_vhaev"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xv24h"]
+resource_local_to_scene = true
+bg_color = Color(0.45819, 0.641672, 0.627229, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+corner_radius_top_left = 40
+corner_radius_top_right = 40
+corner_radius_bottom_right = 40
+corner_radius_bottom_left = 40
+shadow_color = Color(0.305217, 0.194847, 1, 0.6)
+shadow_size = 5
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ckeky"]
+size = Vector2(730, 645)
+
+[node name="AchievementsDisplay" type="CanvasLayer"]
+
+[node name="AchievementRect" type="Panel" parent="."]
+z_index = 5
+offset_left = 129.0
+offset_top = 28.0
+offset_right = 1808.0
+offset_bottom = 1036.0
+size_flags_horizontal = 3
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_xv24h")
+
+[node name="Label" type="Label" parent="AchievementRect"]
+layout_mode = 0
+offset_left = 237.0
+offset_top = -3.0
+offset_right = 1442.0
+offset_bottom = 134.0
+theme_override_font_sizes/font_size = 100
+text = "SUCCESS"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ExitSprite" type="Sprite2D" parent="AchievementRect"]
+z_index = 10
+position = Vector2(93.0001, 75)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("1_ulguj")
+metadata/_edit_group_ = true
+
+[node name="ExitSpriteArea" type="Area2D" parent="AchievementRect/ExitSprite"]
+
+[node name="ExitSpriteCollision" type="CollisionShape2D" parent="AchievementRect/ExitSprite/ExitSpriteArea"]
+position = Vector2(0.000244141, 7.5)
+scale = Vector2(1, 1)
+shape = SubResource("RectangleShape2D_ckeky")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="AchievementRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 181.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="AchievementRect/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxAchievementsDisplay" type="VBoxContainer" parent="AchievementRect/ScrollContainer/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/separation = 12
+script = ExtResource("2_vhaev")
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="AchievementRect/ScrollContainer/MarginContainer/VBoxAchievementsDisplay"]
+layout_mode = 2
+
+[node name="Panel" type="Panel" parent="AchievementRect/ScrollContainer/MarginContainer/VBoxAchievementsDisplay/HBoxContainer2"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="AchievementRect/ScrollContainer/MarginContainer/VBoxAchievementsDisplay/HBoxContainer2/Panel"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="AchievementRect/ScrollContainer/MarginContainer/VBoxAchievementsDisplay"]
+layout_mode = 2
+
+[node name="Panel" type="Panel" parent="AchievementRect/ScrollContainer/MarginContainer/VBoxAchievementsDisplay/HBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="AchievementRect/ScrollContainer/MarginContainer/VBoxAchievementsDisplay/HBoxContainer/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+text = "Bravo à tous !!!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="OptionButton" type="OptionButton" parent="AchievementRect"]
+layout_mode = 0
+offset_left = 1158.0
+offset_top = 9.0
+offset_right = 1601.0
+offset_bottom = 128.0
+theme_override_font_sizes/font_size = 60
+alignment = 1
+selected = 0
+item_count = 3
+popup/item_0/text = "All"
+popup/item_1/text = "Locked"
+popup/item_1/id = 1
+popup/item_2/text = "Unlocked"
+popup/item_2/id = 2

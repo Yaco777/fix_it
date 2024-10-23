@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://c6kup0modcr05"]
+[gd_scene load_steps=7 format=3 uid="uid://c6kup0modcr05"]
 
 [ext_resource type="Script" path="res://VBoxMarketingGame.cs" id="1_i2tc2"]
 [ext_resource type="AudioStream" uid="uid://mr7p1jaqesur" path="res://audio/failure_marketing_game.mp3" id="2_7koyp"]
 [ext_resource type="AudioStream" uid="uid://ctgfy2s672by8" path="res://audio/success_marketing_game.mp3" id="3_fq0jh"]
+[ext_resource type="Texture2D" uid="uid://bfjs7ynu8dk13" path="res://building/effects/delete.png" id="4_ua58b"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s0t5p"]
 resource_local_to_scene = true
@@ -18,13 +19,30 @@ corner_radius_bottom_left = 40
 shadow_color = Color(0.305217, 0.194847, 1, 0.6)
 shadow_size = 5
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4p4gd"]
+size = Vector2(730, 645)
+
 [node name="MarketingMinigame" type="CanvasLayer"]
 
 [node name="MarketingGameRect" type="Panel" parent="."]
 offset_right = 911.0
 offset_bottom = 778.0
 size_flags_horizontal = 3
+mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_s0t5p")
+
+[node name="ExitSprite" type="Sprite2D" parent="MarketingGameRect"]
+z_index = 10
+position = Vector2(789, 67)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("4_ua58b")
+
+[node name="ExitSpriteArea" type="Area2D" parent="MarketingGameRect/ExitSprite"]
+
+[node name="ExitSpriteCollision" type="CollisionShape2D" parent="MarketingGameRect/ExitSprite/ExitSpriteArea"]
+position = Vector2(0.000244141, 7.5)
+scale = Vector2(1, 1)
+shape = SubResource("RectangleShape2D_4p4gd")
 
 [node name="ScrollContainer" type="ScrollContainer" parent="MarketingGameRect"]
 layout_mode = 1
@@ -67,11 +85,4 @@ stream = ExtResource("2_7koyp")
 [node name="Success" type="AudioStreamPlayer" parent="MarketingGameRect/ScrollContainer/MarginContainer/VBoxMarketingGame"]
 stream = ExtResource("3_fq0jh")
 
-[node name="GiveUp" type="Button" parent="MarketingGameRect"]
-layout_mode = 0
-offset_left = 673.0
-offset_top = 14.0
-offset_right = 895.0
-offset_bottom = 106.0
-theme_override_font_sizes/font_size = 40
-text = "Give up"
+[connection signal="input_event" from="MarketingGameRect/ExitSprite/ExitSpriteArea" to="MarketingGameRect/ScrollContainer/MarginContainer/VBoxMarketingGame" method="GiveUp"]
