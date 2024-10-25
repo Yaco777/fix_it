@@ -8,7 +8,7 @@ public partial class ProgressSystem : CanvasLayer
     private Dictionary<Employee, List<Achievement>> allAchievements = new Dictionary<Employee, List<Achievement>>();
     //all achievements of the game
     private List<Employee> allEmployees = new List<Employee>();
-    private int totalStars = 0;
+    public int TotalStars { get; set; } = 0;
     private TextureProgressBar _starsProgressBar; //the circular progress bar
     private ProgressBar _totalProgressBar; //the global progress bar
     private AchievementDisplay _achievementDisplay; //shown when the player get an achievements
@@ -205,11 +205,6 @@ public partial class ProgressSystem : CanvasLayer
         var achivements = allAchievements[employee];
         foreach (Achievement achievement in achivements)
         {
-            if (employee.NameOfEmployee == "Painter")
-            {
-                var a = (Painter)employee;
-
-            }
             //if the achievement is completed, we will add it to the queue
             if (!playerAchievements.Contains(achievement) && achievement.IsCompleted())
             {
@@ -242,6 +237,7 @@ public partial class ProgressSystem : CanvasLayer
         {
             playerAchievements.Add(achievement);
             AnimateProgress(achievement.NumberOfStars, _starsProgressBar);
+            TotalStars += achievement.NumberOfStars;
             _achievementDisplay.ShowAchievement(achievement);
             _starsPlayer.Play();
             _currentAmountsOfStars += achievement.NumberOfStars;
@@ -383,5 +379,8 @@ public partial class ProgressSystem : CanvasLayer
         return list;
     }
 
-    
+    internal void looseStars(int amountStarsRequired)
+    {
+        GD.Print("à faire !! Le joueur est censé avoir perdu : " + amountStarsRequired);
+    }
 }

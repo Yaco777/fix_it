@@ -252,11 +252,12 @@ public partial class Hero : CharacterBody2D
 
     public override void _PhysicsProcess(double delta)
     {
-        var velocity = Vector2.Zero; 
-        
+        var velocity = Vector2.Zero;
+        MoveAndSlide();
 
-     
-        if(_actionCooldown > 0)
+
+
+        if (_actionCooldown > 0)
         {
             _actionCooldown--;
         }
@@ -276,6 +277,8 @@ public partial class Hero : CharacterBody2D
         {
             velocity = MoveLeftRight(velocity);
         }
+
+        
 
         //update the position of the player
         Position += velocity * (float)delta;

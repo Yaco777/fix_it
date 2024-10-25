@@ -1,0 +1,55 @@
+[gd_scene load_steps=7 format=3 uid="uid://bwfino3o4gmoy"]
+
+[ext_resource type="Texture2D" uid="uid://crkbv1gws7a8n" path="res://building/mainRoom.png" id="1_8nfre"]
+[ext_resource type="Script" path="res://Room.cs" id="1_cuf1k"]
+[ext_resource type="SpriteFrames" uid="uid://dxvd8we5cp3eh" path="res://spriteAnimationCollect.tres" id="3_2p6ax"]
+[ext_resource type="AudioStream" uid="uid://dmu5v77dm8mxk" path="res://audio/room_unlocked.mp3" id="4_og5wj"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fgug5"]
+size = Vector2(2490, 1326.67)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uiu4r"]
+size = Vector2(1172, 673)
+
+[node name="Room" type="Node2D"]
+position = Vector2(872, 492)
+script = ExtResource("1_cuf1k")
+
+[node name="RoomSprite" type="Sprite2D" parent="."]
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("1_8nfre")
+
+[node name="RoomUnlock" type="Area2D" parent="."]
+scale = Vector2(0.6, 0.6)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RoomUnlock"]
+position = Vector2(-15, -26.6667)
+shape = SubResource("RectangleShape2D_fgug5")
+
+[node name="StaticBodyHitBox" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBodyHitBox"]
+position = Vector2(2, 1.5)
+shape = SubResource("RectangleShape2D_uiu4r")
+
+[node name="InteractAnimation" type="AnimatedSprite2D" parent="."]
+z_index = 11
+position = Vector2(1, -148)
+scale = Vector2(0.2, 0.2)
+sprite_frames = ExtResource("3_2p6ax")
+animation = &"can_interact"
+
+[node name="UnlockPlayer" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_og5wj")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="UnlockLabel" type="Label" parent="CanvasLayer"]
+offset_left = 506.0
+offset_top = 20.0
+offset_right = 1603.0
+offset_bottom = 119.0
+theme_override_font_sizes/font_size = 40
+text = "Do you want to unlock this room? Price = {amount} stars;"
+horizontal_alignment = 1
+vertical_alignment = 1
