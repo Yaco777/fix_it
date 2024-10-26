@@ -43,6 +43,7 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("4_affpk")
+AchievementDisplayTime = 6.0
 
 [node name="AchievementRect" type="ColorRect" parent="AchievementDisplay"]
 layout_mode = 0

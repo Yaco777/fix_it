@@ -7,8 +7,6 @@ public partial class Room : Node2D
      * Represent a room with two area : one used to detect the interaction and the other one to prevent the player to enter the room (if the room isn't unlocked)
      */
 
-    [Export]
-    public float NoiseOpacity = 0.2f;
     [Export] public Texture2D ObjectTexture { get; set; }
 
 
@@ -35,6 +33,7 @@ public partial class Room : Node2D
     private AudioStreamPlayer2D _unlockPlayer; //sound played when the player unlock the room
 
     private Sprite2D _roomSprite;
+
 
     private enum State
     {

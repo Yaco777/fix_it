@@ -228,6 +228,18 @@ public partial class ProgressSystem : CanvasLayer
          */
         if (achievementQueue.Count == 0)
         {
+            GetTree().CreateTimer(WaitTimeBeforeLevelUp).Timeout += () =>
+            {
+
+                if (_starsProgressBar.Value >= _starsProgressBar.MaxValue)
+                {
+                    //if yes, we call the increase level method
+                    
+                    IncreaseLevel();
+                }
+
+
+            };
             return;
         }
 
@@ -249,7 +261,7 @@ public partial class ProgressSystem : CanvasLayer
 
         GetTree().CreateTimer(WaitTimeBeforeNextAchievement).Timeout += () =>
         {
-            if (achievementQueue.Count > 0)
+            if (achievementQueue.Count >= 0)
             {
                 ShowAllAchievements();
 
@@ -257,18 +269,7 @@ public partial class ProgressSystem : CanvasLayer
         };
 
 
-        GetTree().CreateTimer(WaitTimeBeforeLevelUp).Timeout += () =>
-        {
-
-            if (_starsProgressBar.Value >= _starsProgressBar.MaxValue)
-            {
-                //if yes, we call the increase level method
-                _totalProgressPlayer.Play();
-                IncreaseLevel();
-            }
-
-
-        };
+        
 
 
 
@@ -292,6 +293,7 @@ public partial class ProgressSystem : CanvasLayer
         {
             AnimateProgress((int)-(_starsProgressBar.Value), _starsProgressBar);
         }
+        _totalProgressPlayer.Play();
         _currentAmountsOfStars = 0;
         AnimateProgress(20, _totalProgressBar);
 
@@ -304,7 +306,7 @@ public partial class ProgressSystem : CanvasLayer
     {
         if (isTweening)
         {
-            // Si une animation est en cours, on ajoute simplement à la file d'attente
+            // if an animation is going, we add it in the queue
             animationQueue.Enqueue((stars, node));
             return;
         }
@@ -328,14 +330,13 @@ public partial class ProgressSystem : CanvasLayer
         {
             isTweening = false;
 
-            // On vérifie si la barre des étoiles a atteint le maximum
+            // we check if we have reached the maximum stars value
             if (node == _starsProgressBar && node.Value >= _starsProgressBar.MaxValue)
             {
-                _totalProgressPlayer.Play();
                 IncreaseLevel();
             }
 
-            // Si des animations sont en attente, on traite la suivante
+            // we animate the next animation
             if (animationQueue.Count > 0)
             {
                 var nextAnimation = animationQueue.Dequeue();

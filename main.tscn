@@ -56,11 +56,11 @@ position = Vector2(2393, 356)
 [node name="Painter" parent="Employees" instance=ExtResource("6_k8bna")]
 position = Vector2(188, 345)
 
-[node name="Security" parent="Employees" instance=ExtResource("10_8mm32")]
-position = Vector2(2469, -114)
-
 [node name="Marketing" parent="Employees" instance=ExtResource("11_5c6um")]
 position = Vector2(2670, 108)
+
+[node name="Security" parent="Employees" instance=ExtResource("10_8mm32")]
+position = Vector2(1247, 691)
 
 [node name="GlobalSignals" type="Node2D" parent="."]
 script = ExtResource("7_shkg7")
