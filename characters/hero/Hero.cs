@@ -253,7 +253,7 @@ public partial class Hero : CharacterBody2D
     public override void _PhysicsProcess(double delta)
     {
         var velocity = Vector2.Zero;
-        MoveAndSlide();
+        
 
 
 
@@ -292,6 +292,7 @@ public partial class Hero : CharacterBody2D
         {
             DropItem();
         }
+        MoveAndSlide(); //we block the player if he try to enter a room hitbox
     }
 
     // when the player enter the area2D of a ladder

@@ -46,7 +46,6 @@ texture = ExtResource("5_s2ysv")
 
 [node name="FirstRoom" parent="Building/Rooms" instance=ExtResource("7_m7rb8")]
 position = Vector2(1330, -2564)
-ObjectTexture = ExtResource("5_oceu3")
 
 [node name="Employees" type="Node2D" parent="."]
 
