@@ -282,10 +282,7 @@ public partial class Hero : CharacterBody2D
 
         //update the position of the player
         Position += velocity * (float)delta;
-        Position = new Vector2(
-            x: Mathf.Clamp(Position.X, 0, ScreenSize.X),
-            y: Mathf.Clamp(Position.Y, 0, ScreenSize.Y)
-        );
+        
 
         //drop the item
         if (Input.IsActionJustPressed("drop_item") && _actionCooldown == 0 && _collectedItem != null)

@@ -27,12 +27,16 @@ public partial class Tutorial : Node2D
     public string SixthMessage { get; set; } = "Fin";
 
     [Export]
-    public int TimeBeforeMusicienSleep { get; set; } = 10;
+    public int TimeBeforeMusicienSleep { get; set; } = 10; //time that the player need to wait before the horn appear
 
     [Export]
     public float MoveDistanceRequiredX { get; set; } = 300; //distance for the first goal (go to the right)
 
     private float _moveDistanceRequiredY = 40; //distance required for the ladder
+
+    [Export]
+
+    public int YMargin { get; set; } = 175; //margin used to move the musicien and the horn
 
     private Hero _hero;
 
@@ -122,7 +126,7 @@ public partial class Tutorial : Node2D
             _label.Text = ForthMessage;
             _state = State.WaitForMusicien;
             _musicien = GetNode<Musicien>("Employees/Musicien");
-            _musicien.Position = new Vector2(_musicien.Position.X, _musicien.Position.Y + 50);
+            _musicien.Position = new Vector2(_musicien.Position.X, _musicien.Position.Y + YMargin);
             _musicien.StopWorkProbability = 0;
             _timer.Start(); //the musicien will stop to work
             var achievement = new Achievement("Room unlocked", "You unlocked your first room", 10, () => (1 == 1));
@@ -144,6 +148,7 @@ public partial class Tutorial : Node2D
         
     }
 
+    //when the timeout end we add the horn to the game
     private void OnTimerTimeout()
     {
         if (_musicien != null)
@@ -153,7 +158,7 @@ public partial class Tutorial : Node2D
             _musicien.StopWorking();
             var horn = Collectible.CreateCollectible("Horn");
             horn.Position = _musicienRoom.Position;
-            horn.Position = new Vector2(horn.Position.X - 500, horn.Position.Y + 50);
+            horn.Position = new Vector2(horn.Position.X - 500, horn.Position.Y + YMargin);
             AddChild(horn);
      
         }

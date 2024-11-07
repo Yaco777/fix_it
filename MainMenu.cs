@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 
 public partial class MainMenu : Control
 {
@@ -24,21 +25,32 @@ public partial class MainMenu : Control
         
         Button playButton = GetNode<Button>("PlayButton");
         Button quitButton = GetNode<Button>("QuitButton");
+        Button tutorialButton = GetNode<Button>("TutorialButton");
+        List<Button> buttons = new List<Button>();
+        buttons.Add(playButton);
+        buttons.Add(quitButton);
+        buttons.Add(tutorialButton);
 
-        // Set pivot to the center for both buttons
+        
         CenterButtonPivot(playButton);
         CenterButtonPivot(quitButton);
 
       
         playButton.Pressed += PlayGame;
         quitButton.Pressed += QuitGame;
+        tutorialButton.Pressed += StartTutorial;
 
         // Connect mouse enter/exit signals for hover effects
-        playButton.MouseEntered += () => AnimateButton(playButton, new Vector2(OnHoverIncreaseX, OnHoverIncreaseY)); 
-        playButton.MouseExited += () => AnimateButton(playButton, new Vector2(1.0f, 1.0f));
+        foreach (var button in buttons)
+        {
+            button.MouseEntered += () => AnimateButton(button, new Vector2(OnHoverIncreaseX, OnHoverIncreaseY));
+            button.MouseExited += () => AnimateButton(button, new Vector2(1.0f, 1.0f));
 
-        quitButton.MouseEntered += () => AnimateButton(quitButton, new Vector2(OnHoverIncreaseX, OnHoverIncreaseY)); 
-        quitButton.MouseExited += () => AnimateButton(quitButton, new Vector2(1.0f, 1.0f));
+            // Set pivot to the center for the button
+            CenterButtonPivot(button);
+        }
+
+
     }
 
     
@@ -58,7 +70,12 @@ public partial class MainMenu : Control
         button.PivotOffset = button.Size / 2;
     }
 
-    public void PlayGame()
+    private void StartTutorial()
+    {
+        GetTree().ChangeSceneToFile("res://tutorial.tscn");
+    }
+
+    private void PlayGame()
     {
         //method used to play the game
         foreach (Node child in GetChildren())
@@ -72,9 +89,8 @@ public partial class MainMenu : Control
         
     }
 
-    
 
-    public void QuitGame()
+    private void QuitGame()
     {
         //method used to quit the game
         

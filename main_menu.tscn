@@ -19,17 +19,26 @@ texture = ExtResource("2_akqs3")
 [node name="PlayButton" type="Button" parent="."]
 layout_mode = 0
 offset_left = 600.0
-offset_top = 100.0
-offset_right = 1500.0
-offset_bottom = 500.0
+offset_top = 150.0
+offset_right = 1300.0
+offset_bottom = 377.0
 theme_override_font_sizes/font_size = 160
 text = "Play"
+
+[node name="TutorialButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 600.0
+offset_top = 450.0
+offset_right = 1300.0
+offset_bottom = 677.0
+theme_override_font_sizes/font_size = 160
+text = "Tutorial"
 
 [node name="QuitButton" type="Button" parent="."]
 layout_mode = 0
 offset_left = 600.0
-offset_top = 600.0
-offset_right = 1500.0
-offset_bottom = 1000.0
+offset_top = 750.0
+offset_right = 1300.0
+offset_bottom = 950.0
 theme_override_font_sizes/font_size = 140
 text = "Quit"
