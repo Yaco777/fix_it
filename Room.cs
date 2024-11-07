@@ -14,9 +14,11 @@ public partial class Room : Node2D
 
     [Export] public string NotEnoughStarsMessage { get; set; } = "Not enough stars!";
 
+    [Export] public string EmployeeUnlockedName {  get; set; }
+
     private bool _playerInRange = false;
 
-    private bool _hasUnlockedRoom = false;
+    public bool _hasUnlockedRoom = false; // need to be public for the tutorial
 
     private AnimatedSprite2D _interactAnimation;
 
@@ -33,6 +35,7 @@ public partial class Room : Node2D
     private AudioStreamPlayer2D _unlockPlayer; //sound played when the player unlock the room
 
     private Sprite2D _roomSprite;
+
 
 
     private enum State
@@ -118,6 +121,26 @@ public partial class Room : Node2D
         _interactAnimation.Visible = false;
         _unlockLabel.Visible = false;
         _state = State.Unlocked;
+        _hasUnlockedRoom = true;
+        AddNewEmployee();
+    }
+
+    private void AddNewEmployee()
+    {
+        var employee = EmployeeUnlockedName switch
+        {
+            "Musicien" => GD.Load<PackedScene>("res://characters/musicien/musicien.tscn"),
+            "Technicien" => GD.Load<PackedScene>("res://characters/technicien/technicien.tscn"),
+            "Painter" => GD.Load<PackedScene>("res://characters/painter/painter.tscn"),
+            "Marketing" => GD.Load<PackedScene>("res://characters/marketing/marketing.tscn"),
+            "Security" => GD.Load<PackedScene>("res://characters/security/security.tscn"),
+            _ => throw new ArgumentException("The room need to add the employee " + EmployeeUnlockedName + " but it's not possible")
+        };
+
+        var instance = (Employee) employee.Instantiate();
+        instance.Position = Position;
+        instance.Name = EmployeeUnlockedName;
+        GetParent().GetParent().GetParent().GetNode<Node2D>("Employees").AddChild(instance);
     }
 
     private void NotEnoughStars()

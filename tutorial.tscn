@@ -1,0 +1,115 @@
+[gd_scene load_steps=13 format=3 uid="uid://mfnpdhrqompe"]
+
+[ext_resource type="Script" path="res://Tutorial.cs" id="1_2apxj"]
+[ext_resource type="PackedScene" uid="uid://lm01vdyu1xgl" path="res://characters/hero/hero.tscn" id="1_tuugu"]
+[ext_resource type="PackedScene" uid="uid://bws7e6gipvnq3" path="res://ui.tscn" id="2_3i2sq"]
+[ext_resource type="Script" path="res://GlobalSignals.cs" id="3_pha6g"]
+[ext_resource type="PackedScene" uid="uid://dwdwl1d6gut1r" path="res://pause_menu.tscn" id="4_obsp5"]
+[ext_resource type="PackedScene" uid="uid://muqjui1qrko3" path="res://achievements_display.tscn" id="5_egb66"]
+[ext_resource type="PackedScene" uid="uid://bi2r111jr3iak" path="res://ladder.tscn" id="6_gm1e6"]
+[ext_resource type="Script" path="res://Building.cs" id="6_o3uil"]
+[ext_resource type="Texture2D" uid="uid://d3euoal1sakgo" path="res://building/building.png" id="7_8y43w"]
+[ext_resource type="PackedScene" uid="uid://bwfino3o4gmoy" path="res://room.tscn" id="10_i8mq2"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3uupg"]
+size = Vector2(1754, 31)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_api7b"]
+size = Vector2(452, 21)
+
+[node name="Tutorial" type="Node2D"]
+position = Vector2(0, 1)
+script = ExtResource("1_2apxj")
+
+[node name="Hero" parent="." instance=ExtResource("1_tuugu")]
+z_index = 10
+position = Vector2(149, 901)
+
+[node name="Camera2D" type="Camera2D" parent="Hero"]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+offset_top = 809.0
+offset_right = 1935.0
+offset_bottom = 1081.0
+metadata/_edit_use_anchors_ = true
+
+[node name="TutorialLabel" type="Label" parent="CanvasLayer/ColorRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 80
+text = "Jello"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+metadata/_edit_use_anchors_ = true
+
+[node name="UI" parent="." instance=ExtResource("2_3i2sq")]
+
+[node name="GlobalSignals" type="Node2D" parent="."]
+script = ExtResource("3_pha6g")
+
+[node name="PauseMenu" parent="." instance=ExtResource("4_obsp5")]
+visible = false
+
+[node name="AchievementsDisplay" parent="." instance=ExtResource("5_egb66")]
+process_mode = 3
+visible = false
+
+[node name="Building" type="Node2D" parent="."]
+script = ExtResource("6_o3uil")
+
+[node name="Ladders" type="Node2D" parent="Building"]
+
+[node name="Ladder1" parent="Building/Ladders" instance=ExtResource("6_gm1e6")]
+z_index = 5
+position = Vector2(952, 879)
+
+[node name="Sprite2D" type="Sprite2D" parent="Building"]
+visible = false
+position = Vector2(509, -61)
+scale = Vector2(8, 8)
+texture = ExtResource("7_8y43w")
+
+[node name="Floors" type="Node2D" parent="Building"]
+
+[node name="Floor1" type="Area2D" parent="Building/Floors"]
+position = Vector2(216, 1059)
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Building/Floors/Floor1"]
+shape = SubResource("RectangleShape2D_3uupg")
+
+[node name="Floor3" type="Area2D" parent="Building/Floors"]
+position = Vector2(2428, -3636)
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Building/Floors/Floor3"]
+shape = SubResource("RectangleShape2D_3uupg")
+
+[node name="Roofs" type="Node2D" parent="Building"]
+
+[node name="Roof1" type="Area2D" parent="Building/Roofs"]
+position = Vector2(1224, -103)
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Building/Roofs/Roof1"]
+position = Vector2(5, 0.5)
+shape = SubResource("RectangleShape2D_api7b")
+
+[node name="ItemsGenerationArea" type="Node2D" parent="Building"]
+
+[node name="Rooms" type="Node2D" parent="Building"]
+
+[node name="Room" parent="Building/Rooms" instance=ExtResource("10_i8mq2")]
+position = Vector2(1760, 393)
+AmountStarsRequired = 0
+EmployeeUnlockedName = "Musicien"
+
+[node name="Employees" type="Node2D" parent="."]

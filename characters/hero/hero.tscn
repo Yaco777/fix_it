@@ -76,5 +76,3 @@ shape = SubResource("CapsuleShape2D_8njnl")
 [node name="HeroSprites" type="AnimatedSprite2D" parent="."]
 scale = Vector2(0.2, 0.2)
 sprite_frames = SubResource("SpriteFrames_mf2w1")
-animation = &"ladder"
-frame_progress = 0.776121

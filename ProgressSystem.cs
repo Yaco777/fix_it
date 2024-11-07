@@ -83,6 +83,12 @@ public partial class ProgressSystem : CanvasLayer
          * Create all the achievements of the game
          */
 
+        if(allEmployees.Count == 0)
+        {
+            //in the tutorial, the allEmployees aray may be empty
+            return;
+        }
+
         //---achievements of the musicien---
         var musicien = allEmployees.Find(emp => emp.NameOfEmployee == "Musicien");
         var achievementMusicien = new Achievement(
@@ -383,5 +389,12 @@ public partial class ProgressSystem : CanvasLayer
     internal void looseStars(int amountStarsRequired)
     {
         GD.Print("à faire !! Le joueur est censé avoir perdu : " + amountStarsRequired);
+    }
+
+    public void playAchievement(Achievement achievement)
+    {
+        achievementQueue.Enqueue(achievement);
+        ShowAllAchievements();
+
     }
 }

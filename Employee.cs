@@ -9,6 +9,9 @@ public partial class Employee : Node2D
      * Represent an employee of our game. ALl employee have a working state and can interact with the player
      */
 
+    [Export]
+    public double StopWorkProbability { get; set; } = 0.001;
+
     private bool _playerInRange = false; //boolean to check if the player is close to the employee
     private RichTextLabel _dialogueLabel; //dialogue label for interactions
     private Hero _hero;
@@ -114,7 +117,7 @@ public partial class Employee : Node2D
             Interact(_hero); //methode redefined by all the employees
         }
 
-        if (new Random().NextDouble() < 0.001)
+        if (new Random().NextDouble() < StopWorkProbability)
         {
 
             if (CurrentState == EmployeeState.Working)
