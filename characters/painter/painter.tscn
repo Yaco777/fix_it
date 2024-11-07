@@ -41,7 +41,6 @@ animations = [{
 
 [node name="Painter" type="Node2D"]
 script = ExtResource("1_jy6js")
-SpawnPosition = Vector2(188, 345)
 
 [node name="EmployeeArea" type="Area2D" parent="."]
 

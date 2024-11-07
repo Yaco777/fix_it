@@ -1,6 +1,6 @@
 [gd_scene load_steps=11 format=3 uid="uid://bwfino3o4gmoy"]
 
-[ext_resource type="Texture2D" uid="uid://crkbv1gws7a8n" path="res://building/mainRoom.png" id="1_8nfre"]
+[ext_resource type="Texture2D" uid="uid://crkbv1gws7a8n" path="res://building/rooms/mainRoom.png" id="1_8nfre"]
 [ext_resource type="Script" path="res://Room.cs" id="1_cuf1k"]
 [ext_resource type="SpriteFrames" uid="uid://dxvd8we5cp3eh" path="res://spriteAnimationCollect.tres" id="3_2p6ax"]
 [ext_resource type="Shader" path="res://roomNotunlocked.gdshader" id="3_23us0"]
