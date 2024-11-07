@@ -48,7 +48,6 @@ size = Vector2(199, 318)
 
 [node name="Musicien" type="Node2D"]
 script = ExtResource("1_l0d7b")
-SpawnPosition = Vector2(1154, 268)
 
 [node name="MusicianSprites" type="AnimatedSprite2D" parent="."]
 scale = Vector2(0.2, 0.2)
