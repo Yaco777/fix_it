@@ -16,8 +16,6 @@ Represent a collectible object. Every collectible have an unique name
     [Export] public AudioStream DropSound { get; set; }  //sound when the player drop the item
 
     private bool _playerInRange = false; //bool used to check if the player can take the object
-    private RichTextLabel _pickLabel; //label that will be shown when the player can pick the item
-    private RichTextLabel _cannotPickLabel; //label that will be shown when the player cannont pick the item
     private AudioStreamPlayer _audioPlayer;
     private AudioStreamPlayer _dropSoundPlayer;
     private Sprite2D _sprite;
@@ -42,17 +40,7 @@ Represent a collectible object. Every collectible have an unique name
         _audioPlayer.Stream = PickUpSound;
         _audioPlayer.Finished += OnAudioFinished; //the onAudioFinished method is used to free the item
 
-        _pickLabel = GetNode<RichTextLabel>("CollectDisplay");
-        _cannotPickLabel = GetNode<RichTextLabel>("CannotPick");
-        //we hide all the labels
-        _pickLabel.Visible = false;
-        _cannotPickLabel.Visible = false;
 
-        if (CollectibleName == "Frog")
-        {
-            _pickLabel.Text = "[center][color=red] Press [b]E[/b] to scare away: {item_name} [/color][/center]";
-        }
-        _pickLabel.Text = _pickLabel.Text.Replace("{item_name}", CollectibleName); //replace the placeholder with the name of the item
         _dropSoundPlayer = GetNode<AudioStreamPlayer>("DropSound");
 
         
@@ -96,8 +84,6 @@ Represent a collectible object. Every collectible have an unique name
             //if the hero can pick the item, we play the pickupsound and hide the sprite
             if (hero.CollectedItemIsNull() && hero.CooldownIsZero() && Input.IsActionJustPressed("interact_with_objects"))
             {
-                _pickLabel.Visible = false;
-                _cannotPickLabel.Visible = false;
                 _collectAnimation.Visible = false;
                 hero.CollectItem(CollectibleName);
                 _audioPlayer.Play();
@@ -133,24 +119,19 @@ Represent a collectible object. Every collectible have an unique name
             {
 
                 _collectAnimation.Animation = "can_interact";
-                //_pickLabel.Visible = true;
-                //_cannotPickLabel.Visible = false;
 
             }
             else
             {
                 _collectAnimation.Animation = "cannot_interact";
-                //_cannotPickLabel.Visible = true;
-                //_pickLabel.Visible = false;
             }
             _collectAnimation.Play();
         }
         else
         {
+            //if the player isn't in range, we show hide the collect animation
             _collectAnimation.Visible = false;
-            //if the player isn't in range, we hide the two labels
-            _cannotPickLabel.Visible = false;
-            _pickLabel.Visible = false;
+            
         }
     }
 

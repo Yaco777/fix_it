@@ -18,6 +18,7 @@ stream = ExtResource("5_eprkb")
 stream = ExtResource("6_o168g")
 
 [node name="TotalProgress" type="ProgressBar" parent="."]
+visible = false
 offset_left = 213.0
 offset_top = 55.0
 offset_right = 495.0
@@ -36,8 +37,19 @@ texture_under = ExtResource("1_ay3ug")
 texture_progress = ExtResource("2_inc0j")
 tint_under = Color(1, 1, 1, 0.286275)
 
+[node name="StarsLevel" type="Label" parent="StarsProgress"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 200
+text = "X"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="AchievementDisplay" type="Control" parent="."]
-visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
@@ -75,3 +87,13 @@ text = "[description}"
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 3
+
+[node name="NumberOfStars" type="Label" parent="."]
+offset_left = 68.0
+offset_top = 161.0
+offset_right = 108.0
+offset_bottom = 203.0
+theme_override_font_sizes/font_size = 30
+text = "X"
+horizontal_alignment = 1
+vertical_alignment = 1

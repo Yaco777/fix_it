@@ -130,7 +130,7 @@ public partial class Tutorial : Node2D
             _musicien.StopWorkProbability = 0;
             _timer.Start(); //the musicien will stop to work
             var achievement = new Achievement("Room unlocked", "You unlocked your first room", 10, () => (1 == 1));
-            _progressSystem.playAchievement(achievement);
+            _progressSystem.PlayAchievement(achievement);
 
 
         }
@@ -141,7 +141,7 @@ public partial class Tutorial : Node2D
             _label.Text = SixthMessage;
             _state = State.EndTutorial;
             var achievement = new Achievement("Tutorial", "You completed the tutorial", 10,() => (1 == 1));
-            _progressSystem.playAchievement(achievement);
+            _progressSystem.PlayAchievement(achievement);
 
         }
         

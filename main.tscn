@@ -30,7 +30,7 @@ Speed = 410
 [node name="Camera" parent="Hero" instance=ExtResource("2_0u86b")]
 
 [node name="Building" parent="." instance=ExtResource("6_ltln6")]
-position = Vector2(-164, 2683)
+position = Vector2(-165, 2683)
 
 [node name="Furnitures" type="Node2D" parent="Building"]
 

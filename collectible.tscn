@@ -19,24 +19,6 @@ shape = SubResource("RectangleShape2D_agpj4")
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("1_8nsx7")
 
-[node name="CollectDisplay" type="RichTextLabel" parent="."]
-z_index = 11
-offset_left = -130.0
-offset_top = -83.0
-offset_right = 137.0
-offset_bottom = -43.0
-bbcode_enabled = true
-text = "[center][color=red] Press [b]E[/b] to collect: {item_name} [/color][/center]"
-
-[node name="CannotPick" type="RichTextLabel" parent="."]
-z_index = 11
-offset_left = -193.0
-offset_top = -83.0
-offset_right = 179.0
-offset_bottom = -43.0
-bbcode_enabled = true
-text = "[center][color=red]You already have an item [/color][/center]"
-
 [node name="PickupSound" type="AudioStreamPlayer" parent="."]
 
 [node name="DropSound" type="AudioStreamPlayer" parent="."]

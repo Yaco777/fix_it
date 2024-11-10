@@ -26,10 +26,12 @@ public partial class MainMenu : Control
         Button playButton = GetNode<Button>("PlayButton");
         Button quitButton = GetNode<Button>("QuitButton");
         Button tutorialButton = GetNode<Button>("TutorialButton");
+        Button creditsButton = GetNode<Button>("CreditsButton");
         List<Button> buttons = new List<Button>();
         buttons.Add(playButton);
         buttons.Add(quitButton);
         buttons.Add(tutorialButton);
+        buttons.Add(creditsButton);
 
         
         CenterButtonPivot(playButton);
@@ -39,6 +41,7 @@ public partial class MainMenu : Control
         playButton.Pressed += PlayGame;
         quitButton.Pressed += QuitGame;
         tutorialButton.Pressed += StartTutorial;
+        creditsButton.Pressed += ShowCredits;
 
         // Connect mouse enter/exit signals for hover effects
         foreach (var button in buttons)
@@ -73,6 +76,11 @@ public partial class MainMenu : Control
     private void StartTutorial()
     {
         GetTree().ChangeSceneToFile("res://tutorial.tscn");
+    }
+
+    private void ShowCredits()
+    {
+        GetTree().ChangeSceneToFile("res://credits.tscn");
     }
 
     private void PlayGame()

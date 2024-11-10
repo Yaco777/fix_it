@@ -116,7 +116,6 @@ public partial class Room : Node2D
         _roomSprite.Material = null;
         _hitBoxArea.QueueFree();
         _unlockPlayer.Play();
-        _progressSystem.looseStars(AmountStarsRequired);
         _state = State.Unlocked;
         _interactAnimation.Visible = false;
         _unlockLabel.Visible = false;
