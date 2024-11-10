@@ -196,4 +196,8 @@ Represent a collectible object. Every collectible have an unique name
       
     }
 
+    public void HideSprite()
+    {
+        _sprite.Visible = false;
+    }
 }
