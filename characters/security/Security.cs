@@ -11,6 +11,7 @@ public partial class Security : Employee
     private Vector2 _frogDirection;
     public int FrogSpeed { get; set; } = 200;
     private bool _hasRemovedFrog;
+    private AnimatedSprite2D _securityAnimation;
     private static List<string> _chatMessages = new List<string>
     {
         "I am your shield, fear nothing",
@@ -41,9 +42,11 @@ public partial class Security : Employee
         base._Ready();
         _alertStreamPlayer = GetNode<AudioStreamPlayer>("Alert");
         _globalSignals = GetNode<GlobalSignals>("../../GlobalSignals");
+        _securityAnimation = GetNode<AnimatedSprite2D>("SecuritySprite");
         _globalSignals.FrogCollected += OnFrogCollected; 
         StartWorking();
 
+        _securityAnimation.Play();
     }
 
     private void OnFrogCollected()
@@ -56,6 +59,7 @@ public partial class Security : Employee
         base.StartWorking();
         _alertStreamPlayer.Stop(); //we stop the alert
         _globalSignals.EmitAlartStateChanged(false);
+        _securityAnimation.Animation = "working";
 
     }
 
@@ -63,7 +67,7 @@ public partial class Security : Employee
     {
         base.StopWorking();
         _alertStreamPlayer.Play();
-        _frog = Collectible.CreateCollectible("Frog");
+        _frog = Collectible.CreateCollectible("Frog");  
         _currentArea = Building.getRandomArea2D();
         _frog.GlobalPosition = Building.getRandomPositionForItemForSpecificArea(_currentArea);
         GetTree().Root.GetChild(0).AddChild(_frog);

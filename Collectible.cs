@@ -20,6 +20,7 @@ Represent a collectible object. Every collectible have an unique name
     private AudioStreamPlayer _dropSoundPlayer;
     private Sprite2D _sprite;
     private AnimatedSprite2D _collectAnimation;
+    private AnimatedSprite2D _frogAnimation;
     private bool _isRemoving; //tell if the object should not be visible
 
 
@@ -33,7 +34,7 @@ Represent a collectible object. Every collectible have an unique name
         _sprite.Texture = ObjectTexture;
         _collectAnimation = GetNode<AnimatedSprite2D>("CollectAnimation");
         _collectAnimation.Visible = false;
-
+        // _frogAnimation = GetNode<AnimatedSprite2D>("FrogSprites");
 
         //we assign the sound
         _audioPlayer = GetNode<AudioStreamPlayer>("PickupSound");
@@ -188,7 +189,8 @@ Represent a collectible object. Every collectible have an unique name
             "Blue brush" => (Texture2D)GD.Load("res://building/collectible/blue_brush.png"),
             "Green brush" => (Texture2D)GD.Load("res://building/collectible/green_brush.png"),
             "Horn" => (Texture2D)GD.Load("res://building/collectible/horn.png"),
-            "Frog" => (Texture2D)GD.Load("res://building/collectible/horn.png"), //TODO CHANGE
+            // "Frog" => (Texture2D)GD.Load("res://building/collectible/horn.png"), //TODO CHANGE
+            "Frog" => (Texture2D)GD.Load("res://building/collectible/Grenouille01.png"),
             _ => throw new ArgumentException("The name of the object is wrong (for applying the texture) " + nameOfTheObject)
         };
       
