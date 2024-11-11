@@ -48,7 +48,7 @@ public partial class ProgressSystem : CanvasLayer
     private Queue<(int stars, Godot.Range node)> animationQueue = new Queue<(int stars, Godot.Range node)>();
 
 
-
+    private GlobalSignals _globalSignals;
 
 
     // Called when the node enters the scene tree for the first time.
@@ -61,15 +61,19 @@ public partial class ProgressSystem : CanvasLayer
         _achievementDisplay = GetNode<AchievementDisplay>("AchievementDisplay");
         _starsPlayer = GetNode<AudioStreamPlayer>("StarsPlayer");
         _totalProgressPlayer = GetNode<AudioStreamPlayer>("TotalProgressPlayer");
-        var employees = GetNode<Node2D>("../../Employees").GetChildren();
         _starsLevel = _starsProgressBar.GetNode<Label>("StarsLevel");
+        _totalNumberOfStarsLabel = GetNode<Label>("NumberOfStars");
+        _globalSignals = GetNode<GlobalSignals>("../../GlobalSignals");
+        var employees = GetNode<Node2D>("../../Employees").GetChildren();
+        
         _starsLevel.Text = _currentLevel.ToString(); //we start at the level 1
         _starsProgressBar.MaxValue = MaxStarsValue;
         _totalProgressBar.MaxValue = MaxProgressValue;
         _achievementDisplay.Visible = true;
         WaitTimeBeforeNextAchievement = _achievementDisplay.AchievementDisplayTime + _achievementDisplay.AchievementFadeInTime + _achievementDisplay.AchievementFadeOutTime; ;
-        _totalNumberOfStarsLabel = GetNode<Label>("NumberOfStars");
+        
         _totalNumberOfStarsLabel.Text = "0";
+        
 
 
         foreach (var emp in employees)
@@ -285,6 +289,13 @@ public partial class ProgressSystem : CanvasLayer
             _achievementDisplay.ShowAchievement(achievement);
             _starsPlayer.Play(); //we play the sound
             _currentAmountsOfStars += achievement.NumberOfStars;
+            //we check if the player has all the achievment
+
+            //TODO CHANGE THE 3 with the number of achievements
+            if(playerAchievements.Count >= 3)
+            {
+                _globalSignals.EmitUnlockGlasses();
+            }
         }
 
 

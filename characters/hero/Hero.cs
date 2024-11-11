@@ -18,6 +18,10 @@ public partial class Hero : CharacterBody2D
 
     private GlobalSignals _globalSignals;
 
+    private bool _isWearingGlasses = false;
+
+    private bool _glassesUnlocked = false;
+
     [Export]
     private int _defaultCooldown = 100;
     private AnimatedSprite2D _animatedSprite2D;
@@ -37,6 +41,7 @@ public partial class Hero : CharacterBody2D
         _ui = GetNode<UI>("../UI");
         _animatedSprite2D = GetNode<AnimatedSprite2D>("HeroSprites");
         _globalSignals = GetNode<GlobalSignals>("../GlobalSignals");
+        _globalSignals.UnlockGlasses += GlassesUnlocked;
 
 
     }
@@ -253,9 +258,6 @@ public partial class Hero : CharacterBody2D
     public override void _PhysicsProcess(double delta)
     {
         var velocity = Vector2.Zero;
-        
-
-
 
         if (_actionCooldown > 0)
         {
@@ -278,7 +280,6 @@ public partial class Hero : CharacterBody2D
             velocity = MoveLeftRight(velocity);
         }
 
-        
 
         //update the position of the player
         Position += velocity * (float)delta;
@@ -290,6 +291,8 @@ public partial class Hero : CharacterBody2D
             DropItem();
         }
         MoveAndSlide(); //we block the player if he try to enter a room hitbox
+
+        GlassesCheck();
     }
 
     // when the player enter the area2D of a ladder
@@ -382,5 +385,20 @@ public partial class Hero : CharacterBody2D
     public void ResetCooldown()
     {
         _actionCooldown = _defaultCooldown;
+    }
+
+    private void GlassesUnlocked()
+    {
+        GD.Print("glass unlocked!");
+        _glassesUnlocked = true;
+    }
+
+    private void GlassesCheck()
+    {
+        if(_glassesUnlocked && Input.IsActionJustPressed("wear_glasses"))
+        {
+            _isWearingGlasses = !_isWearingGlasses;
+            _globalSignals.EmitGlassesChange(_isWearingGlasses);
+        }
     }
 }

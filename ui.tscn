@@ -39,3 +39,33 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 bbcode_enabled = true
 text = "[center]Object Name[/center]"
+
+[node name="DialogRect" type="ColorRect" parent="."]
+visible = false
+offset_top = 809.0
+offset_right = 1935.0
+offset_bottom = 1081.0
+metadata/_edit_use_anchors_ = true
+
+[node name="DialogLabel" type="Label" parent="DialogRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 80
+text = "Jello"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+metadata/_edit_use_anchors_ = true
+
+[node name="GlassesWear" type="Label" parent="."]
+visible = false
+offset_left = 1485.0
+offset_top = 165.0
+offset_right = 1907.0
+offset_bottom = 188.0
+text = "You aren't wearning the glasses. Press R to wear them."

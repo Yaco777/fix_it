@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://cpm4gp75y7pni"]
+[gd_scene load_steps=19 format=3 uid="uid://cpm4gp75y7pni"]
 
 [ext_resource type="PackedScene" uid="uid://lm01vdyu1xgl" path="res://characters/hero/hero.tscn" id="1_easg4"]
 [ext_resource type="PackedScene" uid="uid://cbba76f1vals2" path="res://camera.tscn" id="2_0u86b"]
@@ -17,6 +17,7 @@
 [ext_resource type="PackedScene" uid="uid://cmpmyoh2setes" path="res://characters/marketing/marketing.tscn" id="11_5c6um"]
 [ext_resource type="PackedScene" uid="uid://muqjui1qrko3" path="res://achievements_display.tscn" id="13_0b7q3"]
 [ext_resource type="PackedScene" uid="uid://dwdwl1d6gut1r" path="res://pause_menu.tscn" id="13_fls8b"]
+[ext_resource type="PackedScene" uid="uid://bk260m3vcbt0v" path="res://ghost.tscn" id="18_28irl"]
 
 [node name="Main" type="Node"]
 
@@ -89,3 +90,7 @@ visible = false
 [node name="AchievementsDisplay" parent="." instance=ExtResource("13_0b7q3")]
 process_mode = 3
 visible = false
+
+[node name="Ghost" parent="." instance=ExtResource("18_28irl")]
+visible = false
+position = Vector2(841, 714)

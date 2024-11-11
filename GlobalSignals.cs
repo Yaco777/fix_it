@@ -5,22 +5,28 @@ using System;
 public partial class GlobalSignals : Node2D
 {
     [Signal]
-    public delegate void ColorLostEventHandler(string colorName);
+    public delegate void ColorLostEventHandler(string colorName); //one color has been lost (painter)
 
     [Signal]
-    public delegate void ColorBackEventHandler(string colorName);
+    public delegate void ColorBackEventHandler(string colorName); //one color is back (painter)
 
     [Signal]
-    public delegate void NewAchievementCollecteddEventHandler(Dictionary achievement);
+    public delegate void NewAchievementCollecteddEventHandler(Dictionary achievement); //a new achievement has been unlocked
 
     [Signal]
-    public delegate void AlarmStateChangedEventHandler(bool isAlarmOn);
+    public delegate void AlarmStateChangedEventHandler(bool isAlarmOn); //the alarm state has changed
 
     [Signal]
-    public delegate void FrogCollectedEventHandler();
+    public delegate void FrogCollectedEventHandler(); //the frog has been collected
 
     [Signal]
-    public delegate void MarketingMinigameSuccessEventHandler();
+    public delegate void MarketingMinigameSuccessEventHandler(); //the minigame was completed
+     
+    [Signal]
+    public delegate void UnlockGlassesEventHandler(); //signal when the glasses are unlocked
+
+    [Signal]
+    public delegate void GlassesChangeEventHandler(bool isWearningGlasses);
 
 
 
@@ -54,5 +60,16 @@ public partial class GlobalSignals : Node2D
     {
         EmitSignal(SignalName.MarketingMinigameSuccess);
     }
-    
+
+    public void EmitUnlockGlasses()
+    {
+        EmitSignal(SignalName.UnlockGlasses);
+    }
+
+    public void EmitGlassesChange(bool isWearingGlasses)
+    {
+        EmitSignal(SignalName.GlassesChange,isWearingGlasses);
+    }
+
+
 }
