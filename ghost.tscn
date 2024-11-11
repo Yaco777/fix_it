@@ -1,7 +1,11 @@
-[gd_scene load_steps=3 format=3 uid="uid://bk260m3vcbt0v"]
+[gd_scene load_steps=5 format=3 uid="uid://bk260m3vcbt0v"]
 
 [ext_resource type="Script" path="res://Ghost.cs" id="1_0g06d"]
 [ext_resource type="Texture2D" uid="uid://bkd6eharswbbh" path="res://building/collectible/Grenouille02.png" id="1_lcpsn"]
+[ext_resource type="AudioStream" uid="uid://dr0w2hbt4j2rh" path="res://audio/ghost_failure.mp3" id="3_1anrf"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_odoju"]
+size = Vector2(440, 365)
 
 [node name="Ghost" type="Node2D"]
 script = ExtResource("1_0g06d")
@@ -9,3 +13,33 @@ script = ExtResource("1_0g06d")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.4, 0.4)
 texture = ExtResource("1_lcpsn")
+
+[node name="GhostArea" type="Area2D" parent="."]
+
+[node name="GhostCollision" type="CollisionShape2D" parent="GhostArea"]
+position = Vector2(-5, -34.5)
+shape = SubResource("RectangleShape2D_odoju")
+
+[node name="InteractionRect" type="ColorRect" parent="."]
+offset_left = -241.0
+offset_top = -381.0
+offset_right = 236.0
+offset_bottom = -230.0
+
+[node name="InteractionLabel" type="Label" parent="InteractionRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 40
+text = "X
+1) Yes		   3) No
+2) No	      4) No"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="FailurePlayer" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_1anrf")

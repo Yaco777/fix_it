@@ -66,6 +66,12 @@ position = Vector2(1116, -2004)
 scale = Vector2(0.8, 0.8)
 texture = ExtResource("9_jiwue")
 
+[node name="Ghosts" type="Node2D" parent="Building"]
+
+[node name="Ghost" parent="Building/Ghosts" instance=ExtResource("18_28irl")]
+visible = false
+position = Vector2(1006, -1969)
+
 [node name="Employees" type="Node2D" parent="."]
 
 [node name="Musicien" parent="Employees" instance=ExtResource("6_y1b1w")]
@@ -90,7 +96,3 @@ visible = false
 [node name="AchievementsDisplay" parent="." instance=ExtResource("13_0b7q3")]
 process_mode = 3
 visible = false
-
-[node name="Ghost" parent="." instance=ExtResource("18_28irl")]
-visible = false
-position = Vector2(841, 714)

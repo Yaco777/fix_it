@@ -9,7 +9,7 @@ public partial class Security : Employee
     private GlobalSignals _globalSignals;
     private Collectible _frog;
     private Vector2 _frogDirection;
-    private AnimatedSprite2D _animation;
+    private AnimatedSprite2D _frogAnimation;
 
  
 
@@ -43,23 +43,23 @@ public partial class Security : Employee
 
     public override void _Ready()
     {
-        _animation = GetNode<AnimatedSprite2D>("FrogSprite");
-        _animation.Play();
-        _animation.Visible = false;
+        _frogAnimation = GetNode<AnimatedSprite2D>("FrogSprite");
+        _frogAnimation.Play();
+        _frogAnimation.Visible = false;
         base._Ready();
         _alertStreamPlayer = GetNode<AudioStreamPlayer>("Alert");
         _globalSignals = GetNode<GlobalSignals>("../../GlobalSignals");
         _securityAnimation = GetNode<AnimatedSprite2D>("SecuritySprite");
         _globalSignals.FrogCollected += OnFrogCollected; 
         StartWorking();
-
+        _securityAnimation.Animation = "working";
         _securityAnimation.Play();
     }
 
     private void OnFrogCollected()
     {
         _hasRemovedFrog = true;
-        _animation.Visible = false;
+        _frogAnimation.Visible = false;
     }
     public override void StartWorking()
     {
@@ -77,13 +77,14 @@ public partial class Security : Employee
         _alertStreamPlayer.Play();
         _frog = Collectible.CreateCollectible("Frog");
         
-        _animation.Visible = true;
+        _frogAnimation.Visible = true;
         _currentArea = Building.getRandomArea2D();
         _frog.GlobalPosition = Building.getRandomPositionForItemForSpecificArea(_currentArea);
-        _animation.GlobalPosition = _frog.GlobalPosition;
+        _frogAnimation.GlobalPosition = _frog.GlobalPosition;
         GetTree().Root.GetChild(0).AddChild(_frog);
         _frog.HideSprite();
         _globalSignals.EmitAlartStateChanged(true);
+        _securityAnimation.Animation = "idle";
     }
 
 
@@ -111,17 +112,17 @@ public partial class Security : Employee
         if (_hasRemovedFrog == false && _frog != null)
         {
             MoveFrog(delta);
-            _animation.GlobalPosition = _frog.GlobalPosition;
+            _frogAnimation.GlobalPosition = _frog.GlobalPosition;
             if (!IsFrogInCurrentArea())
             {
                 _frogDirection *= -1; //when the frog leave the area, it will go in the opposite direction
                 if(_frogDirection.X == -1)
                 {
-                    _animation.FlipH = true;
+                    _frogAnimation.FlipH = true;
                 }
                 else
                 {
-                    _animation.FlipH = false;
+                    _frogAnimation.FlipH = false;
                 }
             }
 

@@ -16,6 +16,14 @@ animations = [{
 "frames": [{
 "duration": 1.0,
 "texture": ExtResource("2_tphps")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_tphps")
 }, {
 "duration": 1.0,
 "texture": ExtResource("5_gwt7g")
@@ -58,7 +66,7 @@ SpawnPosition = Vector2(867, 262)
 [node name="SecuritySprite" type="AnimatedSprite2D" parent="."]
 scale = Vector2(0.2, 0.2)
 sprite_frames = SubResource("SpriteFrames_i3nx8")
-animation = &"working"
+animation = &"idle"
 
 [node name="EmployeeArea" type="Area2D" parent="."]
 
