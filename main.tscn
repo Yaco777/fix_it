@@ -22,7 +22,7 @@
 
 [node name="Hero" parent="." instance=ExtResource("1_easg4")]
 z_index = 10
-position = Vector2(500, 600)
+position = Vector2(500, 720)
 Speed = 410
 
 [node name="Camera" parent="Hero" instance=ExtResource("2_0u86b")]

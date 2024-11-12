@@ -4,25 +4,27 @@ using System.Collections.Generic;
 
 public partial class Technicien : Employee
 {
+    private AnimatedSprite2D _technicianAnimation;
     private static List<string> _chatMessages = new List<string>
 
     {
-        "A1!",
-        "A2",
-        "A3",
-        "A4"
+        "Red with red, blue with blue!",
+        "I tangled all the wires",
+        "I am a master of electricity",
+        "..."
     };
 
+// One to delete between _stopWorkingMessages and _backToWork
     private static List<string> _stopWorkingMessages = new List<string>
     {
-        "B1",
-        "B2"
+        "Sorry, I made a mistake",
+        "Again a short circuit, it's a mystery"
     };
 
     private static List<string> _backToWork = new List<string>
     {
-        "C1",
-        "C2"
+        "Sorry, I made a mistake",
+        "Again a short circuit, it's a mystery"
     };
 
     [Export]
@@ -72,7 +74,9 @@ public partial class Technicien : Employee
         _lightOnPlayer.Stream = _lightOnStream;
         _lightOffPlayer = GetNode<AudioStreamPlayer>("LightOffSound");
         _lightOffPlayer.Stream = _lightOffStream;
+        _technicianAnimation = GetNode<AnimatedSprite2D>("TechnicienSprites");
         StartWorking();
+        _technicianAnimation.Play();
     }
 
     public override void StopWorking()
@@ -82,6 +86,7 @@ public partial class Technicien : Employee
         //we put the "darknessAmount" value for the alpha 
         tween.TweenProperty(_colorRect, "color", new Color(0, 0, 0, DarknessAmount), DarknessTransitionSpeed);
         _lightOffPlayer.Play();
+        _technicianAnimation.Animation = "not_working";
     }
 
     public override void StartWorking()
@@ -95,7 +100,7 @@ public partial class Technicien : Employee
         var tween = GetTree().CreateTween();
         //we remove the black rectangle
         tween.TweenProperty(_colorRect, "color", new Color(0, 0, 0, 0), BackToLightTransitionSpeed);
-
+        _technicianAnimation.Animation = "working";
     }
 
     public override void _Process(double delta)
