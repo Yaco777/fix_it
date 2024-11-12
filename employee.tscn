@@ -17,20 +17,33 @@ script = ExtResource("1_ve25y")
 position = Vector2(8.5, -20)
 shape = SubResource("RectangleShape2D_g8rmv")
 
-[node name="RichTextLabel" type="RichTextLabel" parent="."]
-z_index = 5
-offset_left = -123.0
-offset_top = -158.0
-offset_right = 148.0
-offset_bottom = -118.0
-bbcode_enabled = true
-text = "[center][color=red] Press [b]E[/b] to interact [/color][/center]"
-
 [node name="InteractAnimation" type="AnimatedSprite2D" parent="."]
 position = Vector2(1, -148)
 scale = Vector2(0.1, 0.1)
 sprite_frames = ExtResource("2_i3gxa")
 animation = &"can_interact"
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -108.0
+offset_top = -188.0
+offset_right = 99.0
+offset_bottom = -158.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="ColorRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/default_color = Color(1, 1, 1, 1)
+text = "HIIII HELLO"
 
 [connection signal="body_entered" from="EmployeeArea" to="." method="OnBodyEntered"]
 [connection signal="body_exited" from="EmployeeArea" to="." method="OnBodyExited"]

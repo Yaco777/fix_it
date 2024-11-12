@@ -82,7 +82,7 @@ public partial class Painter : Employee
         _painterAnimation = GetNode<AnimatedSprite2D>("PainterSprites");
         ColorsUnlocked.Add(FirstBrush);
         CurrentColors.Add(FirstBrush);
-        StopWorking();
+        //StopWorking();
 
         _painterAnimation.Play();
 

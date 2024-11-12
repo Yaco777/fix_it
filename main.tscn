@@ -1,10 +1,9 @@
-[gd_scene load_steps=19 format=3 uid="uid://cpm4gp75y7pni"]
+[gd_scene load_steps=18 format=3 uid="uid://cpm4gp75y7pni"]
 
 [ext_resource type="PackedScene" uid="uid://lm01vdyu1xgl" path="res://characters/hero/hero.tscn" id="1_easg4"]
 [ext_resource type="PackedScene" uid="uid://cbba76f1vals2" path="res://camera.tscn" id="2_0u86b"]
 [ext_resource type="Texture2D" uid="uid://crkbv1gws7a8n" path="res://building/rooms/mainRoom.png" id="5_oceu3"]
 [ext_resource type="Texture2D" uid="uid://dvrcccxeq0ww2" path="res://building/furnitures/PeintreChevalet.png" id="5_s2ysv"]
-[ext_resource type="PackedScene" uid="uid://b055q6lnsj1mk" path="res://characters/painter/painter.tscn" id="6_k8bna"]
 [ext_resource type="PackedScene" uid="uid://b22i1xe7x8eus" path="res://building.tscn" id="6_ltln6"]
 [ext_resource type="PackedScene" uid="uid://b8wyebxsxftek" path="res://characters/musicien/musicien.tscn" id="6_y1b1w"]
 [ext_resource type="PackedScene" uid="uid://bws7e6gipvnq3" path="res://ui.tscn" id="7_5josr"]
@@ -20,8 +19,6 @@
 [ext_resource type="PackedScene" uid="uid://bk260m3vcbt0v" path="res://ghost.tscn" id="18_28irl"]
 
 [node name="Main" type="Node"]
-
-[node name="UI" parent="." instance=ExtResource("7_5josr")]
 
 [node name="Hero" parent="." instance=ExtResource("1_easg4")]
 z_index = 10
@@ -54,6 +51,7 @@ position = Vector2(1330, -2564)
 [node name="PainterRoom" parent="Building/Rooms" instance=ExtResource("7_m7rb8")]
 position = Vector2(-317, -2552)
 ObjectTexture = ExtResource("8_ht1lv")
+EmployeeUnlockedName = "Painter"
 
 [node name="MusicRoom" parent="Building/Rooms" instance=ExtResource("7_m7rb8")]
 position = Vector2(-566, -1745)
@@ -78,17 +76,16 @@ position = Vector2(1006, -1969)
 z_index = 1
 position = Vector2(2393, 356)
 
-[node name="Painter" parent="Employees" instance=ExtResource("6_k8bna")]
-position = Vector2(188, 345)
-
 [node name="Marketing" parent="Employees" instance=ExtResource("11_5c6um")]
-position = Vector2(2670, 108)
+position = Vector2(820, 664)
 
 [node name="Security" parent="Employees" instance=ExtResource("10_8mm32")]
 position = Vector2(1247, 691)
 
 [node name="GlobalSignals" type="Node2D" parent="."]
 script = ExtResource("7_shkg7")
+
+[node name="UI" parent="." instance=ExtResource("7_5josr")]
 
 [node name="PauseMenu" parent="." instance=ExtResource("13_fls8b")]
 visible = false

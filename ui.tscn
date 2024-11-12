@@ -12,8 +12,6 @@ shader_parameter/max_scale_factor = 1.01
 [node name="UI" type="CanvasLayer"]
 script = ExtResource("1_hgs1d")
 
-[node name="ProgressSystem" parent="." instance=ExtResource("3_307xp")]
-
 [node name="ColorRect" type="ColorRect" parent="."]
 offset_left = 1784.0
 offset_top = 16.0
@@ -69,3 +67,5 @@ offset_top = 165.0
 offset_right = 1907.0
 offset_bottom = 188.0
 text = "You aren't wearning the glasses. Press R to wear them."
+
+[node name="ProgressSystem" parent="." instance=ExtResource("3_307xp")]

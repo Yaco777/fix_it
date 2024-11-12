@@ -57,13 +57,6 @@ animation = &"not_working"
 position = Vector2(-1.5, 14)
 shape = SubResource("RectangleShape2D_5l3ng")
 
-[node name="RichTextLabel" type="RichTextLabel" parent="."]
-offset_left = -108.0
-offset_top = -188.0
-offset_right = 187.0
-offset_bottom = -148.0
-text = "HIIII"
-
 [node name="LightOnSound" type="AudioStreamPlayer" parent="."]
 
 [node name="LightOffSound" type="AudioStreamPlayer" parent="."]
@@ -74,3 +67,25 @@ position = Vector2(1, -148)
 scale = Vector2(0.1, 0.1)
 sprite_frames = ExtResource("9_owf4v")
 animation = &"can_interact"
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -108.0
+offset_top = -188.0
+offset_right = 99.0
+offset_bottom = -158.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="ColorRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/default_color = Color(1, 1, 1, 1)
+text = "HIIII HELLO"

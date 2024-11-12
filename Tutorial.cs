@@ -107,7 +107,6 @@ public partial class Tutorial : Node2D
         //the hero need to go in the right
         if(State.FirstMessage == _state && _hero.Position.X >= _initialXPos + MoveDistanceRequiredX)
         {
-            GD.Print("On passe au prochain !");
             _label.Text = SecondMessage;
             _state = State.TakeTheLadder;
         }

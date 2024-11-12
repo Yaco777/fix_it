@@ -36,6 +36,11 @@ public partial class Room : Node2D
 
     private Sprite2D _roomSprite;
 
+    private Building _building;
+
+    [Export]
+    public int YMargin { get; set; } = 175; //margin used to move the employee down
+
 
 
     private enum State
@@ -57,6 +62,7 @@ public partial class Room : Node2D
         _unlockLabel = GetNode<Label>("CanvasLayer/UnlockLabel");
         _progressSystem = GetNode<ProgressSystem>("../../../UI/ProgressSystem");
         _unlockPlayer = GetNode<AudioStreamPlayer2D>("UnlockPlayer");
+        _building = (Building)GetParent().GetParent();
         _unlockLabel.Visible = false;
         _interactAnimation.Visible = false;
         _interactAnimation.Animation = "can_interact";
@@ -126,6 +132,9 @@ public partial class Room : Node2D
 
     private void AddNewEmployee()
     {
+        /*
+         * Create an employee and add it at the center of the room
+         */
         var employee = EmployeeUnlockedName switch
         {
             "Musicien" => GD.Load<PackedScene>("res://characters/musicien/musicien.tscn"),
@@ -136,10 +145,13 @@ public partial class Room : Node2D
             _ => throw new ArgumentException("The room need to add the employee " + EmployeeUnlockedName + " but it's not possible")
         };
 
+        
         var instance = (Employee) employee.Instantiate();
-        instance.Position = Position;
+        instance.GlobalPosition = new Vector2(GlobalPosition.X, GlobalPosition.Y + YMargin); //we adjust the position with the YMargin
         instance.Name = EmployeeUnlockedName;
         GetParent().GetParent().GetParent().GetNode<Node2D>("Employees").AddChild(instance);
+        _building.addEmployeeToCheckForStateChange(instance); //when the room create an employee, the building should connect the StateChange signal
+
     }
 
     private void NotEnoughStars()

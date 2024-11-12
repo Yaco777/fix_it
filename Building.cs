@@ -28,18 +28,21 @@ public partial class Building : Node2D
 
     }
 
-    // Called every frame. 'delta' is the elapsed time since the previous frame.
-    public override void _Process(double delta)
+    
+
+    public void addEmployeeToCheckForStateChange(Employee emp)
     {
+        emp.EmployeeStateChanged += OnEmployeeStateChanged; 
     }
 
     private void OnEmployeeStateChanged(int newState, string n)
     {
 
+   
 
         if (n == "Musicien" && (EmployeeState)newState == EmployeeState.NotWorking)
         {
-            var collectibleScene = GD.Load<PackedScene>("res://collectible.tscn");
+          
 
             // we create a collectible
             var collectible = Collectible.CreateCollectible("Horn");
@@ -48,15 +51,13 @@ public partial class Building : Node2D
             // we add the collectible
             GetTree().Root.GetChild(0).AddChild(collectible);
         }
-        if (n == "Painter" && (EmployeeState)newState == EmployeeState.NotWorking)
+        else if (n == "Painter" && (EmployeeState)newState == EmployeeState.NotWorking)
         {
-
             foreach (var brushColors in Painter.ColorsMissings)
             {
 
                 var color = brushColors;
                 var itemName = color;
-                var collectibleScene = GD.Load<PackedScene>("res://collectible.tscn");
                 var collectible = Collectible.CreateCollectible(itemName);
                 collectible.GlobalPosition = GetRandomPositionForItem();
                 GetTree().Root.GetChild(0).CallDeferred("add_child", collectible);

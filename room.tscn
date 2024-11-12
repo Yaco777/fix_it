@@ -38,6 +38,7 @@ position = Vector2(-15, -26.6667)
 shape = SubResource("RectangleShape2D_fgug5")
 
 [node name="InteractAnimation" type="AnimatedSprite2D" parent="."]
+visible = false
 z_index = 11
 position = Vector2(1, -148)
 scale = Vector2(0.2, 0.2)
@@ -57,6 +58,7 @@ shape = SubResource("RectangleShape2D_uiu4r")
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="UnlockLabel" type="Label" parent="CanvasLayer"]
+visible = false
 offset_left = 506.0
 offset_top = 20.0
 offset_right = 1603.0

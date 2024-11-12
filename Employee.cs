@@ -14,6 +14,7 @@ public partial class Employee : Node2D
 
     private bool _playerInRange = false; //boolean to check if the player is close to the employee
     private RichTextLabel _dialogueLabel; //dialogue label for interactions
+    private ColorRect _colorRect; //the background behind the text
     private Hero _hero;
 
     private List<string> _chat = new List<string>(); //messages shown when the player interact and the employee is working
@@ -60,9 +61,10 @@ public partial class Employee : Node2D
 
     public override void _Ready()
     {
-        _dialogueLabel = GetNode<RichTextLabel>("RichTextLabel");
+        _colorRect = GetNode<ColorRect>("ColorRect");
+        _dialogueLabel = GetNode<RichTextLabel>("ColorRect/RichTextLabel");
         _dialogueLabel.BbcodeEnabled = true;
-        _dialogueLabel.Visible = false;
+        _colorRect.Visible = false;
         var area = GetNode<Area2D>("EmployeeArea");
         area.BodyEntered += OnBodyEntered;
         area.BodyExited += OnBodyExited;
@@ -95,7 +97,7 @@ public partial class Employee : Node2D
         {
             _playerInRange = false;
             _hero = null;
-            _dialogueLabel.Visible = false; //the player won't be able to see the label if he is far
+            _colorRect.Visible = false; //the player won't be able to see the label if he is far
             _interactAnimation.Visible = false;
 
             //we remove the timer
@@ -123,7 +125,7 @@ public partial class Employee : Node2D
             if (CurrentState == EmployeeState.Working)
             {
                 SetState(EmployeeState.NotWorking);
-                _dialogueLabel.Visible = false;
+                _colorRect.Visible = false;
             }
         }
     }
@@ -181,10 +183,10 @@ public partial class Employee : Node2D
          * Show a dialogue that won't diseppear
          */
         _interactAnimation.Visible = false;
-        _dialogueLabel.Text = text;
+        _dialogueLabel.Text = "[center]"+text+"[/center]";
         if(_playerInRange)
         {
-            _dialogueLabel.Visible = true;
+            _colorRect.Visible = true;
         }
         
     }
@@ -245,7 +247,7 @@ public partial class Employee : Node2D
     private void OnTemporaryDialogTimeout()
     {
         //remove the timer and update the currentTimePresent variable
-        _dialogueLabel.Visible = false;
+        _colorRect.Visible = false;
         var timer = GetNode<Timer>("DialogTimer");
         CallDeferred(nameof(RemoveChildDeferred), timer);
         currentTimerPresent = false; //now we can interact again
