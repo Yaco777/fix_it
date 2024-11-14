@@ -1,6 +1,6 @@
-using Godot;
 using System;
 using System.Collections.Generic;
+using Godot;
 
 public partial class Painter : Employee
 {
@@ -63,9 +63,9 @@ public partial class Painter : Employee
         "One more...?"
     };
 
-    public bool firstTimeGettingRed = false;
-    public bool firstTimeGettingGreen = false;
-    public bool firstTimeGettingBlue = false;
+    public bool firstTimeGettingRed;
+    public bool firstTimeGettingGreen;
+    public bool firstTimeGettingBlue;
 
 
 
@@ -115,9 +115,7 @@ public partial class Painter : Employee
     }
 
 
-
-
-    public override void Interact(Hero hero)
+    protected override void Interact(Hero hero)
     {
         var hasOneItem = false; //check if the player has at least of the required item
         foreach (var item in REQUIRED_ITEMS)
@@ -186,7 +184,8 @@ public partial class Painter : Employee
 
         }
         //we unlock the third color
-        else if (NumberOfTimeWorked == NumberOfWorkToUnlockedThirdColor)
+
+        if (NumberOfTimeWorked == NumberOfWorkToUnlockedThirdColor)
         {
             ColorsUnlocked.Clear();
             CurrentColors.Clear();
@@ -206,7 +205,7 @@ public partial class Painter : Employee
 
     private void ShowNewColorUnlocked()
     {
-        base.ShowTemporaryDialog(GetRandomColorBackMessage());
+        ShowTemporaryDialog(GetRandomColorBackMessage());
     }
 
     private string GetRandomColorBackMessage()

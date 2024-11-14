@@ -1,6 +1,6 @@
-using Godot;
 using System;
 using System.Linq;
+using Godot;
 using static Employee;
 
 public partial class Building : Node2D
@@ -30,7 +30,7 @@ public partial class Building : Node2D
 
     
 
-    public void addEmployeeToCheckForStateChange(Employee emp)
+    public void AddEmployeeToCheckForStateChange(Employee emp)
     {
         emp.EmployeeStateChanged += OnEmployeeStateChanged; 
     }
@@ -69,7 +69,7 @@ public partial class Building : Node2D
 
     }
 
-    public static Vector2 getRandomPositionForItemForSpecificArea(Area2D selectedArea)
+    public static Vector2 GetRandomPositionForItemForSpecificArea(Area2D selectedArea)
     {
         var collisionShape = selectedArea.GetNode<CollisionShape2D>("CollisionShape2D");
         if (collisionShape != null)
@@ -78,21 +78,19 @@ public partial class Building : Node2D
             if (collisionShape.Shape is SegmentShape2D segmentShape)
             {
 
-                float t = (float)GD.Randf(); //t will be a number between 0 and 1
+                float t = GD.Randf(); //t will be a number between 0 and 1
                 var xPos = segmentShape.A.X + (segmentShape.B.X - segmentShape.A.X) * t;
                 // we compute the xPos of the collectible. The Y pos will be the same than the selectedArea
 
                 return new Vector2(xPos, selectedArea.GlobalPosition.Y);
             }
-            else
-            {
-                throw new InvalidOperationException("The collision shape of an area used to generate items is invalid");
-            }
+
+            throw new InvalidOperationException("The collision shape of an area used to generate items is invalid");
         }
         return new Vector2(0, 0);
     }
 
-    public static Vector2 GetRandomPositionForItem()
+    private static Vector2 GetRandomPositionForItem()
     {
         var areas = _itemsGenerationsArea.GetChildren().OfType<Area2D>().ToArray();
         if (areas.Length > 0)
@@ -100,16 +98,14 @@ public partial class Building : Node2D
             var selectedArea = areas[random.Next(areas.Length)];
 
 
-            return getRandomPositionForItemForSpecificArea(selectedArea);
+            return GetRandomPositionForItemForSpecificArea(selectedArea);
         }
-        else
-        {
-            throw new InvalidOperationException("There is no area2D in the area used to genereate items");
-        }
-    
+
+        throw new InvalidOperationException("There is no area2D in the area used to genereate items");
+
     }
 
-    public static Area2D getRandomArea2D()
+    public static Area2D GetRandomArea2D()
     {
         var areas = _itemsGenerationsArea.GetChildren().OfType<Area2D>().ToArray();
         return areas[random.Next(areas.Length)];

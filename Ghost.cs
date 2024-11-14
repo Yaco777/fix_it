@@ -1,11 +1,10 @@
 using Godot;
-using System;
 
 public partial class Ghost : Node2D
 {
     private GlobalSignals _globalSignals;
     private Area2D _ghostArea;
-    private bool _inRange = false;
+    private bool _inRange;
     private ColorRect _interactionRect;
     private AudioStreamPlayer2D _ghostFailurePlayer;
     private Label _interactionLabel;
@@ -16,7 +15,7 @@ public partial class Ghost : Node2D
     [Export]
     public int TimeOutBeforeFading { get; set; } = 3; // time before the ghost will disepear
 
-    private bool _isInCooldown = false;
+    private bool _isInCooldown;
 
 
 

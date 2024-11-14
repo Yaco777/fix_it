@@ -1,7 +1,6 @@
-﻿using Godot;
-using System;
-using System.Collections;
+﻿using System;
 using System.Collections.Generic;
+using Godot;
 
 public partial class Employee : Node2D
 {
@@ -12,27 +11,22 @@ public partial class Employee : Node2D
     [Export]
     public double StopWorkProbability { get; set; } = 0.001;
 
-    private bool _playerInRange = false; //boolean to check if the player is close to the employee
+    private bool _playerInRange; //boolean to check if the player is close to the employee
     private RichTextLabel _dialogueLabel; //dialogue label for interactions
     private ColorRect _colorRect; //the background behind the text
     private Hero _hero;
 
-    private List<string> _chat = new List<string>(); //messages shown when the player interact and the employee is working
-    private List<string> _stopWorkingChat = new List<string>(); //same thing but when the employee isn't working
-    private List<string> _backToWorkChat = new List<string>(); //when the employee go back to work
+    private List<string> _chat; //messages shown when the player interact and the employee is working
+    private List<string> _stopWorkingChat; //same thing but when the employee isn't working
+    private List<string> _backToWorkChat; //when the employee go back to work
     private Random random = new Random();
-    private bool currentTimerPresent = false; //we wants to only have 1 timer (to avoid having multiples messages at the same time)
+    private bool currentTimerPresent; //we want to only have 1 timer (to avoid having multiples messages at the same time)
     private int WAIT_TIME = 3; //the time the message will appear
     public string NameOfEmployee { get; private set; }
 
-    public int NumberOfTimeWorked { get; private set; } = 0; //number of time this employee returned to work
+    public int NumberOfTimeWorked { get; private set; } //number of time this employee returned to work
 
     private AnimatedSprite2D _interactAnimation;
-
-
-    [Export]
-    public Vector2 SpawnPosition { get; set; } //spawn position of the employee in the building
-
 
     public Employee(List<string> chat, List<string> stopWorkingChat, List<string> backToWork, string nameOfEmployee)
     {
@@ -68,7 +62,6 @@ public partial class Employee : Node2D
         var area = GetNode<Area2D>("EmployeeArea");
         area.BodyEntered += OnBodyEntered;
         area.BodyExited += OnBodyExited;
-        //GD.Print(Position+ "employeeNam : e"+NameOfEmployee);
         _interactAnimation = GetNode<AnimatedSprite2D>("InteractAnimation");
         _interactAnimation.ZIndex = 11;
         _interactAnimation.Visible = false; 
@@ -76,63 +69,48 @@ public partial class Employee : Node2D
 
     }
 
-    public void OnBodyEntered(Node2D body)
+    private void OnBodyEntered(Node2D body)
     {
-
-        if (body is Hero)
-        {
-            _playerInRange = true; //we update the variable
-            _hero = (Hero)body; //we keep the hero
-            //ShowDialogue("[center][color=red] Press [b]E[/b] to interact [/color][/center]");
-            _interactAnimation.Visible = true;
-            _interactAnimation.Animation = "can_interact";
-            _interactAnimation.Play();
-
-        }
+        if (body is not Hero) return;
+        _playerInRange = true; //we update the variable
+        _hero = (Hero)body; //we keep the hero
+        //ShowDialogue("[center][color=red] Press [b]E[/b] to interact [/color][/center]");
+        _interactAnimation.Visible = true;
+        _interactAnimation.Animation = "can_interact";
+        _interactAnimation.Play();
     }
 
-    public void OnBodyExited(Node2D body)
+    private void OnBodyExited(Node2D body)
     {
-        if (body is Hero)
-        {
-            _playerInRange = false;
-            _hero = null;
-            _colorRect.Visible = false; //the player won't be able to see the label if he is far
-            _interactAnimation.Visible = false;
+        if (body is not Hero) return;
+        _playerInRange = false;
+        _hero = null;
+        _colorRect.Visible = false; //the player won't be able to see the label if he is far
+        _interactAnimation.Visible = false;
 
-            //we remove the timer
-            if (currentTimerPresent)
-            {
-                OnTemporaryDialogTimeout();
-                currentTimerPresent = false;
-            }
-        }
+        //we remove the timer
+        if (!currentTimerPresent) return;
+        OnTemporaryDialogTimeout();
+        currentTimerPresent = false;
     }
 
     public override void _Process(double delta)
     {
-
-        
 
         if (_playerInRange && Input.IsActionJustPressed("interact_with_employees") && _hero.CooldownIsZero())
         {
             Interact(_hero); //methode redefined by all the employees
         }
 
-        if (new Random().NextDouble() < StopWorkProbability)
-        {
-
-            if (CurrentState == EmployeeState.Working)
-            {
-                SetState(EmployeeState.NotWorking);
-                _colorRect.Visible = false;
-            }
-        }
+        if (!(new Random().NextDouble() < StopWorkProbability)) return;
+        if (CurrentState != EmployeeState.Working) return;
+        SetState(EmployeeState.NotWorking);
+        _colorRect.Visible = false;
     }
 
 
 
-    public void SetState(EmployeeState newState)
+    protected void SetState(EmployeeState newState)
     {
         /**
          * Switch the state to the other one and emit a signal
@@ -149,8 +127,7 @@ public partial class Employee : Node2D
             CurrentState = newState;
             EmitSignal(SignalName.EmployeeStateChanged, (int)newState, NameOfEmployee);
         }
-
-        // Appliquer les actions selon l'Ã©tat
+        
         switch (newState)
         {
             case EmployeeState.Working:
@@ -177,7 +154,7 @@ public partial class Employee : Node2D
         CurrentState = EmployeeState.NotWorking;
     }
 
-    public void ShowDialogue(string text)
+    private void ShowDialogue(string text)
     {
         /**
          * Show a dialogue that won't diseppear
@@ -191,56 +168,54 @@ public partial class Employee : Node2D
         
     }
 
-    public virtual void Interact(Hero hero)
+    protected virtual void Interact(Hero hero)
     {
         //method that need to be redefined by the employees, that's why there is the keyword "virtual"
         string message;
         if (EmployeeState.Working == CurrentState)
         {
-            message = getRandomChat();
+            message = GetRandomChat();
         }
         else
         {
-            message = getRandomStopWorkingChat();
+            message = GetRandomStopWorkingChat();
         }
         ShowTemporaryDialog(message);
     }
 
-    public void ShowBackToWorkChat()
+    protected void ShowBackToWorkChat()
     {
-        ShowTemporaryDialog(getRandomBackToWorkChat());
+        ShowTemporaryDialog(GetRandomBackToWorkChat());
     }
 
-    public string getRandomChat()
+    private string GetRandomChat()
     {
-        return _chat[this.random.Next(_chat.Count)];
+        return _chat[random.Next(_chat.Count)];
     }
 
-    public string getRandomStopWorkingChat()
+    private string GetRandomStopWorkingChat()
     {
-        return _stopWorkingChat[this.random.Next(_stopWorkingChat.Count)];
+        return _stopWorkingChat[random.Next(_stopWorkingChat.Count)];
     }
 
-    public string getRandomBackToWorkChat()
+    private string GetRandomBackToWorkChat()
     {
-        return _backToWorkChat[this.random.Next(_backToWorkChat.Count)];
+        return _backToWorkChat[random.Next(_backToWorkChat.Count)];
     }
 
-    public void ShowTemporaryDialog(string text)
+    protected void ShowTemporaryDialog(string text)
     {
-        //this method will display a message for a specific ammount of time (wait_time) by using a timer
-        if (!currentTimerPresent)
-        {
-            ShowDialogue(text);
-            var timer = new Timer();
-            timer.WaitTime = WAIT_TIME;
-            timer.Name = "DialogTimer";
-            timer.OneShot = true;
-            timer.Timeout += OnTemporaryDialogTimeout;
-            AddChild(timer);
-            timer.Start();
-            currentTimerPresent = true; //we use this variable to avoid having multiple timers
-        }
+        //this method will display a message for a specific amount of time (wait_time) by using a timer
+        if (currentTimerPresent) return;
+        ShowDialogue(text);
+        var timer = new Timer();
+        timer.WaitTime = WAIT_TIME;
+        timer.Name = "DialogTimer";
+        timer.OneShot = true;
+        timer.Timeout += OnTemporaryDialogTimeout;
+        AddChild(timer);
+        timer.Start();
+        currentTimerPresent = true; //we use this variable to avoid having multiple timers
 
     }
 
@@ -265,9 +240,8 @@ public partial class Employee : Node2D
         RemoveChild(node);
     }
 
-    public static PackedScene createEmployee(string name)
+    public static PackedScene CreateEmployee(string name)
     {
-        // Appliquer les actions selon l'Ã©tat
         PackedScene employee = name switch
         {
             "Painter" => GD.Load<PackedScene>("res://characters/painter/painter.tscn"),
@@ -277,8 +251,6 @@ public partial class Employee : Node2D
             "Technicien" => GD.Load<PackedScene>("res://characters/technicien/technicien.tscn"),
             _ => throw new ArgumentException("The name of the employee : " + name + " is invalid, it's impossible to create the employee")
         };
-
-        var scene = (Node2D) employee.Instantiate();
         return employee;
     }
 }

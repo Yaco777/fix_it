@@ -1,9 +1,41 @@
-[gd_scene load_steps=6 format=3 uid="uid://cmpmyoh2setes"]
+[gd_scene load_steps=11 format=3 uid="uid://cmpmyoh2setes"]
 
-[ext_resource type="Texture2D" uid="uid://dgeexyx2cit4b" path="res://characters/musicien/MusicienFace01.png" id="1_5v3ru"]
 [ext_resource type="Script" path="res://characters/marketing/Marketing.cs" id="1_pihcc"]
 [ext_resource type="PackedScene" uid="uid://c6kup0modcr05" path="res://marketing_minigame.tscn" id="3_27ru2"]
+[ext_resource type="Texture2D" uid="uid://dcs3qrt4jur10" path="res://characters/marketing/AccountantWorking01.png" id="3_bbor5"]
 [ext_resource type="SpriteFrames" uid="uid://dxvd8we5cp3eh" path="res://spriteAnimationCollect.tres" id="4_kompq"]
+[ext_resource type="Texture2D" uid="uid://crhh7emajhom0" path="res://characters/marketing/AccountantWorking02.png" id="4_w6k87"]
+[ext_resource type="Texture2D" uid="uid://cev2kud5ukcw8" path="res://characters/marketing/AccountantNotWorking.png" id="5_h136h"]
+[ext_resource type="Texture2D" uid="uid://cnci11vxkdhad" path="res://characters/marketing/AccountantWorking03.png" id="5_k7ay0"]
+[ext_resource type="Texture2D" uid="uid://b2tn5jv4ummjl" path="res://characters/marketing/AccountantWorking04.png" id="6_4oot6"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_l8sla"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_h136h")
+}],
+"loop": true,
+"name": &"notWorking",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_bbor5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_w6k87")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_k7ay0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_4oot6")
+}],
+"loop": true,
+"name": &"working",
+"speed": 5.0
+}]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3ukut"]
 size = Vector2(199, 318)
@@ -12,9 +44,10 @@ size = Vector2(199, 318)
 script = ExtResource("1_pihcc")
 SpawnPosition = Vector2(609, 284)
 
-[node name="SecuritySprite" type="Sprite2D" parent="."]
+[node name="MarketingSprites" type="AnimatedSprite2D" parent="."]
 scale = Vector2(0.2, 0.2)
-texture = ExtResource("1_5v3ru")
+sprite_frames = SubResource("SpriteFrames_l8sla")
+animation = &"notWorking"
 
 [node name="EmployeeArea" type="Area2D" parent="."]
 

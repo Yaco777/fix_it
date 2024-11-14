@@ -1,6 +1,7 @@
-using Godot;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using Godot;
 
 public partial class Musicien : Employee
 {
@@ -11,7 +12,7 @@ public partial class Musicien : Employee
     private AnimatedSprite2D _musicianAnimation;
     private Node2D _noteNode;
     private GlobalSignals _globalSignals;
-    private bool _isAlarmOn = false;
+    private bool _isAlarmOn;
     private static List<string> _chatMessages = new List<string>
 
 
@@ -96,7 +97,7 @@ public partial class Musicien : Employee
         _ = GenerateNotes();
     }
 
-    private async System.Threading.Tasks.Task GenerateNotes()
+    private async Task GenerateNotes()
     {
         var random = new Random();
         while (CurrentState == EmployeeState.Working)
@@ -142,7 +143,7 @@ public partial class Musicien : Employee
         note.SetDirection(direction); // Appeler une mÃ©thode pour dÃ©finir la direction
     }
 
-    public override void Interact(Hero hero)
+    protected override void Interact(Hero hero)
     {
         /**
 		 * The interaction with the Musicien will display a message according to it's working state.

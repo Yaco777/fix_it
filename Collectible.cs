@@ -1,6 +1,5 @@
-﻿using Godot;
-using System;
-using System.Reflection.Emit;
+﻿using System;
+using Godot;
 
 public partial class Collectible : Area2D
 /**
@@ -15,7 +14,7 @@ Represent a collectible object. Every collectible have an unique name
 
     [Export] public AudioStream DropSound { get; set; }  //sound when the player drop the item
 
-    private bool _playerInRange = false; //bool used to check if the player can take the object
+    private bool _playerInRange; //bool used to check if the player can take the object
     private AudioStreamPlayer _audioPlayer;
     private AudioStreamPlayer _dropSoundPlayer;
     private Sprite2D _sprite;

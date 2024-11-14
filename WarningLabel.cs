@@ -1,12 +1,11 @@
 using Godot;
-using System;
 
 public partial class WarningLabel : Label
 {
 
     private float speed = 0.001f;
 
-    private float offset = 0.0f;
+    private float offset;
 
     private ShaderMaterial _shaderMaterial;
 
