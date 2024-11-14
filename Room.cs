@@ -149,6 +149,7 @@ public partial class Room : Node2D
         var instance = (Employee) employee.Instantiate();
         instance.GlobalPosition = new Vector2(GlobalPosition.X, GlobalPosition.Y + YMargin); //we adjust the position with the YMargin
         instance.Name = EmployeeUnlockedName;
+        instance.ZIndex = 2;
         GetParent().GetParent().GetParent().GetNode<Node2D>("Employees").AddChild(instance);
         _building.addEmployeeToCheckForStateChange(instance); //when the room create an employee, the building should connect the StateChange signal
 

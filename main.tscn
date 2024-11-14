@@ -39,7 +39,8 @@ scale = Vector2(0.6, 0.6)
 texture = ExtResource("5_oceu3")
 
 [node name="PeintreChevalet" type="Sprite2D" parent="Building/Furnitures"]
-position = Vector2(260, -2415)
+z_index = 1
+position = Vector2(-405, -2400)
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("5_s2ysv")
 
