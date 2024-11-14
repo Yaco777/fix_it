@@ -1,6 +1,6 @@
-using Godot;
 using System;
 using System.Collections.Generic;
+using Godot;
 
 public partial class Security : Employee
 {
@@ -66,7 +66,7 @@ public partial class Security : Employee
       
         base.StartWorking();
         _alertStreamPlayer.Stop(); //we stop the alert
-        _globalSignals.EmitAlartStateChanged(false);
+        _globalSignals.EmitAlertStateChanged(false);
         _securityAnimation.Animation = "working";
 
     }
@@ -78,17 +78,17 @@ public partial class Security : Employee
         _frog = Collectible.CreateCollectible("Frog");
         
         _frogAnimation.Visible = true;
-        _currentArea = Building.getRandomArea2D();
-        _frog.GlobalPosition = Building.getRandomPositionForItemForSpecificArea(_currentArea);
+        _currentArea = Building.GetRandomArea2D();
+        _frog.GlobalPosition = Building.GetRandomPositionForItemForSpecificArea(_currentArea);
         _frogAnimation.GlobalPosition = _frog.GlobalPosition;
         GetTree().Root.GetChild(0).AddChild(_frog);
         _frog.HideSprite();
-        _globalSignals.EmitAlartStateChanged(true);
+        _globalSignals.EmitAlertStateChanged(true);
         _securityAnimation.Animation = "idle";
     }
 
 
-    public override void Interact(Hero hero)
+    protected override void Interact(Hero hero)
     {
         //if the hero has removed the frog, the employee will go back to work
         if(_hasRemovedFrog)
@@ -149,7 +149,7 @@ public partial class Security : Employee
         var collisionShape = _currentArea.GetNode<CollisionShape2D>("CollisionShape2D");
         if (collisionShape != null)
         {
-            
+
             if (collisionShape.Shape is SegmentShape2D segmentShape)
             {
                 //we compute the bounds
@@ -159,10 +159,8 @@ public partial class Security : Employee
                 // check if the frog's X position is within the bounds
                 return _frog.GlobalPosition.X >= minX && _frog.GlobalPosition.X <= maxX;
             }
-            else
-            {
-                throw new InvalidOperationException("The collision shape of the area is not a valid SegmentShape2D.");
-            }
+
+            throw new InvalidOperationException("The collision shape of the area is not a valid SegmentShape2D.");
         }
 
         return false;

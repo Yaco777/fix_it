@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://b22i1xe7x8eus"]
+[gd_scene load_steps=8 format=3 uid="uid://b22i1xe7x8eus"]
 
 [ext_resource type="Script" path="res://Building.cs" id="1_fta1s"]
 [ext_resource type="Texture2D" uid="uid://d3euoal1sakgo" path="res://building/building.png" id="1_hsmv8"]
@@ -6,6 +6,9 @@
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_avprm"]
 size = Vector2(1754, 31)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mhajn"]
+size = Vector2(532.5, 20)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_b6mni"]
 size = Vector2(452, 21)
@@ -55,6 +58,12 @@ metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Floors/Floor3"]
 shape = SubResource("RectangleShape2D_avprm")
+
+[node name="Floor 4" type="Area2D" parent="Floors"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floors/Floor 4"]
+position = Vector2(266.25, -1679)
+shape = SubResource("RectangleShape2D_mhajn")
 
 [node name="Roofs" type="Node2D" parent="."]
 

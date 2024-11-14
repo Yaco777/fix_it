@@ -1,6 +1,7 @@
-﻿using Godot;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using Godot;
+using Range = Godot.Range;
 
 public partial class ProgressSystem : CanvasLayer
 {
@@ -8,7 +9,7 @@ public partial class ProgressSystem : CanvasLayer
     private Dictionary<Employee, List<Achievement>> allAchievements = new Dictionary<Employee, List<Achievement>>(); //all achievements of the game
 
     private List<Employee> allEmployees = new List<Employee>();
-    public int TotalStars { get; set; } = 0;
+    public int TotalStars { get; set; }
     private TextureProgressBar _starsProgressBar; //the circular progress bar
     private ProgressBar _totalProgressBar; //the global progress bar
     private AchievementDisplay _achievementDisplay; //shown when the player get an achievements
@@ -39,13 +40,13 @@ public partial class ProgressSystem : CanvasLayer
 
 
     private Queue<Achievement> achievementQueue = new Queue<Achievement>();
-    private bool isProcessingAchievements = false;
-    private int _currentAmountsOfStars = 0;
+    private bool isProcessingAchievements;
+    private int _currentAmountsOfStars;
 
 
     //these two variables are used to avoid concurrent access
-    private bool isTweening = false;
-    private Queue<(int stars, Godot.Range node)> animationQueue = new Queue<(int stars, Godot.Range node)>();
+    private bool isTweening;
+    private Queue<(int stars, Range node)> animationQueue = new Queue<(int stars, Range node)>();
 
 
     private GlobalSignals _globalSignals;
@@ -135,26 +136,26 @@ public partial class ProgressSystem : CanvasLayer
             "Roses are red, but this red is all yours!",
             "The red color is back for the first time",
             40,
-            () => painter.firstTimeGettingRed == true
+            () => painter.firstTimeGettingRed
         );
         var achievementPainter2 = new Achievement(
             "Why is the sky blue?",
             "The blue color is back for the first time",
             40,
-            () => painter.firstTimeGettingBlue == true
+            () => painter.firstTimeGettingBlue
         );
         var achievementPainter3 = new Achievement(
             "The nature approves your choice",
             "The green color is back for the first time",
             40,
-            () => painter.firstTimeGettingGreen == true
+            () => painter.firstTimeGettingGreen
         );
 
         var achievementPainter4 = new Achievement(
             "You can see in RGB!",
             "You gaved back all the colors to the painter at least one time",
             40,
-            () => painter.firstTimeGettingRed == true && painter.firstTimeGettingBlue == true && painter.firstTimeGettingRed == true
+            () => painter.firstTimeGettingRed && painter.firstTimeGettingBlue && painter.firstTimeGettingRed
         );
 
         var achievementPainter5 = new Achievement(
@@ -218,7 +219,7 @@ public partial class ProgressSystem : CanvasLayer
         }
         var name = _unlockableEmployeeOrder[0];
         _unlockableEmployeeOrder.RemoveAt(0);
-        var employee = Employee.createEmployee(name);
+        var employee = Employee.CreateEmployee(name);
        
 
     }
@@ -348,7 +349,7 @@ public partial class ProgressSystem : CanvasLayer
 
     
 
-    private void AnimateProgress(int stars, Godot.Range node)
+    private void AnimateProgress(int stars, Range node)
     {
         if (isTweening)
         {
@@ -360,7 +361,7 @@ public partial class ProgressSystem : CanvasLayer
         StartTween(stars, node);
     }
 
-    private void StartTween(int stars, Godot.Range node)
+    private void StartTween(int stars, Range node)
     {
         /**
          * Start the tween animation for the number of stars

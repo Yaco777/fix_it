@@ -1,5 +1,5 @@
-using Godot;
 using System;
+using Godot;
 
 public partial class Room : Node2D
 {
@@ -16,9 +16,9 @@ public partial class Room : Node2D
 
     [Export] public string EmployeeUnlockedName {  get; set; }
 
-    private bool _playerInRange = false;
+    private bool _playerInRange;
 
-    public bool _hasUnlockedRoom = false; // need to be public for the tutorial
+    public bool _hasUnlockedRoom; // need to be public for the tutorial
 
     private AnimatedSprite2D _interactAnimation;
 
@@ -151,7 +151,7 @@ public partial class Room : Node2D
         instance.Name = EmployeeUnlockedName;
         instance.ZIndex = 2;
         GetParent().GetParent().GetParent().GetNode<Node2D>("Employees").AddChild(instance);
-        _building.addEmployeeToCheckForStateChange(instance); //when the room create an employee, the building should connect the StateChange signal
+        _building.AddEmployeeToCheckForStateChange(instance); //when the room create an employee, the building should connect the StateChange signal
 
     }
 

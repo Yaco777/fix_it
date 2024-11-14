@@ -1,7 +1,6 @@
-using Godot;
 using System;
 using System.Collections.Generic;
-using System.Linq;
+using Godot;
 
 public partial class VBoxMarketingGame : VBoxContainer
 {
@@ -36,16 +35,16 @@ public partial class VBoxMarketingGame : VBoxContainer
 
     [Export]
 
-    public Color FailureColor { get; set; } = new Color(0.7f, 0, 0, 1f);
+    public Color FailureColor { get; set; } = new Color(0.7f, 0, 0);
 
     [Export]
-    public Color DefaultBackgroundColor { get; set; } = new Color(0.458f, 0.642f, 0.627f, 1f);
+    public Color DefaultBackgroundColor { get; set; } = new Color(0.458f, 0.642f, 0.627f);
 
     [Export]
-    public Color CorrectAnswerColor { get; set; } = new Color(0.585f, 0.909f, 0.755f, 1);
+    public Color CorrectAnswerColor { get; set; } = new Color(0.585f, 0.909f, 0.755f);
 
     [Export]
-    public Color WrongAnswerColor { get; set; } = new Color(1, 0.611f, 0.639f, 1);
+    public Color WrongAnswerColor { get; set; } = new Color(1, 0.611f, 0.639f);
 
 
     public override void _Ready()
@@ -202,11 +201,9 @@ public partial class VBoxMarketingGame : VBoxContainer
             
             var newStyle = new StyleBoxFlat();
          
-
-            // Changer la couleur de fond
+            
             newStyle.BgColor = color;
-
-            // Appliquer la nouvelle StyleBox au `LineEdit`
+            
             answer.AddThemeStyleboxOverride("normal", newStyle);
         }
     }

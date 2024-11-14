@@ -1,7 +1,7 @@
-using Godot;
 using System;
+using Godot;
 
-public partial class CanvasWithShader : Godot.CanvasLayer
+public partial class CanvasWithShader : CanvasLayer
 {
     private ShaderMaterial shaderMaterial;
     private ColorRect colorRect;
@@ -9,15 +9,15 @@ public partial class CanvasWithShader : Godot.CanvasLayer
     [Export]
     private float transitionSpeed = 1.0f;  // Speed of the transition
 
-    private float redTransition = 0.0f;
-    private float greenTransition = 0.0f;
-    private float blueTransition = 0.0f;
+    private float redTransition;
+    private float greenTransition;
+    private float blueTransition;
     private float bwTransition = 1.0f;    // Start with black and white (1.0 means fully black and white)
 
     // By default, the game will be in black and white
-    private bool redEnabled = false;
-    private bool greenEnabled = false;
-    private bool blueEnabled = false;
+    private bool redEnabled;
+    private bool greenEnabled;
+    private bool blueEnabled;
 
     [Export]
     private float minColorValueWhenOnlyShowingBlue = 0.8f;

@@ -1,5 +1,5 @@
-using Godot;
 using System;
+using Godot;
 
 public partial class SimpleHero : CharacterBody2D
 {
@@ -7,14 +7,14 @@ public partial class SimpleHero : CharacterBody2D
     public int Speed { get; set; } = 400; //speed of the hero
     public Vector2 ScreenSize; //size of the screen
 
-    private bool _canClimb = false; //if the player enter the area of a ladder, he can climb
-    private bool _isClimbing = false; //tell if the player is currently climbing (he can't go on the left or right)
+    private bool _canClimb; //if the player enter the area of a ladder, he can climb
+    private bool _isClimbing; //tell if the player is currently climbing (he can't go on the left or right)
 
-    private string _collectedItem = null; //current item in the inventory
+    private string _collectedItem; //current item in the inventory
     private bool _canGoUp = true; //check if there is a floor at the top of the player
     private bool _canGoDown = true; //check if there is a floor below the player
 
-    private int _actionCooldown = 0; //cooldown to prevent duplication for the items (by spamming)
+    private int _actionCooldown; //cooldown to prevent duplication for the items (by spamming)
 
     private AnimatedSprite2D _animatedSprite2D;
 

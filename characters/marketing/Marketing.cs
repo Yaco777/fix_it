@@ -1,11 +1,10 @@
-using Godot;
-using System;
 using System.Collections.Generic;
+using Godot;
 
 public partial class Marketing : Employee
 {
 
-    private bool _miniGameSuccess = false;
+    private bool _miniGameSuccess;
     private GlobalSignals _globalSignals;
     private CanvasLayer _marketingMinigame;
     private AnimatedSprite2D _marketingAnimation;
@@ -67,7 +66,7 @@ public partial class Marketing : Employee
 
     }
 
-    public override void Interact(Hero hero)
+    protected override void Interact(Hero hero)
     {
 
         if (CurrentState == EmployeeState.NotWorking && _miniGameSuccess == false)
@@ -76,7 +75,7 @@ public partial class Marketing : Employee
             Input.MouseMode = Input.MouseModeEnum.Visible;
 
         }
-        else if (CurrentState == EmployeeState.NotWorking && _miniGameSuccess == true)
+        else if (CurrentState == EmployeeState.NotWorking && _miniGameSuccess)
         {
             ShowBackToWorkChat();
             SetState(EmployeeState.Working);

@@ -1,6 +1,5 @@
-using Godot;
-using System;
 using System.Collections.Generic;
+using Godot;
 
 public partial class Technicien : Employee
 {
@@ -43,7 +42,7 @@ public partial class Technicien : Employee
     [Export]
     private float OscillationSpeed { get; set; } = 1f; //oscillation speed between darknessAmount and LowestDarknessAMount
 
-    private float _time = 0f; //variable used for the oscillation
+    private float _time; //variable used for the oscillation
 
     private bool _firstStart = true; //when the technicien work for the first start, the light on sound won't be used
 
@@ -120,7 +119,7 @@ public partial class Technicien : Employee
     }
 
 
-    public override void Interact(Hero hero)
+    protected override void Interact(Hero hero)
     {
         //the technicien will return to it's working state when we talk to him
         if (EmployeeState.NotWorking == CurrentState)

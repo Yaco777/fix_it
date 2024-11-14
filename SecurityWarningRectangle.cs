@@ -1,5 +1,4 @@
 using Godot;
-using System;
 
 public partial class SecurityWarningRectangle : TextureRect
 {
@@ -64,7 +63,7 @@ public partial class SecurityWarningRectangle : TextureRect
     private void CreateCornerTriangle(Vector2 point1, Vector2 point2, Vector2 point3)
     {
         var triangle = new Polygon2D();
-        triangle.Polygon = new Vector2[] { point1, point2, point3 };
+        triangle.Polygon = new[] { point1, point2, point3 };
         triangle.Color = new Color(1, 0, 0);
         AddChild(triangle);
     }

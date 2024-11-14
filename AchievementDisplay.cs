@@ -1,5 +1,5 @@
-﻿using Godot;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Godot;
 
 public partial class AchievementDisplay : Control
 {
@@ -17,7 +17,7 @@ public partial class AchievementDisplay : Control
     public float AchievementFadeOutTime { get; set; } = 0.2f;
 
     private Queue<Achievement> _achievementQueue = new Queue<Achievement>();
-    private bool _isDisplaying = false;
+    private bool _isDisplaying;
 
     public override void _Ready()
     {
@@ -76,7 +76,7 @@ public partial class AchievementDisplay : Control
                 fadeOutTween.Finished += () =>
                 {
                     _colorRect.Visible = false;
-                    _colorRect.Modulate = new Color(_colorRect.Modulate.R, _colorRect.Modulate.G, _colorRect.Modulate.B, 1);
+                    _colorRect.Modulate = new Color(_colorRect.Modulate.R, _colorRect.Modulate.G, _colorRect.Modulate.B);
                     DisplayNextAchievement(); // Show the next achievement after this one fades out
                 };
 
