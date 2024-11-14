@@ -46,7 +46,7 @@ public partial class GlobalSignals : Node2D
 		EmitSignal(SignalName.NewAchievementCollectedd,achievement.ToDictionary());
 	}
 
-	public void EmitAlartStateChanged(bool isAlarmOn)
+	public void EmitAlertStateChanged(bool isAlarmOn)
 	{
 		EmitSignal(SignalName.AlarmStateChanged, isAlarmOn);
 	}
