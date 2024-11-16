@@ -17,6 +17,9 @@ public partial class UI : CanvasLayer
 	[Export]
 	private float animationScaleY = 2f;
 
+	[Export]
+	public int NumberOfGhostsToSlay { get; set; } = 1;
+
 	private GlobalSignals _globalSignals;
 
 
@@ -28,7 +31,10 @@ public partial class UI : CanvasLayer
 	
 	private Label _ghostCounterLabel;
 
-	[Export]
+	private ProgressSystem _progressSystem;
+
+
+    [Export]
 	public string NotWearningGlasses { get; set; } = "Not wearing";
 
 	[Export]
@@ -39,18 +45,41 @@ public partial class UI : CanvasLayer
 
 	[Export]
 	public string GhostMessage { get; set; } = "There are ghost everywhere! Press R again to remove the glasses. Try to fight against the ghosts!";
-	
-	private int _ghostsSlayed = 0;
-	
-	
+
+	[Export]
+	public string EndGameMessage { get; set; } = "You did it, you fixed the game! Press E to end";
+
+    [Export]
+    public float FadeDuration = 5f; // Duration of the fade-out effect
+    [Export]
+    public float CameraZoomSpeed = 0.01f; // Speed at which the camera zooms out
 
 
-	private enum State //this state is used to know if we need to show the message asking the player to wear the glasses
+	[Export]
+	public float MaxCameraZoomOut = 0.5f;
+
+    private int _ghostsSlayed = 0;
+
+	private bool _isFading = false;
+
+	private ColorRect _endGameRect;
+
+	private Camera2D _camera;
+
+
+
+
+
+
+
+    private enum State //this state is used to know if we need to show the message asking the player to wear the glasses
 	{
 		GLASSES_NOT_UNLOCKED,
 		SHOW_GLASSES_UNLOCKED_MESSAGE,
 		GHOST_MESSAGE,
 		HIDE_GLASSES_UNLOCKED_MESSAGE,
+		END_GAME_MESSAGE,
+		FADING_OUT
 
 	}
 
@@ -65,7 +94,13 @@ public partial class UI : CanvasLayer
 		_objectIcon.Visible = false;
 		_objectName.AddThemeFontSizeOverride("normal_font_size", 32);
 		_globalSignals = GetNode<GlobalSignals>("../GlobalSignals");
-		SetEmptyInventoryLabel();
+		_camera = GetNode<Camera2D>("../Hero/Camera");
+		_endGameRect = GetNode<ColorRect>("EndGameRect");
+		_progressSystem = GetNode<ProgressSystem>("ProgressSystem");
+        _endGameRect.Color = new Color(0,0, 0, 0);
+		
+
+        SetEmptyInventoryLabel();
 
 		//the glasses
 		_globalSignals.UnlockGlasses += GlassesUnlocked;
@@ -106,12 +141,71 @@ public partial class UI : CanvasLayer
 
 				}
 
-
-
 			}
+			else if(Input.IsActionJustPressed("message_interaction"))
+			{
+				if(_state == State.END_GAME_MESSAGE)
+				{
+					_state = State.FADING_OUT;
+					_dialogRect.Visible = false;
+					_isFading = true;
+                    _endGameRect.Visible = true;
+					PlayEndingSound();
+					
+                  
+                 
+                }
+			}
+			
 		}
-		
-	}
+        if (_isFading)
+        {
+            // Fade the screen out by increasing the alpha of the endGameRect
+            float newAlpha = _endGameRect.Color.A + (float)(delta / FadeDuration);
+			
+            _endGameRect.Color = new Color(0, 0, 0, Mathf.Clamp(newAlpha, 0, 1));
+
+            // Zoom out the camera by decreasing the zoom value
+            if (_camera.Zoom.Length() > MaxCameraZoomOut) // Prevent the zoom from going negative
+            {
+                _camera.Zoom -= new Vector2(CameraZoomSpeed * (float)delta, CameraZoomSpeed * (float)delta);
+            }
+
+            // When the fade-out is complete, trigger the game end logic
+            if (_endGameRect.Color.A >= 1.0f)
+            {
+                // Trigger game over, disable the fading
+                _isFading = false;
+                // You can also trigger the actual end of the game scene or transition here
+                GD.Print("Game Over! End of the Game!");
+                var endGameScene = GD.Load<PackedScene>("res://end_game_credits.tscn");
+                var endGame = (EndGameCredits)endGameScene.Instantiate();
+				GetParent().AddChild(endGame);
+				Visible = false;
+                
+            }
+        }
+
+    }
+
+	private void  PlayEndingSound()
+	{
+        AudioServer.SetBusVolumeDb(2, -80);
+
+		GD.Print(AudioServer.BusCount);
+        AudioStreamPlayer soundPlayer = new AudioStreamPlayer();
+        soundPlayer.Bus = "EndGameSound";
+        AddChild(soundPlayer);  
+
+      
+        AudioStream audioStream = (AudioStream)ResourceLoader.Load("res://audio/end_of_the_game.mp3");
+
+        
+        soundPlayer.Stream = audioStream;
+       // AudioServer.SetBusVolumeDb(AudioServer.GetBusIndex("EndGameSound"), 0);
+
+        soundPlayer.Play();
+    }
 
 	public void SetEmptyInventoryLabel()
 	{
@@ -140,7 +234,6 @@ public partial class UI : CanvasLayer
 		
 		if(_state == State.GLASSES_NOT_UNLOCKED)
 		{
-			GD.Print("on debloque les glasses !!");
 			_state = State.SHOW_GLASSES_UNLOCKED_MESSAGE;
 			_dialogRect.Visible = true;
 			_glassesWear.Visible = true;
@@ -167,6 +260,25 @@ public partial class UI : CanvasLayer
 		_ghostsSlayed++;
 		_ghostCounterLabel.Text = "Ghosts Slayed: " + _ghostsSlayed;
 		_ghostCounterLabel.Visible = true; // Show the counter
+        CheckEndGame();
+	}
+
+	private void CheckEndGame()
+	{
+		if(_ghostsSlayed == NumberOfGhostsToSlay)
+		{
+			_globalSignals.EmitEndOfTheGame();
+			_state = State.END_GAME_MESSAGE;
+            _dialogRect.Visible = true;
+			_dialogLabel.Text = EndGameMessage;
+			_objectIcon.Visible = false;
+			_objectName.Visible = false;
+			_glassesWear.Visible = false;
+			_ghostCounterLabel.Visible = false;
+			_progressSystem.Visible = false;
+
+
+        }
 	}
 
    

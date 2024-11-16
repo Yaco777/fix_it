@@ -61,7 +61,6 @@ animations = [{
 
 [node name="Security" type="Node2D"]
 script = ExtResource("1_viv4g")
-SpawnPosition = Vector2(867, 262)
 
 [node name="SecuritySprite" type="AnimatedSprite2D" parent="."]
 scale = Vector2(0.2, 0.2)
@@ -98,6 +97,7 @@ text = "HIIII HELLO"
 
 [node name="Alert" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("2_d28o1")
+bus = &"OtherSounds"
 
 [node name="InteractAnimation" type="AnimatedSprite2D" parent="."]
 position = Vector2(1, -148)

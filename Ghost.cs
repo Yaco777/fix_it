@@ -1,4 +1,5 @@
 using Godot;
+using System;
 
 public partial class Ghost : Node2D
 {
@@ -28,8 +29,10 @@ public partial class Ghost : Node2D
 
 	[Export]
 	public int CorrectAnswer { get; set; } = 1;
-	
-	private float _floatSpeed = 2.0f; // Speed of the floating motion
+
+	private bool _isDisposed = false; //this boolean is used to prevent showing the ghost if he was disposed
+
+    private float _floatSpeed = 2.0f; // Speed of the floating motion
 	private float _floatAmplitude = 10.0f; // Amplitude of the floating motion
 	private float _floatOffset; // Offset for the sine wave
 
@@ -80,7 +83,8 @@ public partial class Ghost : Node2D
 			_globalSignals.EmitGhostSlayed(); 
 			timer.Timeout += () =>
 			{
-				QueueFree(); //TODO decide what to do here when the ghost is gone
+				_isDisposed = true;
+                QueueFree(); //TODO decide what to do here when the ghost is gone
 			};
 		}
 		else
@@ -117,7 +121,11 @@ public partial class Ghost : Node2D
 
 	private void UpdateGhostDisplay(bool shouldShow)
 	{
-		Visible = shouldShow;
+		if(!_isDisposed)
+		{
+            Visible = shouldShow;
+        }
+		
 	}
 
 }

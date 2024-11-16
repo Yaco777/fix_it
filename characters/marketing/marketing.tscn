@@ -42,7 +42,6 @@ size = Vector2(199, 318)
 
 [node name="Marketing" type="Node2D"]
 script = ExtResource("1_pihcc")
-SpawnPosition = Vector2(609, 284)
 
 [node name="MarketingSprites" type="AnimatedSprite2D" parent="."]
 scale = Vector2(0.2, 0.2)

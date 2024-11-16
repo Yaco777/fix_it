@@ -15,6 +15,8 @@ public partial class Employee : Node2D
     private RichTextLabel _dialogueLabel; //dialogue label for interactions
     private ColorRect _colorRect; //the background behind the text
     private Hero _hero;
+    private GlobalSignals _globalSignals;
+    private bool _canInteract = true;
 
     private List<string> _chat; //messages shown when the player interact and the employee is working
     private List<string> _stopWorkingChat; //same thing but when the employee isn't working
@@ -57,6 +59,7 @@ public partial class Employee : Node2D
     {
         _colorRect = GetNode<ColorRect>("ColorRect");
         _dialogueLabel = GetNode<RichTextLabel>("ColorRect/RichTextLabel");
+        _globalSignals = GetNode<GlobalSignals>("../../GlobalSignals");
         _dialogueLabel.BbcodeEnabled = true;
         _colorRect.Visible = false;
         var area = GetNode<Area2D>("EmployeeArea");
@@ -64,9 +67,16 @@ public partial class Employee : Node2D
         area.BodyExited += OnBodyExited;
         _interactAnimation = GetNode<AnimatedSprite2D>("InteractAnimation");
         _interactAnimation.ZIndex = 11;
-        _interactAnimation.Visible = false; 
+        _interactAnimation.Visible = false;
+        _globalSignals.EndOfTheGame += StopInteractions;
 
 
+    }
+
+    private void StopInteractions()
+    {
+        _canInteract = false;
+        _interactAnimation.Visible = false;
     }
 
     private void OnBodyEntered(Node2D body)
@@ -96,6 +106,7 @@ public partial class Employee : Node2D
 
     public override void _Process(double delta)
     {
+        if(!_canInteract) { return; };
 
         if (_playerInRange && Input.IsActionJustPressed("interact_with_employees") && _hero.CooldownIsZero())
         {
@@ -170,6 +181,9 @@ public partial class Employee : Node2D
 
     protected virtual void Interact(Hero hero)
     {
+        if (!_canInteract) { return; };
+
+
         //method that need to be redefined by the employees, that's why there is the keyword "virtual"
         string message;
         if (EmployeeState.Working == CurrentState)

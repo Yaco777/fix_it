@@ -22,6 +22,8 @@ public partial class Hero : CharacterBody2D
 
 	private bool _glassesUnlocked;
 
+	private bool _canMove = true; //canMove will be turned to false when the game will end
+
 	[Export]
 	private int _defaultCooldown = 100;
 	private AnimatedSprite2D _animatedSprite2D;
@@ -42,11 +44,18 @@ public partial class Hero : CharacterBody2D
 		_animatedSprite2D = GetNode<AnimatedSprite2D>("HeroSprites");
 		_globalSignals = GetNode<GlobalSignals>("../GlobalSignals");
 		_globalSignals.UnlockGlasses += GlassesUnlocked;
+		_globalSignals.EndOfTheGame += RestrictMovment;
 
 
 	}
 
-	private void SetupLadders()
+	private void RestrictMovment()
+	{
+		_canMove = false;
+	}
+
+
+    private void SetupLadders()
 	{
 		/**
 		 * The hero will listen to the "ladder entered" and "ladder exited" signal to be able to climb a ladder
@@ -240,7 +249,10 @@ public partial class Hero : CharacterBody2D
 
 	public override void _PhysicsProcess(double delta)
 	{
-		var velocity = Vector2.Zero;
+
+        if (!_canMove) { return; } //if it's the end of the game, the player cannot move
+
+        var velocity = Vector2.Zero;
 
 		if (_actionCooldown > 0)
 		{

@@ -69,12 +69,15 @@ texture = ExtResource("1_vds6e")
 
 [node name="Snoring" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("4_nm0v4")
+bus = &"OtherSounds"
 
 [node name="Music" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_u7alc")
+bus = &"OtherSounds"
 
 [node name="Horn" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("5_mmg6g")
+bus = &"OtherSounds"
 
 [node name="Notes" type="Node2D" parent="."]
 script = ExtResource("6_nwfdn")

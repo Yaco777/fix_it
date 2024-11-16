@@ -76,7 +76,7 @@ public partial class ProgressSystem : CanvasLayer
         _totalNumberOfStarsLabel.Text = "0";
         
 
-
+        //this loop is used for the employess that are already in the game when we start it, not the one added by the rooms
         foreach (var emp in employees)
         {
 
@@ -88,118 +88,113 @@ public partial class ProgressSystem : CanvasLayer
                 empConv.EmployeeStateChanged += CheckNewAchievements;
                 empConv.CheckAchievement += CheckNewAchievements;
                 allAchievements[(Employee)emp] = new List<Achievement>();
+                AddAchievementsForOneEmployee(empConv);
             }
         }
 
-        CreateAchievements();
+        
 
     }
 
-    private void CreateAchievements()
+    public void AddAchievementsForOneEmployee(Employee employee)
     {
         /**
-         * Create all the achievements of the game
+         * When an employee has been created by a room, we need to add the achievements associated
          */
-
-        if(allEmployees.Count == 0)
+        allEmployees.Add(employee);
+        allAchievements[employee] = new List<Achievement>();
+        employee.EmployeeStateChanged += CheckNewAchievements;
+        employee.CheckAchievement += CheckNewAchievements;
+        if (employee.NameOfEmployee == "Musicien")
         {
-            //in the tutorial, the allEmployees aray may be empty
-            return;
-        }
-
-        //---achievements of the musicien---
-        var musicien = allEmployees.Find(emp => emp.NameOfEmployee == "Musicien");
-        var achievementMusicien = new Achievement(
+            var musicien = (Musicien)employee;
+            var achievementMusicien = new Achievement(
             "After the last breath, only the silence remains",
             "The music has stop for the first time",
             40,
             () => musicien.CurrentState == Employee.EmployeeState.NotWorking // Condition to unlock the achievement
         );
 
-        var achievementMusicien2 = new Achievement(
-            "Music is the language of emotions",
-            "The musicien worked again for the first time",
-            70,
-            () => musicien.NumberOfTimeWorked == 1
-        );
+            var achievementMusicien2 = new Achievement(
+                "Music is the language of emotions",
+                "The musicien worked again for the first time",
+                70,
+                () => musicien.NumberOfTimeWorked == 1
+            );
 
-        var achievementMusicien3 = new Achievement(
-            "You can feel it",
-            "The musicien worked again for the third time",
-            70,
-            () => musicien.NumberOfTimeWorked == 3
-        );
+            var achievementMusicien3 = new Achievement(
+                "You can feel it",
+                "The musicien worked again for the third time",
+                70,
+                () => musicien.NumberOfTimeWorked == 3
+            );
+            allAchievements[musicien].Add(achievementMusicien);
+            allAchievements[musicien].Add(achievementMusicien2);
+            allAchievements[musicien].Add(achievementMusicien3);
+        }
+        else if(employee.NameOfEmployee == "Painter")
+        {
+            var painter = (Painter)employee;
+            var achievementPainter = new Achievement(
+                "Roses are red, but this red is all yours!",
+                "The red color is back for the first time",
+                40,
+                () => painter.firstTimeGettingRed
+            );
+            var achievementPainter2 = new Achievement(
+                "Why is the sky blue?",
+                "The blue color is back for the first time",
+                40,
+                () => painter.firstTimeGettingBlue
+            );
+            var achievementPainter3 = new Achievement(
+                "The nature approves your choice",
+                "The green color is back for the first time",
+                40,
+                () => painter.firstTimeGettingGreen
+            );
 
-        //---achievements of the painter---
-        var painter = (Painter)allEmployees.Find(emp => emp.NameOfEmployee == "Painter");
-        var achievementPainter = new Achievement(
-            "Roses are red, but this red is all yours!",
-            "The red color is back for the first time",
-            40,
-            () => painter.firstTimeGettingRed
-        );
-        var achievementPainter2 = new Achievement(
-            "Why is the sky blue?",
-            "The blue color is back for the first time",
-            40,
-            () => painter.firstTimeGettingBlue
-        );
-        var achievementPainter3 = new Achievement(
-            "The nature approves your choice",
-            "The green color is back for the first time",
-            40,
-            () => painter.firstTimeGettingGreen
-        );
+            var achievementPainter4 = new Achievement(
+                "You can see in RGB!",
+                "You gaved back all the colors to the painter at least one time",
+                40,
+                () => painter.firstTimeGettingRed && painter.firstTimeGettingBlue && painter.firstTimeGettingRed
+            );
 
-        var achievementPainter4 = new Achievement(
-            "You can see in RGB!",
-            "You gaved back all the colors to the painter at least one time",
-            40,
-            () => painter.firstTimeGettingRed && painter.firstTimeGettingBlue && painter.firstTimeGettingRed
-        );
+            var achievementPainter5 = new Achievement(
+                "It was a little bit too hard alone, so we both held hands",
+                "You worked 5 times with the painter, you unlocked a new color",
+                40,
+                () => painter.NumberOfTimeWorked == 1
+            );
 
-        var achievementPainter5 = new Achievement(
-            "It was a little bit too hard alone, so we both held hands",
-            "You worked 5 times with the painter, you unlocked a new color",
-            40,
-            () => painter.NumberOfTimeWorked == 1
-        );
-
-        var achievementPainter6 = new Achievement(
-            "Only the two of us was a little bit sad, so we made a circle of three",
-            "You worked 10 times with the painter, you unlocked a new color",
-            40,
-            () => painter.NumberOfTimeWorked == 2
-        );
-
-        //---achievement of the security----
-        var security = allEmployees.Find(emp => emp.NameOfEmployee == "Security");
-        var achievementSecurity1 = new Achievement(
-            "We have the best security ever",
-            "You worked for the first time with the security",
-            40,
-            () => security.NumberOfTimeWorked == 1
-        );
-
-
-
-
-
-        //we add all the achievements
-        allAchievements[musicien].Add(achievementMusicien);
-        allAchievements[musicien].Add(achievementMusicien2);
-        allAchievements[musicien].Add(achievementMusicien3);
-
-        allAchievements[painter].Add(achievementPainter);
-        allAchievements[painter].Add(achievementPainter2);
-        allAchievements[painter].Add(achievementPainter3);
-        allAchievements[painter].Add(achievementPainter4);
-        allAchievements[painter].Add(achievementPainter5);
-        allAchievements[painter].Add(achievementPainter6);
-
-        allAchievements[security].Add(achievementSecurity1);
-
+            var achievementPainter6 = new Achievement(
+                "Only the two of us was a little bit sad, so we made a circle of three",
+                "You worked 10 times with the painter, you unlocked a new color",
+                40,
+                () => painter.NumberOfTimeWorked == 2
+            );
+            allAchievements[painter].Add(achievementPainter);
+            allAchievements[painter].Add(achievementPainter2);
+            allAchievements[painter].Add(achievementPainter3);
+            allAchievements[painter].Add(achievementPainter4);
+            allAchievements[painter].Add(achievementPainter5);
+            allAchievements[painter].Add(achievementPainter6);
+        }
+        else if(employee.NameOfEmployee == "Security")
+        {
+            var security = (Security)employee;
+            var achievementSecurity1 = new Achievement(
+                "We have the best security ever",
+                "You worked for the first time with the security",
+                40,
+                () => security.NumberOfTimeWorked == 1
+            );
+            allAchievements[security].Add(achievementSecurity1);
+        }
     }
+
+    
 
     private void InitUnlockableEmployee()
     {
@@ -293,7 +288,7 @@ public partial class ProgressSystem : CanvasLayer
             //we check if the player has all the achievment
 
             //TODO CHANGE THE 3 with the number of achievements
-            if(playerAchievements.Count >= 3)
+            if(playerAchievements.Count >= 0)
             {
                 _globalSignals.EmitUnlockGlasses();
             }

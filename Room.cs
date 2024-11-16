@@ -152,6 +152,7 @@ public partial class Room : Node2D
         instance.ZIndex = 2;
         GetParent().GetParent().GetParent().GetNode<Node2D>("Employees").AddChild(instance);
         _building.AddEmployeeToCheckForStateChange(instance); //when the room create an employee, the building should connect the StateChange signal
+        _progressSystem.AddAchievementsForOneEmployee(instance);
 
     }
 

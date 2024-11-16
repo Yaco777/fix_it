@@ -57,8 +57,10 @@ position = Vector2(-1.5, 14)
 shape = SubResource("RectangleShape2D_5l3ng")
 
 [node name="LightOnSound" type="AudioStreamPlayer" parent="."]
+bus = &"OtherSounds"
 
 [node name="LightOffSound" type="AudioStreamPlayer" parent="."]
+bus = &"OtherSounds"
 
 [node name="InteractAnimation" type="AnimatedSprite2D" parent="."]
 z_index = 11

@@ -30,9 +30,12 @@ public partial class GlobalSignals : Node2D
 	
 	[Signal]
 	public delegate void GhostSlayedEventHandler();
-	
 
-	public void EmitColorLost(string colorName)
+	[Signal]
+	public delegate void EndOfTheGameEventHandler();
+
+
+    public void EmitColorLost(string colorName)
 	{
 		EmitSignal(SignalName.ColorLost, colorName);
 	}
@@ -76,7 +79,15 @@ public partial class GlobalSignals : Node2D
 	{
 		EmitSignal(nameof(GhostSlayed));
 	}
+
+	public void EmitEndOfTheGame()
+	{
+		EmitSignal(SignalName.EndOfTheGame);
+	}
+
 	
+
+
 
 
 }
