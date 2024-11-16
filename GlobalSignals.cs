@@ -27,9 +27,10 @@ public partial class GlobalSignals : Node2D
 
 	[Signal]
 	public delegate void GlassesChangeEventHandler(bool isWearningGlasses);
-
-
-
+	
+	[Signal]
+	public delegate void GhostSlayedEventHandler();
+	
 
 	public void EmitColorLost(string colorName)
 	{
@@ -70,6 +71,12 @@ public partial class GlobalSignals : Node2D
 	{
 		EmitSignal(SignalName.GlassesChange,isWearingGlasses);
 	}
+
+	public void EmitGhostSlayed()
+	{
+		EmitSignal(nameof(GhostSlayed));
+	}
+	
 
 
 }
