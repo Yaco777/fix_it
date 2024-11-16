@@ -52,7 +52,7 @@ public partial class UI : CanvasLayer
     [Export]
     public float FadeDuration = 5f; // Duration of the fade-out effect
     [Export]
-    public float CameraZoomSpeed = 0.01f; // Speed at which the camera zooms out
+    public float CameraZoomSpeed = 0.02f; // Speed at which the camera zooms out
 
 
 	[Export]
@@ -166,7 +166,7 @@ public partial class UI : CanvasLayer
             _endGameRect.Color = new Color(0, 0, 0, Mathf.Clamp(newAlpha, 0, 1));
 
             // Zoom out the camera by decreasing the zoom value
-            if (_camera.Zoom.Length() > MaxCameraZoomOut) // Prevent the zoom from going negative
+            if (_camera.Zoom.Length() > MaxCameraZoomOut) 
             {
                 _camera.Zoom -= new Vector2(CameraZoomSpeed * (float)delta, CameraZoomSpeed * (float)delta);
             }
@@ -176,8 +176,6 @@ public partial class UI : CanvasLayer
             {
                 // Trigger game over, disable the fading
                 _isFading = false;
-                // You can also trigger the actual end of the game scene or transition here
-                GD.Print("Game Over! End of the Game!");
                 var endGameScene = GD.Load<PackedScene>("res://end_game_credits.tscn");
                 var endGame = (EndGameCredits)endGameScene.Instantiate();
 				GetParent().AddChild(endGame);
@@ -190,9 +188,9 @@ public partial class UI : CanvasLayer
 
 	private void  PlayEndingSound()
 	{
+		//disable all sound except the ending sound
         AudioServer.SetBusVolumeDb(2, -80);
 
-		GD.Print(AudioServer.BusCount);
         AudioStreamPlayer soundPlayer = new AudioStreamPlayer();
         soundPlayer.Bus = "EndGameSound";
         AddChild(soundPlayer);  
@@ -276,7 +274,7 @@ public partial class UI : CanvasLayer
 			_glassesWear.Visible = false;
 			_ghostCounterLabel.Visible = false;
 			_progressSystem.Visible = false;
-
+		
 
         }
 	}
