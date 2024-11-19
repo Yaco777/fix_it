@@ -9,6 +9,7 @@ public partial class GameOverScreen : CanvasLayer
     {
         _button = GetNode<Button>("ColorRect/MainMenuButton");
         _button.Pressed += LaunchMainMenu;
+        GetNode<AudioStreamPlayer>("GameOverSound").Play();
     }
 
     public void LaunchMainMenu()

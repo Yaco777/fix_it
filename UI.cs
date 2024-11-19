@@ -147,7 +147,9 @@ public partial class UI : CanvasLayer
 		{
 			_gameOverTimer.WaitTime = double.MaxValue;
 			_globalSignals.EmitGameOver();
-		}
+            GetTree().ChangeSceneToFile("res://game_over_screen.tscn");
+
+        }
     }
 
     public override void _Process(double delta)
