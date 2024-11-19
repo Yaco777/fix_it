@@ -153,7 +153,8 @@ Represent a collectible object. Every collectible have an unique name
             "Blue brush" => (AudioStream)GD.Load("res://audio/collectible/brush_pickup.mp3"),
             "Green brush" => (AudioStream)GD.Load("res://audio/collectible/brush_pickup.mp3"),
             "Red brush" => (AudioStream)GD.Load("res://audio/collectible/brush_pickup.mp3"),
-            "Frog" => (AudioStream)GD.Load("res://audio/collectible/frog.mp3"), 
+            "Frog" => (AudioStream)GD.Load("res://audio/collectible/frog.mp3"),
+            "Recipe Fragment" => (AudioStream)GD.Load("res://audio/collectible/frog.mp3"), //TODO CHANGE
             _ => null
         };
 
@@ -188,9 +189,10 @@ Represent a collectible object. Every collectible have an unique name
             "Blue brush" => (Texture2D)GD.Load("res://building/collectible/blue_brush.png"),
             "Green brush" => (Texture2D)GD.Load("res://building/collectible/green_brush.png"),
             "Horn" => (Texture2D)GD.Load("res://building/collectible/horn.png"),
-            // "Frog" => (Texture2D)GD.Load("res://building/collectible/horn.png"), //TODO CHANGE
             "Frog" => (Texture2D)GD.Load("res://building/collectible/Grenouille01.png"),
-            _ => throw new ArgumentException("The name of the object is wrong (for applying the texture) " + nameOfTheObject)
+            "Recipe Fragment" => (Texture2D)GD.Load("res://building/collectible/Grenouille01.png"), //TODO CHANGE
+            _ => throw new ArgumentException("The name of the object is wrong (for applying the texture) " +
+                                             nameOfTheObject)
         };
       
     }

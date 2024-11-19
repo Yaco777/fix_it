@@ -117,14 +117,14 @@ public partial class ProgressSystem : CanvasLayer
 
             var achievementMusicien2 = new Achievement(
                 "Music is the language of emotions",
-                "The musicien worked again for the first time",
+                "The musician worked again for the first time",
                 70,
                 () => musicien.NumberOfTimeWorked == 1
             );
 
             var achievementMusicien3 = new Achievement(
                 "You can feel it",
-                "The musicien worked again for the third time",
+                "The musician worked again for the third time",
                 70,
                 () => musicien.NumberOfTimeWorked == 3
             );

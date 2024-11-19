@@ -5,21 +5,21 @@ public partial class Tutorial : Node2D
 
 	[Export]
 	public string FirstMoveMessage { get; set; } = "Welcome!To start the reparation of the game" +
-		"let's try to put some music. Follow this corridor to enter the musicien's room with QD or with →, ←, ";
+		"let's try to put some music. Follow this corridor to enter the musician's room with QD or with →, ←, ";
 
 	[Export]
 	public string SecondMessage { get; set; } = "Congrat !! Now take the ladder by pressing ↑ or ↓";
 
 	[Export]
-	public string ThirdMessage { get; set; } = "You did it ! Now let's try to unlock the musicien room by pressing E. This required a certain amount" +
+	public string ThirdMessage { get; set; } = "You did it ! Now let's try to unlock the musician room by pressing E. This required a certain amount" +
 		"of stars but the first room will be free";
 
 	[Export]
-	public string ForthMessage { get; set; } = "Well played, you just unlocked the musicien and your first achievement!";
+	public string ForthMessage { get; set; } = "Well played, you just unlocked the musician and your first achievement!";
 
 	[Export]
-	public string FifthMessage { get; set; } = "Oh no! The musicien fall asleep. Try to find an object that could wake him up." +
-		"You can collect the object by pressing E and then talk to the musicien again.";
+	public string FifthMessage { get; set; } = "Oh no! The musician fall asleep. Try to find an object that could wake him up." +
+		"You can collect the object by pressing E and then talk to the musician again.";
 
 	[Export]
 
