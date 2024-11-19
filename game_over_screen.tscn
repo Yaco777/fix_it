@@ -1,0 +1,50 @@
+[gd_scene load_steps=2 format=3 uid="uid://k7puuamg8kk2"]
+
+[ext_resource type="Script" path="res://GameOverScreen.cs" id="1_au4g7"]
+
+[node name="GameOverScreen" type="CanvasLayer"]
+script = ExtResource("1_au4g7")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="GameOverLabel" type="Label" parent="ColorRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 150
+text = "GAME OVER"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="ColorRect"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -387.0
+offset_top = 629.0
+offset_right = 400.0
+offset_bottom = 766.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 100
+text = "The timer is out"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MainMenuButton" type="Button" parent="ColorRect"]
+layout_mode = 0
+offset_left = 445.0
+offset_top = 864.0
+offset_right = 1543.0
+offset_bottom = 1009.0
+theme_override_font_sizes/font_size = 100
+text = "Go back to main menu"

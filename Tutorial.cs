@@ -4,18 +4,19 @@ public partial class Tutorial : Node2D
 {
 
 	[Export]
-	public string FirstMoveMessage { get; set; } = "Welcome!To start the reparation of the game" +
-		"let's try to put some music. Follow this corridor to enter the musicien's room with QD or with →, ←, ";
+	public string FirstMoveMessage { get; set; } = "To start the reparation of the game, let's try to bring back the music. " +
+		"Follow this corridor to enter the musicien's room with QD or with →, ←";
 
 	[Export]
-	public string SecondMessage { get; set; } = "Congrat !! Now take the ladder by pressing ↑ or ↓";
+	public string SecondMessage { get; set; } = "Now take the ladder by pressing ↑ or ↓";
 
 	[Export]
-	public string ThirdMessage { get; set; } = "You did it ! Now let's try to unlock the musicien room by pressing E. This required a certain amount" +
-		"of stars but the first room will be free";
+	public string ThirdMessage { get; set; } = "It's time to unlock the musicien room by pressing E two time. This require a certain amount" +
+		"of stars, but the first room will be free";
 
 	[Export]
-	public string ForthMessage { get; set; } = "Well played, you just unlocked the musicien and your first achievement!";
+	public string ForthMessage { get; set; } = "You just unlocked the musicien and your first achievement! Achievements are required to get more stars" +
+		"and to unlock more rooms";
 
 	[Export]
 	public string FifthMessage { get; set; } = "Oh no! The musicien fall asleep. Try to find an object that could wake him up." +
@@ -23,7 +24,7 @@ public partial class Tutorial : Node2D
 
 	[Export]
 
-	public string SixthMessage { get; set; } = "Fin";
+	public string SixthMessage { get; set; } = "You bring back the music in the game! Now you can exit the tutorial";
 
 	[Export]
 	public int TimeBeforeMusicienSleep { get; set; } = 10; //time that the player need to wait before the horn appear
@@ -71,7 +72,7 @@ public partial class Tutorial : Node2D
 	{
 		_hero = GetNode<Hero>("Hero");
 		_canvasLayer = GetNode<CanvasLayer>("CanvasLayer");
-		_label = _canvasLayer.GetNode<Label>("ColorRect/TutorialLabel");
+		_label = _canvasLayer.GetNode<Label>("ColorRect/MarginContainer/TutorialLabel");
 		_label.Text = FirstMoveMessage;
 		_initialXPos = _hero.Position.X;
 		_initialYPos = _hero.Position.Y;

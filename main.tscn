@@ -20,6 +20,8 @@
 
 [node name="Main" type="Node"]
 
+[node name="UI" parent="." instance=ExtResource("7_5josr")]
+
 [node name="Hero" parent="." instance=ExtResource("1_easg4")]
 z_index = 10
 position = Vector2(500, 720)
@@ -85,8 +87,6 @@ position = Vector2(1247, 691)
 
 [node name="GlobalSignals" type="Node2D" parent="."]
 script = ExtResource("7_shkg7")
-
-[node name="UI" parent="." instance=ExtResource("7_5josr")]
 
 [node name="PauseMenu" parent="." instance=ExtResource("13_fls8b")]
 visible = false

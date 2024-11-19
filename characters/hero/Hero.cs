@@ -377,7 +377,6 @@ public partial class Hero : CharacterBody2D
 
 	private void GlassesUnlocked()
 	{
-		GD.Print("glass unlocked!");
 		_glassesUnlocked = true;
 	}
 
