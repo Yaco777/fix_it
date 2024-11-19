@@ -47,6 +47,7 @@ public partial class PauseMenu : CanvasLayer
             
 
             Input.MouseMode = Input.MouseModeEnum.Captured;
+            CheckForMarketingMinigame();
             Hide();
             GetTree().Paused = false;
 
@@ -64,6 +65,23 @@ public partial class PauseMenu : CanvasLayer
     public void ExitGame()
     {
         GetTree().Quit();
+    }
+
+    private void CheckForMarketingMinigame()
+    {
+        var employees = GetNode<Node2D>("../Employees");
+        foreach(var node in employees.GetChildren())
+        {
+            if(node.Name ==  "Marketing")
+            {
+                var marketing = (Marketing)node;
+                if(marketing.IsMarketingMiniGameVisible())
+                {
+                    Input.MouseMode = Input.MouseModeEnum.Visible;
+                    return;
+                }
+            }
+        }
     }
 
     public void ReturnMainMenu()

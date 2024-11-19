@@ -62,6 +62,7 @@ public partial class Marketing : Employee
     {
         base.StopWorking();
         _marketingAnimation.Animation = "notWorking";
+        GD.Print("stop working");
         _miniGameSuccess = false;
 
     }
@@ -71,6 +72,7 @@ public partial class Marketing : Employee
 
         if (CurrentState == EmployeeState.NotWorking && _miniGameSuccess == false)
         {
+            
             _marketingMinigame.Visible = true;
             Input.MouseMode = Input.MouseModeEnum.Visible;
 
@@ -84,6 +86,11 @@ public partial class Marketing : Employee
         {
             base.Interact(hero);
         }
+    }
+
+    public bool IsMarketingMiniGameVisible()
+    {
+        return _marketingMinigame.Visible;
     }
 
 

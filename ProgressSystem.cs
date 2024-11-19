@@ -288,7 +288,7 @@ public partial class ProgressSystem : CanvasLayer
             //we check if the player has all the achievment
 
             //TODO CHANGE THE 3 with the number of achievements
-            if(playerAchievements.Count >= 0)
+            if(playerAchievements.Count >= 3)
             {
                 _globalSignals.EmitUnlockGlasses();
             }

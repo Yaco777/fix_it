@@ -18,6 +18,9 @@ public partial class UI : CanvasLayer
 	private float animationScaleY = 2f;
 
 	[Export]
+	private int NumberOfMinutesBeforeGameOver { get; set; } = 12;
+
+	[Export]
 	public int NumberOfGhostsToSlay { get; set; } = 1;
 
 	private GlobalSignals _globalSignals;
@@ -32,6 +35,11 @@ public partial class UI : CanvasLayer
 	private Label _ghostCounterLabel;
 
 	private ProgressSystem _progressSystem;
+
+	private Timer _gameOverTimer;
+
+	private Label _gameOverLabel;
+
 
 
     [Export]
@@ -97,9 +105,16 @@ public partial class UI : CanvasLayer
 		_camera = GetNode<Camera2D>("../Hero/Camera");
 		_endGameRect = GetNode<ColorRect>("EndGameRect");
 		_progressSystem = GetNode<ProgressSystem>("ProgressSystem");
+		_gameOverTimer = GetNode<Timer>("GameOverTimer");
+		_gameOverLabel = GetNode<Label>("TimerLabel");
         _endGameRect.Color = new Color(0,0, 0, 0);
-		
+		_gameOverTimer.WaitTime = NumberOfMinutesBeforeGameOver * 60; //We convert it in seconds
+        _gameOverTimer.OneShot = true;
+		_gameOverTimer.Start();
 
+
+
+        UpdateTimerLabel();
         SetEmptyInventoryLabel();
 
 		//the glasses
@@ -117,10 +132,29 @@ public partial class UI : CanvasLayer
 
 	}
 
-	public override void _Process(double delta)
+    private void UpdateTimerLabel()
+    {
+		/**
+		 * Update the timer label according to the remaining time
+		 */
+        if (_gameOverTimer.TimeLeft > 0)
+        {
+            int minutes = Mathf.FloorToInt((float)_gameOverTimer.TimeLeft / 60);
+            int seconds = Mathf.FloorToInt((float)_gameOverTimer.TimeLeft % 60);
+            _gameOverLabel.Text = $"Time Left: {minutes:00}:{seconds:00}";
+        }
+		else 
+		{
+			_gameOverTimer.WaitTime = double.MaxValue;
+			_globalSignals.EmitGameOver();
+		}
+    }
+
+    public override void _Process(double delta)
 	{
-		//we change the scale of the item
-		_objectIcon.Scale = _objectIcon.Scale.Lerp(targetScale, (float)(ScaleSpeed * delta));
+        UpdateTimerLabel();
+        //we change the scale of the item
+        _objectIcon.Scale = _objectIcon.Scale.Lerp(targetScale, (float)(ScaleSpeed * delta));
 
 		//we update the message that will be displayed if the player has unlocked the glasses
 		if(_state != State.GLASSES_NOT_UNLOCKED)
