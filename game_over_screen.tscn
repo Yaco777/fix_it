@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://k7puuamg8kk2"]
+[gd_scene load_steps=7 format=3 uid="uid://k7puuamg8kk2"]
 
 [ext_resource type="Script" path="res://GameOverScreen.cs" id="1_au4g7"]
 [ext_resource type="Shader" path="res://game_over_screen.gdshader" id="2_evvwe"]
@@ -6,6 +6,10 @@
 [ext_resource type="AudioStream" uid="uid://cvppsigc781oo" path="res://audio/game_over_sound.mp3" id="4_xtmlg"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_j23bf"]
+shader = ExtResource("2_evvwe")
+shader_parameter/amount = 50
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_y1ptr"]
 shader = ExtResource("2_evvwe")
 shader_parameter/amount = 40
 
@@ -35,6 +39,7 @@ vertical_alignment = 1
 script = ExtResource("3_lagd6")
 
 [node name="Label2" type="Label" parent="ColorRect"]
+material = SubResource("ShaderMaterial_y1ptr")
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -48,6 +53,7 @@ theme_override_font_sizes/font_size = 100
 text = "The timer is out"
 horizontal_alignment = 1
 vertical_alignment = 1
+script = ExtResource("3_lagd6")
 
 [node name="MainMenuButton" type="Button" parent="ColorRect"]
 layout_mode = 0

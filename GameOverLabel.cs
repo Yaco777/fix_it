@@ -4,12 +4,12 @@ using System;
 public partial class GameOverLabel : Label
 {
     private ShaderMaterial _shaderMaterial;
-    [Export] public float waitTime = 2.0f;
+    [Export] public float waitTime = 3.0f;
     private bool goingDown = true;
     private float currentAmount = 1000f;
     private float targetAmount;
     private double elapsedTime = 0.0;
-    private float lerpSpeed = 5.0f;
+    private float lerpSpeed = 5f;
 
     public override void _Ready()
     {
@@ -26,12 +26,12 @@ public partial class GameOverLabel : Label
         {
             if (goingDown)
             {
-                targetAmount = 1f;
+                targetAmount = 50f;
                 goingDown = false;
             }
             else
             {
-                targetAmount = 200f;
+                targetAmount = 1000f;
                 goingDown = true;
             }
 

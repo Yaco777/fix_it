@@ -187,6 +187,7 @@ public partial class UI : CanvasLayer
 					_isFading = true;
                     _endGameRect.Visible = true;
 					PlayEndingSound();
+					_gameOverTimer.QueueFree();
 					
                   
                  

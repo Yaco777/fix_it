@@ -4,18 +4,21 @@
 [ext_resource type="Script" path="res://LadderArea.cs" id="1_p615m"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_oyqnr"]
-size = Vector2(103, 326)
+size = Vector2(103, 1147)
 
 [node name="Ladder" type="Node2D"]
+metadata/_edit_group_ = true
 
 [node name="LadderArea" type="Area2D" parent="."]
 script = ExtResource("1_p615m")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LadderArea"]
-position = Vector2(0.5, 1)
+position = Vector2(0.5, 411.5)
 shape = SubResource("RectangleShape2D_oyqnr")
 
 [node name="LadderSprite" type="Sprite2D" parent="."]
+position = Vector2(0, 425)
+scale = Vector2(1, 3.36111)
 texture = ExtResource("1_ia7nv")
 
 [connection signal="body_entered" from="LadderArea" to="LadderArea" method="OnBodyEntered"]
