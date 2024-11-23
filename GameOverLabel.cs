@@ -4,7 +4,7 @@ using System;
 public partial class GameOverLabel : Label
 {
     private ShaderMaterial _shaderMaterial;
-    [Export] public float waitTime = 3.0f;
+    [Export] public double waitTime = 3.0;
     private bool goingDown = true;
     private float currentAmount = 1000f;
     private float targetAmount;
@@ -15,6 +15,8 @@ public partial class GameOverLabel : Label
     {
         _shaderMaterial = Material as ShaderMaterial;
         targetAmount = currentAmount;
+        var random = new Random();
+        waitTime += (random.NextDouble() * 2);
        
     }
 

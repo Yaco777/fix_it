@@ -11,7 +11,7 @@ public partial class Tutorial : Node2D
 	public string SecondMessage { get; set; } = "Now take the ladder by pressing ↑ or ↓";
 
 	[Export]
-	public string ThirdMessage { get; set; } = "It's time to unlock the musicien room by pressing E two time. This require a certain amount" +
+	public string ThirdMessage { get; set; } = "It's time to unlock the musicien room by pressing E two time. This require a certain amount " +
 		"of stars, but the first room will be free";
 
 	[Export]
@@ -24,7 +24,7 @@ public partial class Tutorial : Node2D
 
 	[Export]
 
-	public string SixthMessage { get; set; } = "You bring back the music in the game! Now you can exit the tutorial";
+	public string SixthMessage { get; set; } = "You bring back the music in the game! Now you can exit the tutorial. Remember that you need to finish the game before the timer runs out!";
 
 	[Export]
 	public int TimeBeforeMusicienSleep { get; set; } = 10; //time that the player need to wait before the horn appear
