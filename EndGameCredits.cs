@@ -18,6 +18,7 @@ public partial class EndGameCredits : CanvasLayer
     {
         SHOWING_NAMES,
         SHOWING_TOOLS,
+        BETA_TESTERS,
         SHOWING_TITLE,   
         END_CREDITS    
     }
@@ -79,11 +80,15 @@ public partial class EndGameCredits : CanvasLayer
                 _state = State.SHOWING_TOOLS; 
                 break;
             case State.SHOWING_TOOLS:
-                _state = State.SHOWING_TITLE; 
+                _state = State.BETA_TESTERS; 
+                break;
+            case State.BETA_TESTERS:
+                _state = State.SHOWING_TITLE;
                 break;
             case State.SHOWING_TITLE:
                 _state = State.END_CREDITS;
                 break;
+            
             case State.END_CREDITS:
                 GD.Print("Credits finished."); 
             
@@ -91,13 +96,13 @@ public partial class EndGameCredits : CanvasLayer
             
         }
 
-        // Update the label text based on the new state
+        // we update the label text based on the new state
         UpdateLabelText();
     }
 
     private void UpdateLabelText()
     {
-        // Update the label's text based on the current state
+        
         switch (_state)
         {
             case State.SHOWING_TITLE:
@@ -112,10 +117,14 @@ public partial class EndGameCredits : CanvasLayer
                 break;
             case State.SHOWING_TOOLS:
                 _label.AddThemeFontSizeOverride("font_size", 60);
-                _label.Text = "Tools used :\nGodot\nVisual Studio (code)\nBlender";
+                _label.Text = "Tools used:\nGodot\nVisual Studio (code)\nBlender";
+                break;
+            case State.BETA_TESTERS:
+                _label.Text = "Beta testers:\n Name1\nName2\nName3\nName4";
                 break;
             case State.END_CREDITS:
                 _label.Text = ""; // Clear the text
+                GetTree().ChangeSceneToFile("res://main_menu.tscn");
                 break;
         }
     }

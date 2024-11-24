@@ -21,6 +21,7 @@
 [node name="Main" type="Node"]
 
 [node name="UI" parent="." instance=ExtResource("7_5josr")]
+NumberOfMinutesBeforeGameOver = 12
 
 [node name="Hero" parent="." instance=ExtResource("1_easg4")]
 z_index = 10
@@ -30,7 +31,7 @@ Speed = 410
 [node name="Camera" parent="Hero" instance=ExtResource("2_0u86b")]
 
 [node name="Building" parent="." instance=ExtResource("6_ltln6")]
-position = Vector2(-165, 2683)
+position = Vector2(300, 2503)
 
 [node name="Furnitures" type="Node2D" parent="Building"]
 
@@ -42,29 +43,47 @@ texture = ExtResource("5_oceu3")
 
 [node name="PeintreChevalet" type="Sprite2D" parent="Building/Furnitures"]
 z_index = 1
-position = Vector2(-405, -2400)
+position = Vector2(-659, -2573)
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("5_s2ysv")
 
 [node name="Rooms" type="Node2D" parent="Building"]
 
 [node name="FirstRoom" parent="Building/Rooms" instance=ExtResource("7_m7rb8")]
-position = Vector2(1330, -2564)
+position = Vector2(2249, -3270)
+scale = Vector2(1.2, 1.2)
 
 [node name="PainterRoom" parent="Building/Rooms" instance=ExtResource("7_m7rb8")]
-position = Vector2(-317, -2552)
+position = Vector2(-1170, -2795)
+scale = Vector2(1.2, 1.2)
 ObjectTexture = ExtResource("8_ht1lv")
 EmployeeUnlockedName = "Painter"
 
 [node name="MusicRoom" parent="Building/Rooms" instance=ExtResource("7_m7rb8")]
-position = Vector2(-566, -1745)
+position = Vector2(-638, -1525)
+scale = Vector2(1.25, 1.25)
 ObjectTexture = ExtResource("9_wwlcm")
 
 [node name="Corridors" type="Node2D" parent="Building"]
 
 [node name="Sprite2D" type="Sprite2D" parent="Building/Corridors"]
-position = Vector2(1116, -2004)
-scale = Vector2(0.8, 0.8)
+position = Vector2(308, -1824)
+scale = Vector2(0.2375, 0.607646)
+texture = ExtResource("9_jiwue")
+
+[node name="Sprite2D2" type="Sprite2D" parent="Building/Corridors"]
+position = Vector2(-1823, -1268)
+scale = Vector2(0.465625, 0.607646)
+texture = ExtResource("9_jiwue")
+
+[node name="Sprite2D3" type="Sprite2D" parent="Building/Corridors"]
+position = Vector2(3475.5, -807)
+scale = Vector2(0.534896, 0.696177)
+texture = ExtResource("9_jiwue")
+
+[node name="Sprite2D4" type="Sprite2D" parent="Building/Corridors"]
+position = Vector2(1358.25, -2667.5)
+scale = Vector2(1.80807, 0.851107)
 texture = ExtResource("9_jiwue")
 
 [node name="Ghosts" type="Node2D" parent="Building"]
@@ -77,13 +96,13 @@ position = Vector2(1006, -1969)
 
 [node name="Musicien" parent="Employees" instance=ExtResource("6_y1b1w")]
 z_index = 1
-position = Vector2(2393, 356)
+position = Vector2(2992, -521)
 
 [node name="Marketing" parent="Employees" instance=ExtResource("11_5c6um")]
 position = Vector2(820, 691)
 
 [node name="Security" parent="Employees" instance=ExtResource("10_8mm32")]
-position = Vector2(1247, 691)
+position = Vector2(784, 709)
 
 [node name="GlobalSignals" type="Node2D" parent="."]
 script = ExtResource("7_shkg7")

@@ -1,14 +1,29 @@
-[gd_scene load_steps=8 format=3 uid="uid://b22i1xe7x8eus"]
+[gd_scene load_steps=15 format=3 uid="uid://b22i1xe7x8eus"]
 
 [ext_resource type="Script" path="res://Building.cs" id="1_fta1s"]
 [ext_resource type="Texture2D" uid="uid://d3euoal1sakgo" path="res://building/building.png" id="1_hsmv8"]
 [ext_resource type="PackedScene" uid="uid://bi2r111jr3iak" path="res://ladder.tscn" id="2_2u2e5"]
+[ext_resource type="Texture2D" uid="uid://vn7356yux56i" path="res://building/building1.png" id="2_ai1cs"]
+[ext_resource type="PackedScene" uid="uid://c8x0ilwj1aqi5" path="res://short_ladder.tscn" id="5_h38cl"]
+[ext_resource type="PackedScene" uid="uid://e4tfg5gnkk25" path="res://medium_ladder.tscn" id="6_bimgu"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_avprm"]
-size = Vector2(1754, 31)
+size = Vector2(2362, 40.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mhajn"]
-size = Vector2(532.5, 20)
+size = Vector2(399, 75)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6kup1"]
+size = Vector2(1444.25, 48)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xs6f6"]
+size = Vector2(1402, 48)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_83k0j"]
+size = Vector2(1293, 47.75)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uwxov"]
+size = Vector2(964, 42)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_b6mni"]
 size = Vector2(452, 21)
@@ -19,7 +34,13 @@ a = Vector2(1096, 16)
 [node name="Building" type="Node2D"]
 script = ExtResource("1_fta1s")
 
+[node name="Building1" type="Sprite2D" parent="."]
+position = Vector2(732, -1975)
+scale = Vector2(5, 5)
+texture = ExtResource("2_ai1cs")
+
 [node name="Sprite2D" type="Sprite2D" parent="."]
+visible = false
 position = Vector2(509, -61)
 scale = Vector2(8, 8)
 texture = ExtResource("1_hsmv8")
@@ -28,70 +49,153 @@ texture = ExtResource("1_hsmv8")
 
 [node name="Ladder1" parent="Ladders" instance=ExtResource("2_2u2e5")]
 z_index = 5
-position = Vector2(1963, -1993)
+position = Vector2(1739, -1585)
 
 [node name="Ladder2" parent="Ladders" instance=ExtResource("2_2u2e5")]
-position = Vector2(273, -1854)
+position = Vector2(77, -1550)
 
-[node name="Ladder3" parent="Ladders" instance=ExtResource("2_2u2e5")]
-position = Vector2(1429, -2425)
+[node name="Ladder 4" parent="Ladders" instance=ExtResource("2_2u2e5")]
+position = Vector2(-2097, -1092)
+
+[node name="Ladder 5" parent="Ladders" instance=ExtResource("5_h38cl")]
+position = Vector2(-418, -3413)
+
+[node name="Ladder 3" parent="Ladders" instance=ExtResource("6_bimgu")]
+position = Vector2(674, -2208)
+
+[node name="Ladder 6" parent="Ladders" instance=ExtResource("6_bimgu")]
+position = Vector2(3017, -2981)
 
 [node name="Floors" type="Node2D" parent="."]
 
-[node name="Floor1" type="Area2D" parent="Floors"]
-position = Vector2(1214, -1818)
-metadata/_edit_group_ = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Floors/Floor1"]
-shape = SubResource("RectangleShape2D_avprm")
-
 [node name="Floor2" type="Area2D" parent="Floors"]
-position = Vector2(634, -2239)
+position = Vector2(1273, -2479)
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Floors/Floor2"]
+position = Vector2(658, 4.75)
 shape = SubResource("RectangleShape2D_avprm")
 
 [node name="Floor3" type="Area2D" parent="Floors"]
-position = Vector2(2428, -3636)
+position = Vector2(1273, -2479)
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Floors/Floor3"]
+position = Vector2(658, 4.75)
 shape = SubResource("RectangleShape2D_avprm")
 
 [node name="Floor 4" type="Area2D" parent="Floors"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Floors/Floor 4"]
-position = Vector2(266.25, -1679)
+position = Vector2(328.5, -1687.5)
 shape = SubResource("RectangleShape2D_mhajn")
+
+[node name="Floor 12" type="Area2D" parent="Floors"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floors/Floor 12"]
+position = Vector2(-1584, -1105.5)
+shape = SubResource("RectangleShape2D_mhajn")
+
+[node name="Floor 5" type="Area2D" parent="Floors"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floors/Floor 5"]
+position = Vector2(-625.875, -1109)
+shape = SubResource("RectangleShape2D_6kup1")
+
+[node name="Floor 6" type="Area2D" parent="Floors"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floors/Floor 6"]
+position = Vector2(2255, -665)
+shape = SubResource("RectangleShape2D_xs6f6")
+
+[node name="Floor 7" type="Area2D" parent="Floors"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floors/Floor 7"]
+position = Vector2(2301.5, -2881.88)
+shape = SubResource("RectangleShape2D_83k0j")
+
+[node name="Floor 8" type="Area2D" parent="Floors"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floors/Floor 8"]
+position = Vector2(-1111, -2387)
+shape = SubResource("RectangleShape2D_83k0j")
+
+[node name="Floor 11" type="Area2D" parent="Floors"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floors/Floor 11"]
+position = Vector2(-1111, -2387)
+shape = SubResource("RectangleShape2D_83k0j")
+
+[node name="Floor 9" type="Area2D" parent="Floors"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floors/Floor 9"]
+position = Vector2(-1560, 7)
+shape = SubResource("RectangleShape2D_83k0j")
+
+[node name="Floor 10" type="Area2D" parent="Floors"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floors/Floor 10"]
+position = Vector2(-1560, 7)
+shape = SubResource("RectangleShape2D_83k0j")
+
+[node name="Area2D" type="Area2D" parent="Floors"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floors/Area2D"]
+position = Vector2(125, -2498)
+shape = SubResource("RectangleShape2D_uwxov")
 
 [node name="Roofs" type="Node2D" parent="."]
 
 [node name="Roof1" type="Area2D" parent="Roofs"]
-position = Vector2(2076, -2381)
+position = Vector2(76, -1937)
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Roofs/Roof1"]
 position = Vector2(5, 0.5)
 shape = SubResource("RectangleShape2D_b6mni")
 
-[node name="Roof2" type="Area2D" parent="Roofs"]
-position = Vector2(1438, -2687)
+[node name="Roof4" type="Area2D" parent="Roofs"]
+position = Vector2(-442, -2827)
 metadata/_edit_group_ = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Roofs/Roof2"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Roofs/Roof4"]
+position = Vector2(5, 0.5)
+shape = SubResource("RectangleShape2D_b6mni")
+
+[node name="Roof6" type="Area2D" parent="Roofs"]
+position = Vector2(-2081, -1403)
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Roofs/Roof6"]
+position = Vector2(5, 0.5)
+shape = SubResource("RectangleShape2D_b6mni")
+
+[node name="Roof5" type="Area2D" parent="Roofs"]
+position = Vector2(682, -2723)
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Roofs/Roof5"]
 position = Vector2(5, 0.5)
 shape = SubResource("RectangleShape2D_b6mni")
 
 [node name="Roof3" type="Area2D" parent="Roofs"]
-position = Vector2(288, -2110)
+position = Vector2(3016, -3560)
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Roofs/Roof3"]
 position = Vector2(5, 0.5)
 shape = SubResource("RectangleShape2D_b6mni")
 
+[node name="Roof2" type="Area2D" parent="Roofs"]
+position = Vector2(1738, -1955)
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Roofs/Roof2"]
+position = Vector2(5, 0.5)
+shape = SubResource("RectangleShape2D_b6mni")
+
 [node name="ItemsGenerationArea" type="Node2D" parent="."]
+position = Vector2(-288, -390)
 
 [node name="Area1" type="Area2D" parent="ItemsGenerationArea"]
 position = Vector2(60, -2357)

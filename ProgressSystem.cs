@@ -117,14 +117,14 @@ public partial class ProgressSystem : CanvasLayer
 
             var achievementMusicien2 = new Achievement(
                 "Music is the language of emotions",
-                "The musician worked again for the first time",
+                "The Musician worked again for the first time",
                 70,
                 () => musicien.NumberOfTimeWorked == 1
             );
 
             var achievementMusicien3 = new Achievement(
                 "You can feel it",
-                "The musician worked again for the third time",
+                "The Musician worked again for the third time",
                 70,
                 () => musicien.NumberOfTimeWorked == 3
             );
@@ -156,21 +156,21 @@ public partial class ProgressSystem : CanvasLayer
 
             var achievementPainter4 = new Achievement(
                 "You can see in RGB!",
-                "You gaved back all the colors to the painter at least one time",
+                "You gaved back all the colors to the Painter at least one time",
                 40,
                 () => painter.firstTimeGettingRed && painter.firstTimeGettingBlue && painter.firstTimeGettingRed
             );
 
             var achievementPainter5 = new Achievement(
                 "It was a little bit too hard alone, so we both held hands",
-                "You worked 5 times with the painter, you unlocked a new color",
+                "You worked 5 times with the Painter, you unlocked a new color",
                 40,
                 () => painter.NumberOfTimeWorked == 1
             );
 
             var achievementPainter6 = new Achievement(
                 "Only the two of us was a little bit sad, so we made a circle of three",
-                "You worked 10 times with the painter, you unlocked a new color",
+                "You worked 10 times with the Painter, you unlocked a new color",
                 40,
                 () => painter.NumberOfTimeWorked == 2
             );
@@ -190,7 +190,66 @@ public partial class ProgressSystem : CanvasLayer
                 40,
                 () => security.NumberOfTimeWorked == 1
             );
+            var achievementSecurity2 = new Achievement(
+               "We are in war!",
+               "The security stopped working for the first time",
+               40,
+               () => security.CurrentState == Employee.EmployeeState.NotWorking
+           );
+            var achievementSecurity3 = new Achievement(
+               "She is starting to get very afraid",
+               "You haven't chased the frog for a long time",
+               40,
+               () => security.GetStopTimeWorking() == 10
+           );
+            var achievementSecurity4 = new Achievement(
+               "I am not afraid of frogs",
+               "You have worked with the Security five time",
+               40,
+               () => security.NumberOfTimeWorked == 5
+           );
+
             allAchievements[security].Add(achievementSecurity1);
+            allAchievements[security].Add(achievementSecurity2);
+            allAchievements[security].Add(achievementSecurity3);
+            allAchievements[security].Add(achievementSecurity4);
+        }
+        else if(employee.NameOfEmployee == "Technicien")
+        {
+            var technicien = (Technicien)employee;
+            var achievementTechnicien1 = new Achievement(
+                "I am a vampire",
+                "You worked with the Technician for the first time",
+                40,
+                () => technicien.NumberOfTimeWorked == 1
+            );
+            var achievementTechnicien2 = new Achievement(
+                "Where are you?",
+                "The Technician stopped working for the first time",
+                40,
+                () => technicien.CurrentState == Employee.EmployeeState.NotWorking
+            );
+            allAchievements[technicien].Add(achievementTechnicien1);
+            allAchievements[technicien].Add(achievementTechnicien2);
+        }
+        else if(employee.NameOfEmployee == "Marketing")
+        {
+            var marketing = (Marketing)employee;
+            var achievementMarketing1 = new Achievement(
+                " 1 + 1 = 3",
+                "The Accountant has stopped working for the first time",
+                40,
+                () => marketing.NumberOfTimeWorked == 1
+            );
+            var achievementMarketing2 = new Achievement(
+                "Where are you?",
+                "The Technician stopped working for the first time",
+                40,
+                () => marketing.CurrentState == Employee.EmployeeState.NotWorking
+            );
+            allAchievements[marketing].Add(achievementMarketing1);
+            allAchievements[marketing].Add(achievementMarketing2);
+
         }
     }
 

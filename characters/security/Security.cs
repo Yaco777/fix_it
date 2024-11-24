@@ -10,6 +10,7 @@ public partial class Security : Employee
     private Collectible _frog;
     private Vector2 _frogDirection;
     private AnimatedSprite2D _frogAnimation;
+    private double _timeStopWorking = 0;
 
  
 
@@ -68,6 +69,7 @@ public partial class Security : Employee
         _alertStreamPlayer.Stop(); //we stop the alert
         _globalSignals.EmitAlertStateChanged(false);
         _securityAnimation.Animation = "working";
+        _timeStopWorking = 0;
 
     }
 
@@ -108,6 +110,7 @@ public partial class Security : Employee
     public override void _Process(double delta)
     {
         base._Process(delta);
+        _timeStopWorking += delta;
         //if the frog is present, the frog will move
         if (_hasRemovedFrog == false && _frog != null)
         {
@@ -164,6 +167,11 @@ public partial class Security : Employee
         }
 
         return false;
+    }
+
+    public double GetStopTimeWorking()
+    {
+        return _timeStopWorking;
     }
 
 

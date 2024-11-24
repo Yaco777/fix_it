@@ -38,7 +38,7 @@ public partial class GlobalSignals : Node2D
 	public delegate void GameOverEventHandler();
 
 
-    public void EmitColorLost(string colorName)
+	public void EmitColorLost(string colorName)
 	{
 		EmitSignal(SignalName.ColorLost, colorName);
 	}

@@ -24,7 +24,7 @@ public partial class Tutorial : Node2D
 
 	[Export]
 
-	public string SixthMessage { get; set; } = "You bring back the music in the game! Now you can exit the tutorial";
+	public string SixthMessage { get; set; } = "You bring back the music in the game! Now you can exit the tutorial. Remember that you need to finish the game before the timer runs out!";
 
 	[Export]
 	public int TimeBeforeMusicienSleep { get; set; } = 10; //time that the player need to wait before the horn appear

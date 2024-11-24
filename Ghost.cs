@@ -32,7 +32,7 @@ public partial class Ghost : Node2D
 
 	private bool _isDisposed = false; //this boolean is used to prevent showing the ghost if he was disposed
 
-    private float _floatSpeed = 2.0f; // Speed of the floating motion
+	private float _floatSpeed = 2.0f; // Speed of the floating motion
 	private float _floatAmplitude = 10.0f; // Amplitude of the floating motion
 	private float _floatOffset; // Offset for the sine wave
 
@@ -84,7 +84,7 @@ public partial class Ghost : Node2D
 			timer.Timeout += () =>
 			{
 				_isDisposed = true;
-                QueueFree(); //TODO decide what to do here when the ghost is gone
+				QueueFree(); //TODO decide what to do here when the ghost is gone
 			};
 		}
 		else
@@ -123,8 +123,8 @@ public partial class Ghost : Node2D
 	{
 		if(!_isDisposed)
 		{
-            Visible = shouldShow;
-        }
+			Visible = shouldShow;
+		}
 		
 	}
 

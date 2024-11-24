@@ -66,8 +66,9 @@ animations = [{
 }]
 
 [node name="Hero" type="CharacterBody2D"]
-position = Vector2(490, 255)
+position = Vector2(126, 295)
 script = ExtResource("1_4v1i0")
+metadata/_edit_group_ = true
 
 [node name="HeroHitbox" type="CollisionShape2D" parent="."]
 scale = Vector2(2, 2)
