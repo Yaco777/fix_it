@@ -8,7 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://e4tfg5gnkk25" path="res://medium_ladder.tscn" id="6_bimgu"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_avprm"]
-size = Vector2(2362, 40.5)
+size = Vector2(1573, 41.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mhajn"]
 size = Vector2(399, 75)
@@ -23,7 +23,7 @@ size = Vector2(1402, 48)
 size = Vector2(1293, 47.75)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uwxov"]
-size = Vector2(964, 42)
+size = Vector2(785, 41)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_b6mni"]
 size = Vector2(452, 21)
@@ -81,7 +81,7 @@ position = Vector2(1273, -2479)
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Floors/Floor3"]
-position = Vector2(658, 4.75)
+position = Vector2(1052.5, 5.25)
 shape = SubResource("RectangleShape2D_avprm")
 
 [node name="Floor 4" type="Area2D" parent="Floors"]
@@ -141,7 +141,7 @@ shape = SubResource("RectangleShape2D_83k0j")
 [node name="Area2D" type="Area2D" parent="Floors"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Floors/Area2D"]
-position = Vector2(125, -2498)
+position = Vector2(35.5, -2498.5)
 shape = SubResource("RectangleShape2D_uwxov")
 
 [node name="Roofs" type="Node2D" parent="."]
@@ -191,6 +191,14 @@ position = Vector2(1738, -1955)
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Roofs/Roof2"]
+position = Vector2(5, 0.5)
+shape = SubResource("RectangleShape2D_b6mni")
+
+[node name="Roof7" type="Area2D" parent="Roofs"]
+position = Vector2(685, -1592)
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Roofs/Roof7"]
 position = Vector2(5, 0.5)
 shape = SubResource("RectangleShape2D_b6mni")
 
