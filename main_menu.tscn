@@ -1,7 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://cn18g18i83lox"]
+[gd_scene load_steps=2 format=3 uid="uid://cn18g18i83lox"]
 
 [ext_resource type="Script" path="res://MainMenu.cs" id="1_1u1c0"]
-[ext_resource type="Texture2D" uid="uid://ewxr51tex31y" path="res://characters/bg.png" id="2_akqs3"]
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -10,44 +9,51 @@ offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("1_1u1c0")
 
-[node name="TextureRect" type="TextureRect" parent="."]
-layout_mode = 0
-offset_right = 1920.0
-offset_bottom = 1080.0
-texture = ExtResource("2_akqs3")
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 1902.0
+offset_bottom = 1062.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
 
 [node name="PlayButton" type="Button" parent="."]
 layout_mode = 0
-offset_left = 600.0
-offset_top = 50.0
-offset_right = 1300.0
-offset_bottom = 277.0
-theme_override_font_sizes/font_size = 160
+offset_left = 10.0
+offset_top = 880.0
+offset_right = 291.0
+offset_bottom = 1107.0
+theme_override_colors/font_focus_color = Color(0.694764, 0.844451, 0.995387, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 120
 text = "Play"
 
 [node name="TutorialButton" type="Button" parent="."]
 layout_mode = 0
-offset_left = 600.0
-offset_top = 300.0
-offset_right = 1300.0
-offset_bottom = 527.0
-theme_override_font_sizes/font_size = 160
+offset_left = 350.0
+offset_top = 880.0
+offset_right = 962.0
+offset_bottom = 1107.0
+theme_override_font_sizes/font_size = 120
 text = "Tutorial"
 
 [node name="CreditsButton" type="Button" parent="."]
 layout_mode = 0
-offset_left = 600.0
-offset_top = 550.0
-offset_right = 1300.0
-offset_bottom = 777.0
-theme_override_font_sizes/font_size = 160
+offset_left = 1020.0
+offset_top = 880.0
+offset_right = 1456.0
+offset_bottom = 1107.0
+theme_override_font_sizes/font_size = 120
 text = "Credits"
 
 [node name="QuitButton" type="Button" parent="."]
 layout_mode = 0
-offset_left = 600.0
-offset_top = 800.0
-offset_right = 1300.0
-offset_bottom = 1000.0
-theme_override_font_sizes/font_size = 140
+offset_left = 1490.0
+offset_top = 880.0
+offset_right = 1914.0
+offset_bottom = 1080.0
+theme_override_font_sizes/font_size = 120
 text = "Quit"
