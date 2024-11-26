@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://bgf8dhsb5u3jj"]
+[gd_scene load_steps=7 format=3 uid="uid://bgf8dhsb5u3jj"]
 
 [ext_resource type="Script" path="res://Credits.cs" id="1_sg8qq"]
 [ext_resource type="Shader" path="res://roomNotunlocked.gdshader" id="2_6osn1"]
 [ext_resource type="Texture2D" uid="uid://b3lf70dicm06e" path="res://UI/University-of-Cantabria.png" id="2_gga45"]
 [ext_resource type="Texture2D" uid="uid://clwngq3uxmaou" path="res://shaders/noise.png" id="3_uka1y"]
+[ext_resource type="Texture2D" uid="uid://lpnk4yjvojpj" path="res://UI/credits.png" id="5_dy5wp"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_s3j2d"]
 shader = ExtResource("2_6osn1")
@@ -27,18 +28,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-
-[node name="GameTitle" type="Label" parent="."]
-layout_mode = 0
-offset_left = 500.0
-offset_top = 77.0
-offset_right = 1460.0
-offset_bottom = 486.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 300
-text = "Fix it!"
-horizontal_alignment = 1
-vertical_alignment = 1
 
 [node name="Infos" type="Label" parent="."]
 layout_mode = 0
@@ -68,3 +57,8 @@ text = "Return to main menu"
 position = Vector2(233, 196)
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("2_gga45")
+
+[node name="GameTitle" type="Sprite2D" parent="."]
+position = Vector2(958, 400)
+scale = Vector2(0.8, 0.793)
+texture = ExtResource("5_dy5wp")

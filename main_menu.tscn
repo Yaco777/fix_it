@@ -1,7 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://cn18g18i83lox"]
+[gd_scene load_steps=3 format=3 uid="uid://cn18g18i83lox"]
 
 [ext_resource type="Script" path="res://MainMenu.cs" id="1_1u1c0"]
-[ext_resource type="Texture2D" uid="uid://ewxr51tex31y" path="res://characters/bg.png" id="2_akqs3"]
+[ext_resource type="Texture2D" uid="uid://2u83p5wamyft" path="res://UI/main_menu.png" id="2_iy3h3"]
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -21,12 +21,17 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 1)
 
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(975, 547.5)
+scale = Vector2(1.00521, 1.01389)
+texture = ExtResource("2_iy3h3")
+
 [node name="PlayButton" type="Button" parent="."]
 layout_mode = 0
 offset_left = 10.0
-offset_top = 880.0
+offset_top = 820.0
 offset_right = 291.0
-offset_bottom = 1107.0
+offset_bottom = 1047.0
 theme_override_colors/font_focus_color = Color(0.694764, 0.844451, 0.995387, 1)
 theme_override_constants/outline_size = 10
 theme_override_font_sizes/font_size = 120
@@ -35,26 +40,26 @@ text = "Play"
 [node name="TutorialButton" type="Button" parent="."]
 layout_mode = 0
 offset_left = 350.0
-offset_top = 880.0
+offset_top = 820.0
 offset_right = 962.0
-offset_bottom = 1107.0
+offset_bottom = 1047.0
 theme_override_font_sizes/font_size = 120
 text = "Tutorial"
 
 [node name="CreditsButton" type="Button" parent="."]
 layout_mode = 0
 offset_left = 1020.0
-offset_top = 880.0
+offset_top = 820.0
 offset_right = 1456.0
-offset_bottom = 1107.0
+offset_bottom = 1047.0
 theme_override_font_sizes/font_size = 120
 text = "Credits"
 
 [node name="QuitButton" type="Button" parent="."]
 layout_mode = 0
 offset_left = 1490.0
-offset_top = 880.0
+offset_top = 820.0
 offset_right = 1914.0
-offset_bottom = 1080.0
+offset_bottom = 1020.0
 theme_override_font_sizes/font_size = 120
 text = "Quit"

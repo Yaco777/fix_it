@@ -26,13 +26,15 @@ public partial class MainMenu : Control
         Button quitButton = GetNode<Button>("QuitButton");
         Button tutorialButton = GetNode<Button>("TutorialButton");
         Button creditsButton = GetNode<Button>("CreditsButton");
-        List<Button> buttons = new List<Button>();
-        buttons.Add(playButton);
-        buttons.Add(quitButton);
-        buttons.Add(tutorialButton);
-        buttons.Add(creditsButton);
+        List<Button> buttons = new()
+        {
+            playButton,
+            quitButton,
+            tutorialButton,
+            creditsButton
+        };
 
-        
+
         CenterButtonPivot(playButton);
         CenterButtonPivot(quitButton);
 
@@ -66,7 +68,7 @@ public partial class MainMenu : Control
     }
 
     
-    private void CenterButtonPivot(Button button)
+    private static void CenterButtonPivot(Button button)
     {
         // Set the pivot of the button to its center
         button.PivotOffset = button.Size / 2;
