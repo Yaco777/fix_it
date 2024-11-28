@@ -37,13 +37,13 @@ a = Vector2(1096, 16)
 script = ExtResource("1_fta1s")
 
 [node name="Building1" type="Sprite2D" parent="."]
-visible = false
 position = Vector2(732, -1975)
 scale = Vector2(5, 5)
 texture = ExtResource("2_ai1cs")
 region_rect = Rect2(0, 0, 1024, 1024)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+visible = false
 texture_repeat = 2
 position = Vector2(-58, -1448)
 texture = ExtResource("2_w3tk1")
