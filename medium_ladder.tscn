@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://e4tfg5gnkk25"]
 
 [ext_resource type="Script" path="res://LadderArea.cs" id="1_rwumx"]
-[ext_resource type="Texture2D" uid="uid://dc0suivgipmvc" path="res://building/ladder.png" id="2_4wguk"]
+[ext_resource type="Texture2D" uid="uid://b5p1yvmoxbtnq" path="res://building/ladder_2-removebg-preview.png" id="2_nerhl"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_oyqnr"]
 size = Vector2(111, 855.5)
@@ -14,13 +14,14 @@ metadata/_edit_group_ = true
 script = ExtResource("1_rwumx")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LadderArea"]
-position = Vector2(-4, 154.25)
+z_index = 1
+position = Vector2(-4, 153.25)
 shape = SubResource("RectangleShape2D_oyqnr")
 
 [node name="LadderSprite" type="Sprite2D" parent="."]
 position = Vector2(-3, 162.25)
-scale = Vector2(1, 2.49305)
-texture = ExtResource("2_4wguk")
+scale = Vector2(0.7, 1.746)
+texture = ExtResource("2_nerhl")
 
 [connection signal="body_entered" from="LadderArea" to="LadderArea" method="OnBodyEntered"]
 [connection signal="body_exited" from="LadderArea" to="LadderArea" method="OnBodyExited"]

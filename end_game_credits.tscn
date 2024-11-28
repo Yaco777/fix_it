@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://dw3pqcrjwm375"]
+[gd_scene load_steps=3 format=3 uid="uid://dw3pqcrjwm375"]
 
 [ext_resource type="Script" path="res://EndGameCredits.cs" id="1_f2yly"]
+[ext_resource type="Texture2D" uid="uid://2u83p5wamyft" path="res://UI/main_menu.png" id="2_bty8l"]
 
 [node name="EndGameCredits" type="CanvasLayer"]
 script = ExtResource("1_f2yly")
@@ -23,3 +24,7 @@ theme_override_font_sizes/font_size = 400
 text = "Fix it!"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="GameIcon" type="Sprite2D" parent="."]
+position = Vector2(965, 539)
+texture = ExtResource("2_bty8l")

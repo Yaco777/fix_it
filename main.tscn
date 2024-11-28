@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://cpm4gp75y7pni"]
+[gd_scene load_steps=17 format=3 uid="uid://cpm4gp75y7pni"]
 
 [ext_resource type="PackedScene" uid="uid://lm01vdyu1xgl" path="res://characters/hero/hero.tscn" id="1_easg4"]
 [ext_resource type="PackedScene" uid="uid://cbba76f1vals2" path="res://camera.tscn" id="2_0u86b"]
@@ -10,7 +10,6 @@
 [ext_resource type="PackedScene" uid="uid://bwfino3o4gmoy" path="res://room.tscn" id="7_m7rb8"]
 [ext_resource type="Script" path="res://GlobalSignals.cs" id="7_shkg7"]
 [ext_resource type="Texture2D" uid="uid://cp426loc6tfbq" path="res://building/rooms/PainterRoom.png" id="8_ht1lv"]
-[ext_resource type="Texture2D" uid="uid://c0nnyfm72jovf" path="res://building/rooms/theCorridor.png" id="9_jiwue"]
 [ext_resource type="Texture2D" uid="uid://cgdxsrogvf8gx" path="res://building/rooms/MusicRoom.png" id="9_wwlcm"]
 [ext_resource type="PackedScene" uid="uid://bcqdyx3wy771g" path="res://characters/security/security.tscn" id="10_8mm32"]
 [ext_resource type="PackedScene" uid="uid://cmpmyoh2setes" path="res://characters/marketing/marketing.tscn" id="11_5c6um"]
@@ -31,7 +30,7 @@ Speed = 410
 [node name="Camera" parent="Hero" instance=ExtResource("2_0u86b")]
 
 [node name="Building" parent="." instance=ExtResource("6_ltln6")]
-position = Vector2(300, 2503)
+position = Vector2(312, 2473)
 
 [node name="Furnitures" type="Node2D" parent="Building"]
 
@@ -64,33 +63,9 @@ position = Vector2(-638, -1525)
 scale = Vector2(1.25, 1.25)
 ObjectTexture = ExtResource("9_wwlcm")
 
-[node name="Corridors" type="Node2D" parent="Building"]
-
-[node name="Sprite2D" type="Sprite2D" parent="Building/Corridors"]
-position = Vector2(308, -1824)
-scale = Vector2(0.2375, 0.607646)
-texture = ExtResource("9_jiwue")
-
-[node name="Sprite2D2" type="Sprite2D" parent="Building/Corridors"]
-position = Vector2(-1823, -1268)
-scale = Vector2(0.465625, 0.607646)
-texture = ExtResource("9_jiwue")
-
-[node name="Sprite2D3" type="Sprite2D" parent="Building/Corridors"]
-position = Vector2(3475.5, -807)
-scale = Vector2(0.534896, 0.696177)
-texture = ExtResource("9_jiwue")
-
-[node name="Sprite2D4" type="Sprite2D" parent="Building/Corridors"]
-visible = false
-position = Vector2(1358.25, -2667.5)
-scale = Vector2(1.80807, 0.851107)
-texture = ExtResource("9_jiwue")
-
 [node name="Ghosts" type="Node2D" parent="Building"]
 
 [node name="Ghost" parent="Building/Ghosts" instance=ExtResource("18_28irl")]
-visible = false
 position = Vector2(1006, -1969)
 
 [node name="Employees" type="Node2D" parent="."]
@@ -100,10 +75,10 @@ z_index = 1
 position = Vector2(2992, -521)
 
 [node name="Marketing" parent="Employees" instance=ExtResource("11_5c6um")]
-position = Vector2(820, 691)
+position = Vector2(1322, 940)
 
 [node name="Security" parent="Employees" instance=ExtResource("10_8mm32")]
-position = Vector2(784, 709)
+position = Vector2(675, 400)
 
 [node name="GlobalSignals" type="Node2D" parent="."]
 script = ExtResource("7_shkg7")

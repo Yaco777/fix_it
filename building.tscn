@@ -1,17 +1,19 @@
-[gd_scene load_steps=15 format=3 uid="uid://b22i1xe7x8eus"]
+[gd_scene load_steps=17 format=3 uid="uid://b22i1xe7x8eus"]
 
 [ext_resource type="Script" path="res://Building.cs" id="1_fta1s"]
-[ext_resource type="Texture2D" uid="uid://d3euoal1sakgo" path="res://building/building.png" id="1_hsmv8"]
 [ext_resource type="PackedScene" uid="uid://bi2r111jr3iak" path="res://ladder.tscn" id="2_2u2e5"]
 [ext_resource type="Texture2D" uid="uid://vn7356yux56i" path="res://building/building1.png" id="2_ai1cs"]
+[ext_resource type="Texture2D" uid="uid://5u41fcx4yehg" path="res://building/bgjpg.jpg" id="2_w3tk1"]
 [ext_resource type="PackedScene" uid="uid://c8x0ilwj1aqi5" path="res://short_ladder.tscn" id="5_h38cl"]
 [ext_resource type="PackedScene" uid="uid://e4tfg5gnkk25" path="res://medium_ladder.tscn" id="6_bimgu"]
+[ext_resource type="PackedScene" uid="uid://biqj2tggvfonw" path="res://big_ladder.tscn" id="7_l5fye"]
+[ext_resource type="Texture2D" uid="uid://c0nnyfm72jovf" path="res://building/rooms/theCorridor.png" id="8_5x0ms"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_avprm"]
 size = Vector2(1573, 41.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mhajn"]
-size = Vector2(399, 75)
+size = Vector2(718, 81)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6kup1"]
 size = Vector2(1444.25, 48)
@@ -35,15 +37,18 @@ a = Vector2(1096, 16)
 script = ExtResource("1_fta1s")
 
 [node name="Building1" type="Sprite2D" parent="."]
+visible = false
 position = Vector2(732, -1975)
 scale = Vector2(5, 5)
 texture = ExtResource("2_ai1cs")
+region_rect = Rect2(0, 0, 1024, 1024)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-visible = false
-position = Vector2(509, -61)
-scale = Vector2(8, 8)
-texture = ExtResource("1_hsmv8")
+texture_repeat = 2
+position = Vector2(-58, -1448)
+texture = ExtResource("2_w3tk1")
+region_enabled = true
+region_rect = Rect2(0, 0, 10000, 10000)
 
 [node name="Ladders" type="Node2D" parent="."]
 
@@ -52,19 +57,20 @@ z_index = 5
 position = Vector2(1739, -1585)
 
 [node name="Ladder2" parent="Ladders" instance=ExtResource("2_2u2e5")]
-position = Vector2(77, -1550)
-
-[node name="Ladder 4" parent="Ladders" instance=ExtResource("2_2u2e5")]
-position = Vector2(-2097, -1092)
+position = Vector2(77, -1620)
 
 [node name="Ladder 5" parent="Ladders" instance=ExtResource("5_h38cl")]
 position = Vector2(-418, -3413)
 
 [node name="Ladder 3" parent="Ladders" instance=ExtResource("6_bimgu")]
-position = Vector2(674, -2208)
+position = Vector2(710, -2276)
 
 [node name="Ladder 6" parent="Ladders" instance=ExtResource("6_bimgu")]
 position = Vector2(3017, -2981)
+
+[node name="Ladder" parent="Ladders" instance=ExtResource("7_l5fye")]
+z_index = 1
+position = Vector2(-2075, -1060)
 
 [node name="Floors" type="Node2D" parent="."]
 
@@ -87,7 +93,7 @@ shape = SubResource("RectangleShape2D_avprm")
 [node name="Floor 4" type="Area2D" parent="Floors"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Floors/Floor 4"]
-position = Vector2(328.5, -1687.5)
+position = Vector2(671, -1642)
 shape = SubResource("RectangleShape2D_mhajn")
 
 [node name="Floor 12" type="Area2D" parent="Floors"]
@@ -147,7 +153,7 @@ shape = SubResource("RectangleShape2D_uwxov")
 [node name="Roofs" type="Node2D" parent="."]
 
 [node name="Roof1" type="Area2D" parent="Roofs"]
-position = Vector2(76, -1937)
+position = Vector2(-57, -1933)
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Roofs/Roof1"]
@@ -194,14 +200,6 @@ metadata/_edit_group_ = true
 position = Vector2(5, 0.5)
 shape = SubResource("RectangleShape2D_b6mni")
 
-[node name="Roof7" type="Area2D" parent="Roofs"]
-position = Vector2(685, -1592)
-metadata/_edit_group_ = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Roofs/Roof7"]
-position = Vector2(5, 0.5)
-shape = SubResource("RectangleShape2D_b6mni")
-
 [node name="ItemsGenerationArea" type="Node2D" parent="."]
 position = Vector2(-288, -390)
 
@@ -211,3 +209,26 @@ metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ItemsGenerationArea/Area1"]
 shape = SubResource("SegmentShape2D_ks06e")
+
+[node name="Corridors" type="Node2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="Corridors"]
+position = Vector2(308, -1824)
+scale = Vector2(0.2375, 0.607646)
+texture = ExtResource("8_5x0ms")
+
+[node name="Sprite2D2" type="Sprite2D" parent="Corridors"]
+position = Vector2(-1823, -1268)
+scale = Vector2(0.465625, 0.607646)
+texture = ExtResource("8_5x0ms")
+
+[node name="Sprite2D3" type="Sprite2D" parent="Corridors"]
+position = Vector2(3475.5, -807)
+scale = Vector2(0.534896, 0.696177)
+texture = ExtResource("8_5x0ms")
+
+[node name="Sprite2D4" type="Sprite2D" parent="Corridors"]
+visible = false
+position = Vector2(1358.25, -2667.5)
+scale = Vector2(1.80807, 0.851107)
+texture = ExtResource("8_5x0ms")

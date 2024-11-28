@@ -1,26 +1,27 @@
-[gd_scene load_steps=4 format=3 uid="uid://c8x0ilwj1aqi5"]
+[gd_scene load_steps=4 format=3 uid="uid://biqj2tggvfonw"]
 
-[ext_resource type="Script" path="res://LadderArea.cs" id="1_a3gd1"]
-[ext_resource type="Texture2D" uid="uid://dc0suivgipmvc" path="res://building/ladder.png" id="2_aq7xi"]
+[ext_resource type="Script" path="res://LadderArea.cs" id="1_6ficf"]
+[ext_resource type="Texture2D" uid="uid://dpxlj1rmfoadm" path="res://building/ladder_v3 (2).png" id="2_c4cml"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_oyqnr"]
-size = Vector2(103, 347)
+size = Vector2(111, 1316)
 
 [node name="Ladder" type="Node2D"]
+position = Vector2(30, 9)
 metadata/_edit_group_ = true
 
 [node name="LadderArea" type="Area2D" parent="."]
-script = ExtResource("1_a3gd1")
+script = ExtResource("1_6ficf")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LadderArea"]
-position = Vector2(0.5, 909.5)
+z_index = 1
+position = Vector2(-4, 273)
 shape = SubResource("RectangleShape2D_oyqnr")
 
 [node name="LadderSprite" type="Sprite2D" parent="."]
-z_index = 1
-position = Vector2(0, 907.5)
-scale = Vector2(1, 0.99722)
-texture = ExtResource("2_aq7xi")
+position = Vector2(-3, 284.24)
+scale = Vector2(0.5, 1.62346)
+texture = ExtResource("2_c4cml")
 
 [connection signal="body_entered" from="LadderArea" to="LadderArea" method="OnBodyEntered"]
 [connection signal="body_exited" from="LadderArea" to="LadderArea" method="OnBodyExited"]

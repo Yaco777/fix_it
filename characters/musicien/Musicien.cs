@@ -25,14 +25,14 @@ public partial class Musicien : Employee
 
 	private static List<string> _stopWorkingMessages = new List<string>
 	{
-		"zzzzzzzzzz",
+		"Zzzzzzzzzz",
 		"One more minute...?"
 	};
 
 	private static List<string> _backToWork = new List<string>
 	{
-		"I am backkk",
-		"yeaaahh"
+		"I am back!",
+		"Yeah!"
 	};
 
 	public Musicien() : base(_chatMessages, _stopWorkingMessages, _backToWork, "Musicien")

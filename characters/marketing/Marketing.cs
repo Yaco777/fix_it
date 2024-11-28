@@ -18,8 +18,8 @@ public partial class Marketing : Employee
 
 	private static List<string> _stopWorkingMessages = new List<string>
 	{
-		"MM1",
-		"MM2"
+		"I am lost...",
+		"Could you help me?"
 	};
 
 	private static List<string> _backToWork = new List<string>
