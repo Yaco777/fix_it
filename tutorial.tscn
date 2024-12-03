@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://mfnpdhrqompe"]
+[gd_scene load_steps=20 format=3 uid="uid://mfnpdhrqompe"]
 
 [ext_resource type="Script" path="res://Tutorial.cs" id="1_2apxj"]
 [ext_resource type="PackedScene" uid="uid://lm01vdyu1xgl" path="res://characters/hero/hero.tscn" id="1_tuugu"]
@@ -6,10 +6,13 @@
 [ext_resource type="Script" path="res://GlobalSignals.cs" id="3_pha6g"]
 [ext_resource type="PackedScene" uid="uid://dwdwl1d6gut1r" path="res://pause_menu.tscn" id="4_obsp5"]
 [ext_resource type="PackedScene" uid="uid://muqjui1qrko3" path="res://achievements_display.tscn" id="5_egb66"]
-[ext_resource type="PackedScene" uid="uid://bi2r111jr3iak" path="res://ladder.tscn" id="6_gm1e6"]
 [ext_resource type="Script" path="res://Building.cs" id="6_o3uil"]
 [ext_resource type="Texture2D" uid="uid://d3euoal1sakgo" path="res://building/building.png" id="7_8y43w"]
+[ext_resource type="PackedScene" uid="uid://c8x0ilwj1aqi5" path="res://short_ladder.tscn" id="9_edqsw"]
 [ext_resource type="PackedScene" uid="uid://bwfino3o4gmoy" path="res://room.tscn" id="10_i8mq2"]
+[ext_resource type="Texture2D" uid="uid://5u41fcx4yehg" path="res://building/bgjpg.jpg" id="11_lsvec"]
+[ext_resource type="Texture2D" uid="uid://c0nnyfm72jovf" path="res://building/rooms/theCorridor.png" id="12_4kyb3"]
+[ext_resource type="PackedScene" uid="uid://ccrrqk7ggdpbq" path="res://door.tscn" id="13_c7mbb"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3uupg"]
 size = Vector2(1754, 31)
@@ -17,10 +20,30 @@ size = Vector2(1754, 31)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_api7b"]
 size = Vector2(452, 21)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cxwop"]
+size = Vector2(130.5, 499.75)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bbi68"]
+size = Vector2(104, 315)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g41m7"]
+size = Vector2(65, 289)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ooj3i"]
+size = Vector2(74, 253)
+
 [node name="Tutorial" type="Node2D"]
 position = Vector2(0, 1)
 script = ExtResource("1_2apxj")
 FirstMoveMessage = "To start the reparation of the game, let's try to put some music. Follow this corridor to enter the musicien's room with QD or with →, ←"
+
+[node name="Background" type="Sprite2D" parent="."]
+texture_repeat = 2
+position = Vector2(742, 198)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("11_lsvec")
+region_enabled = true
+region_rect = Rect2(0, 0, 10000, 10000)
 
 [node name="Hero" parent="." instance=ExtResource("1_tuugu")]
 z_index = 10
@@ -58,6 +81,7 @@ autowrap_mode = 3
 metadata/_edit_use_anchors_ = true
 
 [node name="UI" parent="." instance=ExtResource("2_3i2sq")]
+NumberOfMinutesBeforeGameOver = 60
 
 [node name="GlobalSignals" type="Node2D" parent="."]
 script = ExtResource("3_pha6g")
@@ -73,10 +97,11 @@ visible = false
 script = ExtResource("6_o3uil")
 
 [node name="Ladders" type="Node2D" parent="Building"]
+scale = Vector2(1.1, 1.1)
 
-[node name="Ladder1" parent="Building/Ladders" instance=ExtResource("6_gm1e6")]
-z_index = 5
-position = Vector2(952, 879)
+[node name="Ladder" parent="Building/Ladders" instance=ExtResource("9_edqsw")]
+position = Vector2(904.545, -218.182)
+scale = Vector2(1.1, 1.1)
 
 [node name="Sprite2D" type="Sprite2D" parent="Building"]
 visible = false
@@ -103,7 +128,7 @@ shape = SubResource("RectangleShape2D_3uupg")
 [node name="Roofs" type="Node2D" parent="Building"]
 
 [node name="Roof1" type="Area2D" parent="Building/Roofs"]
-position = Vector2(1224, -103)
+position = Vector2(1039, 430)
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Building/Roofs/Roof1"]
@@ -115,8 +140,56 @@ shape = SubResource("RectangleShape2D_api7b")
 [node name="Rooms" type="Node2D" parent="Building"]
 
 [node name="Room" parent="Building/Rooms" instance=ExtResource("10_i8mq2")]
-position = Vector2(1760, 393)
+position = Vector2(1699, 408)
 AmountStarsRequired = 0
 EmployeeUnlockedName = "Musicien"
+YMargin = 0
+
+[node name="Corridor" type="Node2D" parent="Building"]
+
+[node name="corridor2" type="Sprite2D" parent="Building/Corridor"]
+position = Vector2(185, 520)
+scale = Vector2(0.977083, 0.78169)
+texture = ExtResource("12_4kyb3")
+
+[node name="corridor1" type="Sprite2D" parent="Building/Corridor"]
+position = Vector2(184, 896.25)
+scale = Vector2(0.977083, 0.78169)
+texture = ExtResource("12_4kyb3")
+
+[node name="Walls" type="Node2D" parent="Building"]
+
+[node name="wall1" type="StaticBody2D" parent="Building/Walls"]
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Building/Walls/wall1"]
+position = Vector2(2366, 497)
+shape = SubResource("RectangleShape2D_cxwop")
+
+[node name="wall2" type="StaticBody2D" parent="Building/Walls"]
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Building/Walls/wall2"]
+position = Vector2(1177, 928)
+shape = SubResource("RectangleShape2D_bbi68")
+
+[node name="wall3" type="StaticBody2D" parent="Building/Walls"]
+position = Vector2(-811, 424)
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Building/Walls/wall3"]
+position = Vector2(22.5, 134.5)
+shape = SubResource("RectangleShape2D_g41m7")
+
+[node name="wall4" type="StaticBody2D" parent="Building/Walls"]
+position = Vector2(-823, 844)
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Building/Walls/wall4"]
+position = Vector2(27, 116.5)
+shape = SubResource("RectangleShape2D_ooj3i")
 
 [node name="Employees" type="Node2D" parent="."]
+
+[node name="Door" parent="." instance=ExtResource("13_c7mbb")]
+position = Vector2(-600, 528)

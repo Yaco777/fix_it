@@ -16,7 +16,7 @@ public partial class Tutorial : Node2D
 
 	[Export]
 	public string ForthMessage { get; set; } = "You just unlocked the musician and your first achievement! Achievements are required to get more stars" +
-		"and to unlock more rooms";
+		" and to unlock more rooms";
 
 	[Export]
 	public string FifthMessage { get; set; } = "Oh no! The musician fall asleep. Try to find an object that could wake him up." +
@@ -56,6 +56,8 @@ public partial class Tutorial : Node2D
 
 	private ProgressSystem _progressSystem;
 
+	private Door _door;
+
 	private enum State
 	{
 		FirstMessage,
@@ -85,9 +87,10 @@ public partial class Tutorial : Node2D
 		AddChild(_timer); // Add Timer to the scene tree
 		_timer.Timeout += OnTimerTimeout;
 		_timer.Stop();
+		_door = GetNode<Door>("Door");
 
-		//achievements
-		_progressSystem = GetNode<ProgressSystem>("UI/ProgressSystem");
+        //achievements
+        _progressSystem = GetNode<ProgressSystem>("UI/ProgressSystem");
 
 
 	}
@@ -141,8 +144,10 @@ public partial class Tutorial : Node2D
 			_state = State.EndTutorial;
 			var achievement = new Achievement("Tutorial", "You completed the tutorial", 10,() => (1 == 1));
 			_progressSystem.PlayAchievement(achievement);
+			_door.OpenDoor();
 
-		}
+
+        }
 		
 		
 	}

@@ -106,7 +106,7 @@ public partial class Hero : CharacterBody2D
 		 * Method called when the player enter the Area2D of a floor. He won't be able to, either go up or go down (based on its position)
 		 */
 	{
-        GD.Print("floor entered !!");
+ 
         if (body is not Hero) return;
 		_isClimbing = false;  //we stop the climb animation
 		if (floorArea == null) return;
@@ -120,7 +120,6 @@ public partial class Hero : CharacterBody2D
 		 * Method called when the player isn't in the area2D of a floor
 		 */
 	{
-		GD.Print("floor exited !!");
 		if (body is not Hero) return;
 		_canGoUp = true; //we allow the player to go up and down 
 		_canGoDown = true;
@@ -190,16 +189,14 @@ public partial class Hero : CharacterBody2D
 			}
 			else if (Input.IsActionPressed("move_down"))
 			{
-			GD.Print("On essaye de descendre !");
 				if(_canGoDown)
 				{
-				GD.Print("On a rezussi !");
 					velocity.Y += 1; // go down
 					isMoving = true;
 				}
 				else
 				{
-                GD.Print("Impossible !");
+           
                 _isClimbing = false; //if the player wants to go down but he can't, that means that he touched the floor
 					
 				}
