@@ -21,6 +21,9 @@ public partial class GlobalSignals : Node2D
 
 	[Signal]
 	public delegate void MarketingMinigameSuccessEventHandler(); //the minigame was completed
+	
+	[Signal]
+	public delegate void CookMinigameSuccessEventHandler(); //the minigame was completed
 	 
 	[Signal]
 	public delegate void UnlockGlassesEventHandler(); //signal when the glasses are unlocked
@@ -66,6 +69,11 @@ public partial class GlobalSignals : Node2D
 	public void EmitMarketingMinigameSuccess()
 	{
 		EmitSignal(SignalName.MarketingMinigameSuccess);
+	}
+	
+	public void EmitCookMinigameSuccess()
+	{
+		EmitSignal(SignalName.CookMinigameSuccess);
 	}
 
 	public void EmitUnlockGlasses()
