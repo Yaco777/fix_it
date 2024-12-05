@@ -142,6 +142,7 @@ public partial class Room : Node2D
             "Painter" => GD.Load<PackedScene>("res://characters/painter/painter.tscn"),
             "Marketing" => GD.Load<PackedScene>("res://characters/marketing/marketing.tscn"),
             "Security" => GD.Load<PackedScene>("res://characters/security/security.tscn"),
+            "Cook" => GD.Load<PackedScene>("res://characters/cook/cook.tscn"),
             _ => throw new ArgumentException("The room need to add the employee " + EmployeeUnlockedName + " but it's not possible")
         };
 

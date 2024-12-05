@@ -60,6 +60,7 @@ public partial class Building : Node2D
                 var itemName = color;
                 var collectible = Collectible.CreateCollectible(itemName);
                 collectible.GlobalPosition = GetRandomPositionForItem();
+                GD.Print("La position des brush est : " + collectible.GlobalPosition);
                 GetTree().Root.GetChild(0).CallDeferred("add_child", collectible);
             }
 
@@ -71,17 +72,16 @@ public partial class Building : Node2D
 
     public static Vector2 GetRandomPositionForItemForSpecificArea(Area2D selectedArea)
     {
+        
         var collisionShape = selectedArea.GetNode<CollisionShape2D>("CollisionShape2D");
         if (collisionShape != null)
         {
 
             if (collisionShape.Shape is SegmentShape2D segmentShape)
             {
-
                 float t = GD.Randf(); //t will be a number between 0 and 1
                 var xPos = segmentShape.A.X + (segmentShape.B.X - segmentShape.A.X) * t;
                 // we compute the xPos of the collectible. The Y pos will be the same than the selectedArea
-
                 return new Vector2(xPos, selectedArea.GlobalPosition.Y);
             }
 

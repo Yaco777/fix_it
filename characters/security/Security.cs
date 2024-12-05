@@ -47,6 +47,7 @@ public partial class Security : Employee
         _frogAnimation = GetNode<AnimatedSprite2D>("FrogSprite");
         _frogAnimation.Play();
         _frogAnimation.Visible = false;
+        _frogAnimation.ZIndex = 3;
         base._Ready();
         _alertStreamPlayer = GetNode<AudioStreamPlayer>("Alert");
         _globalSignals = GetNode<GlobalSignals>("../../GlobalSignals");
@@ -140,7 +141,7 @@ public partial class Security : Employee
             _frogDirection = new Vector2(1, 0); // Move right initially
         }
 
-        _frog.Position += _frogDirection * FrogSpeed * (float)delta;
+        _frog.GlobalPosition += _frogDirection * FrogSpeed * (float)delta;
     }
 
     private bool IsFrogInCurrentArea()
