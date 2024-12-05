@@ -239,16 +239,23 @@ public partial class ProgressSystem : CanvasLayer
                 " 1 + 1 = 3",
                 "The Accountant has stopped working for the first time",
                 40,
-                () => marketing.NumberOfTimeWorked == 1
+                () => marketing.CurrentState== Employee.EmployeeState.NotWorking
             );
             var achievementMarketing2 = new Achievement(
-                "Where are you?",
-                "The Technician stopped working for the first time",
+                "You are better than me",
+                "You completed the minigame one time",
                 40,
-                () => marketing.CurrentState == Employee.EmployeeState.NotWorking
+                () => marketing.NumberOfTimeWorked == 1
+            );
+            var achievementMarketing3 = new Achievement(
+                "You are WAY better than me",
+                "You completed the minigame three time",
+                40,
+                () => marketing.NumberOfTimeWorked == 3
             );
             allAchievements[marketing].Add(achievementMarketing1);
             allAchievements[marketing].Add(achievementMarketing2);
+            allAchievements[marketing].Add(achievementMarketing3);
 
         }
     }
