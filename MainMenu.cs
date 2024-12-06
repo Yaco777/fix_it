@@ -57,7 +57,7 @@ public partial class MainMenu : Control
 
     }
 
-    }
+    
 
     
     private void AnimateButton(Button button, Vector2 targetScale)
