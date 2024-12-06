@@ -312,6 +312,10 @@ public partial class Hero : CharacterBody2D
 			{
 				_globalSignals.EmitFrogCollected(); //we won't pick up the frog
 			}   
+			else if (itemType == "Ingredient")
+			{
+				_globalSignals.EmitIngredientCollected();
+			}
 			else
 			{
 				_collectedItem = itemType;  //we collect the item
