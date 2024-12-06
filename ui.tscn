@@ -73,7 +73,6 @@ text = "You aren't wearning the glasses. Press R to wear them."
 [node name="ProgressSystem" parent="." instance=ExtResource("3_307xp")]
 
 [node name="GhostCounterLabel" type="Label" parent="."]
-visible = false
 offset_left = 1522.0
 offset_top = 66.0
 offset_right = 1635.0

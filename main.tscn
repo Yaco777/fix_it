@@ -26,10 +26,11 @@
 
 [node name="UI" parent="." instance=ExtResource("7_5josr")]
 NumberOfMinutesBeforeGameOver = 12
+NumberOfGhostsToSlay = 6
 
 [node name="Hero" parent="." instance=ExtResource("1_easg4")]
 z_index = 10
-position = Vector2(1300, 695)
+position = Vector2(441, 1790)
 Speed = 700
 
 [node name="Camera" parent="Hero" instance=ExtResource("2_0u86b")]
@@ -38,10 +39,9 @@ Speed = 700
 
 [node name="Musicien" parent="Employees" instance=ExtResource("6_y1b1w")]
 z_index = 1
-position = Vector2(-264, 1121)
+position = Vector2(-500, -1300)
 
 [node name="Building" parent="." instance=ExtResource("6_ltln6")]
-position = Vector2(0, 2473)
 
 [node name="Furnitures" type="Node2D" parent="Building"]
 

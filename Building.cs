@@ -26,6 +26,7 @@ public partial class Building : Node2D
 
         _itemsGenerationsArea = GetNode<Node2D>("ItemsGenerationArea");
 
+
     }
 
     
@@ -82,7 +83,11 @@ public partial class Building : Node2D
                 float t = GD.Randf(); //t will be a number between 0 and 1
                 var xPos = segmentShape.A.X + (segmentShape.B.X - segmentShape.A.X) * t;
                 // we compute the xPos of the collectible. The Y pos will be the same than the selectedArea
-                return new Vector2(xPos, selectedArea.GlobalPosition.Y);
+                GD.Print("le nom est : " + selectedArea.Name);
+                GD.Print("La pos de base est : " + selectedArea.GlobalPosition);
+                var vector = new Vector2(xPos, selectedArea.GlobalPosition.Y);
+                GD.Print("et mtn on a :" + vector);
+                return vector;
             }
 
             throw new InvalidOperationException("The collision shape of an area used to generate items is invalid");
@@ -108,6 +113,7 @@ public partial class Building : Node2D
     public static Area2D GetRandomArea2D()
     {
         var areas = _itemsGenerationsArea.GetChildren().OfType<Area2D>().ToArray();
+        GD.Print(areas.Length);
         return areas[random.Next(areas.Length)];
     }
 
