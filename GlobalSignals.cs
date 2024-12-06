@@ -18,6 +18,9 @@ public partial class GlobalSignals : Node2D
 
 	[Signal]
 	public delegate void FrogCollectedEventHandler(); //the frog has been collected
+	
+	[Signal]
+	public delegate void IngredientCollectedEventHandler(); //the ingredient has been collected
 
 	[Signal]
 	public delegate void MarketingMinigameSuccessEventHandler(); //the minigame was completed
@@ -64,6 +67,11 @@ public partial class GlobalSignals : Node2D
 	public void EmitFrogCollected()
 	{
 		EmitSignal(SignalName.FrogCollected);
+	}
+
+	public void EmitIngredientCollected()
+	{
+		EmitSignal(SignalName.IngredientCollected);
 	}
 
 	public void EmitMarketingMinigameSuccess()

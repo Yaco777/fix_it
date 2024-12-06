@@ -30,16 +30,16 @@ public partial class Opening : Control
 	{
 		_videoPlayer.Stop();
 
-        
-        if (Destination == "MainMenu")
-        {
-            GetTree().ChangeSceneToFile("res://main_menu.tscn");
-        }
-        else
-        {
-            GetTree().ChangeSceneToFile("res://main.tscn");
-        }
-     
+		
+		if (Destination == "MainMenu")
+		{
+			GetTree().ChangeSceneToFile("res://main_menu.tscn");
+		}
+		else
+		{
+			GetTree().ChangeSceneToFile("res://main.tscn");
+		}
+	 
 
 
 	}

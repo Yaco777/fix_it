@@ -6,8 +6,8 @@ public partial class Cook : Employee
 {
 	private bool _miniGameSuccess;
 	private GlobalSignals _globalSignals;
-	private CanvasLayer _cookMinigame;
-	private AnimatedSprite2D _marketingAnimation; //CHANGE
+	private VBoxCookGame _cookMinigame;
+	private AnimatedSprite2D _cookAnimation;
 
 
 	private static List<string> _chatMessages = new List<string>
@@ -38,18 +38,18 @@ public partial class Cook : Employee
 	{
 		base._Ready();
 		_globalSignals = GetNode<GlobalSignals>("../../GlobalSignals");
-		_cookMinigame = GetNode<CanvasLayer>("CookMinigame");
-		_marketingAnimation = GetNode<AnimatedSprite2D>("MarketingSprites"); //CHANGE
+		_cookMinigame = GetNode<VBoxCookGame>("CookMinigame");
+		_cookAnimation = GetNode<AnimatedSprite2D>("CookingSprites");
 		_cookMinigame.Visible = false;
 		_globalSignals.CookMinigameSuccess += MinigameSuccess;
 		StartWorking();
-		_marketingAnimation.Play();
+		_cookAnimation.Play();
 	}
 
 	public override void StartWorking()
 	{
 
-		_marketingAnimation.Animation = "working"; //CHANGE
+		_cookAnimation.Animation = "cooking";
 
 
 	}
@@ -63,9 +63,17 @@ public partial class Cook : Employee
 	public override void StopWorking()
 	{
 		base.StopWorking();
-		_marketingAnimation.Animation = "notWorking";
-		GD.Print("stop working");
+		_cookAnimation.Animation = "sleeping";
 		_miniGameSuccess = false;
+		var ingredient_list = _cookMinigame.GetIngredientList();
+		foreach (var ingredient in ingredient_list)
+		{
+			var collectible = Collectible.CreateCollectible("Ingredient");
+			collectible.GlobalPosition = Building.GetRandomPositionForItem();
+			collectible.CollectibleName = ingredient;
+			collectible.Name = "Ingredient";
+			GetTree().Root.GetChild(0).AddChild(collectible);
+		}
 
 	}
 
@@ -75,7 +83,6 @@ public partial class Cook : Employee
 		if (CurrentState == EmployeeState.NotWorking && _miniGameSuccess == false)
 		{
 			_cookMinigame.Visible = true;
-			Input.MouseMode = Input.MouseModeEnum.Visible;
 
 		}
 		else if (CurrentState == EmployeeState.NotWorking && _miniGameSuccess)
@@ -87,10 +94,5 @@ public partial class Cook : Employee
 		{
 			base.Interact(hero);
 		}
-	}
-
-	public bool IsCookMiniGameVisible()
-	{
-		return _cookMinigame.Visible;
 	}
 }
