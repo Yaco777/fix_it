@@ -34,7 +34,7 @@ NumberOfGhostsToSlay = 6
 
 [node name="Hero" parent="." instance=ExtResource("1_easg4")]
 z_index = 10
-position = Vector2(3700, -1800)
+position = Vector2(5000, -3000)
 Speed = 700
 
 [node name="Camera" parent="Hero" instance=ExtResource("2_0u86b")]

@@ -145,7 +145,7 @@ public partial class Room : Node2D
             "Cook" => GD.Load<PackedScene>("res://characters/cook/cook.tscn"),
             _ => throw new ArgumentException("The room need to add the employee " + EmployeeUnlockedName + " but it's not possible")
         };
-
+        GD.Print("On unlock : " + EmployeeUnlockedName);
         
         var instance = (Employee) employee.Instantiate();
         instance.GlobalPosition = new Vector2(GlobalPosition.X, GlobalPosition.Y + YMargin); //we adjust the position with the YMargin
