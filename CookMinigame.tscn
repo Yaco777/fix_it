@@ -15,6 +15,18 @@ script = ExtResource("1_cipiq")
 offset_right = 409.0
 offset_bottom = 278.0
 scale = Vector2(10, 10)
+mouse_filter = 1
+
+[node name="ExitSprite" type="Sprite2D" parent="CookGameRect"]
+position = Vector2(378.1, 22.9)
+scale = Vector2(0.07, 0.07)
+texture = ExtResource("2_wn1fo")
+
+[node name="Area2D" type="Area2D" parent="CookGameRect/ExitSprite"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CookGameRect/ExitSprite/Area2D"]
+position = Vector2(-28.5708, 2.14291)
+shape = SubResource("RectangleShape2D_5fp1x")
 
 [node name="Label" type="Label" parent="CookGameRect"]
 layout_mode = 1
@@ -74,16 +86,5 @@ stream = ExtResource("2_2o8mn")
 
 [node name="Success" type="AudioStreamPlayer" parent="CookGameRect/MarginContainer/VBoxContainer"]
 stream = ExtResource("3_leo7v")
-
-[node name="ExitSprite" type="Sprite2D" parent="CookGameRect"]
-position = Vector2(378.1, 22.9)
-scale = Vector2(0.07, 0.07)
-texture = ExtResource("2_wn1fo")
-
-[node name="Area2D" type="Area2D" parent="CookGameRect/ExitSprite"]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CookGameRect/ExitSprite/Area2D"]
-position = Vector2(-28.5708, 2.14291)
-shape = SubResource("RectangleShape2D_5fp1x")
 
 [connection signal="input_event" from="CookGameRect/ExitSprite/Area2D" to="." method="GiveUp"]

@@ -81,8 +81,8 @@ public partial class VBoxCookGame : CanvasLayer
 
 
 	public void ResetAll(){
-		
-		_questionIngredient.Clear();
+
+        _chosenIngredientList.Clear();
 	}
 
 	private void CheckAnswers()
