@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://mfnpdhrqompe"]
+[gd_scene load_steps=21 format=3 uid="uid://mfnpdhrqompe"]
 
 [ext_resource type="Script" path="res://Tutorial.cs" id="1_2apxj"]
 [ext_resource type="PackedScene" uid="uid://lm01vdyu1xgl" path="res://characters/hero/hero.tscn" id="1_tuugu"]
@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://bwfino3o4gmoy" path="res://room.tscn" id="10_i8mq2"]
 [ext_resource type="Texture2D" uid="uid://5u41fcx4yehg" path="res://building/bgjpg.jpg" id="11_lsvec"]
 [ext_resource type="Texture2D" uid="uid://c0nnyfm72jovf" path="res://building/rooms/theCorridor.png" id="12_4kyb3"]
+[ext_resource type="Texture2D" uid="uid://cgdxsrogvf8gx" path="res://building/rooms/MusicRoom.png" id="12_nk2qi"]
 [ext_resource type="PackedScene" uid="uid://ccrrqk7ggdpbq" path="res://door.tscn" id="13_c7mbb"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3uupg"]
@@ -82,6 +83,7 @@ metadata/_edit_use_anchors_ = true
 
 [node name="UI" parent="." instance=ExtResource("2_3i2sq")]
 NumberOfMinutesBeforeGameOver = 60
+NumberOfGhostsToSlay = 5
 
 [node name="GlobalSignals" type="Node2D" parent="."]
 script = ExtResource("3_pha6g")
@@ -141,6 +143,7 @@ shape = SubResource("RectangleShape2D_api7b")
 
 [node name="Room" parent="Building/Rooms" instance=ExtResource("10_i8mq2")]
 position = Vector2(1699, 408)
+ObjectTexture = ExtResource("12_nk2qi")
 AmountStarsRequired = 0
 EmployeeUnlockedName = "Musicien"
 YMargin = 0

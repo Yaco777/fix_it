@@ -92,10 +92,14 @@ public partial class MainMenu : Control
             child.QueueFree();
         }
         //var game_scene = GD.Load<PackedScene>("res://main.tscn");
-
-        GetTree().ChangeSceneToFile("res://main.tscn");
+        var openingScene =(Opening) GD.Load<PackedScene>("res://Opening.tscn").Instantiate();
+        openingScene.Destination = "Main";
+        openingScene.VideoStream = (VideoStream)ResourceLoader.Load("res://videos/op2.ogv");
+        //GetTree().ChangeSceneToFile("res://main.tscn");
         //RemoveAllCollectibles();
-        
+        QueueFree();
+        GetTree().Root.AddChild(openingScene);
+
     }
 
 
