@@ -1,0 +1,79 @@
+[gd_scene load_steps=4 format=3 uid="uid://d3tvd7hqhth72"]
+
+[ext_resource type="Script" path="res://VBoxCookGame.cs" id="1_cipiq"]
+[ext_resource type="Texture2D" uid="uid://bfjs7ynu8dk13" path="res://building/effects/delete.png" id="2_wn1fo"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5fp1x"]
+size = Vector2(674.286, 655.714)
+
+[node name="CookMinigame" type="CanvasLayer"]
+script = ExtResource("1_cipiq")
+
+[node name="CookGameRect" type="Panel" parent="."]
+offset_right = 409.0
+offset_bottom = 278.0
+scale = Vector2(10, 10)
+
+[node name="Label" type="Label" parent="CookGameRect"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -103.5
+offset_top = 28.0
+offset_right = 109.5
+offset_bottom = 51.0
+grow_horizontal = 2
+text = "What were the ingredients?"
+horizontal_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="CookGameRect"]
+layout_mode = 0
+offset_top = 55.0
+offset_right = 407.0
+offset_bottom = 276.0
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CookGameRect/MarginContainer"]
+layout_mode = 2
+
+[node name="LineEdit" type="LineEdit" parent="CookGameRect/MarginContainer/VBoxContainer"]
+layout_mode = 2
+placeholder_text = "Ingredient 1"
+
+[node name="LineEdit2" type="LineEdit" parent="CookGameRect/MarginContainer/VBoxContainer"]
+layout_mode = 2
+placeholder_text = "Ingredient 2"
+
+[node name="LineEdit3" type="LineEdit" parent="CookGameRect/MarginContainer/VBoxContainer"]
+layout_mode = 2
+placeholder_text = "Ingredient 3"
+
+[node name="LineEdit4" type="LineEdit" parent="CookGameRect/MarginContainer/VBoxContainer"]
+layout_mode = 2
+placeholder_text = "Ingredient 4"
+
+[node name="MarginContainer" type="MarginContainer" parent="CookGameRect/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 30
+
+[node name="CenterContainer" type="CenterContainer" parent="CookGameRect/MarginContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="CookGameRect/MarginContainer/VBoxContainer/MarginContainer/CenterContainer"]
+layout_mode = 2
+text = "Validate"
+
+[node name="ExitSprite" type="Sprite2D" parent="CookGameRect"]
+position = Vector2(378.1, 22.9)
+scale = Vector2(0.07, 0.07)
+texture = ExtResource("2_wn1fo")
+
+[node name="Area2D" type="Area2D" parent="CookGameRect/ExitSprite"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CookGameRect/ExitSprite/Area2D"]
+position = Vector2(-28.5708, 2.14291)
+shape = SubResource("RectangleShape2D_5fp1x")
