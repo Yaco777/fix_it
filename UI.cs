@@ -49,13 +49,13 @@ public partial class UI : CanvasLayer
 	public string WearingGlasses { get; set; } = "Wearing !";
 
 	[Export]
-	public string GlassesUnlockedMessage { get; set; } = "You unlocked the glasses! Press R to equip them";
+	public string GlassesUnlockedMessage { get; set; } = "There are ghosts everywhere! You need to put the glasses to see them by pressing R";
 
 	[Export]
-	public string GhostMessage { get; set; } = "There are ghost everywhere! Press R again to remove the glasses. Try to fight against the ghosts!";
+	public string GhostMessage { get; set; } = "Great! Press R again to remove the glasses. Try to fight against the ghosts!";
 
 	[Export]
-	public string EndGameMessage { get; set; } = "You did it, you fixed the game! Press E to end";
+	public string EndGameMessage { get; set; } = "You did it, you fixed the game! Press E to end it";
 
 	[Export]
 	public float FadeDuration = 5f; // Duration of the fade-out effect

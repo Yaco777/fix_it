@@ -18,7 +18,7 @@ public partial class Ghost : Node2D
 
 	private bool _isInCooldown;
 
-	[Export]
+	[Export(PropertyHint.MultilineText)]
 	public string InteractionQuestion { get; set; } = "Default question";
 
 	[Export]
@@ -30,6 +30,9 @@ public partial class Ghost : Node2D
 	[Export]
 	public int CorrectAnswer { get; set; } = 1;
 
+	[Export]
+	public Texture2D _ghostTexture;
+
 	private bool _isDisposed = false; //this boolean is used to prevent showing the ghost if he was disposed
 
 	private float _floatSpeed = 2.0f; // Speed of the floating motion
@@ -39,6 +42,8 @@ public partial class Ghost : Node2D
 	public override void _Ready()
 	{
 		Visible = false;
+		var sprite = GetNode<Sprite2D>("GhostSprite");
+		sprite.Texture = _ghostTexture;
 		_globalSignals = GetNode<GlobalSignals>("../../../GlobalSignals");
 		_ghostFailurePlayer = GetNode<AudioStreamPlayer2D>("FailurePlayer");
 		_ghostArea = GetNode<Area2D>("GhostArea");

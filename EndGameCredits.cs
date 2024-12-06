@@ -16,6 +16,13 @@ public partial class EndGameCredits : CanvasLayer
     [Export]
     public float StayDuration { get; set; } = 3.0f;
 
+    private float _soundFade = 1.0f;
+
+    private float _originalSoundVolume = 0.0f;
+
+    [Export]
+    private float SoundFadeDuration = 9.0f;
+
     private enum State
     {
         SHOWING_NAMES,
@@ -35,13 +42,27 @@ public partial class EndGameCredits : CanvasLayer
         _label.Modulate = new Color(1, 1, 1, 0); // Initialize text alpha to 0
         _gameIcon.Modulate = new Color(1, 1, 1, 0); // Initialize icon alpha to 0
         _gameIcon.Visible = false; // Hide the icon initially
-
+        _originalSoundVolume = AudioServer.GetBusVolumeDb(AudioServer.GetBusIndex("Master"));
         UpdateLabelText();
     }
 
     public override void _Process(double delta)
     {
         HandleFade((float)delta);
+        if (_state == State.SHOWING_TITLE && !_isFadingIn)
+        {
+            _soundFade -= (float)delta / SoundFadeDuration; // Gradually reduce volume
+            if (_soundFade < 0.0f)
+            {
+                _soundFade = 0.0f; // Ensure it doesn't go below 0
+            }
+            AudioServer.SetBusVolumeDb(AudioServer.GetBusIndex("Master"), LinearToDb(_soundFade));
+        }
+    }
+
+    private float LinearToDb(float linear)
+    {
+        return linear > 0 ? 20f * Mathf.Log(linear) / Mathf.Log(10) : -80f;
     }
 
     private void HandleFade(float delta)
@@ -108,7 +129,7 @@ public partial class EndGameCredits : CanvasLayer
                 _state = State.END_CREDITS;
                 break;
             case State.END_CREDITS:
-                GD.Print("Credits finished.");
+                
                 break;
         }
 
@@ -140,6 +161,8 @@ public partial class EndGameCredits : CanvasLayer
                 break;
             case State.END_CREDITS:
                 _label.Text = ""; // Clear the text
+                                 
+                AudioServer.SetBusVolumeDb(AudioServer.GetBusIndex("Master"), _originalSoundVolume);  //put the music back
                 GetTree().ChangeSceneToFile("res://main_menu.tscn");
                 break;
         }
