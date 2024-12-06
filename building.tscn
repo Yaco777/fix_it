@@ -46,7 +46,7 @@ b = Vector2(984, 0)
 b = Vector2(1584, 0)
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_vbxwy"]
-b = Vector2(5447, 3)
+b = Vector2(5447, 0)
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_nsgar"]
 b = Vector2(1700, 0)
@@ -107,6 +107,11 @@ region_rect = Rect2(0, 0, 60000, 60000)
 
 [node name="MusicRoom" type="Sprite2D" parent="."]
 position = Vector2(-503, -1499)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("4_77uh7")
+
+[node name="MusicRoom" type="Sprite2D" parent="MusicRoom"]
+position = Vector2(1417.33, -1980)
 scale = Vector2(0.75, 0.75)
 texture = ExtResource("4_77uh7")
 
@@ -342,7 +347,7 @@ shape = SubResource("RectangleShape2D_1ksec")
 [node name="StaticBody2D6" type="StaticBody2D" parent="Walls"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/StaticBody2D6"]
-position = Vector2(976, -2928)
+position = Vector2(-72, -2920)
 shape = SubResource("RectangleShape2D_hxjes")
 
 [node name="StaticBody2D7" type="StaticBody2D" parent="Walls"]

@@ -1,6 +1,7 @@
-[gd_scene load_steps=18 format=3 uid="uid://cpm4gp75y7pni"]
+[gd_scene load_steps=25 format=3 uid="uid://cpm4gp75y7pni"]
 
 [ext_resource type="PackedScene" uid="uid://lm01vdyu1xgl" path="res://characters/hero/hero.tscn" id="1_easg4"]
+[ext_resource type="Script" path="res://Main.cs" id="1_hioty"]
 [ext_resource type="PackedScene" uid="uid://cbba76f1vals2" path="res://camera.tscn" id="2_0u86b"]
 [ext_resource type="Texture2D" uid="uid://crkbv1gws7a8n" path="res://building/rooms/mainRoom.png" id="5_oceu3"]
 [ext_resource type="Texture2D" uid="uid://dvrcccxeq0ww2" path="res://building/furnitures/PeintreChevalet.png" id="5_s2ysv"]
@@ -14,11 +15,18 @@
 [ext_resource type="Texture2D" uid="uid://ulvyqmpstf65" path="res://building/rooms/AccountantRoom.png" id="11_tpwba"]
 [ext_resource type="Texture2D" uid="uid://dykbr0pypwkgg" path="res://building/rooms/TechnicianRoom.png" id="12_2ti0i"]
 [ext_resource type="PackedScene" uid="uid://muqjui1qrko3" path="res://achievements_display.tscn" id="13_0b7q3"]
+[ext_resource type="Texture2D" uid="uid://bsr1kjkmofk71" path="res://characters/ghost/GhostTechnician.png" id="13_cohvm"]
 [ext_resource type="PackedScene" uid="uid://dwdwl1d6gut1r" path="res://pause_menu.tscn" id="13_fls8b"]
 [ext_resource type="Texture2D" uid="uid://ds4bwhnhokb8p" path="res://building/rooms/CookRoom.png" id="13_hxheh"]
+[ext_resource type="Texture2D" uid="uid://vka3fob25v2c" path="res://characters/ghost/GhostPainter.png" id="14_i1eev"]
+[ext_resource type="Texture2D" uid="uid://bjaxqxj8lbt84" path="res://characters/ghost/GhostMusician.png" id="15_g13cl"]
+[ext_resource type="Texture2D" uid="uid://b7w2ryicg20ag" path="res://characters/ghost/GhostCook.png" id="16_dup2i"]
+[ext_resource type="Texture2D" uid="uid://c50dkwjstw08a" path="res://characters/ghost/GhostSecurity.png" id="17_1ghmy"]
+[ext_resource type="Texture2D" uid="uid://cf8iap64jhu17" path="res://characters/ghost/GhostAccountant.png" id="18_1sjaw"]
 [ext_resource type="PackedScene" uid="uid://bk260m3vcbt0v" path="res://ghost.tscn" id="18_28irl"]
 
 [node name="Main" type="Node"]
+script = ExtResource("1_hioty")
 
 [node name="UI" parent="." instance=ExtResource("7_5josr")]
 NumberOfMinutesBeforeGameOver = 12
@@ -26,7 +34,7 @@ NumberOfGhostsToSlay = 6
 
 [node name="Hero" parent="." instance=ExtResource("1_easg4")]
 z_index = 10
-position = Vector2(441, -1275)
+position = Vector2(3700, -1800)
 Speed = 700
 
 [node name="Camera" parent="Hero" instance=ExtResource("2_0u86b")]
@@ -93,6 +101,7 @@ InteractionQuestion = "Who is the master of electricity?
 1)Me!		3) The Musician
 2)You		4) The painter"
 InteractionFailure = "That's wrong..."
+_ghostTexture = ExtResource("13_cohvm")
 
 [node name="GhostPainter" parent="Building/Ghosts" instance=ExtResource("18_28irl")]
 position = Vector2(1842, -2914)
@@ -101,6 +110,7 @@ InteractionQuestion = "What is the color of the sun?
 2) Yellow	 4) Rainbow"
 InteractionFailure = "You should look at the sun"
 CorrectAnswer = 2
+_ghostTexture = ExtResource("14_i1eev")
 
 [node name="GhostMusician" parent="Building/Ghosts" instance=ExtResource("18_28irl")]
 position = Vector2(4808, -2912)
@@ -108,6 +118,7 @@ InteractionQuestion = "I have a key but no door, who am I?
 1) A door   3) A screwdriver
 2) Solfeggio 4)  A treasure chest"
 CorrectAnswer = 2
+_ghostTexture = ExtResource("15_g13cl")
 
 [node name="GhostCook" parent="Building/Ghosts" instance=ExtResource("18_28irl")]
 position = Vector2(5166, -1294)
@@ -115,6 +126,7 @@ InteractionQuestion = "What is the best ingredient for a cake?
 1) Chocolate		3) Egg
 2) Strawberries	4) Frog"
 CorrectAnswer = 4
+_ghostTexture = ExtResource("16_dup2i")
 
 [node name="GhostSecurity" parent="Building/Ghosts" instance=ExtResource("18_28irl")]
 position = Vector2(1333, -1283)
@@ -122,6 +134,7 @@ InteractionQuestion = "What do we use a password for?
 1) To unlock a secure door 3) To turn on the lights
 2) To play video games 4) To bake a cake"
 InteractionFailure = "Wrong!!"
+_ghostTexture = ExtResource("17_1ghmy")
 
 [node name="GhostAccountant" parent="Building/Ghosts" instance=ExtResource("18_28irl")]
 position = Vector2(-2205, -406)
@@ -129,6 +142,7 @@ InteractionQuestion = "If you have 3 apples and you eat 2, how many apples do yo
 1)  1 3) 3
 2) 0   4) 100"
 InteractionFailure = "Go back to school"
+_ghostTexture = ExtResource("18_1sjaw")
 
 [node name="GlobalSignals" type="Node2D" parent="."]
 script = ExtResource("7_shkg7")

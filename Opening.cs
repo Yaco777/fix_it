@@ -39,7 +39,7 @@ public partial class Opening : Control
         {
             GetTree().ChangeSceneToFile("res://main.tscn");
         }
-        QueueFree();
+     
 
 
     }

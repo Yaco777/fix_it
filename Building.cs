@@ -61,7 +61,6 @@ public partial class Building : Node2D
                 var itemName = color;
                 var collectible = Collectible.CreateCollectible(itemName);
                 collectible.GlobalPosition = GetRandomPositionForItem();
-                GD.Print("La position des brush est : " + collectible.GlobalPosition);
                 GetTree().Root.GetChild(0).CallDeferred("add_child", collectible);
             }
 
@@ -81,21 +80,21 @@ public partial class Building : Node2D
             if (collisionShape.Shape is SegmentShape2D segmentShape)
             {
                 float t = GD.Randf(); //t will be a number between 0 and 1
-                var xPos = segmentShape.A.X + (segmentShape.B.X - segmentShape.A.X) * t;
+                var xPos = selectedArea.GlobalPosition.X + (segmentShape.B.X - segmentShape.A.X) * t;
                 // we compute the xPos of the collectible. The Y pos will be the same than the selectedArea
-                GD.Print("le nom est : " + selectedArea.Name);
-                GD.Print("La pos de base est : " + selectedArea.GlobalPosition);
                 var vector = new Vector2(xPos, selectedArea.GlobalPosition.Y);
-                GD.Print("et mtn on a :" + vector);
-                return vector;
+                
+              
+                return vector; 
             }
 
             throw new InvalidOperationException("The collision shape of an area used to generate items is invalid");
         }
         return new Vector2(0, 0);
+        
     }
 
-    private static Vector2 GetRandomPositionForItem()
+    public static Vector2 GetRandomPositionForItem()
     {
         var areas = _itemsGenerationsArea.GetChildren().OfType<Area2D>().ToArray();
         if (areas.Length > 0)
