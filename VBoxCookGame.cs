@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using Godot;
 
-public partial class VBoxCookGame : VBoxContainer
+public partial class VBoxCookGame : CanvasLayer
 {
 	private readonly HashSet<string> _chosenIngredientList = new();
 	private readonly List<string> _ingredientList = new();
@@ -36,24 +36,41 @@ public partial class VBoxCookGame : VBoxContainer
 
 	public override void _Ready()
 	{
-		_validateButton = GetNode<Button>("CenterContainer/Validate");
+		_validateButton = GetNode<Button>("CookGameRect/MarginContainer/VBoxContainer/MarginContainer/CenterContainer/Button");
 		_validateButton.Pressed += CheckAnswers;
-		_exitArea = GetNode<Area2D>("../../../ExitSprite/ExitSpriteArea");
-		_globalSignals = GetNode<GlobalSignals>("../../../../../../../GlobalSignals");
+		_exitArea = GetNode<Area2D>("CookGameRect/ExitSprite/Area2D");
+		_globalSignals = GetNode<GlobalSignals>("../../../GlobalSignals");
 		_exitArea.InputEvent += GiveUp;
-		_failurePlayer = GetNode<AudioStreamPlayer>("Failure");
-		_successPlayer = GetNode<AudioStreamPlayer>("Success");
-		_cookGamePanel = GetNode<Panel>("../../..");
+		_failurePlayer = GetNode<AudioStreamPlayer>("CookGameRect/MarginContainer/VBoxContainer/Failure"); 
+		_successPlayer = GetNode<AudioStreamPlayer>("CookGameRect/MarginContainer/VBoxContainer/Success");
+		_cookGamePanel = GetNode<Panel>("CookGameRect");
 		var lines = GetNode<VBoxContainer>("CookGameRect/MarginContainer/VBoxContainer");
-		foreach (var line in lines.GetChildren()) _questionIngredient.Add((LineEdit)line);
-		InitIngredient();
-		ResetPanelColor();
+		foreach (var line in lines.GetChildren())
+		{
+			if(line is LineEdit edit)
+				_questionIngredient.Add(edit);
+			else
+			{
+				GD.Print("Line is null	");
+			}
+		}
 		ResetAll();
+		InitIngredient();
 	}
 
 	private void InitIngredient()
 	{
-		while (_chosenIngredientList.Count < 3)
+		_ingredientList.Add("Tomato");
+		_ingredientList.Add("Pasta");
+		_ingredientList.Add("Eggs");
+		_ingredientList.Add("Burger");
+		_ingredientList.Add("Garlic");
+		_ingredientList.Add("Chocolate");
+		_ingredientList.Add("Flour");
+		_ingredientList.Add("Cheese");
+		_ingredientList.Add("Chicken");
+		_ingredientList.Add("Pineapple");
+		while (_chosenIngredientList.Count < 4)
 			_chosenIngredientList.Add(_ingredientList[_random.Next(_ingredientList.Count)]);
 	}
 
@@ -63,15 +80,8 @@ public partial class VBoxCookGame : VBoxContainer
 	}
 
 
-	public void ResetAll()
-	{
-		Input.MouseMode = Input.MouseModeEnum.Visible;
-		ResetPanelColor();
-		//we first remove all the HBoxContainer
-		foreach (var child in GetChildren())
-			if (child is HBoxContainer)
-				RemoveChild(child);
-
+	public void ResetAll(){
+		
 		_questionIngredient.Clear();
 	}
 
@@ -79,12 +89,24 @@ public partial class VBoxCookGame : VBoxContainer
 	{
 		var i = 0;
 		var correctAnswer = true;
-		foreach (var ingredient in _questionIngredient)
-			if (ingredient.Text != _ingredientList[i])
+		GD.Print(_questionIngredient.Count);
+		foreach (var ingredient in _chosenIngredientList)
+		{
+			if (ingredient != _questionIngredient[i].Text)
 				correctAnswer = false;
+			i++;
+		}
+
 		if (correctAnswer)
+		{
 			_globalSignals.EmitCookMinigameSuccess();
-		HideGame();
+			HideGame();
+			_successPlayer.Play();
+		}
+		else
+		{
+			_failurePlayer.Play();
+		}
 	}
 
 	private void ChangeAnswerBackgroundColor(LineEdit answer, Color color)
@@ -112,12 +134,6 @@ public partial class VBoxCookGame : VBoxContainer
 		var style = _cookGamePanel.GetThemeStylebox("panel") as StyleBoxFlat;
 		style.BgColor = color;
 		_cookGamePanel.AddThemeStyleboxOverride("panel", style);
-	}
-
-	private void ResetPanelColor()
-	{
-		// Reset the panel background to a neutral color (e.g., white or transparent)
-		ChangePanelColor(DefaultBackgroundColor); // Transparent by default, or choose another color
 	}
 
 	private void GiveUp(Node viewport, InputEvent @event, long shapeIdx)

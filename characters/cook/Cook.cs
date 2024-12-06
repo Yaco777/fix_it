@@ -39,7 +39,7 @@ public partial class Cook : Employee
 		base._Ready();
 		_globalSignals = GetNode<GlobalSignals>("../../GlobalSignals");
 		_cookMinigame = GetNode<VBoxCookGame>("CookMinigame");
-		_cookAnimation = GetNode<AnimatedSprite2D>("CookingSprites");
+		_cookAnimation = GetNode<AnimatedSprite2D>("CookSprites");
 		_cookMinigame.Visible = false;
 		_globalSignals.CookMinigameSuccess += MinigameSuccess;
 		StartWorking();
