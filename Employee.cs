@@ -151,6 +151,11 @@ public partial class Employee : Node2D
 		}
 	}
 
+	public void CheckAchievements(StringName signal)
+	{
+        EmitSignal(signal, (int)CurrentState, NameOfEmployee);
+    }
+
 	public virtual void StartWorking()
 	{
 		//we update the numberOfTimeWorked before emitting the signal

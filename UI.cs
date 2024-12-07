@@ -1,4 +1,6 @@
 using Godot;
+using System;
+using System.Collections.Generic;
 
 public partial class UI : CanvasLayer
 {
@@ -40,6 +42,10 @@ public partial class UI : CanvasLayer
 
 	private Label _gameOverLabel;
 
+	private Label _cookIngredients;
+
+
+
 
 
 	[Export]
@@ -74,6 +80,8 @@ public partial class UI : CanvasLayer
 
 	private Camera2D _camera;
 
+	
+
 
 
 
@@ -98,7 +106,8 @@ public partial class UI : CanvasLayer
 	{
 		_objectIcon = GetNode<TextureRect>("ObjectIcon");
 		_objectName = GetNode<RichTextLabel>("ObjectName");
-		_objectName.BbcodeEnabled = true;
+		_cookIngredients = GetNode<Label>("CookIngredients");
+        _objectName.BbcodeEnabled = true;
 		_objectIcon.Visible = false;
 		_objectName.AddThemeFontSizeOverride("normal_font_size", 32);
 		_globalSignals = GetNode<GlobalSignals>("../GlobalSignals");
@@ -111,7 +120,6 @@ public partial class UI : CanvasLayer
 		_gameOverTimer.WaitTime = NumberOfMinutesBeforeGameOver * 60; //We convert it in seconds
 		_gameOverTimer.OneShot = true;
 		_gameOverTimer.Start();
-
 
 
 		UpdateTimerLabel();
@@ -129,10 +137,30 @@ public partial class UI : CanvasLayer
 		_ghostCounterLabel.Visible = false; 
 		_globalSignals.GhostSlayed += OnGhostSlayed;
 
+		//the cook
+		_cookIngredients.Visible = false;
+        _globalSignals.IngredientCollected += ShowNewIngredient;
+		_globalSignals.CookMinigameSuccess += ResetIngredients;
+
 
 	}
 
-	private void UpdateTimerLabel()
+    private void ResetIngredients()
+    {
+		_cookIngredients.Text = "Ingredients:";
+		_cookIngredients.Visible = false;
+    }
+
+    private void ShowNewIngredient()
+    {
+		_cookIngredients.Visible = true;
+		var cook = GetNode<Cook>("../Employees/Cook");
+		var nextIngredient = cook.GetNextIngredient();
+		_cookIngredients.Text += "\n" + nextIngredient;
+
+    }
+
+    private void UpdateTimerLabel()
 	{
 		/**
 		 * Update the timer label according to the remaining time

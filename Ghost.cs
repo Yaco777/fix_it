@@ -39,7 +39,12 @@ public partial class Ghost : Node2D
 	private float _floatAmplitude = 10.0f; // Amplitude of the floating motion
 	private float _floatOffset; // Offset for the sine wave
 
-	public override void _Ready()
+	private bool _hasInteracted = false;
+
+
+    private AnimatedSprite2D _interactAnimation;
+
+    public override void _Ready()
 	{
 		Visible = false;
 		var sprite = GetNode<Sprite2D>("GhostSprite");
@@ -49,7 +54,12 @@ public partial class Ghost : Node2D
 		_ghostArea = GetNode<Area2D>("GhostArea");
 		_interactionRect = GetNode<ColorRect>("InteractionRect");
 		_interactionLabel = _interactionRect.GetNode<Label>("InteractionLabel");
-		_globalSignals.GlassesChange += UpdateGhostDisplay;
+        _interactAnimation = GetNode<AnimatedSprite2D>("InteractAnimation");
+        _interactAnimation.Visible = false;
+		_interactionRect.Visible = false;
+		_interactAnimation.Play();
+        _interactAnimation.ZIndex = 11;
+        _globalSignals.GlassesChange += UpdateGhostDisplay;
 		_interactionLabel.Text = InteractionQuestion;
 		_ghostArea.BodyEntered += OnBodyEntered;
 		_ghostArea.BodyExited += OnBodyExited;
@@ -58,7 +68,14 @@ public partial class Ghost : Node2D
 	public override void _Process(double delta)
 	{
 		base._Process(delta);
-		if (_inRange && !_isInCooldown)
+
+		if(!_hasInteracted && _inRange && Input.IsActionJustPressed("message_interaction"))
+		{
+			_hasInteracted = true;
+			_interactAnimation.Visible = false;
+			_interactionRect.Visible = true;
+		}
+		if (_inRange && !_isInCooldown && _hasInteracted)
 		{
 			// Loop through answer options (1 to 4)
 			for (int i = 1; i <= 4; i++)
@@ -110,7 +127,9 @@ public partial class Ghost : Node2D
 	{
 		if (body is Hero)
 		{
-			_inRange = false;
+			_hasInteracted = false;
+            _inRange = false;
+			_interactAnimation.Visible = false;
 			_interactionRect.Visible = false;
 		}
 	}
@@ -119,9 +138,11 @@ public partial class Ghost : Node2D
 	{
 		if (body is Hero)
 		{
-			_inRange = true;
-			_interactionRect.Visible = true;
-		}
+			_hasInteracted = false;
+            _inRange = true;
+            _interactAnimation.Visible = true;
+
+        }
 	}
 
 	private void UpdateGhostDisplay(bool shouldShow)

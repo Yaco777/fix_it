@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://bk260m3vcbt0v"]
+[gd_scene load_steps=6 format=3 uid="uid://bk260m3vcbt0v"]
 
 [ext_resource type="Script" path="res://Ghost.cs" id="1_0g06d"]
 [ext_resource type="Texture2D" uid="uid://c50dkwjstw08a" path="res://characters/ghost/GhostSecurity.png" id="2_sqmwe"]
 [ext_resource type="AudioStream" uid="uid://dr0w2hbt4j2rh" path="res://audio/ghost_failure.mp3" id="3_1anrf"]
+[ext_resource type="SpriteFrames" uid="uid://dxvd8we5cp3eh" path="res://spriteAnimationCollect.tres" id="4_cdg3y"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_odoju"]
 size = Vector2(440, 365)
@@ -43,3 +44,10 @@ vertical_alignment = 1
 
 [node name="FailurePlayer" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("3_1anrf")
+
+[node name="InteractAnimation" type="AnimatedSprite2D" parent="."]
+z_index = 11
+position = Vector2(1, -175)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("4_cdg3y")
+animation = &"can_interact"

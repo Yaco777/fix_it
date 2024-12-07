@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 
 public partial class Cook : Employee
@@ -8,6 +9,7 @@ public partial class Cook : Employee
 	private GlobalSignals _globalSignals;
 	private VBoxCookGame _cookMinigame;
 	private AnimatedSprite2D _cookAnimation;
+	private int _numberIngredientCollected;
 
 
 	private static List<string> _chatMessages = new List<string>
@@ -46,6 +48,14 @@ public partial class Cook : Employee
 		_cookAnimation.Play();
 	}
 
+	public String GetNextIngredient()
+	{
+		var ingredient = _cookMinigame.GetIngredientList()[_numberIngredientCollected];
+		_numberIngredientCollected++;
+        return ingredient;
+
+	}
+
 	public override void StartWorking()
 	{
 
@@ -62,7 +72,8 @@ public partial class Cook : Employee
 
 	public override void StopWorking()
 	{
-		base.StopWorking();
+		_numberIngredientCollected = 0;
+        base.StopWorking();
 		_cookAnimation.Animation = "sleeping";
 		_miniGameSuccess = false;
 		var ingredient_list = _cookMinigame.GetIngredientList();
@@ -70,7 +81,7 @@ public partial class Cook : Employee
 		{
 			var collectible = Collectible.CreateCollectible("Ingredient");
 			collectible.GlobalPosition = Building.GetRandomPositionForItem();
-			collectible.CollectibleName = ingredient;
+			collectible.CollectibleName = "Ingredient";
 			collectible.Name = "Ingredient";
 			GetTree().Root.GetChild(0).AddChild(collectible);
 		}

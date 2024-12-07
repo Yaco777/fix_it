@@ -49,10 +49,7 @@ public partial class VBoxCookGame : CanvasLayer
 		{
 			if(line is LineEdit edit)
 				_questionIngredient.Add(edit);
-			else
-			{
-				GD.Print("Line is null	");
-			}
+			
 		}
 		ResetAll();
 		InitIngredient();
@@ -83,6 +80,10 @@ public partial class VBoxCookGame : CanvasLayer
 	public void ResetAll(){
 
         _chosenIngredientList.Clear();
+		foreach(var line in _questionIngredient)
+		{
+			line.Text = "";
+		}
 	}
 
 	private void CheckAnswers()

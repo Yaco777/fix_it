@@ -110,21 +110,21 @@ public partial class ProgressSystem : CanvasLayer
             var musicien = (Musicien)employee;
             var achievementMusicien = new Achievement(
             "After the last breath, only the silence remains",
-            "The music has stop for the first time",
+            "The music has stopped for the first time",
             40,
             () => musicien.CurrentState == Employee.EmployeeState.NotWorking // Condition to unlock the achievement
         );
 
             var achievementMusicien2 = new Achievement(
                 "Music is the language of emotions",
-                "The Musician worked again for the first time",
+                "The Musician has worked again for the first time",
                 70,
                 () => musicien.NumberOfTimeWorked == 1
             );
 
             var achievementMusicien3 = new Achievement(
                 "You can feel it",
-                "The Musician worked again for the third time",
+                "The Musician has worked again for the third time",
                 70,
                 () => musicien.NumberOfTimeWorked == 3
             );
@@ -148,7 +148,7 @@ public partial class ProgressSystem : CanvasLayer
                 () => painter.firstTimeGettingBlue
             );
             var achievementPainter3 = new Achievement(
-                "The nature approves your choice",
+                "Nature approves your choice",
                 "The green color is back for the first time",
                 40,
                 () => painter.firstTimeGettingGreen
@@ -186,13 +186,13 @@ public partial class ProgressSystem : CanvasLayer
             var security = (Security)employee;
             var achievementSecurity1 = new Achievement(
                 "We have the best security ever",
-                "You worked for the first time with the security",
+                "You worked with the Security for the first time",
                 40,
                 () => security.NumberOfTimeWorked == 1
             );
             var achievementSecurity2 = new Achievement(
                "We are in war!",
-               "The security stopped working for the first time",
+               "The Security has stopped working for the first time",
                40,
                () => security.CurrentState == Employee.EmployeeState.NotWorking
            );
@@ -200,7 +200,7 @@ public partial class ProgressSystem : CanvasLayer
                "She is starting to get very afraid",
                "You haven't chased the frog for a long time",
                40,
-               () => security.GetStopTimeWorking() == 10
+               () => security.GetStopTimeWorking() >= 60
            );
             var achievementSecurity4 = new Achievement(
                "I am not afraid of frogs",
@@ -256,6 +256,25 @@ public partial class ProgressSystem : CanvasLayer
             allAchievements[marketing].Add(achievementMarketing1);
             allAchievements[marketing].Add(achievementMarketing2);
             allAchievements[marketing].Add(achievementMarketing3);
+
+        }
+        else if(employee.NameOfEmployee == "Cook")
+        {
+            var cook = (Cook)employee;
+            var achievementCook1 = new Achievement(
+                "Let him cook",
+                "You completed the cook minigame for the first time",
+                40,
+                () => cook.NumberOfTimeWorked == 1
+                );
+            var achievementCook2 = new Achievement(
+                "Where are my ingredients?",
+                "The Cook has stopped working for the first time",
+                40,
+                () => cook.CurrentState == Employee.EmployeeState.NotWorking
+                );
+            allAchievements[cook].Add(achievementCook1);
+            allAchievements[cook].Add(achievementCook2);
 
         }
     }
@@ -354,7 +373,7 @@ public partial class ProgressSystem : CanvasLayer
             //we check if the player has all the achievment
 
             //TODO CHANGE THE 3 with the number of achievements
-            if(playerAchievements.Count >= 5)
+            if(playerAchievements.Count >= 1)
             {
                 _globalSignals.EmitUnlockGlasses();
             }

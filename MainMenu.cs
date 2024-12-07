@@ -14,15 +14,19 @@ public partial class MainMenu : Control
 	[Export]
 	private float OnHoverAnimationDuration { get; set; } = 0.3f;
 
-	// Called when the node enters the scene tree for the first time.
+    
 
-	public override void _Ready()
+    [Export]
+    private float FadeInDuration { get; set; } = 1.0f; // Duration for the fade-in effect
+
+    public override void _Ready()
 	{
 		// Set fullscreen mode
 		DisplayServer.WindowSetMode(DisplayServer.WindowMode.Fullscreen); // We put the game in fullscreen
 
-		
-		Button playButton = GetNode<Button>("PlayButton");
+        StartFadeIn();
+
+        Button playButton = GetNode<Button>("PlayButton");
 		Button quitButton = GetNode<Button>("QuitButton");
 		Button tutorialButton = GetNode<Button>("TutorialButton");
 		Button creditsButton = GetNode<Button>("CreditsButton");
@@ -57,10 +61,18 @@ public partial class MainMenu : Control
 
 	}
 
-	
+    private void StartFadeIn()
+    {
+        // we set the initial modulation to fully transparent
+        Modulate = new Color(1, 1, 1, 0);
+        var tween = CreateTween();
+        tween.TweenProperty(this, "modulate:a", 1.0f, FadeInDuration)
+             .SetTrans(Tween.TransitionType.Sine)
+             .SetEase(Tween.EaseType.InOut);
+    }
 
-	
-	private void AnimateButton(Button button, Vector2 targetScale)
+
+    private void AnimateButton(Button button, Vector2 targetScale)
 	{
 		//we create a smooth animation
 		var tween = CreateTween();

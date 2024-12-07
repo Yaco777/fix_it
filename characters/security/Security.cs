@@ -112,6 +112,8 @@ public partial class Security : Employee
     {
         base._Process(delta);
         _timeStopWorking += delta;
+        CheckAchievements(SignalName.CheckAchievement);
+      
         //if the frog is present, the frog will move
         if (_hasRemovedFrog == false && _frog != null)
         {
