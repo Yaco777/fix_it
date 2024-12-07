@@ -52,7 +52,7 @@ public partial class Cook : Employee
 	{
 		var ingredient = _cookMinigame.GetIngredientList()[_numberIngredientCollected];
 		_numberIngredientCollected++;
-        return ingredient;
+		return ingredient;
 
 	}
 
@@ -73,7 +73,7 @@ public partial class Cook : Employee
 	public override void StopWorking()
 	{
 		_numberIngredientCollected = 0;
-        base.StopWorking();
+		base.StopWorking();
 		_cookAnimation.Animation = "sleeping";
 		_miniGameSuccess = false;
 		var ingredient_list = _cookMinigame.GetIngredientList();

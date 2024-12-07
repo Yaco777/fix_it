@@ -22,6 +22,7 @@ public partial class VBoxCookGame : CanvasLayer
 	private AudioStreamPlayer _successPlayer;
 
 	private Button _validateButton;
+	private Hero _hero;
 
 	[Export] private int DefaultFontSize { get; set; } = 40; //font size of the the labels
 
@@ -44,6 +45,7 @@ public partial class VBoxCookGame : CanvasLayer
 		_failurePlayer = GetNode<AudioStreamPlayer>("CookGameRect/MarginContainer/VBoxContainer/Failure"); 
 		_successPlayer = GetNode<AudioStreamPlayer>("CookGameRect/MarginContainer/VBoxContainer/Success");
 		_cookGamePanel = GetNode<Panel>("CookGameRect");
+		_hero = GetNode<Hero>("characters/hero/hero.tscn/Hero");
 		var lines = GetNode<VBoxContainer>("CookGameRect/MarginContainer/VBoxContainer");
 		foreach (var line in lines.GetChildren())
 		{
@@ -79,7 +81,7 @@ public partial class VBoxCookGame : CanvasLayer
 
 	public void ResetAll(){
 
-        _chosenIngredientList.Clear();
+		_chosenIngredientList.Clear();
 		foreach(var line in _questionIngredient)
 		{
 			line.Text = "";

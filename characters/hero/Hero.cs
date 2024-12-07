@@ -27,6 +27,8 @@ public partial class Hero : CharacterBody2D
 	[Export]
 	private int _defaultCooldown = 100;
 	private AnimatedSprite2D _animatedSprite2D;
+	
+	private Panel _cookGamePanel;
 
 
 	private UI _ui;
@@ -45,6 +47,7 @@ public partial class Hero : CharacterBody2D
 		_globalSignals = GetNode<GlobalSignals>("../GlobalSignals");
 		_globalSignals.UnlockGlasses += GlassesUnlocked;
 		_globalSignals.EndOfTheGame += RestrictMovment;
+		_cookGamePanel = GetNode<Panel>("root/CookMinigame/CookGameRect");
 
 
 	}
@@ -252,9 +255,12 @@ public partial class Hero : CharacterBody2D
 	public override void _PhysicsProcess(double delta)
 	{
 
-        if (!_canMove) { return; } //if it's the end of the game, the player cannot move
-
-        var velocity = Vector2.Zero;
+		if (!_canMove || (_cookGamePanel != null && _cookGamePanel.Visible))
+		{
+			return;
+		}
+		
+		var velocity = Vector2.Zero;
 
 		if (_actionCooldown > 0)
 		{
@@ -284,6 +290,7 @@ public partial class Hero : CharacterBody2D
 
 		GlassesCheck();
 	}
+
 
 	// when the player enter the area2D of a ladder
 	private void OnLadderAreaEntered()

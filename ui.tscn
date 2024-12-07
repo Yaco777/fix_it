@@ -107,4 +107,4 @@ offset_right = -312.5
 offset_bottom = 64.0
 grow_horizontal = 2
 theme_override_font_sizes/font_size = 40
-text = "You ingredients:"
+text = "Your ingredients:"
