@@ -12,8 +12,10 @@ size = Vector2(674.286, 655.714)
 script = ExtResource("1_cipiq")
 
 [node name="CookGameRect" type="Panel" parent="."]
-offset_right = 409.0
-offset_bottom = 278.0
+offset_left = 79.0
+offset_top = 1120.0
+offset_right = 488.0
+offset_bottom = 1398.0
 scale = Vector2(10, 10)
 mouse_filter = 1
 

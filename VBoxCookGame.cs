@@ -55,7 +55,15 @@ public partial class VBoxCookGame : CanvasLayer
 		InitIngredient();
 	}
 
-	private void InitIngredient()
+    public override void _Process(double delta)
+    {
+       if(Visible == true)
+		{
+			_globalSignals.EmitEndOfTheGame();
+		}
+    }
+
+    private void InitIngredient()
 	{
 		_ingredientList.Add("Tomato");
 		_ingredientList.Add("Pasta");
@@ -152,5 +160,6 @@ public partial class VBoxCookGame : CanvasLayer
 	{
 		Visible = false;
 		InitIngredient();
+		_globalSignals.EmitAllowPlayerMove();
 	}
 }

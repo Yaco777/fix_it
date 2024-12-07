@@ -45,11 +45,17 @@ public partial class Hero : CharacterBody2D
 		_globalSignals = GetNode<GlobalSignals>("../GlobalSignals");
 		_globalSignals.UnlockGlasses += GlassesUnlocked;
 		_globalSignals.EndOfTheGame += RestrictMovment;
+		_globalSignals.AllowPlayerMove += AllowPlayerMove;
 
 
 	}
 
-	private void RestrictMovment()
+    private void AllowPlayerMove()
+    {
+		_canMove = true;
+    }
+
+    private void RestrictMovment()
 	{
 		_canMove = false;
 	}

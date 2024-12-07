@@ -142,7 +142,7 @@ shape = SubResource("RectangleShape2D_api7b")
 [node name="Rooms" type="Node2D" parent="Building"]
 
 [node name="Room" parent="Building/Rooms" instance=ExtResource("10_i8mq2")]
-position = Vector2(1699, 408)
+position = Vector2(1699, 368)
 ObjectTexture = ExtResource("12_nk2qi")
 AmountStarsRequired = 0
 EmployeeUnlockedName = "Musicien"
