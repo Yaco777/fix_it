@@ -191,7 +191,7 @@ Represent a collectible object. Every collectible have an unique name
 			"Green brush" => (Texture2D)GD.Load("res://building/collectible/green_brush.png"),
 			"Horn" => (Texture2D)GD.Load("res://building/collectible/horn.png"),
 			"Frog" => (Texture2D)GD.Load("res://building/collectible/Grenouille01.png"),
-			"Ingredient" => (Texture2D)GD.Load("res://building/collectible/Grenouille01.png"), //TODO CHANGE
+			"Ingredient" => (Texture2D)GD.Load("res://building/collectible/PaperCook.png"), //TODO CHANGE
 			_ => throw new ArgumentException("The name of the object is wrong (for applying the texture) " +
 											 nameOfTheObject)
 		};
