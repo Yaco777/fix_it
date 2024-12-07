@@ -38,6 +38,8 @@ public partial class Room : Node2D
 
 	private Building _building;
 
+	private CanvasLayer _canvasLayer;
+
 	[Export]
 	public int YMargin { get; set; } = 175; //margin used to move the employee down
 
@@ -62,10 +64,12 @@ public partial class Room : Node2D
 		_unlockLabel = GetNode<Label>("CanvasLayer/UnlockLabel");
 		_progressSystem = GetNode<ProgressSystem>("../../../UI/ProgressSystem");
 		_unlockPlayer = GetNode<AudioStreamPlayer2D>("UnlockPlayer");
-		_building = (Building)GetParent().GetParent();
+		_canvasLayer = GetNode<CanvasLayer>("CanvasLayer");
+        _building = (Building)GetParent().GetParent();
 		_unlockLabel.Visible = false;
 		_interactAnimation.Visible = false;
-		_interactAnimation.Animation = "can_interact";
+		_canvasLayer.Visible = false;
+        _interactAnimation.Animation = "can_interact";
 		_interactAnimation.Play();
 		_interactionArea = GetNode<Area2D>("RoomUnlock");
 		_defaultLabel = _unlockLabel.Text.Replace("{amount}",AmountStarsRequired.ToString()); //we store the default label text
@@ -99,7 +103,9 @@ public partial class Room : Node2D
 			_playerInRange = false;
 			_interactAnimation.Visible = false;
 			_unlockLabel.Visible = false;
-			if(_state != State.Unlocked)
+			_canvasLayer.Visible = false;
+
+            if (_state != State.Unlocked)
 			{
 				_state = State.CanInteract;
 			}
@@ -113,7 +119,8 @@ public partial class Room : Node2D
 		_state = State.ShowNumbersOfStars;
 		_interactAnimation.Visible = false;
 		_unlockLabel.Visible = true;
-	}
+        _canvasLayer.Visible = true;
+    }
 
 	private void UnlockRoom()
 	{
@@ -127,7 +134,8 @@ public partial class Room : Node2D
 		_unlockLabel.Visible = false;
 		_state = State.Unlocked;
 		_hasUnlockedRoom = true;
-		AddNewEmployee();
+        _canvasLayer.Visible = false;
+        AddNewEmployee();
 	}
 
 	private void AddNewEmployee()

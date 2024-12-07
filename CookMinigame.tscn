@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://VBoxCookGame.cs" id="1_cipiq"]
 [ext_resource type="AudioStream" uid="uid://mr7p1jaqesur" path="res://audio/failure_marketing_game.mp3" id="2_2o8mn"]
-[ext_resource type="Texture2D" uid="uid://bfjs7ynu8dk13" path="res://building/effects/delete.png" id="2_wn1fo"]
+[ext_resource type="Texture2D" uid="uid://cfp7t1vrh0a1m" path="res://UI/Minijeu.png" id="2_jskb4"]
 [ext_resource type="AudioStream" uid="uid://ctgfy2s672by8" path="res://audio/success_marketing_game.mp3" id="3_leo7v"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5fp1x"]
@@ -11,23 +11,21 @@ size = Vector2(674.286, 655.714)
 [node name="CookMinigame" type="CanvasLayer"]
 script = ExtResource("1_cipiq")
 
-[node name="CookGameRect" type="Panel" parent="."]
-offset_left = 79.0
-offset_top = 1120.0
-offset_right = 488.0
-offset_bottom = 1398.0
-scale = Vector2(10, 10)
-mouse_filter = 1
+[node name="CookGameRect" type="TextureRect" parent="."]
+offset_left = 120.0
+offset_top = 862.0
+offset_right = 4101.0
+offset_bottom = 4272.0
+texture = ExtResource("2_jskb4")
 
-[node name="ExitSprite" type="Sprite2D" parent="CookGameRect"]
-position = Vector2(378.1, 22.9)
-scale = Vector2(0.07, 0.07)
-texture = ExtResource("2_wn1fo")
+[node name="Area2D" type="Area2D" parent="CookGameRect"]
+position = Vector2(3672, 784)
+scale = Vector2(0.7, 0.7)
+metadata/_edit_group_ = true
 
-[node name="Area2D" type="Area2D" parent="CookGameRect/ExitSprite"]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CookGameRect/ExitSprite/Area2D"]
-position = Vector2(-28.5708, 2.14291)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CookGameRect/Area2D"]
+position = Vector2(-28.5713, 2.14282)
+scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_5fp1x")
 
 [node name="Label" type="Label" parent="CookGameRect"]
@@ -35,19 +33,21 @@ layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -103.5
-offset_top = 28.0
-offset_right = 109.5
-offset_bottom = 51.0
+offset_left = -1405.5
+offset_top = 650.0
+offset_right = 1246.5
+offset_bottom = 923.0
 grow_horizontal = 2
+theme_override_font_sizes/font_size = 200
 text = "What were the ingredients?"
 horizontal_alignment = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="CookGameRect"]
-layout_mode = 0
-offset_top = 55.0
-offset_right = 407.0
-offset_bottom = 276.0
+offset_left = -46.0005
+offset_top = 1085.0
+offset_right = 361.0
+offset_bottom = 1306.0
+scale = Vector2(10, 10)
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
@@ -89,4 +89,4 @@ stream = ExtResource("2_2o8mn")
 [node name="Success" type="AudioStreamPlayer" parent="CookGameRect/MarginContainer/VBoxContainer"]
 stream = ExtResource("3_leo7v")
 
-[connection signal="input_event" from="CookGameRect/ExitSprite/Area2D" to="." method="GiveUp"]
+[connection signal="input_event" from="CookGameRect/Area2D" to="." method="GiveUp"]

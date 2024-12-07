@@ -3,7 +3,7 @@ using Godot;
 
 public partial class AchievementDisplay : Control
 {
-    private ColorRect _colorRect;
+    private TextureRect _colorRect;
     private Label _labelAchievementName;
     private Label _labelAchievementDescription;
 
@@ -21,7 +21,7 @@ public partial class AchievementDisplay : Control
 
     public override void _Ready()
     {
-        _colorRect = GetNode<ColorRect>("AchievementRect");
+        _colorRect = GetNode<TextureRect>("AchievementRect");
         _labelAchievementName = GetNode<Label>("AchievementRect/AchievementName");
         _labelAchievementDescription = GetNode<Label>("AchievementRect/AchievementDescription");
         _colorRect.Visible = false;

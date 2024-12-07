@@ -30,7 +30,7 @@ public partial class VBoxMarketingGame : VBoxContainer
 
 	private AudioStreamPlayer _successPlayer;
 
-	private Panel _marketingGamePanel;
+	private TextureRect _marketingGamePanel;
 
 
 	[Export]
@@ -51,13 +51,13 @@ public partial class VBoxMarketingGame : VBoxContainer
 	{
 		_validateButton = GetNode<Button>("CenterContainer/Validate");
 		_validateButton.Pressed += CheckAnswers;
-		_exitArea = GetNode<Area2D>("../../../ExitSprite/ExitSpriteArea");
+		_exitArea = GetNode<Area2D>("../../../ExitSpriteArea");
 		_globalSignals = GetNode<GlobalSignals>("../../../../../../../GlobalSignals");
 		_exitArea.InputEvent += GiveUp;
 		_failurePlayer = GetNode<AudioStreamPlayer>("Failure");
 		_successPlayer = GetNode<AudioStreamPlayer>("Success");
-		_marketingGamePanel = GetNode<Panel>("../../..");
-		ResetPanelColor();
+		_marketingGamePanel = GetNode<TextureRect>("../../..");
+	
 		ResetAll();
 		
 	}
@@ -67,7 +67,6 @@ public partial class VBoxMarketingGame : VBoxContainer
 	public void ResetAll()
 	{
 		Input.MouseMode = Input.MouseModeEnum.Visible;
-		ResetPanelColor();
 		//we first remove all the HBoxContainer
 		foreach (var child in GetChildren())
 		{
@@ -208,27 +207,9 @@ public partial class VBoxMarketingGame : VBoxContainer
 		}
 	}
 
-	private void ChangePanelColor(Color color)
-	{
-		// Create a new StyleBoxFlat and set its background color
-		/*var styleBox = new StyleBoxFlat();
-		styleBox.BgColor = color;
-		var st
-		// Apply the StyleBox to the Panel
-		_marketingGamePanel.AddThemeStyleboxOverride("panel", styleBox);*/
-		var style = _marketingGamePanel.GetThemeStylebox("panel") as StyleBoxFlat;
-		style.BgColor = color;
-		_marketingGamePanel.AddThemeStyleboxOverride("panel", style);
+	
 
-
-	}
-
-	private void ResetPanelColor()
-	{
-		// Reset the panel background to a neutral color (e.g., white or transparent)
-		ChangePanelColor(DefaultBackgroundColor); // Transparent by default, or choose another color
-
-	}
+	
 
 	private void GiveUp(Node viewport, InputEvent @event, long shapeIdx)
 	{

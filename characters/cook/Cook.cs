@@ -91,8 +91,10 @@ public partial class Cook : Employee
 	protected override void Interact(Hero hero)
 	{
 
+		GD.Print("On a réussi ? " + MinigameSuccess);
 		if (CurrentState == EmployeeState.NotWorking && _miniGameSuccess == false)
 		{
+			GD.Print("alors on montre !");
 			_cookMinigame.Visible = true;
 
 		}

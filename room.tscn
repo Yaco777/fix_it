@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://bwfino3o4gmoy"]
+[gd_scene load_steps=12 format=3 uid="uid://bwfino3o4gmoy"]
 
 [ext_resource type="Texture2D" uid="uid://crkbv1gws7a8n" path="res://building/rooms/mainRoom.png" id="1_8nfre"]
 [ext_resource type="Script" path="res://Room.cs" id="1_cuf1k"]
@@ -6,6 +6,7 @@
 [ext_resource type="Shader" path="res://roomNotunlocked.gdshader" id="3_23us0"]
 [ext_resource type="Texture2D" uid="uid://clwngq3uxmaou" path="res://shaders/noise.png" id="4_ofp03"]
 [ext_resource type="AudioStream" uid="uid://dmu5v77dm8mxk" path="res://audio/room_unlocked.mp3" id="4_og5wj"]
+[ext_resource type="Texture2D" uid="uid://core1puia07vr" path="res://UI/UnlockRoom.png" id="7_d68ql"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ea14a"]
 shader = ExtResource("3_23us0")
@@ -57,12 +58,20 @@ shape = SubResource("RectangleShape2D_uiu4r")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer"]
+offset_left = 188.0
+offset_top = -8.0
+offset_right = 1756.0
+offset_bottom = 231.0
+texture = ExtResource("7_d68ql")
+expand_mode = 1
+
 [node name="UnlockLabel" type="Label" parent="CanvasLayer"]
-visible = false
-offset_left = 506.0
-offset_top = 20.0
-offset_right = 1603.0
-offset_bottom = 119.0
+offset_left = 441.0
+offset_top = 92.0
+offset_right = 1538.0
+offset_bottom = 191.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 40
 text = "Do you want to unlock this room? Price = {amount} stars;"
 horizontal_alignment = 1

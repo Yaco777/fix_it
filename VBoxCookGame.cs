@@ -11,7 +11,7 @@ public partial class VBoxCookGame : CanvasLayer
 
 	private readonly Random _random = new();
 
-	private Panel _cookGamePanel;
+	private TextureRect _cookGamePanel;
 
 	private Area2D _exitArea;
 
@@ -39,13 +39,12 @@ public partial class VBoxCookGame : CanvasLayer
 	{
 		_validateButton = GetNode<Button>("CookGameRect/MarginContainer/VBoxContainer/MarginContainer/CenterContainer/Button");
 		_validateButton.Pressed += CheckAnswers;
-		_exitArea = GetNode<Area2D>("CookGameRect/ExitSprite/Area2D");
+		_exitArea = GetNode<Area2D>("CookGameRect/Area2D");
 		_globalSignals = GetNode<GlobalSignals>("../../../GlobalSignals");
 		_exitArea.InputEvent += GiveUp;
 		_failurePlayer = GetNode<AudioStreamPlayer>("CookGameRect/MarginContainer/VBoxContainer/Failure"); 
 		_successPlayer = GetNode<AudioStreamPlayer>("CookGameRect/MarginContainer/VBoxContainer/Success");
-		_cookGamePanel = GetNode<Panel>("CookGameRect");
-		_hero = GetNode<Hero>("characters/hero/hero.tscn/Hero");
+		_cookGamePanel = GetNode<TextureRect>("CookGameRect");
 		var lines = GetNode<VBoxContainer>("CookGameRect/MarginContainer/VBoxContainer");
 		foreach (var line in lines.GetChildren())
 		{

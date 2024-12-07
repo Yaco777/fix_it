@@ -87,7 +87,8 @@ public partial class Employee : Node2D
 		//ShowDialogue("[center][color=red] Press [b]E[/b] to interact [/color][/center]");
 		_interactAnimation.Visible = true;
 		_interactAnimation.Animation = "can_interact";
-		_interactAnimation.Play();
+		_canInteract = true;
+        _interactAnimation.Play();
 	}
 
 	private void OnBodyExited(Node2D body)
