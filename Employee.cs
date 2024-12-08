@@ -29,7 +29,7 @@ public partial class Employee : Node2D
 	public int NumberOfTimeWorked { get; private set; } //number of time this employee returned to work
 
 	[Export]
-	private double MaximumTimeBeforeStopWorking { get; set; } = 10;
+	private double MaximumTimeBeforeStopWorking { get; set; } = 30;
 
 	[Export]
 	private double IncreaseTimeBeforeStopWorking { get; set; } = 60; //at the end of each work, we will increase the maximum time before stop working by this value
@@ -324,8 +324,8 @@ public partial class Employee : Node2D
     public void InitializeEmployee()
     {
 		NumberOfTimeWorked = 0;
-		MaximumTimeBeforeStopWorking = 10;
-		_actualTimeBeforeStopWorking = 10;
+		MaximumTimeBeforeStopWorking = 30;
+		_actualTimeBeforeStopWorking = 30;
 
 
     }
