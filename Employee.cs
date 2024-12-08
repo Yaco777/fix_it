@@ -86,19 +86,19 @@ public partial class Employee : Node2D
 
 	}
 
-    private void CheckShouldNotBeAllowedToStopWorking(string name)
-    {
-        if(name.Contains(NameOfEmployee))
+	private void CheckShouldNotBeAllowedToStopWorking(string name)
+	{
+		if(name.Contains(NameOfEmployee))
 		{
 			GD.Print("Ok j'arrete de bosser ! " + name);
 			_cannotStopWorking = true;
 
-        }
+		}
 	
 
-    }
+	}
 
-    private void StopInteractions()
+	private void StopInteractions()
 	{
 		_canInteract = false;
 		_interactAnimation.Visible = false;
@@ -113,7 +113,7 @@ public partial class Employee : Node2D
 		_interactAnimation.Visible = true;
 		_interactAnimation.Animation = "can_interact";
 		_canInteract = true;
-        _interactAnimation.Play();
+		_interactAnimation.Play();
 	}
 
 	private void OnBodyExited(Node2D body)
@@ -142,20 +142,20 @@ public partial class Employee : Node2D
 		}
 
 
-        if (CurrentState == EmployeeState.Working && !_cannotStopWorking)
+		if (CurrentState == EmployeeState.Working && !_cannotStopWorking)
 		{
 			_actualTimeBeforeStopWorking -= delta;
 			if(_actualTimeBeforeStopWorking <= 0)
 			{
 				
-                SetState(EmployeeState.NotWorking);
-                _colorRect.Visible = false;
+				SetState(EmployeeState.NotWorking);
+				_colorRect.Visible = false;
 				MaximumTimeBeforeStopWorking += IncreaseTimeBeforeStopWorking;
 
-                return;
-            }
+				return;
+			}
 
-        }
+		}
 
 		/*if (!(new Random().NextDouble() < StopWorkProbability)) return;
 		if (CurrentState != EmployeeState.Working) return;
@@ -205,8 +205,8 @@ public partial class Employee : Node2D
 		
 		_actualTimeBeforeStopWorking = MaximumTimeBeforeStopWorking;
 		GD.Print("on commence avec : " + MaximumTimeBeforeStopWorking);
-        //we update the numberOfTimeWorked before emitting the signal
-        EmitSignal(SignalName.CheckAchievement, (int)CurrentState, NameOfEmployee);
+		//we update the numberOfTimeWorked before emitting the signal
+		EmitSignal(SignalName.CheckAchievement, (int)CurrentState, NameOfEmployee);
 		CurrentState = EmployeeState.Working;
 
 	}
@@ -321,12 +321,12 @@ public partial class Employee : Node2D
 		return employee;
 	}
 
-    public void InitializeEmployee()
-    {
+	public void InitializeEmployee()
+	{
 		NumberOfTimeWorked = 0;
 		MaximumTimeBeforeStopWorking = 30;
 		_actualTimeBeforeStopWorking = 30;
 
 
-    }
+	}
 }

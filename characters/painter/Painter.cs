@@ -27,6 +27,7 @@ public partial class Painter : Employee
 
     private GlobalSignals _globalSignals;
     private AnimatedSprite2D _painterAnimation;
+    private AudioStreamPlayer _successPlayer;
 
     private Random _random = new Random();
 
@@ -81,6 +82,7 @@ public partial class Painter : Employee
         base._Ready();
         _globalSignals = GetNode<GlobalSignals>("../../GlobalSignals");
         _painterAnimation = GetNode<AnimatedSprite2D>("PainterSprites");
+        _successPlayer = GetNode<AudioStreamPlayer>("Success");
         ColorsUnlocked.Add(FirstBrush);
         CurrentColors.Add(FirstBrush);
         //StopWorking();
@@ -139,6 +141,7 @@ public partial class Painter : Employee
                 {
                     firstTimeGettingGreen = true;
                 }
+                _successPlayer.Play();
                 EmitSignal(SignalName.CheckAchievement, (int)CurrentState, NameOfEmployee);
                 _globalSignals.EmitColorBack(item);
                 ColorsMissings.Remove(item);

@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://bcqdyx3wy771g"]
+[gd_scene load_steps=15 format=3 uid="uid://bcqdyx3wy771g"]
 
 [ext_resource type="Script" path="res://characters/security/Security.cs" id="1_viv4g"]
 [ext_resource type="AudioStream" uid="uid://3yn40q6ss0ia" path="res://audio/alert.mp3" id="2_d28o1"]
@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://bkd6eharswbbh" path="res://building/collectible/Grenouille02.png" id="8_3f1rw"]
 [ext_resource type="Texture2D" uid="uid://7okturjppx3" path="res://building/collectible/Grenouille03.png" id="9_acubh"]
 [ext_resource type="Texture2D" uid="uid://bhco7mii1rxw" path="res://building/collectible/Grenouille04.png" id="10_7eelv"]
+[ext_resource type="AudioStream" uid="uid://ctgfy2s672by8" path="res://audio/success_marketing_game.mp3" id="11_bqij7"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_i3nx8"]
 animations = [{
@@ -112,3 +113,6 @@ visible = false
 scale = Vector2(0.2, 0.2)
 sprite_frames = SubResource("SpriteFrames_wtbvl")
 animation = &"frogJump"
+
+[node name="Success" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("11_bqij7")

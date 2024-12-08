@@ -66,11 +66,11 @@ public partial class Room : Node2D
 		_unlockPlayer = GetNode<AudioStreamPlayer2D>("UnlockPlayer");
 		_canvasLayer = GetNode<CanvasLayer>("CanvasLayer");
 		_globalSignals = GetNode<GlobalSignals>("../../../GlobalSignals");
-        _building = (Building)GetParent().GetParent();
+		_building = (Building)GetParent().GetParent();
 		_unlockLabel.Visible = false;
 		_interactAnimation.Visible = false;
 		_canvasLayer.Visible = false;
-        _interactAnimation.Animation = "can_interact";
+		_interactAnimation.Animation = "can_interact";
 		_interactAnimation.Play();
 		_interactionArea = GetNode<Area2D>("RoomUnlock");
 		_defaultLabel = _unlockLabel.Text.Replace("{amount}",AmountStarsRequired.ToString()); //we store the default label text
@@ -107,7 +107,7 @@ public partial class Room : Node2D
 			_unlockLabel.Visible = false;
 			_canvasLayer.Visible = false;
 
-            if (_state != State.Unlocked)
+			if (_state != State.Unlocked)
 			{
 				_state = State.CanInteract;
 			}
@@ -121,8 +121,8 @@ public partial class Room : Node2D
 		_state = State.ShowNumbersOfStars;
 		_interactAnimation.Visible = false;
 		_unlockLabel.Visible = true;
-        _canvasLayer.Visible = true;
-    }
+		_canvasLayer.Visible = true;
+	}
 
 	private void UnlockRoom()
 	{
@@ -136,12 +136,12 @@ public partial class Room : Node2D
 		_unlockLabel.Visible = false;
 		_state = State.Unlocked;
 		_hasUnlockedRoom = true;
-        _canvasLayer.Visible = false;
+		_canvasLayer.Visible = false;
 		if(EmployeeUnlockedName == "Cook")
 		{
 			_globalSignals.EmitCookUnlocked();
 		}
-        AddNewEmployee();
+		AddNewEmployee();
 	}
 
 	private void AddNewEmployee()

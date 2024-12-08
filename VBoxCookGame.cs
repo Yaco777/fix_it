@@ -56,15 +56,15 @@ public partial class VBoxCookGame : CanvasLayer
 		InitIngredient();
 	}
 
-    public override void _Process(double delta)
-    {
-       if(Visible == true)
+	public override void _Process(double delta)
+	{
+	   if(Visible == true)
 		{
 			_globalSignals.EmitEndOfTheGame();
 		}
-    }
+	}
 
-    public void InitIngredient()
+	public void InitIngredient()
 	{
 		_ingredientList.Add("Tomato");
 		_ingredientList.Add("Pasta");

@@ -11,6 +11,7 @@ public partial class Security : Employee
     private Vector2 _frogDirection;
     private AnimatedSprite2D _frogAnimation;
     private double _timeStopWorking = 0;
+    private AudioStreamPlayer _successPlayer;
 
  
 
@@ -52,6 +53,7 @@ public partial class Security : Employee
         _alertStreamPlayer = GetNode<AudioStreamPlayer>("Alert");
         _globalSignals = GetNode<GlobalSignals>("../../GlobalSignals");
         _securityAnimation = GetNode<AnimatedSprite2D>("SecuritySprite");
+        _successPlayer = GetNode<AudioStreamPlayer>("Success");
         _globalSignals.FrogCollected += OnFrogCollected; 
         StartWorking();
         _securityAnimation.Animation = "working";
@@ -100,6 +102,7 @@ public partial class Security : Employee
         {
             _hasRemovedFrog = false;
             _frog = null;
+            _successPlayer.Play();
             ShowBackToWorkChat();
             SetState(EmployeeState.Working);
 

@@ -78,7 +78,7 @@ public partial class Cook : Employee
 		_miniGameSuccess = false;
 		_cookMinigame.ResetAll();
 		_cookMinigame.InitIngredient();
-        var ingredient_list = _cookMinigame.GetIngredientList();
+		var ingredient_list = _cookMinigame.GetIngredientList();
 		foreach (var ingredient in ingredient_list)
 		{
 			var collectible = Collectible.CreateCollectible("Ingredient");

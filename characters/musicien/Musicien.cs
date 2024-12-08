@@ -13,11 +13,12 @@ public partial class Musicien : Employee
 	private Node2D _noteNode;
 	private GlobalSignals _globalSignals;
 	private bool _isAlarmOn;
+	private AudioStreamPlayer _successPlayer;
 	private static List<string> _chatMessages = new List<string>
 
 
 	{
-		"You wants to hear my new song?",
+		"Do you want to hear my new song?",
 		"Feel the music!",
 		"I will never fall asleep, there is no way...",
 		"Music soothes aches and pains!"
@@ -50,6 +51,7 @@ public partial class Musicien : Employee
 		_musicianAnimation = GetNode<AnimatedSprite2D>("MusicianSprites");
 		_noteNode = GetNode<Node2D>("Notes");
 		_globalSignals = GetNode<GlobalSignals>("../../GlobalSignals");
+		_successPlayer = GetNode<AudioStreamPlayer>("Success");
 		_globalSignals.AlarmStateChanged += UpdateMusicAccordingToAlarm;
 		StartWorking();
 		if(_isAlarmOn == false)
@@ -151,6 +153,7 @@ public partial class Musicien : Employee
 		 */
 		if (EmployeeState.NotWorking == CurrentState && hero.HasItem(REQUIRED_ITEM))
 		{
+			_successPlayer.Play();
 			ShowBackToWorkChat();
 			hero.RemoveItem();
 			SetState(EmployeeState.Working);

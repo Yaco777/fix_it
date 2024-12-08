@@ -55,6 +55,7 @@ public partial class Technician : Employee
     private AudioStream _lightOffStream;
     private AudioStreamPlayer _lightOnPlayer;
     private AudioStreamPlayer _lightOffPlayer;
+    private AudioStreamPlayer _successPlayer;
 
 
 
@@ -74,6 +75,7 @@ public partial class Technician : Employee
         _lightOffPlayer = GetNode<AudioStreamPlayer>("LightOffSound");
         _lightOffPlayer.Stream = _lightOffStream;
         _technicianAnimation = GetNode<AnimatedSprite2D>("TechnicienSprites");
+        _successPlayer = GetNode<AudioStreamPlayer>("Success");
         StartWorking();
         _technicianAnimation.Play();
         
@@ -126,6 +128,7 @@ public partial class Technician : Employee
         //the technicien will return to it's working state when we talk to him
         if (EmployeeState.NotWorking == CurrentState)
         {
+            _successPlayer.Play();
             ShowBackToWorkChat();
             SetState(EmployeeState.Working);
 

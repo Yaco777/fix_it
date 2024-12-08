@@ -42,9 +42,9 @@ public partial class Ghost : Node2D
 	private bool _hasInteracted = false;
 
 
-    private AnimatedSprite2D _interactAnimation;
+	private AnimatedSprite2D _interactAnimation;
 
-    public override void _Ready()
+	public override void _Ready()
 	{
 		Visible = false;
 		var sprite = GetNode<Sprite2D>("GhostSprite");
@@ -54,12 +54,12 @@ public partial class Ghost : Node2D
 		_ghostArea = GetNode<Area2D>("GhostArea");
 		_interactionRect = GetNode<ColorRect>("InteractionRect");
 		_interactionLabel = _interactionRect.GetNode<Label>("InteractionLabel");
-        _interactAnimation = GetNode<AnimatedSprite2D>("InteractAnimation");
-        _interactAnimation.Visible = false;
+		_interactAnimation = GetNode<AnimatedSprite2D>("InteractAnimation");
+		_interactAnimation.Visible = false;
 		_interactionRect.Visible = false;
 		_interactAnimation.Play();
-        _interactAnimation.ZIndex = 11;
-        _globalSignals.GlassesChange += UpdateGhostDisplay;
+		_interactAnimation.ZIndex = 11;
+		_globalSignals.GlassesChange += UpdateGhostDisplay;
 		_interactionLabel.Text = InteractionQuestion;
 		_ghostArea.BodyEntered += OnBodyEntered;
 		_ghostArea.BodyExited += OnBodyExited;
@@ -128,7 +128,7 @@ public partial class Ghost : Node2D
 		if (body is Hero)
 		{
 			_hasInteracted = false;
-            _inRange = false;
+			_inRange = false;
 			_interactAnimation.Visible = false;
 			_interactionRect.Visible = false;
 		}
@@ -139,10 +139,10 @@ public partial class Ghost : Node2D
 		if (body is Hero)
 		{
 			_hasInteracted = false;
-            _inRange = true;
-            _interactAnimation.Visible = true;
+			_inRange = true;
+			_interactAnimation.Visible = true;
 
-        }
+		}
 	}
 
 	private void UpdateGhostDisplay(bool shouldShow)

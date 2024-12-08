@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://fbolxmgf0o2k"]
+[gd_scene load_steps=12 format=3 uid="uid://fbolxmgf0o2k"]
 
 [ext_resource type="Script" path="res://characters/technician/Technician.cs" id="1_e2iax"]
 [ext_resource type="AudioStream" uid="uid://bg8t4xj087l3l" path="res://audio/light_turn_on.mp3" id="2_3sf0k"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://c6htb4gqeu3wn" path="res://characters/technician/Technicien03.png" id="6_jyrhg"]
 [ext_resource type="Texture2D" uid="uid://cr84f3aumg0h0" path="res://characters/technician/Technicien04.png" id="7_2ui30"]
 [ext_resource type="SpriteFrames" uid="uid://dxvd8we5cp3eh" path="res://spriteAnimationCollect.tres" id="8_uk028"]
+[ext_resource type="AudioStream" uid="uid://ctgfy2s672by8" path="res://audio/success_marketing_game.mp3" id="9_x8iyw"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_vtjic"]
 animations = [{
@@ -92,3 +93,6 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/default_color = Color(1, 1, 1, 1)
 text = "HIIII HELLO"
+
+[node name="Success" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("9_x8iyw")
