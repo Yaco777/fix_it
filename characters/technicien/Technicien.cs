@@ -80,7 +80,7 @@ public partial class Technicien : Employee
 
     public override void StopWorking()
     {
-    
+        base.StopWorking();
         var tween = GetTree().CreateTween();
         //we put the "darknessAmount" value for the alpha 
         tween.TweenProperty(_colorRect, "color", new Color(0, 0, 0, DarknessAmount), DarknessTransitionSpeed);
@@ -90,6 +90,7 @@ public partial class Technicien : Employee
 
     public override void StartWorking()
     {
+        base.StartWorking();
         if(_firstStart == false)
         {
             //if it's not the first time that the employee start working, we play the sound

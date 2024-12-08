@@ -76,7 +76,8 @@ public partial class Cook : Employee
 		base.StopWorking();
 		_cookAnimation.Animation = "sleeping";
 		_miniGameSuccess = false;
-		var ingredient_list = _cookMinigame.GetIngredientList();
+		_cookMinigame.ResetAll();
+        var ingredient_list = _cookMinigame.GetIngredientList();
 		foreach (var ingredient in ingredient_list)
 		{
 			var collectible = Collectible.CreateCollectible("Ingredient");
@@ -91,10 +92,9 @@ public partial class Cook : Employee
 	protected override void Interact(Hero hero)
 	{
 
-		GD.Print("On a réussi ? " + MinigameSuccess);
+		
 		if (CurrentState == EmployeeState.NotWorking && _miniGameSuccess == false)
 		{
-			GD.Print("alors on montre !");
 			_cookMinigame.Visible = true;
 
 		}

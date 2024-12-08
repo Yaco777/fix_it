@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://lhq1emrrjlqs"]
+
+[ext_resource type="Script" path="res://Notebook.cs" id="1_8nh3f"]
+[ext_resource type="Texture2D" uid="uid://bxisusp4htu6b" path="res://UI/Notebook.png" id="1_66fur"]
+
+[node name="Notebook" type="CanvasLayer"]
+script = ExtResource("1_8nh3f")
+
+[node name="NotebookSprite" type="Sprite2D" parent="."]
+position = Vector2(1010, 258)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("1_66fur")
+
+[node name="IngredientsLabel" type="Label" parent="NotebookSprite"]
+offset_left = -820.0
+offset_top = -805.0
+offset_right = 830.0
+offset_bottom = 940.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 250

@@ -28,11 +28,11 @@ public partial class UI : CanvasLayer
 	private GlobalSignals _globalSignals;
 
 
-	private ColorRect _dialogRect;
+	private TextureRect _dialogRect;
 
 	private Label _dialogLabel;
 
-	private Label _glassesWear;
+	private AnimatedSprite2D _glassesWear;
 	
 	private Label _ghostCounterLabel;
 
@@ -42,7 +42,9 @@ public partial class UI : CanvasLayer
 
 	private Label _gameOverLabel;
 
-	private Label _cookIngredients;
+	private Sprite2D _notebookSprite;
+
+	private Notebook _notebook;
 
 
 
@@ -70,7 +72,7 @@ public partial class UI : CanvasLayer
 
 
 	[Export]
-	public float MaxCameraZoomOut = 0.5f;
+	public float MaxCameraZoomOut = 0.5f; //the camera will zoom out when we finish the game
 
 	private int _ghostsSlayed = 0;
 
@@ -79,14 +81,6 @@ public partial class UI : CanvasLayer
 	private ColorRect _endGameRect;
 
 	private Camera2D _camera;
-
-	
-
-
-
-
-
-
 
 	private enum State //this state is used to know if we need to show the message asking the player to wear the glasses
 	{
@@ -106,7 +100,10 @@ public partial class UI : CanvasLayer
 	{
 		_objectIcon = GetNode<TextureRect>("ObjectIcon");
 		_objectName = GetNode<RichTextLabel>("ObjectName");
-		_cookIngredients = GetNode<Label>("CookIngredients");
+		_notebookSprite = GetNode<Sprite2D>("NotebookSprite");
+		_notebook = GetNode<Notebook>("Notebook");
+		_notebook.Visible = false;
+        _notebookSprite.Visible = false;
         _objectName.BbcodeEnabled = true;
 		_objectIcon.Visible = false;
 		_objectName.AddThemeFontSizeOverride("normal_font_size", 32);
@@ -121,15 +118,15 @@ public partial class UI : CanvasLayer
 		_gameOverTimer.OneShot = true;
 		_gameOverTimer.Start();
 
-
+		_globalSignals.CookUnlocked += ShowNotebook;
 		UpdateTimerLabel();
 		SetEmptyInventoryLabel();
 
 		//the glasses
 		_globalSignals.UnlockGlasses += GlassesUnlocked;
-		_dialogRect = GetNode<ColorRect>("DialogRect");
+		_dialogRect = GetNode<TextureRect>("DialogRect");
 		_dialogLabel = _dialogRect.GetNode<Label>("DialogLabel");
-		_glassesWear = GetNode<Label>("GlassesWear");
+		_glassesWear = GetNode<AnimatedSprite2D>("GlassesWear");
 		_glassesWear.Visible = false;
 		_dialogRect.Visible = false;
 		_globalSignals.GlassesChange += UpdateGlassesLabel;
@@ -137,28 +134,17 @@ public partial class UI : CanvasLayer
 		_ghostCounterLabel.Visible = false; 
 		_globalSignals.GhostSlayed += OnGhostSlayed;
 
-		//the cook
-		_cookIngredients.Visible = false;
-        _globalSignals.IngredientCollected += ShowNewIngredient;
-		_globalSignals.CookMinigameSuccess += ResetIngredients;
-
 
 	}
 
-    private void ResetIngredients()
+	//function called when we unlock the cook
+    private void ShowNotebook()
     {
-		_cookIngredients.Text = "Ingredients:";
-		_cookIngredients.Visible = false;
+		_notebookSprite.Visible = true;
     }
 
-    private void ShowNewIngredient()
-    {
-		_cookIngredients.Visible = true;
-		var cook = GetNode<Cook>("../Employees/Cook");
-		var nextIngredient = cook.GetNextIngredient();
-		_cookIngredients.Text += "\n" + nextIngredient;
+  
 
-    }
 
     private void UpdateTimerLabel()
 	{
@@ -250,6 +236,11 @@ public partial class UI : CanvasLayer
 			}
 		}
 
+		if(_notebookSprite.Visible && Input.IsActionJustPressed("open_notebook")) {
+			_notebook.Visible = !_notebook.Visible;
+
+        }
+
 	}
 
 	private void  PlayEndingSound()
@@ -301,7 +292,8 @@ public partial class UI : CanvasLayer
 			_state = State.SHOW_GLASSES_UNLOCKED_MESSAGE;
 			_dialogRect.Visible = true;
 			_glassesWear.Visible = true;
-			_dialogLabel.Text = GlassesUnlockedMessage;
+			_glassesWear.Animation = "not_wearing";
+            _dialogLabel.Text = GlassesUnlockedMessage;
 		}
 		
 
@@ -311,12 +303,12 @@ public partial class UI : CanvasLayer
 	{
 		if(isWearingGlasses)
 		{
-			_glassesWear.Text = WearingGlasses;
+			_glassesWear.Animation = "wearing";
 		}
 		else
 		{
-			_glassesWear.Text = NotWearningGlasses;
-		}
+			_glassesWear.Animation = "not_wearing";
+        }
 	}
 	
 	public void OnGhostSlayed()

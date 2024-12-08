@@ -46,6 +46,10 @@ public partial class GlobalSignals : Node2D
 	[Signal]
 	public delegate void AllowPlayerMoveEventHandler();
 
+    [Signal]
+    public delegate void CookUnlockedEventHandler();
+    
+
 
 
     public void EmitColorLost(string colorName)
@@ -116,6 +120,11 @@ public partial class GlobalSignals : Node2D
 	public void EmitAllowPlayerMove()
 	{
 		EmitSignal(SignalName.AllowPlayerMove);
+	}
+
+	public void EmitCookUnlocked()
+	{
+		EmitSignal(SignalName.CookUnlocked);
 	}
 
 

@@ -163,16 +163,16 @@ public partial class ProgressSystem : CanvasLayer
 
             var achievementPainter5 = new Achievement(
                 "It was a little bit too hard alone, so we both held hands",
-                "You worked 5 times with the Painter, you unlocked a new color",
+                "You worked 2 times with the Painter, you unlocked a new color",
                 40,
-                () => painter.NumberOfTimeWorked == 1
+                () => painter.NumberOfTimeWorked == 2
             );
 
             var achievementPainter6 = new Achievement(
                 "Only the two of us was a little bit sad, so we made a circle of three",
-                "You worked 10 times with the Painter, you unlocked a new color",
+                "You worked 5 times with the Painter, you unlocked a new color",
                 40,
-                () => painter.NumberOfTimeWorked == 2
+                () => painter.NumberOfTimeWorked == 5
             );
             allAchievements[painter].Add(achievementPainter);
             allAchievements[painter].Add(achievementPainter2);

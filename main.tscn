@@ -34,7 +34,7 @@ NumberOfGhostsToSlay = 6
 
 [node name="Hero" parent="." instance=ExtResource("1_easg4")]
 z_index = 10
-position = Vector2(5000, -3000)
+position = Vector2(3700, -1775)
 Speed = 700
 
 [node name="Camera" parent="Hero" instance=ExtResource("2_0u86b")]
@@ -147,9 +147,9 @@ _ghostTexture = ExtResource("18_1sjaw")
 [node name="GlobalSignals" type="Node2D" parent="."]
 script = ExtResource("7_shkg7")
 
-[node name="PauseMenu" parent="." instance=ExtResource("13_fls8b")]
-visible = false
-
 [node name="AchievementsDisplay" parent="." instance=ExtResource("13_0b7q3")]
 process_mode = 3
+visible = false
+
+[node name="PauseMenu" parent="." instance=ExtResource("13_fls8b")]
 visible = false

@@ -9,7 +9,7 @@ public partial class Employee : Node2D
 	 */
 
 	[Export]
-	public double StopWorkProbability { get; set; } = 0.001;
+	public double StopWorkProbability { get; set; } = 0.0001;
 
 	private bool _playerInRange; //boolean to check if the player is close to the employee
 	private RichTextLabel _dialogueLabel; //dialogue label for interactions
@@ -27,6 +27,11 @@ public partial class Employee : Node2D
 	public string NameOfEmployee { get; private set; }
 
 	public int NumberOfTimeWorked { get; private set; } //number of time this employee returned to work
+
+	[Export]
+	private double MaximumTimeBeforeStopWorking { get; set; } = 30;
+
+	private double _actualTimeBeforeStopWorking;
 
 	private AnimatedSprite2D _interactAnimation;
 
@@ -107,12 +112,26 @@ public partial class Employee : Node2D
 
 	public override void _Process(double delta)
 	{
+
 		if(!_canInteract) { return; };
 
 		if (_playerInRange && Input.IsActionJustPressed("interact_with_employees") && _hero.CooldownIsZero())
 		{
 			Interact(_hero); //methode redefined by all the employees
 		}
+       
+        if (CurrentState == EmployeeState.Working)
+		{
+			_actualTimeBeforeStopWorking -= delta;
+			if(_actualTimeBeforeStopWorking <= 0)
+			{
+				
+                SetState(EmployeeState.NotWorking);
+                _colorRect.Visible = false;
+				return;
+            }
+
+        }
 
 		if (!(new Random().NextDouble() < StopWorkProbability)) return;
 		if (CurrentState != EmployeeState.Working) return;
@@ -159,8 +178,10 @@ public partial class Employee : Node2D
 
 	public virtual void StartWorking()
 	{
-		//we update the numberOfTimeWorked before emitting the signal
-		EmitSignal(SignalName.CheckAchievement, (int)CurrentState, NameOfEmployee);
+		
+		_actualTimeBeforeStopWorking = MaximumTimeBeforeStopWorking;
+        //we update the numberOfTimeWorked before emitting the signal
+        EmitSignal(SignalName.CheckAchievement, (int)CurrentState, NameOfEmployee);
 		CurrentState = EmployeeState.Working;
 
 	}

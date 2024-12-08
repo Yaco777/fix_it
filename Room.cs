@@ -43,7 +43,7 @@ public partial class Room : Node2D
 	[Export]
 	public int YMargin { get; set; } = 175; //margin used to move the employee down
 
-
+	private GlobalSignals _globalSignals;
 
 	private enum State
 	{
@@ -65,6 +65,7 @@ public partial class Room : Node2D
 		_progressSystem = GetNode<ProgressSystem>("../../../UI/ProgressSystem");
 		_unlockPlayer = GetNode<AudioStreamPlayer2D>("UnlockPlayer");
 		_canvasLayer = GetNode<CanvasLayer>("CanvasLayer");
+		_globalSignals = GetNode<GlobalSignals>("../../../GlobalSignals");
         _building = (Building)GetParent().GetParent();
 		_unlockLabel.Visible = false;
 		_interactAnimation.Visible = false;
@@ -77,6 +78,7 @@ public partial class Room : Node2D
 		_hitBoxArea = GetNode<StaticBody2D>("StaticBodyHitBox");
 		_interactionArea.BodyEntered += ShowInteraction;
 		_interactionArea.BodyExited += RemoveInteraction;
+		
 	}
 
 	private void ShowInteraction(Node2D body)
@@ -135,6 +137,10 @@ public partial class Room : Node2D
 		_state = State.Unlocked;
 		_hasUnlockedRoom = true;
         _canvasLayer.Visible = false;
+		if(EmployeeUnlockedName == "Cook")
+		{
+			_globalSignals.EmitCookUnlocked();
+		}
         AddNewEmployee();
 	}
 
@@ -153,7 +159,6 @@ public partial class Room : Node2D
 			"Cook" => GD.Load<PackedScene>("res://characters/cook/cook.tscn"),
 			_ => throw new ArgumentException("The room need to add the employee " + EmployeeUnlockedName + " but it's not possible")
 		};
-		GD.Print("On unlock : " + EmployeeUnlockedName);
 		
 		var instance = (Employee) employee.Instantiate();
 		instance.GlobalPosition = new Vector2(GlobalPosition.X, GlobalPosition.Y + YMargin); //we adjust the position with the YMargin

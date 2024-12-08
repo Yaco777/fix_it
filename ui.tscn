@@ -1,23 +1,53 @@
-[gd_scene load_steps=5 format=3 uid="uid://bws7e6gipvnq3"]
+[gd_scene load_steps=11 format=3 uid="uid://bws7e6gipvnq3"]
 
 [ext_resource type="Script" path="res://UI.cs" id="1_hgs1d"]
+[ext_resource type="Texture2D" uid="uid://cso6ugtnr6upy" path="res://UI/IconNotebook.png" id="2_e2gqc"]
 [ext_resource type="Shader" path="res://shaders/object_shader.gdshader" id="2_nd7in"]
 [ext_resource type="PackedScene" uid="uid://ii230guo57ev" path="res://progress_system.tscn" id="3_307xp"]
+[ext_resource type="Texture2D" uid="uid://d1hoq25v78gvj" path="res://UI/Info.png" id="4_u7l6w"]
+[ext_resource type="PackedScene" uid="uid://lhq1emrrjlqs" path="res://notebook.tscn" id="6_87sqe"]
+[ext_resource type="Texture2D" uid="uid://x1kjoa5aed02" path="res://UI/IconNoGlasses.png" id="7_v8666"]
+[ext_resource type="Texture2D" uid="uid://bbbogpxwejvv6" path="res://UI/IconGlasses.png" id="8_71cq4"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8jcn5"]
 shader = ExtResource("2_nd7in")
 shader_parameter/scaling_factor = 0.1
 shader_parameter/max_scale_factor = 1.01
 
+[sub_resource type="SpriteFrames" id="SpriteFrames_1xol2"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_v8666")
+}],
+"loop": true,
+"name": &"not_wearing",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_71cq4")
+}],
+"loop": true,
+"name": &"wearing",
+"speed": 5.0
+}]
+
 [node name="UI" type="CanvasLayer"]
 script = ExtResource("1_hgs1d")
 NumberOfMinutesBeforeGameOver = 1
+
+[node name="NotebookSprite" type="Sprite2D" parent="."]
+position = Vector2(1400.75, 68.625)
+scale = Vector2(0.329301, 0.332687)
+texture = ExtResource("2_e2gqc")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 offset_left = 1784.0
 offset_top = 16.0
 offset_right = 1917.0
 offset_bottom = 145.0
+mouse_filter = 1
 color = Color(1, 1, 1, 0)
 
 [node name="ObjectIcon" type="TextureRect" parent="."]
@@ -37,46 +67,18 @@ offset_right = 1780.0
 offset_bottom = 69.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
+mouse_filter = 1
 bbcode_enabled = true
 text = "[center]Object Name[/center]"
-
-[node name="DialogRect" type="ColorRect" parent="."]
-visible = false
-offset_top = 809.0
-offset_right = 1935.0
-offset_bottom = 1081.0
-metadata/_edit_use_anchors_ = true
-
-[node name="DialogLabel" type="Label" parent="DialogRect"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 60
-text = "Jello"
-horizontal_alignment = 1
-vertical_alignment = 1
-autowrap_mode = 3
-metadata/_edit_use_anchors_ = true
-
-[node name="GlassesWear" type="Label" parent="."]
-visible = false
-offset_left = 1485.0
-offset_top = 165.0
-offset_right = 1907.0
-offset_bottom = 188.0
-text = "You aren't wearning the glasses. Press R to wear them."
 
 [node name="ProgressSystem" parent="." instance=ExtResource("3_307xp")]
 
 [node name="GhostCounterLabel" type="Label" parent="."]
 offset_left = 1522.0
-offset_top = 66.0
+offset_top = 257.0
 offset_right = 1635.0
-offset_bottom = 156.0
+offset_bottom = 347.0
+theme_override_font_sizes/font_size = 20
 text = "Ghosts slayed:"
 
 [node name="EndGameRect" type="ColorRect" parent="."]
@@ -85,6 +87,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
 color = Color(1, 1, 1, 0)
 
 [node name="GameOverTimer" type="Timer" parent="."]
@@ -97,14 +100,38 @@ offset_bottom = 52.0
 theme_override_font_sizes/font_size = 22
 text = "XXXX"
 
-[node name="CookIngredients" type="Label" parent="."]
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -626.5
-offset_top = 9.0
-offset_right = -312.5
-offset_bottom = 64.0
+[node name="DialogRect" type="TextureRect" parent="."]
+visible = false
+offset_left = 5.0
+offset_top = 646.0
+offset_right = 1930.0
+offset_bottom = 1096.0
+texture = ExtResource("4_u7l6w")
+expand_mode = 1
+
+[node name="DialogLabel" type="Label" parent="DialogRect"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 0.571111
+offset_left = -5.0
+offset_top = 163.0
+offset_right = -5.0
+offset_bottom = 163.0
 grow_horizontal = 2
-theme_override_font_sizes/font_size = 40
-text = "Your ingredients:"
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 60
+text = "Jello"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+metadata/_edit_use_anchors_ = true
+
+[node name="Notebook" parent="." instance=ExtResource("6_87sqe")]
+
+[node name="GlassesWear" type="AnimatedSprite2D" parent="."]
+position = Vector2(1793, 289)
+scale = Vector2(0.3, 0.3)
+sprite_frames = SubResource("SpriteFrames_1xol2")
+animation = &"wearing"

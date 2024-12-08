@@ -99,7 +99,6 @@ public partial class VBoxCookGame : CanvasLayer
 	{
 		var i = 0;
 		var correctAnswer = true;
-		GD.Print(_questionIngredient.Count);
 		foreach (var ingredient in _chosenIngredientList)
 		{
 			if (ingredient != _questionIngredient[i].Text)
