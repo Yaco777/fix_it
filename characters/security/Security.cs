@@ -85,7 +85,6 @@ public partial class Security : Employee
         _frogAnimation.Visible = true;
         _currentArea = Building.GetRandomArea2D();
         _frog.GlobalPosition = Building.GetRandomPositionForItemForSpecificArea(_currentArea, false);
-        GD.Print("La position de la frog : " + _frog.GlobalPosition);
         _frogAnimation.GlobalPosition = _frog.GlobalPosition;
         GetTree().Root.GetChild(0).AddChild(_frog);
         _frog.HideSprite();
@@ -166,8 +165,6 @@ public partial class Security : Employee
 
             if (collisionShape.Shape is SegmentShape2D segmentShape)
             {
-                GD.Print("Position entre : " + segmentShape.A.X + " et " + segmentShape.B.X);
-                GD.Print("aprs modif : "+ (segmentShape.A.X+ _currentArea.GlobalPosition.X) + " et " + (_currentArea.GlobalPosition.X+segmentShape.B.X));
                 //we compute the bounds
                 float minX = Math.Min(segmentShape.A.X, segmentShape.B.X);
                 float maxX = Math.Max(segmentShape.A.X, segmentShape.B.X);

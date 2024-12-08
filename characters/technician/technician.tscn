@@ -46,7 +46,6 @@ DarknessAmount = 0.7
 LowestDarknessAmount = 0.4
 _lightOnStream = ExtResource("2_3sf0k")
 _lightOffStream = ExtResource("3_wprna")
-MaximumTimeBeforeStopWorking = 30.0
 
 [node name="TechnicienSprites" type="AnimatedSprite2D" parent="."]
 scale = Vector2(0.2, 0.2)

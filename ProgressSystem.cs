@@ -368,13 +368,7 @@ public partial class ProgressSystem : CanvasLayer
             _achievementDisplay.ShowAchievement(achievement);
             _starsPlayer.Play(); //we play the sound
             _currentAmountsOfStars += achievement.NumberOfStars;
-            //we check if the player has all the achievment
-
-            //TODO CHANGE THE 3 with the number of achievements
-            if(playerAchievements.Count >= 10)
-            {
-                _globalSignals.EmitUnlockGlasses();
-            }
+            
         }
 
 
