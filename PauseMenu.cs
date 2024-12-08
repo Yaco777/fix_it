@@ -38,15 +38,13 @@ public partial class PauseMenu : CanvasLayer
     {
         if (_paused)
         {
-            Input.MouseMode = Input.MouseModeEnum.Visible;
+           
             GetTree().Paused = true;
             Show();
         }
         else
         {
             
-
-            Input.MouseMode = Input.MouseModeEnum.Captured;
             CheckForMarketingMinigame();
             Hide();
             GetTree().Paused = false;

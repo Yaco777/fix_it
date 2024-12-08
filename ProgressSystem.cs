@@ -478,34 +478,55 @@ public partial class ProgressSystem : CanvasLayer
     }
 
 
-    public List<Achievement> GetUnlockedAchievements()
+    public List<string> GetUnlockedAchievements()
     {
-        return playerAchievements;
-    }
+        var unlockedNames = new List<string>();
 
-    public List<Achievement> GetAllAchievements()
-    {
-        var list = new List<Achievement>();
-        foreach( var achievements in allAchievements.Values)
+        foreach (var achievement in playerAchievements)
         {
-            foreach(var achievement in achievements)
-            {
-                list.Add(achievement);
-            }
+            unlockedNames.Add(achievement.Name);
         }
-        return list;
+
+        return unlockedNames;
     }
 
-    public List<Achievement> GetLockedAchievements()
+    public List<String> GetAllAchievements()
+    {
+        return new List<string>
+        {
+            "After the last breath, only the silence remains",
+            "Music is the language of emotions",
+            "You can feel it",
+            "Roses are red, but this red is all yours!",
+            "Why is the sky blue?",
+            "Nature approves your choice",
+            "You can see in RGB!",
+            "It was a little bit too hard alone, so we both held hands",
+            "Only the two of us was a little bit sad, so we made a circle of three",
+            "We have the best security ever",
+            "We are in war!",
+            "She is starting to get very afraid",
+            "I am not afraid of frogs",
+            "I am a vampire",
+            "Where are you?",
+            "1 + 1 = 3",
+            "You are better than me",
+            "You are WAY better than me",
+            "Let him cook",
+            "Where are my ingredients?"
+        };
+    }
+
+    public List<string> GetLockedAchievements()
     {
         /**
          * Return the list of achievement that he player hasn't unlocked yet 
          */
-        var list = new List<Achievement>();
+        var list = new List<string>();
         var allAchievementsList = GetAllAchievements();
         foreach(var achievement in allAchievementsList)
         {
-            if(!playerAchievements.Contains(achievement))
+            if(!playerAchievements.Exists(a => a.Name == achievement))
             {
                 list.Add(achievement);
             }

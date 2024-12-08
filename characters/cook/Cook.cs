@@ -77,6 +77,7 @@ public partial class Cook : Employee
 		_cookAnimation.Animation = "sleeping";
 		_miniGameSuccess = false;
 		_cookMinigame.ResetAll();
+		_cookMinigame.InitIngredient();
         var ingredient_list = _cookMinigame.GetIngredientList();
 		foreach (var ingredient in ingredient_list)
 		{

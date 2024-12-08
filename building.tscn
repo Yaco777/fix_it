@@ -110,11 +110,6 @@ position = Vector2(-503, -1499)
 scale = Vector2(0.75, 0.75)
 texture = ExtResource("4_77uh7")
 
-[node name="MusicRoom" type="Sprite2D" parent="MusicRoom"]
-position = Vector2(1417.33, -1980)
-scale = Vector2(0.75, 0.75)
-texture = ExtResource("4_77uh7")
-
 [node name="Corridors" type="Node2D" parent="."]
 
 [node name="Sprite2D2" type="Sprite2D" parent="Corridors"]
@@ -284,26 +279,6 @@ position = Vector2(-2676, -1051)
 scale = Vector2(1.5, 1.5)
 
 [node name="RoomsPlaceholder" type="Node2D" parent="."]
-
-[node name="MusicRoom4" type="Sprite2D" parent="RoomsPlaceholder"]
-position = Vector2(-4329, -501)
-scale = Vector2(0.75, 0.75)
-texture = ExtResource("4_77uh7")
-
-[node name="MusicRoom5" type="Sprite2D" parent="RoomsPlaceholder"]
-position = Vector2(-3859, -1505)
-scale = Vector2(0.75, 0.75)
-texture = ExtResource("4_77uh7")
-
-[node name="MusicRoom6" type="Sprite2D" parent="RoomsPlaceholder"]
-position = Vector2(7071, -1510)
-scale = Vector2(0.75, 0.75)
-texture = ExtResource("4_77uh7")
-
-[node name="MusicRoom2" type="Sprite2D" parent="RoomsPlaceholder"]
-position = Vector2(7921, -3586)
-scale = Vector2(0.75, 0.75)
-texture = ExtResource("4_77uh7")
 
 [node name="MainRoom" type="Sprite2D" parent="."]
 position = Vector2(3725, -2005)

@@ -35,7 +35,7 @@ public partial class GlobalSignals : Node2D
 	public delegate void GlassesChangeEventHandler(bool isWearningGlasses);
 	
 	[Signal]
-	public delegate void GhostSlayedEventHandler();
+	public delegate void GhostSlayedEventHandler(string name);
 
 	[Signal]
 	public delegate void EndOfTheGameEventHandler();
@@ -102,9 +102,10 @@ public partial class GlobalSignals : Node2D
 		EmitSignal(SignalName.GlassesChange,isWearingGlasses);
 	}
 
-	public void EmitGhostSlayed()
+	public void EmitGhostSlayed(string name)
 	{
-		EmitSignal(nameof(GhostSlayed));
+		GD.Print("ghost : " + name);
+		EmitSignal(nameof(GhostSlayed), name);
 	}
 
 	public void EmitEndOfTheGame()

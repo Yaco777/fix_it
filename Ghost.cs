@@ -102,7 +102,7 @@ public partial class Ghost : Node2D
 			_interactionLabel.Text = InteractionSuccess;
 			_isInCooldown = true; //we cannot interact now
 			var timer = GetTree().CreateTimer(TimeOutBeforeFading);
-			_globalSignals.EmitGhostSlayed(); 
+			_globalSignals.EmitGhostSlayed(Name); 
 			timer.Timeout += () =>
 			{
 				_isDisposed = true;

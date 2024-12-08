@@ -64,7 +64,7 @@ public partial class VBoxCookGame : CanvasLayer
 		}
     }
 
-    private void InitIngredient()
+    public void InitIngredient()
 	{
 		_ingredientList.Add("Tomato");
 		_ingredientList.Add("Pasta");

@@ -47,7 +47,7 @@ public partial class VBoxAchievementsDisplay : VBoxContainer
                 RemoveChild(child);
             }
         }
-        List<Achievement> list = new List<Achievement>();
+        List<string> list = new List<string>();
         if(index == 0 )
         {
             list = _progressSystem.GetAllAchievements();
@@ -95,7 +95,7 @@ public partial class VBoxAchievementsDisplay : VBoxContainer
         }
     }
 
-    private void AddOneAchievement(Achievement achievement)
+    private void AddOneAchievement(string achievement)
     {
         var hboxContainer = new HBoxContainer();
         hboxContainer.SizeFlagsHorizontal = SizeFlags.Fill;
@@ -103,7 +103,7 @@ public partial class VBoxAchievementsDisplay : VBoxContainer
         var label = new Label();
         panel.AddChild(label);
         hboxContainer.AddChild(panel);
-        label.Text = achievement.Name;
+        label.Text = achievement;
         label.HorizontalAlignment = HorizontalAlignment.Center;
         label.VerticalAlignment = VerticalAlignment.Center;
         label.SetAnchorsPreset(LayoutPreset.FullRect);

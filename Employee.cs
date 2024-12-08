@@ -31,9 +31,14 @@ public partial class Employee : Node2D
 	[Export]
 	private double MaximumTimeBeforeStopWorking { get; set; } = 30;
 
+	[Export]
+	private double IncreaseTimeBeforeStopWorking { get; set; } = 60; //at the end of each work, we will increase the maximum time before stop working by this value
+
 	private double _actualTimeBeforeStopWorking;
 
 	private AnimatedSprite2D _interactAnimation;
+
+	private bool _cannotStopWorking = false;
 
 	public Employee(List<string> chat, List<string> stopWorkingChat, List<string> backToWork, string nameOfEmployee)
 	{
@@ -74,11 +79,21 @@ public partial class Employee : Node2D
 		_interactAnimation.ZIndex = 11;
 		_interactAnimation.Visible = false;
 		_globalSignals.EndOfTheGame += StopInteractions;
+		_globalSignals.GhostSlayed += CheckShouldNotBeAllowedToStopWorking;
 
 
 	}
 
-	private void StopInteractions()
+    private void CheckShouldNotBeAllowedToStopWorking(string name)
+    {
+        if(NameOfEmployee.Contains(name))
+		{
+			_cannotStopWorking = true;
+
+        }
+    }
+
+    private void StopInteractions()
 	{
 		_canInteract = false;
 		_interactAnimation.Visible = false;
@@ -119,8 +134,9 @@ public partial class Employee : Node2D
 		{
 			Interact(_hero); //methode redefined by all the employees
 		}
-       
-        if (CurrentState == EmployeeState.Working)
+
+		
+        if (CurrentState == EmployeeState.Working && !_cannotStopWorking)
 		{
 			_actualTimeBeforeStopWorking -= delta;
 			if(_actualTimeBeforeStopWorking <= 0)
@@ -128,15 +144,17 @@ public partial class Employee : Node2D
 				
                 SetState(EmployeeState.NotWorking);
                 _colorRect.Visible = false;
-				return;
+				MaximumTimeBeforeStopWorking += IncreaseTimeBeforeStopWorking;
+
+                return;
             }
 
         }
 
-		if (!(new Random().NextDouble() < StopWorkProbability)) return;
+		/*if (!(new Random().NextDouble() < StopWorkProbability)) return;
 		if (CurrentState != EmployeeState.Working) return;
 		SetState(EmployeeState.NotWorking);
-		_colorRect.Visible = false;
+		_colorRect.Visible = false;*/
 	}
 
 

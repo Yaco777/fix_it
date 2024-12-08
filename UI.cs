@@ -311,7 +311,7 @@ public partial class UI : CanvasLayer
         }
 	}
 	
-	public void OnGhostSlayed()
+	public void OnGhostSlayed(string name)
 	{
 		_ghostsSlayed++;
 		_ghostCounterLabel.Text = "Ghosts Slayed: " + _ghostsSlayed;

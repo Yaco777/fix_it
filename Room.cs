@@ -170,10 +170,10 @@ public partial class Room : Node2D
 
 	}
 
-	private void NotEnoughStars()
+	private void NotEnoughStars(int required)
 	{
 		//if the player doesn't have enough stars, we will print a message
-		_unlockLabel.Text = NotEnoughStarsMessage;
+		_unlockLabel.Text = "You need "+required+" more stars to unlock the room";
 		_unlockLabel.Visible = true;
 	}
 
@@ -196,7 +196,7 @@ public partial class Room : Node2D
 					}
 					else
 					{
-						NotEnoughStars();
+						NotEnoughStars(AmountStarsRequired - _progressSystem.TotalStars);
 						
 					}
 				}
