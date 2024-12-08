@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using Godot;
 
 public partial class Employee : Node2D
@@ -38,6 +39,8 @@ public partial class Employee : Node2D
 	private AnimatedSprite2D _interactAnimation;
 
 	private bool _cannotStopWorking = false;
+
+	private int _debug = 0;
 
 	public Employee(List<string> chat, List<string> stopWorkingChat, List<string> backToWork, string nameOfEmployee)
 	{
@@ -85,8 +88,9 @@ public partial class Employee : Node2D
 		_actualTimeBeforeStopWorking = _maximumTimeBeforeStopWorking;
 		GD.Print("On commence pour : " + NameOfEmployee + " avec : " + _actualTimeBeforeStopWorking);
 
+		_debug = 30;
 
-	}
+    }
 
 	private void CheckShouldNotBeAllowedToStopWorking(string name)
 	{
@@ -142,7 +146,12 @@ public partial class Employee : Node2D
 		{
 			Interact(_hero); //methode redefined by all the employees
 		}
+		if((int)_actualTimeBeforeStopWorking != _debug)
+		{
+			_debug = (int)_actualTimeBeforeStopWorking;
+            GD.Print(NameOfEmployee + " " + _actualTimeBeforeStopWorking);
 
+        }
 
 		if (CurrentState == EmployeeState.Working && !_cannotStopWorking)
 		{
@@ -209,7 +218,7 @@ public partial class Employee : Node2D
         _maximumTimeBeforeStopWorking += _increaseTimeBeforeStopWorking;
         
 		GD.Print("on commence avec : " + _maximumTimeBeforeStopWorking + " pour " + NameOfEmployee); ;
-        GD.Print($"Employee: {NameOfEmployee}, MaxTime: {_maximumTimeBeforeStopWorking}, Address: {GetHashCode()}");
+        GD.Print($"Employee: {NameOfEmployee}, MaxTime: {_maximumTimeBeforeStopWorking}, Address: {GetHashCode()}, CurrentTime : {_actualTimeBeforeStopWorking}");
 
         //we update the numberOfTimeWorked before emitting the signal
         EmitSignal(SignalName.CheckAchievement, (int)CurrentState, NameOfEmployee);

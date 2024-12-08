@@ -17,10 +17,10 @@ public partial class Painter : Employee
 
     [Export]
 
-    public int NumberOfWorkToUnlockedSecondColor { get; set; } = 1;
+    public int NumberOfWorkToUnlockedSecondColor { get; set; } = 2;
 
     [Export]
-    public int NumberOfWorkToUnlockedThirdColor { get; set; } = 2;
+    public int NumberOfWorkToUnlockedThirdColor { get; set; } = 3;
 
 
   
@@ -88,7 +88,8 @@ public partial class Painter : Employee
         //StopWorking();
         _globalSignals.EmitColorBack("Red brush");
         _painterAnimation.Play();
-        StartWorking();
+
+        
 
     }
 
@@ -178,6 +179,7 @@ public partial class Painter : Employee
 
     private bool CheckNewColors()
     {
+        GD.Print("Unlock :" + NumberOfTimeWorked);
         //we check if we need to unlock the second color
         if (NumberOfTimeWorked == NumberOfWorkToUnlockedSecondColor)
         {
