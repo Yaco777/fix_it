@@ -48,9 +48,22 @@ public partial class GlobalSignals : Node2D
 
     [Signal]
     public delegate void CookUnlockedEventHandler();
-    
 
+	[Signal]
+	public delegate void NewWorkDoneEventHandler();
 
+	[Signal]
+	public delegate void BlockPlayerMovementEventHandler();
+
+	public void EmitBlockPlayerMovement()
+	{
+		EmitSignal(SignalName.BlockPlayerMovement);
+	}
+
+	public void EmitNewWorkDone()
+	{
+		EmitSignal(SignalName.NewWorkDone);
+	}
 
     public void EmitColorLost(string colorName)
 	{

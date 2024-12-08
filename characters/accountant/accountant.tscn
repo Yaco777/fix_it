@@ -44,6 +44,7 @@ size = Vector2(199, 318)
 script = ExtResource("1_cw6qk")
 StopWorkProbability = 0.001
 MaximumTimeBeforeStopWorking = 60.0
+IncreaseTimeBeforeStopWorking = 60.0
 
 [node name="MarketingSprites" type="AnimatedSprite2D" parent="."]
 scale = Vector2(0.2, 0.2)

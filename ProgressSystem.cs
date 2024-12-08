@@ -25,7 +25,7 @@ public partial class ProgressSystem : CanvasLayer
    
 
     [Export]
-    public int MaxStarsValue { get; set; } = 100;
+    public int MaxStarsValue { get; set; } = 18;
 
     [Export]
     private int MaxProgressValue { get; set; } = 100; //not used anymore
@@ -35,7 +35,7 @@ public partial class ProgressSystem : CanvasLayer
 
     private float WaitTimeBeforeNextAchievement; //by default this value will be the time to display one achievement + fade in time + fade out time
 
-    private int _currentLevel = 1; //the level that will be shown at the top left corner. The level will increase when the star will be full
+    private int _currentLevel = 0; //the level that will be shown at the top left corner. The level will increase when the star will be full
 
 
 
@@ -72,7 +72,7 @@ public partial class ProgressSystem : CanvasLayer
         _totalProgressBar.MaxValue = MaxProgressValue;
         _achievementDisplay.Visible = true;
         WaitTimeBeforeNextAchievement = _achievementDisplay.AchievementDisplayTime + _achievementDisplay.AchievementFadeInTime + _achievementDisplay.AchievementFadeOutTime; ;
-        
+        _globalSignals.NewWorkDone += IncreaseStar;
         _totalNumberOfStarsLabel.Text = "0";
         
 
@@ -93,6 +93,37 @@ public partial class ProgressSystem : CanvasLayer
         }
 
         
+
+    }
+
+    private void IncreaseStar()
+    {
+        AnimateProgress(1, _starsProgressBar);
+        _currentLevel++;
+        _starsLevel.Text = _currentLevel.ToString();
+
+        GetTree().CreateTimer(5).Timeout += () =>
+        {
+            if (_currentLevel == 18)
+            {
+                IncreaseLevel();
+            }
+        };
+        
+        
+
+
+    }
+
+    private void IncreaseLevel()
+    {
+
+        
+        AnimateProgress(-(int)_starsProgressBar.Value, _starsProgressBar);
+      
+        _starsLevel.Text = "?";
+        _globalSignals.EmitUnlockGlasses();
+
 
     }
 
@@ -170,9 +201,9 @@ public partial class ProgressSystem : CanvasLayer
 
             var achievementPainter6 = new Achievement(
                 "Only the two of us was a little bit sad, so we made a circle of three",
-                "You worked 5 times with the Painter, you unlocked a new color",
+                "You worked 3 times with the Painter, you unlocked a new color",
                 40,
-                () => painter.NumberOfTimeWorked == 5
+                () => painter.NumberOfTimeWorked == 3
             );
             allAchievements[painter].Add(achievementPainter);
             allAchievements[painter].Add(achievementPainter2);
@@ -342,17 +373,7 @@ public partial class ProgressSystem : CanvasLayer
         //when the queue is empty,we check if we should increase the level
         if (achievementQueue.Count == 0)
         {
-            GetTree().CreateTimer(WaitTimeBeforeLevelUp).Timeout += () =>
-            {
-
-                if (_starsProgressBar.Value >= _starsProgressBar.MaxValue)
-                {
-                    //if yes, we call the increase level method
-                    IncreaseLevel();
-                }
-
-
-            };
+           
             return;
         }
 
@@ -362,7 +383,7 @@ public partial class ProgressSystem : CanvasLayer
         {
             //the player got the achievement
             playerAchievements.Add(achievement); //we add it 
-            AnimateProgress(achievement.NumberOfStars, _starsProgressBar); //circular animation
+            //AnimateProgress(achievement.NumberOfStars, _starsProgressBar); //circular animation
             TotalStars += achievement.NumberOfStars;
             _totalNumberOfStarsLabel.Text = TotalStars.ToString();
             _achievementDisplay.ShowAchievement(achievement);
@@ -383,41 +404,12 @@ public partial class ProgressSystem : CanvasLayer
         };
 
 
-        
-
-
-
         //then we will check if the player can level up
 
 
 
     }
 
-    private void IncreaseLevel()
-    {
-        
-        //sometime this method can be called even if we haven't got the max value, we use this return to do nothing in this case
-        if(_currentAmountsOfStars < _starsProgressBar.MaxValue)
-        {
-            return;
-        }
-        if (_starsProgressBar.Value == _starsProgressBar.MaxValue)
-        {
-            AnimateProgress((int)-(2* _starsProgressBar.Value - _currentAmountsOfStars), _starsProgressBar);
-        }
-        else
-        {
-            AnimateProgress((int)-(_starsProgressBar.Value), _starsProgressBar);
-        }
-        //_totalProgressPlayer.Play();
-        //we reset the number of stars
-        _currentAmountsOfStars = 0;
-        //we update the label to show the current level
-        _currentLevel += 1;
-        _starsLevel.Text = _currentLevel.ToString();
-        //AnimateProgress(20, _totalProgressBar);
-
-    }
 
     
 
@@ -452,11 +444,8 @@ public partial class ProgressSystem : CanvasLayer
         {
             isTweening = false;
 
-            // we check if we have reached the maximum stars value
-            if (node == _starsProgressBar && node.Value >= _starsProgressBar.MaxValue)
-            {
-                IncreaseLevel();
-            }
+           
+           
 
             // we animate the next animation
             if (animationQueue.Count > 0)

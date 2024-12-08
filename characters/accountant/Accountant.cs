@@ -47,6 +47,7 @@ public partial class Accountant : Employee
 	public override void StartWorking()
 	{
 
+		base.StartWorking();
 		_marketingAnimation.Animation = "working";
 
 		
@@ -62,7 +63,6 @@ public partial class Accountant : Employee
 	{
 		base.StopWorking();
 		_marketingAnimation.Animation = "notWorking";
-		GD.Print("stop working");
 		_miniGameSuccess = false;
 
 	}

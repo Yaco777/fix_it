@@ -28,16 +28,17 @@
 [node name="Main" type="Node"]
 script = ExtResource("1_hioty")
 
-[node name="UI" parent="." instance=ExtResource("7_5josr")]
-NumberOfMinutesBeforeGameOver = 12
-NumberOfGhostsToSlay = 6
-
 [node name="Hero" parent="." instance=ExtResource("1_easg4")]
 z_index = 10
 position = Vector2(3700, -1775)
 Speed = 700
+_defaultCooldown = 50
 
 [node name="Camera" parent="Hero" instance=ExtResource("2_0u86b")]
+
+[node name="UI" parent="." instance=ExtResource("7_5josr")]
+NumberOfMinutesBeforeGameOver = 30
+NumberOfGhostsToSlay = 6
 
 [node name="Employees" type="Node2D" parent="."]
 
@@ -70,13 +71,13 @@ ObjectTexture = ExtResource("8_ht1lv")
 EmployeeUnlockedName = "Painter"
 
 [node name="SecurityRoom" parent="Building/Rooms" instance=ExtResource("7_m7rb8")]
-position = Vector2(7082, -1516)
+position = Vector2(7075, -1516)
 scale = Vector2(1.25, 1.25)
 ObjectTexture = ExtResource("10_siitp")
 EmployeeUnlockedName = "Security"
 
 [node name="AccountantRoom" parent="Building/Rooms" instance=ExtResource("7_m7rb8")]
-position = Vector2(-4338, -514)
+position = Vector2(-4328, -514)
 scale = Vector2(1.25, 1.25)
 ObjectTexture = ExtResource("11_tpwba")
 EmployeeUnlockedName = "Accountant"

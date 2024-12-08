@@ -58,7 +58,7 @@ public partial class Cook : Employee
 
 	public override void StartWorking()
 	{
-
+		base.StartWorking();
 		_cookAnimation.Animation = "cooking";
 
 
@@ -66,6 +66,7 @@ public partial class Cook : Employee
 
 	private void MinigameSuccess()
 	{
+
 		_miniGameSuccess = true;
 	}
 

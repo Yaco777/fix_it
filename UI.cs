@@ -6,7 +6,7 @@ public partial class UI : CanvasLayer
 {
 	private TextureRect _objectIcon; //icon of the item in the inventory
 	private RichTextLabel _objectName; //name of the item in the inventory
-
+	private Building _building;
 
 	private Vector2 targetScale = new Vector2(1f, 1f); //basic scale
 
@@ -102,7 +102,7 @@ public partial class UI : CanvasLayer
 		_objectName = GetNode<RichTextLabel>("ObjectName");
 		_notebookSprite = GetNode<Sprite2D>("NotebookSprite");
 		_notebook = GetNode<Notebook>("Notebook");
-		_notebook.Visible = false;
+        _notebook.Visible = false;
         _notebookSprite.Visible = false;
         _objectName.BbcodeEnabled = true;
 		_objectIcon.Visible = false;
@@ -133,11 +133,17 @@ public partial class UI : CanvasLayer
 		_ghostCounterLabel = GetNode<Label>("GhostCounterLabel");
 		_ghostCounterLabel.Visible = false; 
 		_globalSignals.GhostSlayed += OnGhostSlayed;
+		_globalSignals.NewWorkDone += UpdateStars;
 
 
 	}
 
-	//function called when we unlock the cook
+    private void UpdateStars()
+    {
+        
+    }
+
+    //function called when we unlock the cook
     private void ShowNotebook()
     {
 		_notebookSprite.Visible = true;

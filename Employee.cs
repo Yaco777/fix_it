@@ -28,11 +28,10 @@ public partial class Employee : Node2D
 
 	public int NumberOfTimeWorked { get; private set; } //number of time this employee returned to work
 
-	[Export]
-	private double MaximumTimeBeforeStopWorking { get; set; } = 30;
 
-	[Export]
-	private double IncreaseTimeBeforeStopWorking { get; set; } = 60; //at the end of each work, we will increase the maximum time before stop working by this value
+	private double _maximumTimeBeforeStopWorking;
+
+	private double _increaseTimeBeforeStopWorking; //at the end of each work, we will increase the maximum time before stop working by this value
 
 	private double _actualTimeBeforeStopWorking;
 
@@ -46,8 +45,11 @@ public partial class Employee : Node2D
 		_stopWorkingChat = stopWorkingChat;
 		_backToWorkChat = backToWork;
 		NameOfEmployee = nameOfEmployee;
-		
-	}
+		_increaseTimeBeforeStopWorking = 30;
+		_maximumTimeBeforeStopWorking = 30;
+
+
+    }
 
 	public enum EmployeeState
 	{
@@ -80,7 +82,7 @@ public partial class Employee : Node2D
 		_interactAnimation.Visible = false;
 		_globalSignals.EndOfTheGame += StopInteractions;
 		_globalSignals.GhostSlayed += CheckShouldNotBeAllowedToStopWorking;
-		_actualTimeBeforeStopWorking = MaximumTimeBeforeStopWorking;
+		_actualTimeBeforeStopWorking = _maximumTimeBeforeStopWorking;
 		GD.Print("On commence pour : " + NameOfEmployee + " avec : " + _actualTimeBeforeStopWorking);
 
 
@@ -144,14 +146,14 @@ public partial class Employee : Node2D
 
 		if (CurrentState == EmployeeState.Working && !_cannotStopWorking)
 		{
+			
 			_actualTimeBeforeStopWorking -= delta;
 			if(_actualTimeBeforeStopWorking <= 0)
 			{
 				
 				SetState(EmployeeState.NotWorking);
 				_colorRect.Visible = false;
-				MaximumTimeBeforeStopWorking += IncreaseTimeBeforeStopWorking;
-
+                
 				return;
 			}
 
@@ -167,11 +169,12 @@ public partial class Employee : Node2D
 
 	protected void SetState(EmployeeState newState)
 	{
-		/**
+        /**
 		 * Switch the state to the other one and emit a signal
 		 */
+        if (CurrentState == newState) return;
 
-		if (newState == EmployeeState.Working)
+        if (newState == EmployeeState.Working)
 		{
 			NumberOfTimeWorked++;
 		}
@@ -202,11 +205,14 @@ public partial class Employee : Node2D
 
 	public virtual void StartWorking()
 	{
-		
-		_actualTimeBeforeStopWorking = MaximumTimeBeforeStopWorking;
-		GD.Print("on commence avec : " + MaximumTimeBeforeStopWorking);
-		//we update the numberOfTimeWorked before emitting the signal
-		EmitSignal(SignalName.CheckAchievement, (int)CurrentState, NameOfEmployee);
+        _actualTimeBeforeStopWorking = _maximumTimeBeforeStopWorking;
+        _maximumTimeBeforeStopWorking += _increaseTimeBeforeStopWorking;
+        
+		GD.Print("on commence avec : " + _maximumTimeBeforeStopWorking + " pour " + NameOfEmployee); ;
+        GD.Print($"Employee: {NameOfEmployee}, MaxTime: {_maximumTimeBeforeStopWorking}, Address: {GetHashCode()}");
+
+        //we update the numberOfTimeWorked before emitting the signal
+        EmitSignal(SignalName.CheckAchievement, (int)CurrentState, NameOfEmployee);
 		CurrentState = EmployeeState.Working;
 
 	}
@@ -324,8 +330,9 @@ public partial class Employee : Node2D
 	public void InitializeEmployee()
 	{
 		NumberOfTimeWorked = 0;
-		MaximumTimeBeforeStopWorking = 30;
+        _maximumTimeBeforeStopWorking = 30;
 		_actualTimeBeforeStopWorking = 30;
+
 
 
 	}

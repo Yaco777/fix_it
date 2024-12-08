@@ -20,7 +20,7 @@ public partial class Tutorial : Node2D
 
 	[Export]
 	public string FifthMessage { get; set; } = "Oh no! The musician fall asleep. Try to find an object that could wake him up." +
-		"You can collect the object by pressing E and then talk to the musician again.";
+		"You can collect the object by pressing E and then talk to the musician again. You can drop it by pressing G";
 
 	[Export]
 

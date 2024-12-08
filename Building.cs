@@ -41,6 +41,23 @@ public partial class Building : Node2D
         emp.EmployeeStateChanged += OnEmployeeStateChanged;
     }
 
+    public int GetNumberOfWorkDone()
+    {
+        var amount = 0;
+        foreach (var key in _employeeWorkedHashMap.Keys)
+        {
+            if (_employeeWorkedHashMap[key] >= 3)
+            {
+                amount += 3;
+            }
+            else
+            {
+                amount += _employeeWorkedHashMap[key];
+            }
+        }
+        return amount;
+    }
+
     private void OnEmployeeStateChanged(int newState, string n)
     {
 
@@ -49,31 +66,20 @@ public partial class Building : Node2D
             if (_employeeWorkedHashMap.ContainsKey(n))
             {
                 GD.Print("on monte pour " + n);
+                if(_employeeWorkedHashMap[n] <= 2)
+                {
+                    _globalSignals.EmitNewWorkDone();
+                } 
                 _employeeWorkedHashMap[n] += 1;
+
             }
             else
             {
                 GD.Print("premiere via " + n);
                 _employeeWorkedHashMap[n] = 1;
+                _globalSignals.EmitNewWorkDone();
             }
-            GD.Print(_employeeWorkedHashMap);
-            var shouldUnlockGlasses = true;
-            if (_employeeWorkedHashMap.Count >= 6 && !_hasUnlockedGlasses)
-            {
-                foreach (var a in _employeeWorkedHashMap.Values)
-                {
-                    if (a < 3)
-                    {
-                        shouldUnlockGlasses = false;
-                        break;
-                    }
-                }
-                if (shouldUnlockGlasses)
-                {
-                    _globalSignals.EmitUnlockGlasses();
-                    _hasUnlockedGlasses = true;
-                }
-            }
+           
         }
 
             if (n == "Musicien" && (EmployeeState)newState == EmployeeState.NotWorking)

@@ -49,6 +49,7 @@ region_rect = Rect2(0, 0, 10000, 10000)
 [node name="Hero" parent="." instance=ExtResource("1_tuugu")]
 z_index = 10
 position = Vector2(149, 901)
+Speed = 700
 
 [node name="Camera2D" type="Camera2D" parent="Hero"]
 

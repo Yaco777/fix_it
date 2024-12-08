@@ -151,7 +151,7 @@ public partial class Room : Node2D
 		 */
 		var employee = EmployeeUnlockedName switch
 		{
-			"Musician" => GD.Load<PackedScene>("res://characters/musicien/musicien.tscn"),
+			"Musicien" => GD.Load<PackedScene>("res://characters/musicien/musicien.tscn"),
 			"Technician" => GD.Load<PackedScene>("res://characters/technician/technician.tscn"),
 			"Painter" => GD.Load<PackedScene>("res://characters/painter/painter.tscn"),
 			"Accountant" => GD.Load<PackedScene>("res://characters/accountant/accountant.tscn"),

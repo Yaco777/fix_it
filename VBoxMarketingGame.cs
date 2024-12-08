@@ -66,7 +66,7 @@ public partial class VBoxMarketingGame : VBoxContainer
 
 	public void ResetAll()
 	{
-		Input.MouseMode = Input.MouseModeEnum.Visible;
+		
 		//we first remove all the HBoxContainer
 		foreach (var child in GetChildren())
 		{
@@ -132,6 +132,10 @@ public partial class VBoxMarketingGame : VBoxContainer
 			_ => 0
 		};
 	}
+
+
+
+
 
 	public void CheckAnswers()
 	{
@@ -232,7 +236,6 @@ public partial class VBoxMarketingGame : VBoxContainer
 	{
 		var marketingGame = GetNode<CanvasLayer>("../../../..");
 		marketingGame.Visible = false;
-		Input.MouseMode = Input.MouseModeEnum.Captured;
 	}
 
    
