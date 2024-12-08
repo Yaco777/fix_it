@@ -1,19 +1,19 @@
 [gd_scene load_steps=11 format=3 uid="uid://cmpmyoh2setes"]
 
-[ext_resource type="Script" path="res://characters/marketing/Marketing.cs" id="1_pihcc"]
-[ext_resource type="PackedScene" uid="uid://c6kup0modcr05" path="res://marketing_minigame.tscn" id="3_27ru2"]
-[ext_resource type="Texture2D" uid="uid://dcs3qrt4jur10" path="res://characters/marketing/AccountantWorking01.png" id="3_bbor5"]
-[ext_resource type="SpriteFrames" uid="uid://dxvd8we5cp3eh" path="res://spriteAnimationCollect.tres" id="4_kompq"]
-[ext_resource type="Texture2D" uid="uid://crhh7emajhom0" path="res://characters/marketing/AccountantWorking02.png" id="4_w6k87"]
-[ext_resource type="Texture2D" uid="uid://cev2kud5ukcw8" path="res://characters/marketing/AccountantNotWorking.png" id="5_h136h"]
-[ext_resource type="Texture2D" uid="uid://cnci11vxkdhad" path="res://characters/marketing/AccountantWorking03.png" id="5_k7ay0"]
-[ext_resource type="Texture2D" uid="uid://b2tn5jv4ummjl" path="res://characters/marketing/AccountantWorking04.png" id="6_4oot6"]
+[ext_resource type="Script" path="res://characters/accountant/Accountant.cs" id="1_cw6qk"]
+[ext_resource type="Texture2D" uid="uid://cev2kud5ukcw8" path="res://characters/accountant/AccountantNotWorking.png" id="2_pc4ms"]
+[ext_resource type="Texture2D" uid="uid://dcs3qrt4jur10" path="res://characters/accountant/AccountantWorking01.png" id="3_tmwv0"]
+[ext_resource type="Texture2D" uid="uid://crhh7emajhom0" path="res://characters/accountant/AccountantWorking02.png" id="4_bwn5m"]
+[ext_resource type="Texture2D" uid="uid://cnci11vxkdhad" path="res://characters/accountant/AccountantWorking03.png" id="5_i8wui"]
+[ext_resource type="Texture2D" uid="uid://b2tn5jv4ummjl" path="res://characters/accountant/AccountantWorking04.png" id="6_4vyfe"]
+[ext_resource type="PackedScene" uid="uid://c6kup0modcr05" path="res://marketing_minigame.tscn" id="7_n6h6a"]
+[ext_resource type="SpriteFrames" uid="uid://dxvd8we5cp3eh" path="res://spriteAnimationCollect.tres" id="8_v3swt"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_l8sla"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("5_h136h")
+"texture": ExtResource("2_pc4ms")
 }],
 "loop": true,
 "name": &"notWorking",
@@ -21,16 +21,16 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("3_bbor5")
+"texture": ExtResource("3_tmwv0")
 }, {
 "duration": 1.0,
-"texture": ExtResource("4_w6k87")
+"texture": ExtResource("4_bwn5m")
 }, {
 "duration": 1.0,
-"texture": ExtResource("5_k7ay0")
+"texture": ExtResource("5_i8wui")
 }, {
 "duration": 1.0,
-"texture": ExtResource("6_4oot6")
+"texture": ExtResource("6_4vyfe")
 }],
 "loop": true,
 "name": &"working",
@@ -40,8 +40,8 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3ukut"]
 size = Vector2(199, 318)
 
-[node name="Marketing" type="Node2D"]
-script = ExtResource("1_pihcc")
+[node name="Accountant" type="Node2D"]
+script = ExtResource("1_cw6qk")
 StopWorkProbability = 0.001
 MaximumTimeBeforeStopWorking = 60.0
 
@@ -56,14 +56,14 @@ animation = &"notWorking"
 position = Vector2(-1.5, 14)
 shape = SubResource("RectangleShape2D_3ukut")
 
-[node name="MarketingMinigame" parent="." instance=ExtResource("3_27ru2")]
+[node name="MarketingMinigame" parent="." instance=ExtResource("7_n6h6a")]
 visible = false
 
 [node name="InteractAnimation" type="AnimatedSprite2D" parent="."]
 z_index = 11
 position = Vector2(1, -148)
 scale = Vector2(0.1, 0.1)
-sprite_frames = ExtResource("4_kompq")
+sprite_frames = ExtResource("8_v3swt")
 animation = &"can_interact"
 
 [node name="ColorRect" type="ColorRect" parent="."]

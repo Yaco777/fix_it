@@ -79,13 +79,13 @@ EmployeeUnlockedName = "Security"
 position = Vector2(-4338, -514)
 scale = Vector2(1.25, 1.25)
 ObjectTexture = ExtResource("11_tpwba")
-EmployeeUnlockedName = "Marketing"
+EmployeeUnlockedName = "Accountant"
 
 [node name="TechnicienRoom" parent="Building/Rooms" instance=ExtResource("7_m7rb8")]
 position = Vector2(-3866, -1498)
 scale = Vector2(1.25, 1.25)
 ObjectTexture = ExtResource("12_2ti0i")
-EmployeeUnlockedName = "Technicien"
+EmployeeUnlockedName = "Technician"
 
 [node name="CookRoom" parent="Building/Rooms" instance=ExtResource("7_m7rb8")]
 position = Vector2(7927, -3594)
@@ -147,9 +147,9 @@ _ghostTexture = ExtResource("18_1sjaw")
 [node name="GlobalSignals" type="Node2D" parent="."]
 script = ExtResource("7_shkg7")
 
-[node name="AchievementsDisplay" parent="." instance=ExtResource("13_0b7q3")]
-process_mode = 3
+[node name="PauseMenu" parent="." instance=ExtResource("13_fls8b")]
 visible = false
 
-[node name="PauseMenu" parent="." instance=ExtResource("13_fls8b")]
+[node name="AchievementsDisplay" parent="." instance=ExtResource("13_0b7q3")]
+process_mode = 3
 visible = false

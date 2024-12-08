@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dvvfl7ptl5kdx"
-path="res://.godot/imported/Technicien02.png-f7c7d989830b593c96e2f76a38ad9545.ctex"
+uid="uid://dw0iy1tj82c6i"
+path="res://.godot/imported/Technicien01.png-61a24b0dde0d49afdf6da4f43e61723a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://characters/technicien/Technicien02.png"
-dest_files=["res://.godot/imported/Technicien02.png-f7c7d989830b593c96e2f76a38ad9545.ctex"]
+source_file="res://characters/technician/Technicien01.png"
+dest_files=["res://.godot/imported/Technicien01.png-61a24b0dde0d49afdf6da4f43e61723a.ctex"]
 
 [params]
 

@@ -43,13 +43,13 @@ b = Vector2(1200, 0)
 b = Vector2(984, 0)
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_tcuay"]
-b = Vector2(1584, 0)
+b = Vector2(1448, 0)
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_vbxwy"]
-b = Vector2(5447, 0)
+b = Vector2(5000, 0)
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_nsgar"]
-b = Vector2(1700, 0)
+b = Vector2(1400, 0)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rudpk"]
 size = Vector2(20, 306)

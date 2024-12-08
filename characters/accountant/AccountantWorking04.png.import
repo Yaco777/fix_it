@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dw0iy1tj82c6i"
-path="res://.godot/imported/Technicien01.png-139c5f25eb39eba28b851ab11eaff6c9.ctex"
+uid="uid://b2tn5jv4ummjl"
+path="res://.godot/imported/AccountantWorking04.png-794153db9eae97edb29d00c411bf1f88.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://characters/technicien/Technicien01.png"
-dest_files=["res://.godot/imported/Technicien01.png-139c5f25eb39eba28b851ab11eaff6c9.ctex"]
+source_file="res://characters/accountant/AccountantWorking04.png"
+dest_files=["res://.godot/imported/AccountantWorking04.png-794153db9eae97edb29d00c411bf1f88.ctex"]
 
 [params]
 

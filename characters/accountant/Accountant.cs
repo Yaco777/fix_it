@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Godot;
 
-public partial class Marketing : Employee
+public partial class Accountant : Employee
 {
 
 	private bool _miniGameSuccess;
@@ -28,7 +28,7 @@ public partial class Marketing : Employee
 		"Something is wrong with my calculations."
 	};
 
-	public Marketing() : base(_chatMessages, _stopWorkingMessages, _backToWork,"Marketing")
+	public Accountant() : base(_chatMessages, _stopWorkingMessages, _backToWork,"Accountant")
 	{
 	}
 

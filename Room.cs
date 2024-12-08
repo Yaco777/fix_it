@@ -151,16 +151,18 @@ public partial class Room : Node2D
 		 */
 		var employee = EmployeeUnlockedName switch
 		{
-			"Musicien" => GD.Load<PackedScene>("res://characters/musicien/musicien.tscn"),
-			"Technicien" => GD.Load<PackedScene>("res://characters/technicien/technicien.tscn"),
+			"Musician" => GD.Load<PackedScene>("res://characters/musicien/musicien.tscn"),
+			"Technician" => GD.Load<PackedScene>("res://characters/technician/technician.tscn"),
 			"Painter" => GD.Load<PackedScene>("res://characters/painter/painter.tscn"),
-			"Marketing" => GD.Load<PackedScene>("res://characters/marketing/marketing.tscn"),
+			"Accountant" => GD.Load<PackedScene>("res://characters/accountant/accountant.tscn"),
 			"Security" => GD.Load<PackedScene>("res://characters/security/security.tscn"),
 			"Cook" => GD.Load<PackedScene>("res://characters/cook/cook.tscn"),
 			_ => throw new ArgumentException("The room need to add the employee " + EmployeeUnlockedName + " but it's not possible")
 		};
 		
+		
 		var instance = (Employee) employee.Instantiate();
+		instance.InitializeEmployee();
 		instance.GlobalPosition = new Vector2(GlobalPosition.X, GlobalPosition.Y + YMargin); //we adjust the position with the YMargin
 		instance.Name = EmployeeUnlockedName;
 		instance.ZIndex = 2;

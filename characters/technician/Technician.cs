@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Godot;
 
-public partial class Technicien : Employee
+public partial class Technician : Employee
 {
     private AnimatedSprite2D _technicianAnimation;
     private static List<string> _chatMessages = new List<string>
@@ -58,7 +58,7 @@ public partial class Technicien : Employee
 
 
 
-    public Technicien() : base(_chatMessages, _stopWorkingMessages, _backToWork, "Technicien")
+    public Technician() : base(_chatMessages, _stopWorkingMessages, _backToWork, "Technician")
     {
     }
 
@@ -76,6 +76,7 @@ public partial class Technicien : Employee
         _technicianAnimation = GetNode<AnimatedSprite2D>("TechnicienSprites");
         StartWorking();
         _technicianAnimation.Play();
+        
     }
 
     public override void StopWorking()

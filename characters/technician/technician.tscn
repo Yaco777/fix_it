@@ -1,19 +1,19 @@
 [gd_scene load_steps=11 format=3 uid="uid://fbolxmgf0o2k"]
 
-[ext_resource type="Script" path="res://characters/technicien/Technicien.cs" id="1_xc8k4"]
-[ext_resource type="AudioStream" uid="uid://bg8t4xj087l3l" path="res://audio/light_turn_on.mp3" id="2_vciav"]
-[ext_resource type="AudioStream" uid="uid://d16d3krfnjbu" path="res://audio/light_turn_off.mp3" id="3_e52bi"]
-[ext_resource type="Texture2D" uid="uid://dw0iy1tj82c6i" path="res://characters/technicien/Technicien01.png" id="4_15d55"]
-[ext_resource type="Texture2D" uid="uid://dvvfl7ptl5kdx" path="res://characters/technicien/Technicien02.png" id="5_ordnk"]
-[ext_resource type="Texture2D" uid="uid://c6htb4gqeu3wn" path="res://characters/technicien/Technicien03.png" id="6_fi4ug"]
-[ext_resource type="Texture2D" uid="uid://cr84f3aumg0h0" path="res://characters/technicien/Technicien04.png" id="7_63mpl"]
-[ext_resource type="SpriteFrames" uid="uid://dxvd8we5cp3eh" path="res://spriteAnimationCollect.tres" id="9_owf4v"]
+[ext_resource type="Script" path="res://characters/technician/Technician.cs" id="1_e2iax"]
+[ext_resource type="AudioStream" uid="uid://bg8t4xj087l3l" path="res://audio/light_turn_on.mp3" id="2_3sf0k"]
+[ext_resource type="AudioStream" uid="uid://d16d3krfnjbu" path="res://audio/light_turn_off.mp3" id="3_wprna"]
+[ext_resource type="Texture2D" uid="uid://dw0iy1tj82c6i" path="res://characters/technician/Technicien01.png" id="4_uwghy"]
+[ext_resource type="Texture2D" uid="uid://dvvfl7ptl5kdx" path="res://characters/technician/Technicien02.png" id="5_fwgto"]
+[ext_resource type="Texture2D" uid="uid://c6htb4gqeu3wn" path="res://characters/technician/Technicien03.png" id="6_jyrhg"]
+[ext_resource type="Texture2D" uid="uid://cr84f3aumg0h0" path="res://characters/technician/Technicien04.png" id="7_2ui30"]
+[ext_resource type="SpriteFrames" uid="uid://dxvd8we5cp3eh" path="res://spriteAnimationCollect.tres" id="8_uk028"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_vtjic"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("4_15d55")
+"texture": ExtResource("4_uwghy")
 }],
 "loop": true,
 "name": &"not_working",
@@ -21,16 +21,16 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("4_15d55")
+"texture": ExtResource("4_uwghy")
 }, {
 "duration": 1.0,
-"texture": ExtResource("5_ordnk")
+"texture": ExtResource("5_fwgto")
 }, {
 "duration": 1.0,
-"texture": ExtResource("6_fi4ug")
+"texture": ExtResource("6_jyrhg")
 }, {
 "duration": 1.0,
-"texture": ExtResource("7_63mpl")
+"texture": ExtResource("7_2ui30")
 }],
 "loop": true,
 "name": &"working",
@@ -40,12 +40,13 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5l3ng"]
 size = Vector2(199, 318)
 
-[node name="Technicien" type="Node2D"]
-script = ExtResource("1_xc8k4")
+[node name="Technician" type="Node2D"]
+script = ExtResource("1_e2iax")
 DarknessAmount = 0.7
 LowestDarknessAmount = 0.4
-_lightOnStream = ExtResource("2_vciav")
-_lightOffStream = ExtResource("3_e52bi")
+_lightOnStream = ExtResource("2_3sf0k")
+_lightOffStream = ExtResource("3_wprna")
+MaximumTimeBeforeStopWorking = 30.0
 
 [node name="TechnicienSprites" type="AnimatedSprite2D" parent="."]
 scale = Vector2(0.2, 0.2)
@@ -68,7 +69,7 @@ bus = &"OtherSounds"
 z_index = 11
 position = Vector2(1, -148)
 scale = Vector2(0.1, 0.1)
-sprite_frames = ExtResource("9_owf4v")
+sprite_frames = ExtResource("8_uk028")
 animation = &"can_interact"
 
 [node name="ColorRect" type="ColorRect" parent="."]

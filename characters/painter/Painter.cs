@@ -22,6 +22,7 @@ public partial class Painter : Employee
     [Export]
     public int NumberOfWorkToUnlockedThirdColor { get; set; } = 2;
 
+
   
 
     private GlobalSignals _globalSignals;
@@ -83,14 +84,16 @@ public partial class Painter : Employee
         ColorsUnlocked.Add(FirstBrush);
         CurrentColors.Add(FirstBrush);
         //StopWorking();
-
+        _globalSignals.EmitColorBack("Red brush");
         _painterAnimation.Play();
+        StartWorking();
 
     }
 
     public override void StartWorking()
     {
 
+        base.StartWorking();
         _painterAnimation.Animation = "working";
 
         
@@ -98,6 +101,7 @@ public partial class Painter : Employee
 
     public override void StopWorking()
     {
+        base.StopWorking();
         //the painter will loose a random amount of colors
         var numberOfColorsToRemove = 1 + _random.Next(CurrentColors.Count);
         for (int i = 0; i < numberOfColorsToRemove; i++)

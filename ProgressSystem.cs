@@ -216,7 +216,7 @@ public partial class ProgressSystem : CanvasLayer
         }
         else if(employee.NameOfEmployee == "Technicien")
         {
-            var technicien = (Technicien)employee;
+            var technicien = (Technician)employee;
             var achievementTechnicien1 = new Achievement(
                 "I am a vampire",
                 "You worked with the Technician for the first time",
@@ -234,7 +234,7 @@ public partial class ProgressSystem : CanvasLayer
         }
         else if(employee.NameOfEmployee == "Marketing")
         {
-            var marketing = (Marketing)employee;
+            var marketing = (Accountant)employee;
             var achievementMarketing1 = new Achievement(
                 " 1 + 1 = 3",
                 "The Accountant has stopped working for the first time",
@@ -297,9 +297,7 @@ public partial class ProgressSystem : CanvasLayer
         {
             return;
         }
-        var name = _unlockableEmployeeOrder[0];
         _unlockableEmployeeOrder.RemoveAt(0);
-        var employee = Employee.CreateEmployee(name);
        
 
     }

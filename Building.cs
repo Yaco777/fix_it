@@ -70,7 +70,7 @@ public partial class Building : Node2D
 
     }
 
-    public static Vector2 GetRandomPositionForItemForSpecificArea(Area2D selectedArea)
+    public static Vector2 GetRandomPositionForItemForSpecificArea(Area2D selectedArea, bool random)
     {
         
         var collisionShape = selectedArea.GetNode<CollisionShape2D>("CollisionShape2D");
@@ -80,7 +80,16 @@ public partial class Building : Node2D
             if (collisionShape.Shape is SegmentShape2D segmentShape)
             {
                 float t = GD.Randf(); //t will be a number between 0 and 1
-                var xPos = selectedArea.GlobalPosition.X + (segmentShape.B.X - segmentShape.A.X) * t;
+                var xPos = 1.0f;
+                if(random)
+                {
+                    xPos = selectedArea.GlobalPosition.X + (segmentShape.B.X - segmentShape.A.X) * t;
+                }
+                else
+                {
+                    xPos = selectedArea.GlobalPosition.X;
+                }
+                
                 // we compute the xPos of the collectible. The Y pos will be the same than the selectedArea
                 var vector = new Vector2(xPos, selectedArea.GlobalPosition.Y);
                 
@@ -102,7 +111,7 @@ public partial class Building : Node2D
             var selectedArea = areas[random.Next(areas.Length)];
 
 
-            return GetRandomPositionForItemForSpecificArea(selectedArea);
+            return GetRandomPositionForItemForSpecificArea(selectedArea, true);
         }
 
         throw new InvalidOperationException("There is no area2D in the area used to genereate items");
@@ -112,7 +121,6 @@ public partial class Building : Node2D
     public static Area2D GetRandomArea2D()
     {
         var areas = _itemsGenerationsArea.GetChildren().OfType<Area2D>().ToArray();
-        GD.Print(areas.Length);
         return areas[random.Next(areas.Length)];
     }
 

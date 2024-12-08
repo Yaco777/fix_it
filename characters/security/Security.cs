@@ -56,6 +56,7 @@ public partial class Security : Employee
         StartWorking();
         _securityAnimation.Animation = "working";
         _securityAnimation.Play();
+        _timeStopWorking = 0;
     }
 
     private void OnFrogCollected()
@@ -70,7 +71,7 @@ public partial class Security : Employee
         _alertStreamPlayer.Stop(); //we stop the alert
         _globalSignals.EmitAlertStateChanged(false);
         _securityAnimation.Animation = "working";
-        _timeStopWorking = 0;
+        
 
     }
 
@@ -78,11 +79,13 @@ public partial class Security : Employee
     {
         base.StopWorking();
         _alertStreamPlayer.Play();
+        _timeStopWorking = 0;
         _frog = Collectible.CreateCollectible("Frog");
         
         _frogAnimation.Visible = true;
         _currentArea = Building.GetRandomArea2D();
-        _frog.GlobalPosition = Building.GetRandomPositionForItemForSpecificArea(_currentArea);
+        _frog.GlobalPosition = Building.GetRandomPositionForItemForSpecificArea(_currentArea, false);
+        GD.Print("La position de la frog : " + _frog.GlobalPosition);
         _frogAnimation.GlobalPosition = _frog.GlobalPosition;
         GetTree().Root.GetChild(0).AddChild(_frog);
         _frog.HideSprite();
@@ -111,7 +114,12 @@ public partial class Security : Employee
     public override void _Process(double delta)
     {
         base._Process(delta);
-        _timeStopWorking += delta;
+
+        if (CurrentState == EmployeeState.NotWorking)
+        {
+            _timeStopWorking += delta;
+        }
+       
         CheckAchievements(SignalName.CheckAchievement);
       
         //if the frog is present, the frog will move
@@ -158,12 +166,25 @@ public partial class Security : Employee
 
             if (collisionShape.Shape is SegmentShape2D segmentShape)
             {
+                GD.Print("Position entre : " + segmentShape.A.X + " et " + segmentShape.B.X);
+                GD.Print("aprs modif : "+ (segmentShape.A.X+ _currentArea.GlobalPosition.X) + " et " + (_currentArea.GlobalPosition.X+segmentShape.B.X));
                 //we compute the bounds
                 float minX = Math.Min(segmentShape.A.X, segmentShape.B.X);
                 float maxX = Math.Max(segmentShape.A.X, segmentShape.B.X);
 
+                var result = _frog.GlobalPosition.X >= _currentArea.GlobalPosition.X + minX && _frog.GlobalPosition.X <= maxX + _currentArea.GlobalPosition.X;
                 // check if the frog's X position is within the bounds
-                return _frog.GlobalPosition.X >= minX && _frog.GlobalPosition.X <= maxX;
+
+                if(_frog.GlobalPosition.X <= _currentArea.GlobalPosition.X + minX)
+                {
+                    _frog.GlobalPosition = new Vector2(_currentArea.GlobalPosition.X, _frog.GlobalPosition.Y);
+                }
+                else if (_frog.GlobalPosition.X >= _currentArea.GlobalPosition.X + maxX)
+                {
+                    _frog.GlobalPosition = new Vector2(_currentArea.GlobalPosition.X + maxX, _frog.GlobalPosition.Y);
+                }
+
+                return result;
             }
 
             throw new InvalidOperationException("The collision shape of the area is not a valid SegmentShape2D.");

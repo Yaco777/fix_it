@@ -45,7 +45,6 @@ public partial class PauseMenu : CanvasLayer
         else
         {
             
-            CheckForMarketingMinigame();
             Hide();
             GetTree().Paused = false;
 
@@ -55,7 +54,6 @@ public partial class PauseMenu : CanvasLayer
 
     public void OnResumePressed()
     {
-        GD.Print("Resume clicked !!");
         _paused = false;
         Pause();
     }
@@ -65,22 +63,7 @@ public partial class PauseMenu : CanvasLayer
         GetTree().Quit();
     }
 
-    private void CheckForMarketingMinigame()
-    {
-        var employees = GetNode<Node2D>("../Employees");
-        foreach(var node in employees.GetChildren())
-        {
-            if(node.Name ==  "Marketing")
-            {
-                var marketing = (Marketing)node;
-                if(marketing.IsMarketingMiniGameVisible())
-                {
-                    Input.MouseMode = Input.MouseModeEnum.Visible;
-                    return;
-                }
-            }
-        }
-    }
+  
 
     public void ReturnMainMenu()
     {
