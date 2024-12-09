@@ -38,42 +38,32 @@ script = ExtResource("1_hgs1d")
 NumberOfMinutesBeforeGameOver = 1
 
 [node name="NotebookSprite" type="Sprite2D" parent="."]
+visible = false
 position = Vector2(1847, 244)
 scale = Vector2(0.3, 0.3)
 texture = ExtResource("2_e2gqc")
 
 [node name="ColorRect" type="ColorRect" parent="."]
-offset_left = 1784.0
-offset_top = 16.0
-offset_right = 1917.0
-offset_bottom = 145.0
+offset_left = 1777.0
+offset_top = 34.0
+offset_right = 1910.0
+offset_bottom = 163.0
 mouse_filter = 1
 color = Color(1, 1, 1, 0)
 
 [node name="ObjectIcon" type="TextureRect" parent="."]
 z_index = 20
 material = SubResource("ShaderMaterial_8jcn5")
-offset_left = 1786.0
-offset_top = 18.0
-offset_right = 1918.0
-offset_bottom = 146.0
+offset_left = 1777.0
+offset_top = 34.0
+offset_right = 1909.0
+offset_bottom = 162.0
 expand_mode = 3
-
-[node name="ObjectName" type="RichTextLabel" parent="."]
-z_index = 20
-offset_left = 1362.0
-offset_top = 22.0
-offset_right = 1780.0
-offset_bottom = 69.0
-size_flags_horizontal = 4
-size_flags_vertical = 4
-mouse_filter = 1
-bbcode_enabled = true
-text = "[center]Object Name[/center]"
 
 [node name="ProgressSystem" parent="." instance=ExtResource("3_307xp")]
 
 [node name="GhostCounterLabel" type="Label" parent="."]
+visible = false
 offset_left = 1575.0
 offset_top = 363.0
 offset_right = 1715.0
@@ -129,9 +119,26 @@ autowrap_mode = 3
 metadata/_edit_use_anchors_ = true
 
 [node name="Notebook" parent="." instance=ExtResource("6_87sqe")]
+visible = false
 
 [node name="GlassesWear" type="AnimatedSprite2D" parent="."]
+visible = false
 position = Vector2(1844, 397)
 scale = Vector2(0.3, 0.3)
 sprite_frames = SubResource("SpriteFrames_1xol2")
 animation = &"wearing"
+
+[node name="GlassIconEmpty" type="Sprite2D" parent="."]
+position = Vector2(1844, 400)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("7_v8666")
+
+[node name="NotebookEmpty" type="Sprite2D" parent="."]
+position = Vector2(1844, 250)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("7_v8666")
+
+[node name="ItemEmpty" type="Sprite2D" parent="."]
+position = Vector2(1844, 100)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("7_v8666")

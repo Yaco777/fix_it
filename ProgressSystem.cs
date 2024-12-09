@@ -339,11 +339,7 @@ public partial class ProgressSystem : CanvasLayer
          */
 
         //we get the employee
-        var employee = allEmployees.Find(emp => emp.NameOfEmployee == employeeName);
-        if (employee == null)
-        {
-            throw new ArgumentException("The state of " + employeeName + " changed but it seems that the name is wrong, we can't check their achievements !");
-        }
+        var employee = allEmployees.Find(emp => emp.NameOfEmployee == employeeName) ?? throw new ArgumentException("The state of " + employeeName + " changed but it seems that the name is wrong, we can't check their achievements !");
         var achivements = allAchievements[employee];
         foreach (Achievement achievement in achivements)
         {

@@ -22,6 +22,7 @@ position = Vector2(-5, -34.5)
 shape = SubResource("RectangleShape2D_odoju")
 
 [node name="InteractionRect" type="ColorRect" parent="."]
+visible = false
 offset_left = -353.0
 offset_top = -381.0
 offset_right = 404.0

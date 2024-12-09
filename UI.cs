@@ -5,7 +5,6 @@ using System.Collections.Generic;
 public partial class UI : CanvasLayer
 {
 	private TextureRect _objectIcon; //icon of the item in the inventory
-	private RichTextLabel _objectName; //name of the item in the inventory
 	private Building _building;
 
 	private Vector2 targetScale = new Vector2(1f, 1f); //basic scale
@@ -45,6 +44,13 @@ public partial class UI : CanvasLayer
 	private Sprite2D _notebookSprite;
 
 	private Notebook _notebook;
+
+	//the three black square
+	private Sprite2D _emptyGlass;
+
+	private Sprite2D _emptyNotebook;
+
+	private Sprite2D _emptyItem;
 
 
 
@@ -99,14 +105,14 @@ public partial class UI : CanvasLayer
 	public override void _Ready()
 	{
 		_objectIcon = GetNode<TextureRect>("ObjectIcon");
-		_objectName = GetNode<RichTextLabel>("ObjectName");
 		_notebookSprite = GetNode<Sprite2D>("NotebookSprite");
 		_notebook = GetNode<Notebook>("Notebook");
+		_emptyGlass = GetNode<Sprite2D>("GlassIconEmpty");
+		_emptyNotebook = GetNode<Sprite2D>("NotebookEmpty");
+		_emptyItem = GetNode<Sprite2D>("ItemEmpty");
         _notebook.Visible = false;
         _notebookSprite.Visible = false;
-        _objectName.BbcodeEnabled = true;
 		_objectIcon.Visible = false;
-		_objectName.AddThemeFontSizeOverride("normal_font_size", 32);
 		_globalSignals = GetNode<GlobalSignals>("../GlobalSignals");
 		_camera = GetNode<Camera2D>("../Hero/Camera");
 		_endGameRect = GetNode<ColorRect>("EndGameRect");
@@ -120,8 +126,6 @@ public partial class UI : CanvasLayer
 
 		_globalSignals.CookUnlocked += ShowNotebook;
 		UpdateTimerLabel();
-		SetEmptyInventoryLabel();
-
 		//the glasses
 		_globalSignals.UnlockGlasses += GlassesUnlocked;
 		_dialogRect = GetNode<TextureRect>("DialogRect");
@@ -143,6 +147,7 @@ public partial class UI : CanvasLayer
     private void ShowNotebook()
     {
 		_notebookSprite.Visible = true;
+		_emptyNotebook.Visible = false;
     }
 
 
@@ -267,27 +272,24 @@ public partial class UI : CanvasLayer
 		soundPlayer.Play();
 	}
 
-	public void SetEmptyInventoryLabel()
-	{
-		_objectName.Text = "";
-	}
+	
 
 	public void UpdateCollectedItem(string itemName)
 	{
 		var texture = Collectible.getTextureOfCollectible(itemName);
+		_emptyItem.Visible = false;
 
-		_objectIcon.Texture = texture;
+        _objectIcon.Texture = texture;
 		_objectIcon.Scale = new Vector2(animationScaleX, animationScaleY); //base scale of the item, the size will decrease
-		_objectName.Text = "[center][color=yellow]" + itemName + "[/color][/center]";
 		_objectIcon.Visible = true;
-		_objectName.Visible = true;
 	}
 
 	public void ClearItem()
 	{
 		_objectIcon.Visible = false;
-		_objectName.Visible = false;
-	}
+		_emptyItem.Visible = true;
+
+    }
 
 	private void GlassesUnlocked()
 	{
@@ -298,6 +300,7 @@ public partial class UI : CanvasLayer
 			_dialogRect.Visible = true;
 			_glassesWear.Visible = true;
 			_glassesWear.Animation = "not_wearing";
+			_emptyGlass.Visible = false;
             _dialogLabel.Text = GlassesUnlockedMessage;
 		}
 		
@@ -333,7 +336,6 @@ public partial class UI : CanvasLayer
 			_dialogRect.Visible = true;
 			_dialogLabel.Text = EndGameMessage;
 			_objectIcon.Visible = false;
-			_objectName.Visible = false;
 			_glassesWear.Visible = false;
 			_ghostCounterLabel.Visible = false;
 			_progressSystem.Visible = false;
