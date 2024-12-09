@@ -38,8 +38,8 @@ script = ExtResource("1_hgs1d")
 NumberOfMinutesBeforeGameOver = 1
 
 [node name="NotebookSprite" type="Sprite2D" parent="."]
-position = Vector2(1400.75, 68.625)
-scale = Vector2(0.329301, 0.332687)
+position = Vector2(1847, 244)
+scale = Vector2(0.3, 0.3)
 texture = ExtResource("2_e2gqc")
 
 [node name="ColorRect" type="ColorRect" parent="."]
@@ -74,10 +74,10 @@ text = "[center]Object Name[/center]"
 [node name="ProgressSystem" parent="." instance=ExtResource("3_307xp")]
 
 [node name="GhostCounterLabel" type="Label" parent="."]
-offset_left = 1522.0
-offset_top = 257.0
-offset_right = 1635.0
-offset_bottom = 347.0
+offset_left = 1575.0
+offset_top = 363.0
+offset_right = 1715.0
+offset_bottom = 453.0
 theme_override_font_sizes/font_size = 20
 text = "Ghosts slayed:"
 
@@ -131,7 +131,7 @@ metadata/_edit_use_anchors_ = true
 [node name="Notebook" parent="." instance=ExtResource("6_87sqe")]
 
 [node name="GlassesWear" type="AnimatedSprite2D" parent="."]
-position = Vector2(1793, 289)
+position = Vector2(1844, 397)
 scale = Vector2(0.3, 0.3)
 sprite_frames = SubResource("SpriteFrames_1xol2")
 animation = &"wearing"

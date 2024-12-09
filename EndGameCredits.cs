@@ -60,7 +60,7 @@ public partial class EndGameCredits : CanvasLayer
         }
     }
 
-    private float LinearToDb(float linear)
+    private static float LinearToDb(float linear)
     {
         return linear > 0 ? 20f * Mathf.Log(linear) / Mathf.Log(10) : -80f;
     }
@@ -163,6 +163,7 @@ public partial class EndGameCredits : CanvasLayer
                 _label.Text = ""; // Clear the text
                                  
                 AudioServer.SetBusVolumeDb(AudioServer.GetBusIndex("Master"), _originalSoundVolume);  //put the music back
+                AudioServer.SetBusVolumeDb(2, _originalSoundVolume);
                 GetTree().ChangeSceneToFile("res://main_menu.tscn");
                 break;
         }

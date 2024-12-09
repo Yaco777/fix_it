@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Godot;
 
@@ -7,6 +8,10 @@ public partial class VBoxAchievementsDisplay : VBoxContainer
     private OptionButton _optionButton;
     private ProgressSystem _progressSystem;
     private Area2D _exitArea;
+    private GlobalSignals _globalSignals;
+    private CanvasLayer _canvasLayer;
+    private ProgressBar _progressBar;
+    private Building _building;
 
     [Export]
     public int PanelSize { get; set; } = 50; //the panel size that display all achievements
@@ -17,20 +22,30 @@ public partial class VBoxAchievementsDisplay : VBoxContainer
     public override void _Ready()
     {
         _optionButton = GetNode<OptionButton>("../../../OptionButton");
+        _progressBar = GetNode<ProgressBar>("../../../ProgressBar");
         _progressSystem = GetNode<ProgressSystem>("../../../../../UI/ProgressSystem");
         _exitArea = GetNode<Area2D>("../../../ExitSprite/ExitSpriteArea");
+        _canvasLayer = GetNode<CanvasLayer>("../../../..");
+        _building = _canvasLayer.GetNode<Building>("../Building");
         _exitArea.InputEvent += HideAchievementsInput;
         ShowAchievements();
         _optionButton.ItemSelected += UpdateDisplay;
         DisplayBasedOnCurrentButtonState();
         VisibilityChanged += OnVisibilityChanged; //when the visiblity change, we update the achievements
+        _globalSignals = _canvasLayer.GetNode<GlobalSignals>("../GlobalSignals");
+        _globalSignals.ShowAchievements += ChangeVisibility;
+    }
 
-
+    private void ChangeVisibility()
+    {
+        _canvasLayer.Visible = !_canvasLayer.Visible;
+        _progressBar.Value = _building.GetNumberOfWorkDone();
     }
 
     private void OnVisibilityChanged()
     {
         DisplayBasedOnCurrentButtonState();
+
     }
 
     public void DisplayBasedOnCurrentButtonState()
@@ -40,6 +55,7 @@ public partial class VBoxAchievementsDisplay : VBoxContainer
 
     private void UpdateDisplay(long index)
     {
+        _progressBar.Value = _building.GetNumberOfWorkDone();
         foreach (var child in GetChildren())
         {
             if (child is HBoxContainer)
@@ -121,8 +137,8 @@ public partial class VBoxAchievementsDisplay : VBoxContainer
 
     private void HideAchievements()
     {
-        var canvasLayer = GetNode<CanvasLayer>("../../../..");
-        canvasLayer.Visible = false;
+        
+        _canvasLayer.Visible = false;
     }
 
    

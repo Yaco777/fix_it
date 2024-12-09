@@ -1,9 +1,10 @@
-[gd_scene load_steps=21 format=3 uid="uid://mfnpdhrqompe"]
+[gd_scene load_steps=22 format=3 uid="uid://mfnpdhrqompe"]
 
 [ext_resource type="Script" path="res://Tutorial.cs" id="1_2apxj"]
 [ext_resource type="PackedScene" uid="uid://lm01vdyu1xgl" path="res://characters/hero/hero.tscn" id="1_tuugu"]
 [ext_resource type="PackedScene" uid="uid://bws7e6gipvnq3" path="res://ui.tscn" id="2_3i2sq"]
 [ext_resource type="Script" path="res://GlobalSignals.cs" id="3_pha6g"]
+[ext_resource type="Texture2D" uid="uid://d1hoq25v78gvj" path="res://UI/Info.png" id="4_gwuq8"]
 [ext_resource type="PackedScene" uid="uid://dwdwl1d6gut1r" path="res://pause_menu.tscn" id="4_obsp5"]
 [ext_resource type="PackedScene" uid="uid://muqjui1qrko3" path="res://achievements_display.tscn" id="5_egb66"]
 [ext_resource type="Script" path="res://Building.cs" id="6_o3uil"]
@@ -55,27 +56,33 @@ Speed = 700
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
-offset_top = 809.0
-offset_right = 1935.0
-offset_bottom = 1081.0
-metadata/_edit_use_anchors_ = true
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer"]
+offset_left = 36.0
+offset_top = 695.0
+offset_right = 4613.0
+offset_bottom = 1615.0
+scale = Vector2(0.41, 0.41)
+texture = ExtResource("4_gwuq8")
 
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/ColorRect"]
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/TextureRect"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = 278.0
+offset_right = -18.0
+offset_bottom = 17.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_right = 10
 
-[node name="TutorialLabel" type="Label" parent="CanvasLayer/ColorRect/MarginContainer"]
+[node name="TutorialLabel" type="Label" parent="CanvasLayer/TextureRect/MarginContainer"]
 custom_minimum_size = Vector2(20, 20)
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 50
+theme_override_font_sizes/font_size = 120
 text = "Jello"
 horizontal_alignment = 1
 vertical_alignment = 1

@@ -74,7 +74,7 @@ public partial class Tutorial : Node2D
 	{
 		_hero = GetNode<Hero>("Hero");
 		_canvasLayer = GetNode<CanvasLayer>("CanvasLayer");
-		_label = _canvasLayer.GetNode<Label>("ColorRect/MarginContainer/TutorialLabel");
+		_label = _canvasLayer.GetNode<Label>("TextureRect/MarginContainer/TutorialLabel");
 		_label.Text = FirstMoveMessage;
 		_initialXPos = _hero.Position.X;
 		_initialYPos = _hero.Position.Y;
