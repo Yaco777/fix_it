@@ -28,16 +28,17 @@ theme_override_font_sizes/font_size = 30
 step = 1.0
 
 [node name="StarsProgress" type="TextureProgressBar" parent="."]
-offset_left = 12.0
-offset_top = 7.0
-offset_right = 524.0
-offset_bottom = 519.0
+offset_left = 60.0
+offset_top = 74.0
+offset_right = 572.0
+offset_bottom = 586.0
 scale = Vector2(0.3, 0.3)
 max_value = 18.0
 fill_mode = 4
 texture_under = ExtResource("1_ay3ug")
 texture_progress = ExtResource("2_inc0j")
 tint_under = Color(1, 1, 1, 0.286275)
+metadata/_edit_group_ = true
 
 [node name="StarsLevel" type="Label" parent="StarsProgress"]
 layout_mode = 1
@@ -52,7 +53,6 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="AchievementDisplay" type="Control" parent="."]
-visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
@@ -62,9 +62,9 @@ AchievementDisplayTime = 6.0
 
 [node name="AchievementRect" type="TextureRect" parent="AchievementDisplay"]
 layout_mode = 0
-offset_left = 297.0
+offset_left = 392.0
 offset_top = 106.0
-offset_right = 1396.0
+offset_right = 1491.0
 offset_bottom = 317.0
 texture = ExtResource("7_tueys")
 expand_mode = 1
@@ -94,13 +94,3 @@ text = "[description}"
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 3
-
-[node name="NumberOfStars" type="Label" parent="."]
-offset_left = 68.0
-offset_top = 161.0
-offset_right = 108.0
-offset_bottom = 203.0
-theme_override_font_sizes/font_size = 30
-text = "X"
-horizontal_alignment = 1
-vertical_alignment = 1

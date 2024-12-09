@@ -6,9 +6,11 @@ public partial class Ghost : Node2D
 	private GlobalSignals _globalSignals;
 	private Area2D _ghostArea;
 	private bool _inRange;
-	private ColorRect _interactionRect;
+	private CanvasLayer _interactionRect;
 	private AudioStreamPlayer2D _ghostFailurePlayer;
 	private Label _interactionLabel;
+	private Area2D _exitArea;
+
 
 	[Export]
 	public int TimeOutBeforeNextInteraction { get; set; } = 3; //time to wait if the player choose the wrong answer
@@ -52,10 +54,12 @@ public partial class Ghost : Node2D
 		_globalSignals = GetNode<GlobalSignals>("../../../GlobalSignals");
 		_ghostFailurePlayer = GetNode<AudioStreamPlayer2D>("FailurePlayer");
 		_ghostArea = GetNode<Area2D>("GhostArea");
-		_interactionRect = GetNode<ColorRect>("InteractionRect");
-		_interactionLabel = _interactionRect.GetNode<Label>("InteractionLabel");
+		_interactionRect = GetNode<CanvasLayer>("CanvasLayer");
+		_interactionLabel = _interactionRect.GetNode<Label>("InteractionSprite/InteractionLabel");
 		_interactAnimation = GetNode<AnimatedSprite2D>("InteractAnimation");
-		_interactAnimation.Visible = false;
+		_exitArea = GetNode<Area2D>("CanvasLayer/InteractionSprite/Area2D");
+		_exitArea.InputEvent += GiveUp;
+        _interactAnimation.Visible = false;
 		_interactionRect.Visible = false;
 		_interactAnimation.Play();
 		_interactAnimation.ZIndex = 11;
@@ -65,7 +69,26 @@ public partial class Ghost : Node2D
 		_ghostArea.BodyExited += OnBodyExited;
 	}
 
-	public override void _Process(double delta)
+    private void GiveUp(Node viewport, InputEvent @event, long shapeIdx)
+    {
+        /**
+		 * Hide the canvas layer
+		 */
+        if (@event is InputEventMouseButton mouseEvent && mouseEvent.Pressed)
+        {
+
+            // we check that it's a left click
+            if (mouseEvent.ButtonIndex == MouseButton.Left)
+            {
+				_hasInteracted = false;
+				_interactionRect.Visible = false;
+				_interactAnimation.Visible = true;
+            }
+        }
+
+    }
+
+    public override void _Process(double delta)
 	{
 		base._Process(delta);
 

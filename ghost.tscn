@@ -1,12 +1,16 @@
-[gd_scene load_steps=6 format=3 uid="uid://bk260m3vcbt0v"]
+[gd_scene load_steps=8 format=3 uid="uid://bk260m3vcbt0v"]
 
 [ext_resource type="Script" path="res://Ghost.cs" id="1_0g06d"]
 [ext_resource type="Texture2D" uid="uid://c50dkwjstw08a" path="res://characters/ghost/GhostSecurity.png" id="2_sqmwe"]
 [ext_resource type="AudioStream" uid="uid://dr0w2hbt4j2rh" path="res://audio/ghost_failure.mp3" id="3_1anrf"]
 [ext_resource type="SpriteFrames" uid="uid://dxvd8we5cp3eh" path="res://spriteAnimationCollect.tres" id="4_cdg3y"]
+[ext_resource type="Texture2D" uid="uid://c2eqb5ql27o0g" path="res://UI/GhostDialog.png" id="5_whnv1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_odoju"]
 size = Vector2(440, 365)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g5eg3"]
+size = Vector2(455.417, 364.477)
 
 [node name="Ghost" type="Node2D"]
 script = ExtResource("1_0g06d")
@@ -28,21 +32,6 @@ offset_top = -381.0
 offset_right = 404.0
 offset_bottom = -230.0
 
-[node name="InteractionLabel" type="Label" parent="InteractionRect"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 30
-text = "X
-1) Yes		   3) No
-2) No	      4) No"
-horizontal_alignment = 1
-vertical_alignment = 1
-
 [node name="FailurePlayer" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("3_1anrf")
 
@@ -52,3 +41,38 @@ position = Vector2(1, -175)
 scale = Vector2(0.1, 0.1)
 sprite_frames = ExtResource("4_cdg3y")
 animation = &"can_interact"
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="InteractionSprite" type="Sprite2D" parent="CanvasLayer"]
+position = Vector2(898, 494)
+rotation = -0.00117444
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("5_whnv1")
+
+[node name="InteractionLabel" type="Label" parent="CanvasLayer/InteractionSprite"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -912.0
+offset_top = -751.0
+offset_right = -1256.0
+offset_bottom = -1090.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 100
+text = "X
+1) Yes		   3) No
+2) No	      4) No"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="Area2D" type="Area2D" parent="CanvasLayer/InteractionSprite"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CanvasLayer/InteractionSprite/Area2D"]
+position = Vector2(870.66, -561.478)
+scale = Vector2(1, 1)
+shape = SubResource("RectangleShape2D_g5eg3")

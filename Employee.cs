@@ -13,8 +13,8 @@ public partial class Employee : Node2D
 	public double StopWorkProbability { get; set; } = 0.0001;
 
 	private bool _playerInRange; //boolean to check if the player is close to the employee
-	private RichTextLabel _dialogueLabel; //dialogue label for interactions
-	private ColorRect _colorRect; //the background behind the text
+	private Label _dialogueLabel; //dialogue label for interactions
+	private TextureRect _textureRect; //the background behind the text
 	private Hero _hero;
 	private GlobalSignals _globalSignals;
 	private bool _canInteract = true;
@@ -72,11 +72,10 @@ public partial class Employee : Node2D
 
 	public override void _Ready()
 	{
-		_colorRect = GetNode<ColorRect>("ColorRect");
-		_dialogueLabel = GetNode<RichTextLabel>("ColorRect/RichTextLabel");
+        _textureRect = GetNode<TextureRect>("TextureRect");
+		_dialogueLabel = GetNode<Label>("TextureRect/Label");
 		_globalSignals = GetNode<GlobalSignals>("../../GlobalSignals");
-		_dialogueLabel.BbcodeEnabled = true;
-		_colorRect.Visible = false;
+        _textureRect.Visible = false;
 		var area = GetNode<Area2D>("EmployeeArea");
 		area.BodyEntered += OnBodyEntered;
 		area.BodyExited += OnBodyExited;
@@ -86,7 +85,6 @@ public partial class Employee : Node2D
 		_globalSignals.EndOfTheGame += StopInteractions;
 		_globalSignals.GhostSlayed += CheckShouldNotBeAllowedToStopWorking;
 		_actualTimeBeforeStopWorking = _maximumTimeBeforeStopWorking;
-		GD.Print("On commence pour : " + NameOfEmployee + " avec : " + _actualTimeBeforeStopWorking);
 
 		_debug = 30;
 
@@ -96,7 +94,6 @@ public partial class Employee : Node2D
 	{
 		if(name.Contains(NameOfEmployee))
 		{
-			GD.Print("Ok j'arrete de bosser ! " + name);
 			_cannotStopWorking = true;
 
 		}
@@ -127,7 +124,7 @@ public partial class Employee : Node2D
 		if (body is not Hero) return;
 		_playerInRange = false;
 		_hero = null;
-		_colorRect.Visible = false; //the player won't be able to see the label if he is far
+		_textureRect.Visible = false; //the player won't be able to see the label if he is far
 		_interactAnimation.Visible = false;
 
 		//we remove the timer
@@ -161,7 +158,7 @@ public partial class Employee : Node2D
 			{
 				
 				SetState(EmployeeState.NotWorking);
-				_colorRect.Visible = false;
+				_textureRect.Visible = false;
                 
 				return;
 			}
@@ -238,10 +235,10 @@ public partial class Employee : Node2D
 		 * Show a dialogue that won't diseppear
 		 */
 		_interactAnimation.Visible = false;
-		_dialogueLabel.Text = "[center]"+text+"[/center]";
+		_dialogueLabel.Text = text;
 		if(_playerInRange)
 		{
-			_colorRect.Visible = true;
+            _textureRect.Visible = true;
 		}
 		
 	}
@@ -302,8 +299,8 @@ public partial class Employee : Node2D
 
 	private void OnTemporaryDialogTimeout()
 	{
-		//remove the timer and update the currentTimePresent variable
-		_colorRect.Visible = false;
+        //remove the timer and update the currentTimePresent variable
+        _textureRect.Visible = false;
 		var timer = GetNode<Timer>("DialogTimer");
 		CallDeferred(nameof(RemoveChildDeferred), timer);
 		currentTimerPresent = false; //now we can interact again

@@ -14,7 +14,7 @@ public partial class Cook : Employee
 	private bool _firstTimeShowingMEssage = true;
 
 	[Export]
-	public string CookRoomUnlockMessage { get; set; } = "Ok look, the cook gave you a notebook! You will probably need it! You can open and close it with pressing N!";
+	public string CookRoomUnlockMessage { get; set; } = "Ok look, the cook gave you a notebook! You will probably need it! You can open and close it by pressing N!";
 
 		
 

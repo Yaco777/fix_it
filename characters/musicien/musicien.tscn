@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://b8wyebxsxftek"]
+[gd_scene load_steps=19 format=3 uid="uid://b8wyebxsxftek"]
 
 [ext_resource type="Script" path="res://characters/musicien/Musicien.cs" id="1_l0d7b"]
 [ext_resource type="Texture2D" uid="uid://b7t7nj7fni50h" path="res://characters/musicien/MusicienFace.png" id="1_vds6e"]
@@ -15,6 +15,7 @@
 [ext_resource type="AudioStream" uid="uid://ctgfy2s672by8" path="res://audio/success_marketing_game.mp3" id="10_0n6dx"]
 [ext_resource type="Texture2D" uid="uid://b8fwrcl0xwkqq" path="res://building/effects/note1.png" id="13_t35h7"]
 [ext_resource type="SpriteFrames" uid="uid://dxvd8we5cp3eh" path="res://spriteAnimationCollect.tres" id="14_08tq7"]
+[ext_resource type="Texture2D" uid="uid://c3v1lhla175xt" path="res://UI/DialogBox.png" id="16_hmhas"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_rdvps"]
 animations = [{
@@ -103,24 +104,22 @@ scale = Vector2(0.1, 0.1)
 sprite_frames = ExtResource("14_08tq7")
 animation = &"can_interact"
 
-[node name="ColorRect" type="ColorRect" parent="."]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -145.0
-offset_top = -204.0
-offset_right = 156.0
-offset_bottom = -151.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0, 0, 0, 1)
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_left = -201.0
+offset_top = -258.0
+offset_right = 1405.0
+offset_bottom = 192.0
+rotation = -0.00192423
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("16_hmhas")
+metadata/_edit_group_ = true
 
-[node name="RichTextLabel" type="RichTextLabel" parent="ColorRect"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_colors/default_color = Color(1, 1, 1, 1)
-text = "HIIII HELLO"
+[node name="Label" type="Label" parent="TextureRect"]
+layout_mode = 0
+offset_right = 1600.0
+offset_bottom = 340.0
+theme_override_font_sizes/font_size = 80
+text = "Hello"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3

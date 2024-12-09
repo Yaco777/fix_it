@@ -9,8 +9,7 @@ public partial class Technician : Employee
     {
         "Red with red, blue with blue!",
         "I tangled all the wires",
-        "I am a master of electricity",
-        "..."
+        "I am a master of electricity"
     };
 
 // One to delete between _stopWorkingMessages and _backToWork

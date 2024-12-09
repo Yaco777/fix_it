@@ -19,7 +19,6 @@ public partial class ProgressSystem : CanvasLayer
     private AudioStreamPlayer _totalProgressPlayer;
 
     private Label _starsLevel;
-    private Label _totalNumberOfStarsLabel;
 
     private List<string> _unlockableEmployeeOrder = new List<string>();
    
@@ -56,14 +55,12 @@ public partial class ProgressSystem : CanvasLayer
     public override void _Ready()
     {
 
-        InitUnlockableEmployee();
         _totalProgressBar = GetNode<ProgressBar>("TotalProgress");
         _starsProgressBar = GetNode<TextureProgressBar>("StarsProgress");
         _achievementDisplay = GetNode<AchievementDisplay>("AchievementDisplay");
         _starsPlayer = GetNode<AudioStreamPlayer>("StarsPlayer");
         _totalProgressPlayer = GetNode<AudioStreamPlayer>("TotalProgressPlayer");
         _starsLevel = _starsProgressBar.GetNode<Label>("StarsLevel");
-        _totalNumberOfStarsLabel = GetNode<Label>("NumberOfStars");
         _globalSignals = GetNode<GlobalSignals>("../../GlobalSignals");
         var employees = GetNode<Node2D>("../../Employees").GetChildren();
         
@@ -73,7 +70,6 @@ public partial class ProgressSystem : CanvasLayer
         _achievementDisplay.Visible = true;
         WaitTimeBeforeNextAchievement = _achievementDisplay.AchievementDisplayTime + _achievementDisplay.AchievementFadeInTime + _achievementDisplay.AchievementFadeOutTime; ;
         _globalSignals.NewWorkDone += IncreaseStar;
-        _totalNumberOfStarsLabel.Text = "0";
         
 
         //this loop is used for the employess that are already in the game when we start it, not the one added by the rooms
@@ -99,6 +95,7 @@ public partial class ProgressSystem : CanvasLayer
     {
         AnimateProgress(1, _starsProgressBar);
         _currentLevel++;
+        TotalStars++;
         _starsLevel.Text = _currentLevel.ToString();
 
         GetTree().CreateTimer(5).Timeout += () =>
@@ -119,7 +116,7 @@ public partial class ProgressSystem : CanvasLayer
 
         
         AnimateProgress(-(int)_starsProgressBar.Value, _starsProgressBar);
-      
+ 
         _starsLevel.Text = "?";
         _globalSignals.EmitUnlockGlasses();
 
@@ -142,25 +139,38 @@ public partial class ProgressSystem : CanvasLayer
             "After the last breath, only the silence remains",
             "The music has stopped for the first time",
             40,
-            () => musicien.CurrentState == Employee.EmployeeState.NotWorking // Condition to unlock the achievement
+            () => musicien.CurrentState == Employee.EmployeeState.NotWorking, // Condition to unlock the achievement
+            1
         );
 
             var achievementMusicien2 = new Achievement(
                 "Music is the language of emotions",
-                "The Musician has worked again for the first time",
+                "The Musician has worked for the first time",
                 70,
-                () => musicien.NumberOfTimeWorked == 1
+                () => musicien.NumberOfTimeWorked == 1,
+                1
             );
 
             var achievementMusicien3 = new Achievement(
-                "You can feel it",
-                "The Musician has worked again for the third time",
+                "The Symphony has started",
+                "The Musician has worked for the second time",
                 70,
-                () => musicien.NumberOfTimeWorked == 3
+                () => musicien.NumberOfTimeWorked == 2,
+                2
+            );
+
+            var achievementMusicien4 = new Achievement(
+                "You can feel it",
+                "The Musician has worked for the third time",
+                70,
+                () => musicien.NumberOfTimeWorked == 3,
+                3
             );
             allAchievements[musicien].Add(achievementMusicien);
             allAchievements[musicien].Add(achievementMusicien2);
             allAchievements[musicien].Add(achievementMusicien3);
+            allAchievements[musicien].Add(achievementMusicien4);
+
         }
         else if(employee.NameOfEmployee == "Painter")
         {
@@ -169,40 +179,54 @@ public partial class ProgressSystem : CanvasLayer
                 "Roses are red, but this red is all yours!",
                 "The red color is back for the first time",
                 40,
-                () => painter.firstTimeGettingRed
+                () => painter.firstTimeGettingRed,
+                3
             );
             var achievementPainter2 = new Achievement(
                 "Why is the sky blue?",
                 "The blue color is back for the first time",
                 40,
-                () => painter.firstTimeGettingBlue
+                () => painter.firstTimeGettingBlue,
+                3
             );
             var achievementPainter3 = new Achievement(
                 "Nature approves your choice",
                 "The green color is back for the first time",
                 40,
-                () => painter.firstTimeGettingGreen
+                () => painter.firstTimeGettingGreen,
+                3
             );
 
             var achievementPainter4 = new Achievement(
                 "You can see in RGB!",
                 "You gaved back all the colors to the Painter at least one time",
                 40,
-                () => painter.firstTimeGettingRed && painter.firstTimeGettingBlue && painter.firstTimeGettingRed
+                () => painter.firstTimeGettingRed && painter.firstTimeGettingBlue && painter.firstTimeGettingRed,
+                3
             );
 
             var achievementPainter5 = new Achievement(
-                "It was a little bit too hard alone, so we both held hands",
-                "You worked 2 times with the Painter, you unlocked a new color",
+                "When you say blue, let others mean red", 
+                "You worked 1 times with the Painter, you unlocked a new color",
                 40,
-                () => painter.NumberOfTimeWorked == 2
+                () => painter.NumberOfTimeWorked == 1,
+                1
             );
 
             var achievementPainter6 = new Achievement(
+                "It was a little bit too hard alone, so we both held hands",
+                "You worked 2 times with the Painter, you unlocked a new color",
+                40,
+                () => painter.NumberOfTimeWorked == 2,
+                2
+            );
+
+            var achievementPainter7 = new Achievement(
                 "Only the two of us was a little bit sad, so we made a circle of three",
                 "You worked 3 times with the Painter, you unlocked a new color",
                 40,
-                () => painter.NumberOfTimeWorked == 3
+                () => painter.NumberOfTimeWorked == 3,
+                3
             );
             allAchievements[painter].Add(achievementPainter);
             allAchievements[painter].Add(achievementPainter2);
@@ -210,39 +234,52 @@ public partial class ProgressSystem : CanvasLayer
             allAchievements[painter].Add(achievementPainter4);
             allAchievements[painter].Add(achievementPainter5);
             allAchievements[painter].Add(achievementPainter6);
+            allAchievements[painter].Add(achievementPainter7);
         }
         else if(employee.NameOfEmployee == "Security")
         {
             var security = (Security)employee;
             var achievementSecurity1 = new Achievement(
-                "We have the best security ever",
+                "We have the best security ever", 
                 "You worked with the Security for the first time",
                 40,
-                () => security.NumberOfTimeWorked == 1
+                () => security.NumberOfTimeWorked == 1,
+                1
             );
             var achievementSecurity2 = new Achievement(
                "We are in war!",
                "The Security has stopped working for the first time",
                40,
-               () => security.CurrentState == Employee.EmployeeState.NotWorking
+               () => security.CurrentState == Employee.EmployeeState.NotWorking,
+               3
            );
             var achievementSecurity3 = new Achievement(
                "She is starting to get very afraid",
                "You haven't chased the frog for a long time",
                40,
-               () => security.GetStopTimeWorking() >= 60
+               () => security.GetStopTimeWorking() >= 60, 
+               3
            );
             var achievementSecurity4 = new Achievement(
+              "Playing it safe is the riskiest choice we can make",
+              "You have worked with the Security two time",
+              40,
+              () => security.NumberOfTimeWorked == 2,
+              2
+          );
+            var achievementSecurity5 = new Achievement( 
                "I am not afraid of frogs",
-               "You have worked with the Security five time",
+               "You have worked with the Security three time",
                40,
-               () => security.NumberOfTimeWorked == 5
+               () => security.NumberOfTimeWorked == 3,
+               3
            );
 
             allAchievements[security].Add(achievementSecurity1);
             allAchievements[security].Add(achievementSecurity2);
             allAchievements[security].Add(achievementSecurity3);
             allAchievements[security].Add(achievementSecurity4);
+            allAchievements[security].Add(achievementSecurity5);
         }
         else if(employee.NameOfEmployee == "Technicien")
         {
@@ -251,16 +288,34 @@ public partial class ProgressSystem : CanvasLayer
                 "I am a vampire",
                 "You worked with the Technician for the first time",
                 40,
-                () => technicien.NumberOfTimeWorked == 1
+                () => technicien.NumberOfTimeWorked == 1, 
+                1
             );
             var achievementTechnicien2 = new Achievement(
                 "Where are you?",
                 "The Technician stopped working for the first time",
                 40,
-                () => technicien.CurrentState == Employee.EmployeeState.NotWorking
+                () => technicien.CurrentState == Employee.EmployeeState.NotWorking,
+                3
             );
+            var achievementTechnicien3 = new Achievement(
+               "Moonlight drowns out all but the brightest stars",
+               "You worked with the Technician for the second time",
+               40,
+               () => technicien.NumberOfTimeWorked == 2,
+               2
+           );
+            var achievementTechnicien4 = new Achievement(
+               "Give light, and the darkness will disappear of itself",
+               "You worked with the Technician for the third time",
+               40,
+               () => technicien.NumberOfTimeWorked == 3,
+               3
+           );
             allAchievements[technicien].Add(achievementTechnicien1);
             allAchievements[technicien].Add(achievementTechnicien2);
+            allAchievements[technicien].Add(achievementTechnicien3);
+            allAchievements[technicien].Add(achievementTechnicien4);
         }
         else if(employee.NameOfEmployee == "Marketing")
         {
@@ -269,23 +324,34 @@ public partial class ProgressSystem : CanvasLayer
                 " 1 + 1 = 3",
                 "The Accountant has stopped working for the first time",
                 40,
-                () => marketing.CurrentState== Employee.EmployeeState.NotWorking
+                () => marketing.CurrentState== Employee.EmployeeState.NotWorking,
+                3
             );
             var achievementMarketing2 = new Achievement(
                 "You are better than me",
-                "You completed the minigame one time",
+                "You completed the accountant minigame one time",
                 40,
-                () => marketing.NumberOfTimeWorked == 1
+                () => marketing.NumberOfTimeWorked == 1, 
+                1
             );
             var achievementMarketing3 = new Achievement(
                 "You are WAY better than me",
-                "You completed the minigame three time",
+                "You completed the accountant minigame two time",
                 40,
-                () => marketing.NumberOfTimeWorked == 3
+                () => marketing.NumberOfTimeWorked == 2, 
+                2
+            );
+            var achievementMarketing4 = new Achievement(
+                "Could you replace me?",
+                "You completed the accountant minigame three time",
+                40,
+                () => marketing.NumberOfTimeWorked == 3,
+                3
             );
             allAchievements[marketing].Add(achievementMarketing1);
             allAchievements[marketing].Add(achievementMarketing2);
             allAchievements[marketing].Add(achievementMarketing3);
+            allAchievements[marketing].Add(achievementMarketing4);
 
         }
         else if(employee.NameOfEmployee == "Cook")
@@ -295,30 +361,39 @@ public partial class ProgressSystem : CanvasLayer
                 "Let him cook",
                 "You completed the cook minigame for the first time",
                 40,
-                () => cook.NumberOfTimeWorked == 1
+                () => cook.NumberOfTimeWorked == 1, 
+                1
                 );
             var achievementCook2 = new Achievement(
                 "Where are my ingredients?",
                 "The Cook has stopped working for the first time",
                 40,
-                () => cook.CurrentState == Employee.EmployeeState.NotWorking
+                () => cook.CurrentState == Employee.EmployeeState.NotWorking,
+                3
+                );
+            var achievementCook3 = new Achievement(
+                "The fire is burning",
+                "You completed the cook minigame for the second time",
+                40,
+                () => cook.NumberOfTimeWorked == 2,
+                2
+                );
+            var achievementCook4 = new Achievement(
+                "No one is born a great cook",
+                "You completed the cook minigame for the third time",
+                40,
+                () => cook.NumberOfTimeWorked == 3,
+                3
                 );
             allAchievements[cook].Add(achievementCook1);
             allAchievements[cook].Add(achievementCook2);
+            allAchievements[cook].Add(achievementCook3);
+            allAchievements[cook].Add(achievementCook4);
 
         }
     }
 
-    
-
-    private void InitUnlockableEmployee()
-    {
-        _unlockableEmployeeOrder.Add("Painter");
-        _unlockableEmployeeOrder.Add("Technicien");
-        _unlockableEmployeeOrder.Add("Security");
-        _unlockableEmployeeOrder.Add("Marketing");
-        //TODO ADD OTHER EMPLOYEE EHRE
-    }
+   
 
     private void AddNewEmployee()
     {
@@ -379,8 +454,6 @@ public partial class ProgressSystem : CanvasLayer
             //the player got the achievement
             playerAchievements.Add(achievement); //we add it 
             //AnimateProgress(achievement.NumberOfStars, _starsProgressBar); //circular animation
-            TotalStars += achievement.NumberOfStars;
-            _totalNumberOfStarsLabel.Text = TotalStars.ToString();
             _achievementDisplay.ShowAchievement(achievement);
             _starsPlayer.Play(); //we play the sound
             _currentAmountsOfStars += achievement.NumberOfStars;
@@ -454,55 +527,62 @@ public partial class ProgressSystem : CanvasLayer
     }
 
 
-    public List<string> GetUnlockedAchievements()
+    public List<Achievement> GetUnlockedAchievements()
     {
-        var unlockedNames = new List<string>();
+        var unlockedNames = new List<Achievement>();
 
         foreach (var achievement in playerAchievements)
         {
-            unlockedNames.Add(achievement.Name);
+            unlockedNames.Add(achievement);
         }
 
         return unlockedNames;
     }
 
-    public List<String> GetAllAchievements()
+    public List<Achievement> GetAllAchievements()
     {
-        return new List<string>
-        {
-            "After the last breath, only the silence remains",
-            "Music is the language of emotions",
-            "You can feel it",
-            "Roses are red, but this red is all yours!",
-            "Why is the sky blue?",
-            "Nature approves your choice",
-            "You can see in RGB!",
-            "It was a little bit too hard alone, so we both held hands",
-            "Only the two of us was a little bit sad, so we made a circle of three",
-            "We have the best security ever",
-            "We are in war!",
-            "She is starting to get very afraid",
-            "I am not afraid of frogs",
-            "I am a vampire",
-            "Where are you?",
-            "1 + 1 = 3",
-            "You are better than me",
-            "You are WAY better than me",
-            "Let him cook",
-            "Where are my ingredients?"
-        };
+        return new List<Achievement>
+    {
+        new Achievement("After the last breath, only the silence remains", 1),
+        new Achievement("Music is the language of emotions", 1),
+        new Achievement("The Symphony has started", 2),
+        new Achievement("You can feel it", 3),
+        new Achievement("Roses are red, but this red is all yours!", 1),
+        new Achievement("Why is the sky blue?", 1),
+        new Achievement("Nature approves your choice", 1),
+        new Achievement("You can see in RGB!", 3),
+        new Achievement("It was a little bit too hard alone, so we both held hands", 2),
+        new Achievement("Only the two of us was a little bit sad, so we made a circle of three", 3),
+        new Achievement("We have the best security ever", 1),
+        new Achievement("We are in war!", 1),
+        new Achievement("She is starting to get very afraid", 3),
+        new Achievement("I am not afraid of frogs", 3),
+        new Achievement("I am a vampire", 1),
+        new Achievement("Where are you?", 1),
+        new Achievement("1 + 1 = 3", 1),
+        new Achievement("You are better than me", 1),
+        new Achievement("You are WAY better than me", 2),
+        new Achievement("Could you replace me?", 3),
+        new Achievement("Let him cook", 1),
+        new Achievement("Where are my ingredients?", 1),
+        new Achievement("The fire is burning", 2),
+        new Achievement("No one is born a great cook", 3),
+        new Achievement("Moonlight drowns out all but the brightest stars", 2),
+        new Achievement("Give light, and the darkness will disappear of itself", 3),
+        new Achievement("Playing it safe is the riskiest choice we can make", 3)
+    };
     }
 
-    public List<string> GetLockedAchievements()
+    public List<Achievement> GetLockedAchievements()
     {
         /**
          * Return the list of achievement that he player hasn't unlocked yet 
          */
-        var list = new List<string>();
+        var list = new List<Achievement>();
         var allAchievementsList = GetAllAchievements();
         foreach(var achievement in allAchievementsList)
         {
-            if(!playerAchievements.Exists(a => a.Name == achievement))
+            if(!playerAchievements.Contains(achievement))
             {
                 list.Add(achievement);
             }

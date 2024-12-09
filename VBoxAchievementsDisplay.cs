@@ -63,7 +63,7 @@ public partial class VBoxAchievementsDisplay : VBoxContainer
                 RemoveChild(child);
             }
         }
-        List<string> list = new List<string>();
+        List<Achievement> list = new List<Achievement>();
         if(index == 0 )
         {
             list = _progressSystem.GetAllAchievements();
@@ -111,26 +111,30 @@ public partial class VBoxAchievementsDisplay : VBoxContainer
         }
     }
 
-    private void AddOneAchievement(string achievement)
+    private void AddOneAchievement(Achievement achievement)
     {
         var hboxContainer = new HBoxContainer();
         hboxContainer.SizeFlagsHorizontal = SizeFlags.Fill;
         var panel = new Panel();
         var label = new Label();
+
+        //sprite
+        var sprite = new Sprite2D();
+        var texture2D = achievement.GetTextureOfAchievement();
+        sprite.Texture = texture2D;
+        sprite.Scale = new Vector2(0.2f,0.2f);
+        sprite.GlobalPosition = new Vector2(sprite.GlobalPosition.X + 800, sprite.GlobalPosition.Y+50);
+       
+        panel.AddChild(sprite);
         panel.AddChild(label);
         hboxContainer.AddChild(panel);
-        label.Text = achievement;
+        label.Text = achievement.Name;
         label.HorizontalAlignment = HorizontalAlignment.Center;
         label.VerticalAlignment = VerticalAlignment.Center;
         label.SetAnchorsPreset(LayoutPreset.FullRect);
         panel.SizeFlagsHorizontal = SizeFlags.ExpandFill;
         panel.CustomMinimumSize = new Vector2(panel.CustomMinimumSize.X, PanelSize);
         label.AddThemeFontSizeOverride("font_size", 40);
-        
-    
-
-        
-        
         AddChild(hboxContainer);
 
     }

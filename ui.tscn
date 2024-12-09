@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://bws7e6gipvnq3"]
+[gd_scene load_steps=13 format=3 uid="uid://bws7e6gipvnq3"]
 
 [ext_resource type="Script" path="res://UI.cs" id="1_hgs1d"]
 [ext_resource type="Texture2D" uid="uid://cso6ugtnr6upy" path="res://UI/IconNotebook.png" id="2_e2gqc"]
@@ -8,6 +8,8 @@
 [ext_resource type="PackedScene" uid="uid://lhq1emrrjlqs" path="res://notebook.tscn" id="6_87sqe"]
 [ext_resource type="Texture2D" uid="uid://x1kjoa5aed02" path="res://UI/IconNoGlasses.png" id="7_v8666"]
 [ext_resource type="Texture2D" uid="uid://bbbogpxwejvv6" path="res://UI/IconGlasses.png" id="8_71cq4"]
+[ext_resource type="Texture2D" uid="uid://ci0iwjlpdb3ga" path="res://UI/TimeLeft.png" id="9_5whj7"]
+[ext_resource type="Texture2D" uid="uid://df66wpnuw5iuf" path="res://UI/AchievementSprite.png" id="9_pmjet"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8jcn5"]
 shader = ExtResource("2_nd7in")
@@ -82,14 +84,6 @@ color = Color(1, 1, 1, 0)
 
 [node name="GameOverTimer" type="Timer" parent="."]
 
-[node name="TimerLabel" type="Label" parent="."]
-offset_left = 140.0
-offset_top = 12.0
-offset_right = 212.0
-offset_bottom = 52.0
-theme_override_font_sizes/font_size = 22
-text = "XXXX"
-
 [node name="DialogRect" type="TextureRect" parent="."]
 visible = false
 offset_left = 5.0
@@ -133,6 +127,11 @@ position = Vector2(1844, 400)
 scale = Vector2(0.3, 0.3)
 texture = ExtResource("7_v8666")
 
+[node name="GlassIconEmpty2" type="Sprite2D" parent="."]
+position = Vector2(1844, 550)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("9_pmjet")
+
 [node name="NotebookEmpty" type="Sprite2D" parent="."]
 position = Vector2(1844, 250)
 scale = Vector2(0.3, 0.3)
@@ -142,3 +141,24 @@ texture = ExtResource("7_v8666")
 position = Vector2(1844, 100)
 scale = Vector2(0.3, 0.3)
 texture = ExtResource("7_v8666")
+
+[node name="TimeLeft" type="Sprite2D" parent="."]
+position = Vector2(145, 40)
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("9_5whj7")
+metadata/_edit_group_ = true
+
+[node name="TimerLabel" type="Label" parent="TimeLeft"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -130.0
+offset_top = -41.0
+offset_right = -221.0
+offset_bottom = -60.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 30
+text = "XXXX"
+horizontal_alignment = 1
+vertical_alignment = 1

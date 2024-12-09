@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://pr180h4dj63o"]
+[gd_scene load_steps=14 format=3 uid="uid://pr180h4dj63o"]
 
 [ext_resource type="Script" path="res://characters/cook/Cook.cs" id="1_1gnuc"]
 [ext_resource type="Texture2D" uid="uid://dwluwt1wakdc7" path="res://characters/cook/CookCooking01.png" id="1_dm7mv"]
@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://bwa56f3fqr1hi" path="res://characters/cook/CookSleep03.png" id="7_132aw"]
 [ext_resource type="SpriteFrames" uid="uid://dxvd8we5cp3eh" path="res://spriteAnimationCollect.tres" id="8_p3nwo"]
 [ext_resource type="PackedScene" uid="uid://d3tvd7hqhth72" path="res://CookMinigame.tscn" id="9_y685k"]
+[ext_resource type="Texture2D" uid="uid://c3v1lhla175xt" path="res://UI/DialogBox.png" id="11_2qnb2"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_ljjid"]
 animations = [{
@@ -70,29 +71,25 @@ scale = Vector2(0.1, 0.1)
 sprite_frames = ExtResource("8_p3nwo")
 animation = &"can_interact"
 
-[node name="ColorRect" type="ColorRect" parent="."]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -179.0
-offset_top = -214.0
-offset_right = 188.0
-offset_bottom = -158.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0, 0, 0, 1)
-
-[node name="RichTextLabel" type="RichTextLabel" parent="ColorRect"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_colors/default_color = Color(1, 1, 1, 1)
-text = "HIIII HELLO"
-
 [node name="CookMinigame" parent="." instance=ExtResource("9_y685k")]
 visible = false
 scale = Vector2(0.2, 0.2)
 transform = Transform2D(0.2, 0, 0, 0.2, 0, 0)
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_left = -162.0
+offset_top = -246.0
+offset_right = 1444.0
+offset_bottom = 204.0
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("11_2qnb2")
+
+[node name="Label" type="Label" parent="TextureRect"]
+layout_mode = 0
+offset_right = 1600.0
+offset_bottom = 340.0
+theme_override_font_sizes/font_size = 80
+text = "Hello"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3

@@ -118,7 +118,7 @@ public partial class UI : CanvasLayer
 		_endGameRect = GetNode<ColorRect>("EndGameRect");
 		_progressSystem = GetNode<ProgressSystem>("ProgressSystem");
 		_gameOverTimer = GetNode<Timer>("GameOverTimer");
-		_gameOverLabel = GetNode<Label>("TimerLabel");
+		_gameOverLabel = GetNode<Label>("TimeLeft/TimerLabel");
 		_endGameRect.Color = new Color(0,0, 0, 0);
 		_gameOverTimer.WaitTime = NumberOfMinutesBeforeGameOver * 60; //We convert it in seconds
 		_gameOverTimer.OneShot = true;
@@ -277,8 +277,6 @@ public partial class UI : CanvasLayer
 	public void UpdateCollectedItem(string itemName)
 	{
 		var texture = Collectible.getTextureOfCollectible(itemName);
-		_emptyItem.Visible = false;
-
         _objectIcon.Texture = texture;
 		_objectIcon.Scale = new Vector2(animationScaleX, animationScaleY); //base scale of the item, the size will decrease
 		_objectIcon.Visible = true;
@@ -287,7 +285,6 @@ public partial class UI : CanvasLayer
 	public void ClearItem()
 	{
 		_objectIcon.Visible = false;
-		_emptyItem.Visible = true;
 
     }
 

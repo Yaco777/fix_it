@@ -92,6 +92,7 @@ EmployeeUnlockedName = "Technician"
 position = Vector2(7927, -3594)
 scale = Vector2(1.25, 1.25)
 ObjectTexture = ExtResource("13_hxheh")
+AmountStarsRequired = 0
 EmployeeUnlockedName = "Cook"
 
 [node name="Ghosts" type="Node2D" parent="Building"]
@@ -99,6 +100,7 @@ EmployeeUnlockedName = "Cook"
 [node name="GhostTechnician" parent="Building/Ghosts" instance=ExtResource("18_28irl")]
 position = Vector2(-1920, -1363)
 InteractionQuestion = " I can only live where there is light, but I die if the light shines on me. What am I?
+
 1) Fire
 2) Light Bulb
 3) Shadow
@@ -110,6 +112,7 @@ _ghostTexture = ExtResource("13_cohvm")
 [node name="GhostPainter" parent="Building/Ghosts" instance=ExtResource("18_28irl")]
 position = Vector2(1842, -2914)
 InteractionQuestion = "With bristles and hairs, I often glide, leaving behind a colorful tide.
+
 1) A broom
 2) A porcupine
 3) A mop
@@ -121,6 +124,7 @@ _ghostTexture = ExtResource("14_i1eev")
 [node name="GhostMusician" parent="Building/Ghosts" instance=ExtResource("18_28irl")]
 position = Vector2(4808, -2912)
 InteractionQuestion = "I work when I play and play when I work. What am I?
+
 1) A clock
 2) A computer
 3) A musician
@@ -131,6 +135,7 @@ _ghostTexture = ExtResource("15_g13cl")
 [node name="GhostCook" parent="Building/Ghosts" instance=ExtResource("18_28irl")]
 position = Vector2(5166, -1294)
 InteractionQuestion = "What has no beginning, end, or middle?
+
 1) A tacos
 2) A donut
 3) A carrot
@@ -142,6 +147,7 @@ _ghostTexture = ExtResource("16_dup2i")
 position = Vector2(1333, -1283)
 InteractionQuestion = " Where do frogs come from?
 1) The security room
+
 2) A treehouse
 3) A pound
 4) A desert"
@@ -151,6 +157,7 @@ _ghostTexture = ExtResource("17_1ghmy")
 [node name="GhostAccountant" parent="Building/Ghosts" instance=ExtResource("18_28irl")]
 position = Vector2(-2205, -406)
 InteractionQuestion = " What can add six to eleven, and get five?
+
 1) The accountant
 2) A clock
 3) A claculator

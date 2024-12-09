@@ -22,9 +22,7 @@ public partial class Security : Employee
     private static List<string> _chatMessages = new List<string>
     {
         "I am your shield, fear nothing",
-        "V",
-        "E",
-        "A"
+        "I don't now why this TV is not working"
     };
 
     private static List<string> _stopWorkingMessages = new List<string>

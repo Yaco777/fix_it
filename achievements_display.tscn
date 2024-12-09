@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://muqjui1qrko3"]
+[gd_scene load_steps=6 format=3 uid="uid://muqjui1qrko3"]
 
 [ext_resource type="Texture2D" uid="uid://bfjs7ynu8dk13" path="res://building/effects/delete.png" id="1_ulguj"]
 [ext_resource type="Script" path="res://VBoxAchievementsDisplay.cs" id="2_vhaev"]
+[ext_resource type="Texture2D" uid="uid://bii2nsns68mo2" path="res://UI/AchL0.png" id="3_7qku7"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xv24h"]
 resource_local_to_scene = true
@@ -86,6 +87,11 @@ script = ExtResource("2_vhaev")
 [node name="HBoxContainer" type="HBoxContainer" parent="AchievementRect/ScrollContainer/MarginContainer/VBoxAchievementsDisplay"]
 layout_mode = 2
 
+[node name="Sprite2D" type="Sprite2D" parent="AchievementRect/ScrollContainer/MarginContainer/VBoxAchievementsDisplay/HBoxContainer"]
+position = Vector2(800, 0)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("3_7qku7")
+
 [node name="Panel" type="Panel" parent="AchievementRect/ScrollContainer/MarginContainer/VBoxAchievementsDisplay/HBoxContainer"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
@@ -147,6 +153,6 @@ offset_left = 191.0
 offset_top = 879.0
 offset_right = 1489.0
 offset_bottom = 980.0
+theme_override_font_sizes/font_size = 60
 max_value = 18.0
 step = 1.0
-show_percentage = false

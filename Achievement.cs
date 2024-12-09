@@ -1,4 +1,5 @@
 using System;
+using Godot;
 using Godot.Collections;
 
 public class Achievement
@@ -9,12 +10,20 @@ public class Achievement
 
     public Func<bool> Condition { get; private set; }
 
-    public Achievement(string name, string description, int numberOfStars, Func<bool> predicate)
+    public int Level { get; private set; }
+
+    public Achievement(string name, string description, int numberOfStars, Func<bool> predicate, int level)
     {
         Name = name;
         Description = description;
         NumberOfStars = numberOfStars;
         Condition = predicate;
+        Level = level;
+    }
+
+    public Achievement(string name, int level)
+    : this(name, "NA", 0, () => true, level)
+    {
     }
 
     public Dictionary ToDictionary()
@@ -23,13 +32,32 @@ public class Achievement
         {
             { "Name", Name },
             { "Description", Description },
-            { "NumberOfStars", NumberOfStars }
+            { "NumberOfStars", NumberOfStars },
+            { "Level", Level },    
         };
     }
 
     public bool IsCompleted()
     {
         return Condition != null && Condition();
+    }
+
+    public Texture2D GetTextureOfAchievement()
+    {
+        switch (Level)
+        {
+            case 0:
+                return GD.Load<Texture2D>("res://UI/AchL0.png");
+            case 1:
+                return GD.Load<Texture2D>("res://UI/AchL1.png");
+            case 2:
+                return GD.Load<Texture2D>("res://UI/AchL2.png");
+            case 3:
+                return GD.Load<Texture2D>("res://UI/AchL3.png");
+            default:
+                GD.PrintErr("Invalid level for achievement: " + Level);
+                return null; // Return null if the level is invalid
+        }
     }
 
 

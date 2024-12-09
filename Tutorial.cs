@@ -15,8 +15,8 @@ public partial class Tutorial : Node2D
 		"of stars, but the first room will be free";
 
 	[Export]
-	public string ForthMessage { get; set; } = "You just unlocked the musician and your first achievement! Achievements are required to get more stars" +
-		" and to unlock more rooms";
+	public string ForthMessage { get; set; } = "You just unlocked the musician and your first achievement! When you work with someone, you will get a star. They are required" +
+		"to unlock more rooms";
 
 	[Export]
 	public string FifthMessage { get; set; } = "Oh no! The musician fall asleep. Try to find an object that could wake him up." +
@@ -131,7 +131,7 @@ public partial class Tutorial : Node2D
 			_musicien.Position = new Vector2(_musicien.Position.X, _musicien.Position.Y + YMargin);
 			_musicien.StopWorkProbability = 0;
 			_timer.Start(); //the musicien will stop to work
-			var achievement = new Achievement("Room unlocked", "You unlocked your first room", 10, () => (1 == 1));
+			var achievement = new Achievement("Room unlocked", "You unlocked your first room", 10, () => (1 == 1),3);
 			_progressSystem.PlayAchievement(achievement);
 
 
@@ -142,7 +142,7 @@ public partial class Tutorial : Node2D
 		{
 			_label.Text = SixthMessage;
 			_state = State.EndTutorial;
-			var achievement = new Achievement("Tutorial", "You completed the tutorial", 10,() => (1 == 1));
+			var achievement = new Achievement("Tutorial", "You completed the tutorial", 10,() => (1 == 1), 3);
 			_progressSystem.PlayAchievement(achievement);
 			_door.OpenDoor();
 
