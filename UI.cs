@@ -52,6 +52,8 @@ public partial class UI : CanvasLayer
 
 	private Sprite2D _emptyItem;
 
+	private bool _canInputLetters = true;
+
 
 
 
@@ -119,6 +121,7 @@ public partial class UI : CanvasLayer
 		_progressSystem = GetNode<ProgressSystem>("ProgressSystem");
 		_gameOverTimer = GetNode<Timer>("GameOverTimer");
 		_gameOverLabel = GetNode<Label>("TimeLeft/TimerLabel");
+		_globalSignals.StopAllInteractionsWhileCookminigameOpen += ChangeCanInputLetters;
 		_endGameRect.Color = new Color(0,0, 0, 0);
 		_gameOverTimer.WaitTime = NumberOfMinutesBeforeGameOver * 60; //We convert it in seconds
 		_gameOverTimer.OneShot = true;
@@ -141,7 +144,12 @@ public partial class UI : CanvasLayer
 
 	}
 
-   
+    private void ChangeCanInputLetters(bool shouldStop)
+    {
+		_canInputLetters = shouldStop;
+    }
+
+
 
     //function called when we unlock the cook
     private void ShowNotebook()
@@ -241,17 +249,24 @@ public partial class UI : CanvasLayer
 			}
 		}
 
-		if(_notebookSprite.Visible && Input.IsActionJustPressed("open_notebook")) {
+		if(_notebookSprite.Visible && Input.IsActionJustPressed("open_notebook") && _canInputLetters) {
 			_notebook.Visible = !_notebook.Visible;
 
         }
 
-		if(Input.IsActionJustPressed("show_achievements"))
+		if(Input.IsActionJustPressed("show_achievements") && _canInputLetters)
 		{
-			_globalSignals.EmitShowAchievements();
+			_globalSignals.EmitShowAchievements(true);
 		}
 
 	}
+
+	public void CloseNotebookAndAchievements()
+	{
+		_notebook.Visible = false;
+        _globalSignals.EmitShowAchievements(false);
+
+    }
 
 	private void  PlayEndingSound()
 	{

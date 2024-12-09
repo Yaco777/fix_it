@@ -56,11 +56,20 @@ public partial class GlobalSignals : Node2D
 	public delegate void BlockPlayerMovementEventHandler();
 
 	[Signal]
-	public delegate void ShowAchievementsEventHandler();
+	public delegate void ShowAchievementsEventHandler(bool shouldShow);
 
-	public void EmitShowAchievements()
+	[Signal]
+	public delegate void StopAllInteractionsWhileCookminigameOpenEventHandler(bool shouldStop);
+
+	public void EmitStopAllInteractionsWhileCookminigameOpen(bool shouldStop)
 	{
-		EmitSignal(SignalName.ShowAchievements);
+		EmitSignal(SignalName.StopAllInteractionsWhileCookminigameOpen, shouldStop);
+	}
+
+
+    public void EmitShowAchievements(bool shouldShow)
+	{
+		EmitSignal(SignalName.ShowAchievements, shouldShow);
 	}
 
 	public void EmitBlockPlayerMovement()

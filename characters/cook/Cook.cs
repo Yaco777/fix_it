@@ -121,7 +121,9 @@ public partial class Cook : Employee
 		
 		if (CurrentState == EmployeeState.NotWorking && _miniGameSuccess == false)
 		{
-			_cookMinigame.Visible = true;
+			_globalSignals.EmitStopAllInteractionsWhileCookminigameOpen(false);
+			_ui.CloseNotebookAndAchievements();
+            _cookMinigame.Visible = true;
 
 		}
 		else if (CurrentState == EmployeeState.NotWorking && _miniGameSuccess)

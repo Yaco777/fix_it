@@ -158,7 +158,8 @@ public partial class VBoxCookGame : CanvasLayer
 
 	private void HideGame()
 	{
-		Visible = false;
+        _globalSignals.EmitStopAllInteractionsWhileCookminigameOpen(true);
+        Visible = false;
 		InitIngredient();
 		_globalSignals.EmitAllowPlayerMove();
 	}

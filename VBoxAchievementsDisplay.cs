@@ -36,9 +36,9 @@ public partial class VBoxAchievementsDisplay : VBoxContainer
         _globalSignals.ShowAchievements += ChangeVisibility;
     }
 
-    private void ChangeVisibility()
+    private void ChangeVisibility(bool changeVisiblity)
     {
-        _canvasLayer.Visible = !_canvasLayer.Visible;
+        _canvasLayer.Visible = changeVisiblity;
         _progressBar.Value = _building.GetNumberOfWorkDone();
     }
 
