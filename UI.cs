@@ -344,5 +344,16 @@ public partial class UI : CanvasLayer
 		}
 	}
 
+	public void ShowMessage(string message)
+	{
+		_dialogRect.Visible = true;
+		_dialogLabel.Text = message;
+	}
+
+	public void HideDIalog()
+	{
+		_dialogRect.Visible = false;
+	}
+
    
 }

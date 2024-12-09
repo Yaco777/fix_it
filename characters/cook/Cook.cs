@@ -10,6 +10,13 @@ public partial class Cook : Employee
 	private VBoxCookGame _cookMinigame;
 	private AnimatedSprite2D _cookAnimation;
 	private int _numberIngredientCollected;
+	private UI _ui;
+	private bool _firstTimeShowingMEssage = true;
+
+	[Export]
+	public string CookRoomUnlockMessage { get; set; } = "Ok look, the cook gave you a notebook! You will probably need it! You can open and close it with pressing N!";
+
+		
 
 
 	private static List<string> _chatMessages = new List<string>
@@ -42,8 +49,12 @@ public partial class Cook : Employee
 		_globalSignals = GetNode<GlobalSignals>("../../GlobalSignals");
 		_cookMinigame = GetNode<VBoxCookGame>("CookMinigame");
 		_cookAnimation = GetNode<AnimatedSprite2D>("CookSprites");
-		_cookMinigame.Visible = false;
+		_ui = GetNode<UI>("../../UI");
+		_ui.ShowMessage(CookRoomUnlockMessage);
+
+        _cookMinigame.Visible = false;
 		_globalSignals.CookMinigameSuccess += MinigameSuccess;
+
 		StartWorking();
 		_cookAnimation.Play();
 	}
@@ -91,7 +102,20 @@ public partial class Cook : Employee
 
 	}
 
-	protected override void Interact(Hero hero)
+    public override void _Process(double delta)
+    {
+        base._Process(delta);
+		if(Input.IsActionJustPressed("open_notebook"))
+		{
+			if(_firstTimeShowingMEssage)
+			{
+				_firstTimeShowingMEssage = false;
+				_ui.HideDIalog();
+			}
+		}
+    }
+
+    protected override void Interact(Hero hero)
 	{
 
 		
