@@ -92,7 +92,7 @@ public partial class Ghost : Node2D
 	{
 		base._Process(delta);
 
-		if(!_hasInteracted && _inRange && Input.IsActionJustPressed("message_interaction"))
+		if(!_hasInteracted && _inRange && Input.IsActionJustPressed("message_interaction") && Visible == true)
 		{
 			_hasInteracted = true;
 			_interactAnimation.Visible = false;

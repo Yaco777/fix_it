@@ -60,6 +60,20 @@ public class Achievement
         }
     }
 
+    public override bool Equals(object obj)
+    {
+        if (obj is Achievement other)
+        {
+            return Name == other.Name;
+        }
+        return false;
+    }
+
+    public override int GetHashCode()
+    {
+        return Name.GetHashCode();
+    }
+
 
 
 }

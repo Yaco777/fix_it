@@ -95,8 +95,10 @@ public partial class VBoxMarketingGame : VBoxContainer
 		answerLineEdit.Name = "Answer";
 		hboxContainer.AddChild(randomQuestion);
 		hboxContainer.AddChild(answerLineEdit);
+		
 		AddChild(hboxContainer);
-	}
+        MoveChild(hboxContainer, 0);
+    }
 
 	private Label RandomQuestion()
 	{
@@ -105,7 +107,7 @@ public partial class VBoxMarketingGame : VBoxContainer
 		int num2 = _random.Next(1, NumbersMaxValue);
 		var operation = GetRandomOperation();
 		var result = CalculateResult(num1, num2, operation);
-		_questionsAnswers.Add(result); //we add the answer to the question
+		_questionsAnswers.Insert(0,result); //we add the answer to the question
 		label.Text = $"{num1} {operation} {num2} = ";
 		label.Name = "Label";
 		

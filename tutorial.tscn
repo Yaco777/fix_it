@@ -203,4 +203,5 @@ shape = SubResource("RectangleShape2D_ooj3i")
 [node name="Employees" type="Node2D" parent="."]
 
 [node name="Door" parent="." instance=ExtResource("13_c7mbb")]
-position = Vector2(-600, 528)
+position = Vector2(-600, 539)
+scale = Vector2(0.8, 0.8)

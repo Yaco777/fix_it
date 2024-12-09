@@ -106,7 +106,7 @@ region_enabled = true
 region_rect = Rect2(0, 0, 60000, 60000)
 
 [node name="MusicRoom" type="Sprite2D" parent="."]
-position = Vector2(-503, -1499)
+position = Vector2(-503, -1506)
 scale = Vector2(0.75, 0.75)
 texture = ExtResource("4_77uh7")
 
@@ -281,7 +281,7 @@ scale = Vector2(1.5, 1.5)
 [node name="RoomsPlaceholder" type="Node2D" parent="."]
 
 [node name="MainRoom" type="Sprite2D" parent="."]
-position = Vector2(3725, -2005)
+position = Vector2(3725, -2009)
 scale = Vector2(0.75, 0.75)
 texture = ExtResource("7_duoww")
 

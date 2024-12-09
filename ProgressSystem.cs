@@ -100,7 +100,7 @@ public partial class ProgressSystem : CanvasLayer
 
         GetTree().CreateTimer(5).Timeout += () =>
         {
-            if (_currentLevel == 18)
+            if (_currentLevel >= 18)
             {
                 IncreaseLevel();
             }
