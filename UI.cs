@@ -133,23 +133,17 @@ public partial class UI : CanvasLayer
 		_ghostCounterLabel = GetNode<Label>("GhostCounterLabel");
 		_ghostCounterLabel.Visible = false; 
 		_globalSignals.GhostSlayed += OnGhostSlayed;
-		_globalSignals.NewWorkDone += UpdateStars;
 
 
 	}
 
-    private void UpdateStars()
-    {
-        
-    }
+   
 
     //function called when we unlock the cook
     private void ShowNotebook()
     {
 		_notebookSprite.Visible = true;
     }
-
-  
 
 
     private void UpdateTimerLabel()
@@ -246,6 +240,11 @@ public partial class UI : CanvasLayer
 			_notebook.Visible = !_notebook.Visible;
 
         }
+
+		if(Input.IsActionJustPressed("show_achievements"))
+		{
+			_globalSignals.EmitShowAchievements();
+		}
 
 	}
 

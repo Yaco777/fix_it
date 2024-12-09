@@ -55,6 +55,14 @@ public partial class GlobalSignals : Node2D
 	[Signal]
 	public delegate void BlockPlayerMovementEventHandler();
 
+	[Signal]
+	public delegate void ShowAchievementsEventHandler();
+
+	public void EmitShowAchievements()
+	{
+		EmitSignal(SignalName.ShowAchievements);
+	}
+
 	public void EmitBlockPlayerMovement()
 	{
 		EmitSignal(SignalName.BlockPlayerMovement);

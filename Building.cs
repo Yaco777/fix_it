@@ -9,7 +9,7 @@ public partial class Building : Node2D
 
 
     private static Node2D _itemsGenerationsArea;
-    private static Random random = new Random();
+    private static Random random = new();
     private Dictionary<string, int> _employeeWorkedHashMap = new Dictionary<string, int>();
     private GlobalSignals _globalSignals;
     private bool _hasUnlockedGlasses;

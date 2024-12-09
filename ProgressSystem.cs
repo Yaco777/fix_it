@@ -79,11 +79,10 @@ public partial class ProgressSystem : CanvasLayer
         //this loop is used for the employess that are already in the game when we start it, not the one added by the rooms
         foreach (var emp in employees)
         {
+            //we store all employees and when the state of the employee change we will call CheckNewAchievements
 
-            if (emp is Employee)
+            if (emp is Employee empConv)
             {
-                //we store all employees and when the state of the employee change we will call CheckNewAchievements
-                var empConv = (Employee)emp;
                 allEmployees.Add((Employee)emp);
                 empConv.EmployeeStateChanged += CheckNewAchievements;
                 empConv.CheckAchievement += CheckNewAchievements;

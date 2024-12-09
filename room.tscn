@@ -41,8 +41,8 @@ shape = SubResource("RectangleShape2D_fgug5")
 [node name="InteractAnimation" type="AnimatedSprite2D" parent="."]
 visible = false
 z_index = 11
-position = Vector2(1, -148)
-scale = Vector2(0.2, 0.2)
+position = Vector2(1, 0)
+scale = Vector2(0.4, 0.4)
 sprite_frames = ExtResource("3_2p6ax")
 animation = &"can_interact"
 

@@ -65,7 +65,7 @@ texture = ExtResource("5_s2ysv")
 [node name="Rooms" type="Node2D" parent="Building"]
 
 [node name="PainterRoom" parent="Building/Rooms" instance=ExtResource("7_m7rb8")]
-position = Vector2(381, -3081)
+position = Vector2(402, -3072)
 scale = Vector2(1.2, 1.2)
 ObjectTexture = ExtResource("8_ht1lv")
 EmployeeUnlockedName = "Painter"
@@ -77,7 +77,7 @@ ObjectTexture = ExtResource("10_siitp")
 EmployeeUnlockedName = "Security"
 
 [node name="AccountantRoom" parent="Building/Rooms" instance=ExtResource("7_m7rb8")]
-position = Vector2(-4328, -514)
+position = Vector2(-4328, -500)
 scale = Vector2(1.25, 1.25)
 ObjectTexture = ExtResource("11_tpwba")
 EmployeeUnlockedName = "Accountant"
@@ -98,51 +98,65 @@ EmployeeUnlockedName = "Cook"
 
 [node name="GhostTechnician" parent="Building/Ghosts" instance=ExtResource("18_28irl")]
 position = Vector2(-1920, -1363)
-InteractionQuestion = "Who is the master of electricity?
-1)Me!		3) The Musician
-2)You		4) The painter"
+InteractionQuestion = " I can only live where there is light, but I die if the light shines on me. What am I?
+1) Fire
+2) Light Bulb
+3) Shadow
+4) The Sun"
 InteractionFailure = "That's wrong..."
+CorrectAnswer = 3
 _ghostTexture = ExtResource("13_cohvm")
 
 [node name="GhostPainter" parent="Building/Ghosts" instance=ExtResource("18_28irl")]
 position = Vector2(1842, -2914)
-InteractionQuestion = "What is the color of the sun?
-1) Black	3) White
-2) Yellow	 4) Rainbow"
+InteractionQuestion = "With bristles and hairs, I often glide, leaving behind a colorful tide.
+1) A broom
+2) A porcupine
+3) A mop
+4) A paintbrush"
 InteractionFailure = "You should look at the sun"
-CorrectAnswer = 2
+CorrectAnswer = 4
 _ghostTexture = ExtResource("14_i1eev")
 
 [node name="GhostMusician" parent="Building/Ghosts" instance=ExtResource("18_28irl")]
 position = Vector2(4808, -2912)
-InteractionQuestion = "I have a key but no door, who am I?
-1) A door   3) A screwdriver
-2) Solfeggio 4)  A treasure chest"
-CorrectAnswer = 2
+InteractionQuestion = "I work when I play and play when I work. What am I?
+1) A clock
+2) A computer
+3) A musician
+4) A robot"
+CorrectAnswer = 3
 _ghostTexture = ExtResource("15_g13cl")
 
 [node name="GhostCook" parent="Building/Ghosts" instance=ExtResource("18_28irl")]
 position = Vector2(5166, -1294)
-InteractionQuestion = "What is the best ingredient for a cake?
-1) Chocolate		3) Egg
-2) Strawberries	4) Frog"
-CorrectAnswer = 4
+InteractionQuestion = "What has no beginning, end, or middle?
+1) A tacos
+2) A donut
+3) A carrot
+4) A cake"
+CorrectAnswer = 2
 _ghostTexture = ExtResource("16_dup2i")
 
 [node name="GhostSecurity" parent="Building/Ghosts" instance=ExtResource("18_28irl")]
 position = Vector2(1333, -1283)
-InteractionQuestion = "What do we use a password for?
-1) To unlock a secure door 3) To turn on the lights
-2) To play video games 4) To bake a cake"
+InteractionQuestion = " Where do frogs come from?
+1) The security room
+2) A treehouse
+3) A pound
+4) A desert"
 InteractionFailure = "Wrong!!"
 _ghostTexture = ExtResource("17_1ghmy")
 
 [node name="GhostAccountant" parent="Building/Ghosts" instance=ExtResource("18_28irl")]
 position = Vector2(-2205, -406)
-InteractionQuestion = "If you have 3 apples and you eat 2, how many apples do you have left?
-1)  1 3) 3
-2) 0   4) 100"
+InteractionQuestion = " What can add six to eleven, and get five?
+1) The accountant
+2) A clock
+3) A claculator
+4) A magician"
 InteractionFailure = "Go back to school"
+CorrectAnswer = 2
 _ghostTexture = ExtResource("18_1sjaw")
 
 [node name="GlobalSignals" type="Node2D" parent="."]
