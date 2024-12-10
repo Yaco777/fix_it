@@ -55,6 +55,12 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 60
 text = "Quit the game"
 
+[node name="HighScore" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 10
+theme_override_font_sizes/font_size = 48
+text = "High Score: XXXX"
+
 [connection signal="pressed" from="VBoxContainer/Resume" to="." method="OnResumePressed"]
 [connection signal="pressed" from="VBoxContainer/Achievements" to="." method="ShowAchievements"]
 [connection signal="pressed" from="VBoxContainer/MainMenu" to="." method="ReturnMainMenu"]

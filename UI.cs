@@ -19,7 +19,7 @@ public partial class UI : CanvasLayer
 	private float animationScaleY = 2f;
 
 	[Export]
-	private int NumberOfMinutesBeforeGameOver { get; set; } = 12;
+	public int NumberOfMinutesBeforeGameOver { get; set; } = 12;
 
 	[Export]
 	public int NumberOfGhostsToSlay { get; set; } = 1;
@@ -37,7 +37,7 @@ public partial class UI : CanvasLayer
 
 	private ProgressSystem _progressSystem;
 
-	private Timer _gameOverTimer;
+	public static Timer _gameOverTimer;
 
 	private Label _gameOverLabel;
 
@@ -112,8 +112,8 @@ public partial class UI : CanvasLayer
 		_emptyGlass = GetNode<Sprite2D>("GlassIconEmpty");
 		_emptyNotebook = GetNode<Sprite2D>("NotebookEmpty");
 		_emptyItem = GetNode<Sprite2D>("ItemEmpty");
-        _notebook.Visible = false;
-        _notebookSprite.Visible = false;
+		_notebook.Visible = false;
+		_notebookSprite.Visible = false;
 		_objectIcon.Visible = false;
 		_globalSignals = GetNode<GlobalSignals>("../GlobalSignals");
 		_camera = GetNode<Camera2D>("../Hero/Camera");
@@ -144,22 +144,22 @@ public partial class UI : CanvasLayer
 
 	}
 
-    private void ChangeCanInputLetters(bool shouldStop)
-    {
+	private void ChangeCanInputLetters(bool shouldStop)
+	{
 		_canInputLetters = shouldStop;
-    }
+	}
 
 
 
-    //function called when we unlock the cook
-    private void ShowNotebook()
-    {
+	//function called when we unlock the cook
+	private void ShowNotebook()
+	{
 		_notebookSprite.Visible = true;
 		_emptyNotebook.Visible = false;
-    }
+	}
 
 
-    private void UpdateTimerLabel()
+	private void UpdateTimerLabel()
 	{
 		/**
 		 * Update the timer label according to the remaining time
@@ -252,7 +252,7 @@ public partial class UI : CanvasLayer
 		if(_notebookSprite.Visible && Input.IsActionJustPressed("open_notebook") && _canInputLetters) {
 			_notebook.Visible = !_notebook.Visible;
 
-        }
+		}
 
 		if(Input.IsActionJustPressed("show_achievements") && _canInputLetters)
 		{
@@ -264,9 +264,9 @@ public partial class UI : CanvasLayer
 	public void CloseNotebookAndAchievements()
 	{
 		_notebook.Visible = false;
-        _globalSignals.EmitShowAchievements(false);
+		_globalSignals.EmitShowAchievements(false);
 
-    }
+	}
 
 	private void  PlayEndingSound()
 	{
@@ -292,7 +292,7 @@ public partial class UI : CanvasLayer
 	public void UpdateCollectedItem(string itemName)
 	{
 		var texture = Collectible.getTextureOfCollectible(itemName);
-        _objectIcon.Texture = texture;
+		_objectIcon.Texture = texture;
 		_objectIcon.Scale = new Vector2(animationScaleX, animationScaleY); //base scale of the item, the size will decrease
 		_objectIcon.Visible = true;
 	}
@@ -301,7 +301,7 @@ public partial class UI : CanvasLayer
 	{
 		_objectIcon.Visible = false;
 
-    }
+	}
 
 	private void GlassesUnlocked()
 	{
@@ -313,7 +313,7 @@ public partial class UI : CanvasLayer
 			_glassesWear.Visible = true;
 			_glassesWear.Animation = "not_wearing";
 			_emptyGlass.Visible = false;
-            _dialogLabel.Text = GlassesUnlockedMessage;
+			_dialogLabel.Text = GlassesUnlockedMessage;
 		}
 		
 
@@ -328,7 +328,7 @@ public partial class UI : CanvasLayer
 		else
 		{
 			_glassesWear.Animation = "not_wearing";
-        }
+		}
 	}
 	
 	public void OnGhostSlayed(string name)
@@ -341,7 +341,7 @@ public partial class UI : CanvasLayer
 
 	private void CheckEndGame()
 	{
-		if(_ghostsSlayed == NumberOfGhostsToSlay)
+		if(_ghostsSlayed == 1)
 		{
 			_globalSignals.EmitEndOfTheGame();
 			_state = State.END_GAME_MESSAGE;

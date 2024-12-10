@@ -7,6 +7,8 @@ public partial class EndGameCredits : CanvasLayer
     private float _alpha = 0.0f; // Alpha value for fade-in/fade-out transitions
     private float _iconAlpha = 0.0f; // Separate alpha for the image
     private bool _isFadingIn = true;
+    private string _save;
+    string _filePath = "user://high_score.txt";
 
     private float _elapsedTime = 0.0f; // Time elapsed while keeping the text visible
 
@@ -44,6 +46,7 @@ public partial class EndGameCredits : CanvasLayer
         _gameIcon.Visible = false; // Hide the icon initially
         _originalSoundVolume = AudioServer.GetBusVolumeDb(AudioServer.GetBusIndex("Master"));
         UpdateLabelText();
+        SaveIntToFile(_save, _filePath);
     }
 
     public override void _Process(double delta)
@@ -58,6 +61,13 @@ public partial class EndGameCredits : CanvasLayer
             }
             AudioServer.SetBusVolumeDb(AudioServer.GetBusIndex("Master"), LinearToDb(_soundFade));
         }
+    }
+
+    private void SaveIntToFile(string number, string path)
+    {
+        _save = UI._gameOverTimer.TimeLeft.ToString();
+        using var file = FileAccess.Open(path, FileAccess.ModeFlags.Write);
+        file.StoreString(number);
     }
 
     private static float LinearToDb(float linear)
@@ -109,6 +119,7 @@ public partial class EndGameCredits : CanvasLayer
         {
             _gameIcon.Modulate = new Color(1, 1, 1, _iconAlpha);
         }
+        
     }
 
     private void SwitchState()
