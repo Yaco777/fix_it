@@ -75,6 +75,7 @@ scale = Vector2(0.25, 0.25)
 texture = ExtResource("9_u840t")
 
 [node name="Label" type="Label" parent="TextureRect"]
+layout_mode = 0
 offset_left = 76.0
 offset_top = 44.0
 offset_right = 1528.0

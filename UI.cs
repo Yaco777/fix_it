@@ -217,6 +217,7 @@ public partial class UI : CanvasLayer
 					_endGameRect.Visible = true;
 					PlayEndingSound();
 					_gameOverLabel.Visible = false;
+
 					_gameOverTimer.WaitTime = 9999;
 					
 				  
@@ -245,7 +246,8 @@ public partial class UI : CanvasLayer
 				_isFading = false;
 				var endGameScene = GD.Load<PackedScene>("res://end_game_credits.tscn");
 				var endGame = (EndGameCredits)endGameScene.Instantiate();
-				GetParent().AddChild(endGame);
+				CloseNotebookAndAchievements();
+                GetParent().AddChild(endGame);
 				Visible = false;
 				
 			}

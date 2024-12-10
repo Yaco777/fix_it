@@ -105,6 +105,7 @@ texture = ExtResource("12_vm4x5")
 metadata/_edit_group_ = true
 
 [node name="Label" type="Label" parent="TextureRect"]
+layout_mode = 0
 offset_left = 56.0
 offset_top = 52.0
 offset_right = 1696.0

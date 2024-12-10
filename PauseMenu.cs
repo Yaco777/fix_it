@@ -13,7 +13,7 @@ public partial class PauseMenu : CanvasLayer
     private CanvasLayer _achievementsDisplay;
     private Label _highScoreLabel;
     private double _min = -1;
-    private double _highScore;
+    private double _highScore = -1;
     private int _time_left;
 
     public override void _Ready()
@@ -72,20 +72,17 @@ public partial class PauseMenu : CanvasLayer
         if(FileExists(@"user://high_score.txt")){
             GD.Print("High score file exists");
             using var file = FileAccess.Open("user://high_score.txt", FileAccess.ModeFlags.Read);
-            // string content = file.GetAsText();
-            // GD.Print(content);
-           // _time_left = content.ToInt();
-            if (_highScore > 0)
-                _highScoreLabel.Visible = true;
+            string content = file.GetAsText();
+            _time_left = content.ToInt();
+            _highScoreLabel.Visible = true;       
             if (_min < _time_left)
                 _min = _time_left;
-            _highScore = 12 * 60 - _min;
+            _highScore = 30 * 60 - _min;
             int minutes = Mathf.FloorToInt((float)_highScore / 60);
             int seconds = Mathf.FloorToInt((float)_highScore % 60);
             _highScoreLabel.Text = $"High Score: {minutes:00}:{seconds:00}";
         }
-        else
-            GD.Print("No high score found");
+       
     }
 
     public void OnResumePressed()
@@ -114,7 +111,6 @@ public partial class PauseMenu : CanvasLayer
 
     public void ShowAchievements()
     {
-        
         _achievementsDisplay.Visible = true;
        
     }

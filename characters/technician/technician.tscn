@@ -86,6 +86,7 @@ texture = ExtResource("10_p1fxp")
 metadata/_edit_group_ = true
 
 [node name="Label" type="Label" parent="TextureRect"]
+layout_mode = 0
 offset_left = 60.0
 offset_top = 48.0
 offset_right = 1688.0

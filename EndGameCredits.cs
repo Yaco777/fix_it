@@ -46,7 +46,7 @@ public partial class EndGameCredits : CanvasLayer
         _gameIcon.Visible = false; // Hide the icon initially
         _originalSoundVolume = AudioServer.GetBusVolumeDb(AudioServer.GetBusIndex("Master"));
         UpdateLabelText();
-        SaveIntToFile(_save, _filePath);
+        SaveIntToFile( _filePath);
     }
 
     public override void _Process(double delta)
@@ -63,11 +63,34 @@ public partial class EndGameCredits : CanvasLayer
         }
     }
 
-    private void SaveIntToFile(string number, string path)
+    /**
+     * The function will compare the current best score with the current score to see if we need to change the best score
+     */
+    private void SaveIntToFile(string path)
     {
-        _save = UI._gameOverTimer.TimeLeft.ToString();
+        _save = ((int)UI._gameOverTimer.TimeLeft).ToString();
+        using var file = FileAccess.Open(path, FileAccess.ModeFlags.Read);
+        if (!FileAccess.FileExists(path))
+            WriteScoreToFile(path, _save); //if the file doesn't exist, we directly write the score
+        else
+        {
+            string content = file.GetAsText();
+            var previous_score = content.ToInt();
+            if(_save.ToInt() > previous_score)
+            {
+                WriteScoreToFile(path, _save);
+            }
+        }
+       
+    }
+    /**
+     * Write a score in the score file
+     */
+    private void WriteScoreToFile(string path, string score)
+    {
         using var file = FileAccess.Open(path, FileAccess.ModeFlags.Write);
-        file.StoreString(number);
+        file.StoreString(score);
+       
     }
 
     private static float LinearToDb(float linear)
