@@ -22,7 +22,7 @@ public partial class UI : CanvasLayer
 	public int NumberOfMinutesBeforeGameOver { get; set; } = 12;
 
 	[Export]
-	public int NumberOfGhostsToSlay { get; set; } = 1;
+	public int NumberOfGhostsToSlay { get; set; } = 6;
 
 	private ProgressBar _ghostProgressBar;
 
@@ -348,7 +348,7 @@ public partial class UI : CanvasLayer
 
 	private void CheckEndGame()
 	{
-		if(_ghostsSlayed == 1)
+		if(_ghostsSlayed == NumberOfGhostsToSlay)
 		{
 			_globalSignals.EmitEndOfTheGame();
 			_state = State.END_GAME_MESSAGE;

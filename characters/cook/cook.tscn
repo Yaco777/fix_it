@@ -1,31 +1,31 @@
 [gd_scene load_steps=14 format=3 uid="uid://pr180h4dj63o"]
 
-[ext_resource type="Script" path="res://characters/cook/Cook.cs" id="1_4ajct"]
-[ext_resource type="Texture2D" uid="uid://dwluwt1wakdc7" path="res://characters/cook/CookCooking01.png" id="2_y8e2b"]
-[ext_resource type="Texture2D" uid="uid://66nfy6ucmae8" path="res://characters/cook/CookCooking02.png" id="3_tpq0j"]
-[ext_resource type="Texture2D" uid="uid://c1c3wowqxumlu" path="res://characters/cook/CookCooking03.png" id="4_4u7pd"]
-[ext_resource type="Texture2D" uid="uid://w45b0b2bmsf7" path="res://characters/cook/CookCooking04.png" id="5_rcyd8"]
-[ext_resource type="Texture2D" uid="uid://djikhqldhc6f7" path="res://characters/cook/CookSleep01.png" id="6_xso3g"]
-[ext_resource type="Texture2D" uid="uid://shi4nwqbkiro" path="res://characters/cook/CookSleep02.png" id="7_igu8u"]
-[ext_resource type="Texture2D" uid="uid://bwa56f3fqr1hi" path="res://characters/cook/CookSleep03.png" id="8_nxwj5"]
-[ext_resource type="SpriteFrames" uid="uid://dxvd8we5cp3eh" path="res://spriteAnimationCollect.tres" id="9_c0bnm"]
-[ext_resource type="PackedScene" uid="uid://d3tvd7hqhth72" path="res://CookMinigame.tscn" id="10_35ikh"]
-[ext_resource type="Texture2D" uid="uid://c3v1lhla175xt" path="res://UI/DialogBox.png" id="11_cdvcb"]
+[ext_resource type="Script" path="res://characters/cook/Cook.cs" id="1_1gnuc"]
+[ext_resource type="Texture2D" uid="uid://dwluwt1wakdc7" path="res://characters/cook/CookCooking01.png" id="1_dm7mv"]
+[ext_resource type="Texture2D" uid="uid://66nfy6ucmae8" path="res://characters/cook/CookCooking02.png" id="2_cwhf4"]
+[ext_resource type="Texture2D" uid="uid://c1c3wowqxumlu" path="res://characters/cook/CookCooking03.png" id="3_uc2ex"]
+[ext_resource type="Texture2D" uid="uid://w45b0b2bmsf7" path="res://characters/cook/CookCooking04.png" id="4_u80ai"]
+[ext_resource type="Texture2D" uid="uid://djikhqldhc6f7" path="res://characters/cook/CookSleep01.png" id="5_qq058"]
+[ext_resource type="Texture2D" uid="uid://shi4nwqbkiro" path="res://characters/cook/CookSleep02.png" id="6_25qxy"]
+[ext_resource type="Texture2D" uid="uid://bwa56f3fqr1hi" path="res://characters/cook/CookSleep03.png" id="7_132aw"]
+[ext_resource type="SpriteFrames" uid="uid://dxvd8we5cp3eh" path="res://spriteAnimationCollect.tres" id="8_p3nwo"]
+[ext_resource type="PackedScene" uid="uid://d3tvd7hqhth72" path="res://CookMinigame.tscn" id="9_y685k"]
+[ext_resource type="Texture2D" uid="uid://c3v1lhla175xt" path="res://UI/DialogBox.png" id="11_2qnb2"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_ljjid"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_y8e2b")
+"texture": ExtResource("1_dm7mv")
 }, {
 "duration": 1.0,
-"texture": ExtResource("3_tpq0j")
+"texture": ExtResource("2_cwhf4")
 }, {
 "duration": 1.0,
-"texture": ExtResource("4_4u7pd")
+"texture": ExtResource("3_uc2ex")
 }, {
 "duration": 1.0,
-"texture": ExtResource("5_rcyd8")
+"texture": ExtResource("4_u80ai")
 }],
 "loop": true,
 "name": &"cooking",
@@ -33,13 +33,13 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("6_xso3g")
+"texture": ExtResource("5_qq058")
 }, {
 "duration": 1.0,
-"texture": ExtResource("7_igu8u")
+"texture": ExtResource("6_25qxy")
 }, {
 "duration": 1.0,
-"texture": ExtResource("8_nxwj5")
+"texture": ExtResource("7_132aw")
 }],
 "loop": true,
 "name": &"sleeping",
@@ -50,7 +50,7 @@ animations = [{
 size = Vector2(199, 318)
 
 [node name="Cook" type="Node2D"]
-script = ExtResource("1_4ajct")
+script = ExtResource("1_1gnuc")
 StopWorkProbability = 0.001
 
 [node name="CookSprites" type="AnimatedSprite2D" parent="."]
@@ -68,22 +68,21 @@ shape = SubResource("RectangleShape2D_47umw")
 z_index = 11
 position = Vector2(1, -148)
 scale = Vector2(0.1, 0.1)
-sprite_frames = ExtResource("9_c0bnm")
+sprite_frames = ExtResource("8_p3nwo")
 animation = &"can_interact"
 
-[node name="CookMinigame" parent="." instance=ExtResource("10_35ikh")]
+[node name="CookMinigame" parent="." instance=ExtResource("9_y685k")]
 visible = false
 scale = Vector2(0.2, 0.2)
 transform = Transform2D(0.2, 0, 0, 0.2, 0, 0)
 
 [node name="TextureRect" type="TextureRect" parent="."]
-offset_left = -220.0
-offset_top = -266.0
-offset_right = 1532.0
-offset_bottom = 184.0
-scale = Vector2(0.25, 0.25)
+offset_left = -162.0
+offset_top = -246.0
+offset_right = 1444.0
+offset_bottom = 204.0
+scale = Vector2(0.2, 0.2)
 texture = ExtResource("11_2qnb2")
-metadata/_edit_group_ = true
 
 [node name="Label" type="Label" parent="TextureRect"]
 layout_mode = 0

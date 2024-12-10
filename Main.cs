@@ -18,5 +18,6 @@ public partial class Main : Node
                 child.QueueFree();
             }
         }
+        Room.AmountStarsRequired = 1;
     }
 }

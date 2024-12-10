@@ -20,7 +20,7 @@ public partial class Painter : Employee
     public int NumberOfWorkToUnlockedSecondColor { get; set; } = 1;
 
     [Export]
-    public int NumberOfWorkToUnlockedThirdColor { get; set; } = 2;
+    public int NumberOfWorkToUnlockedThirdColor { get; set; } = 3;
 
 
   

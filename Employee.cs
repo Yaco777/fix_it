@@ -146,9 +146,12 @@ public partial class Employee : Node2D
 		if((int)_actualTimeBeforeStopWorking != _debug)
 		{
 			_debug = (int)_actualTimeBeforeStopWorking;
-  
+            GD.Print(NameOfEmployee + " " + _debug);
+
 
         }
+		
+         
 
 		if (CurrentState == EmployeeState.Working && !_cannotStopWorking)
 		{

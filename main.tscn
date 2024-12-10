@@ -38,7 +38,6 @@ _defaultCooldown = 20
 
 [node name="UI" parent="." instance=ExtResource("7_5josr")]
 NumberOfMinutesBeforeGameOver = 30
-NumberOfGhostsToSlay = 6
 
 [node name="Employees" type="Node2D" parent="."]
 

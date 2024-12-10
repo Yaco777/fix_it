@@ -10,7 +10,7 @@ public partial class Room : Node2D
 	[Export] public Texture2D ObjectTexture { get; set; }
 
 
-	private static int AmountStarsRequired { get; set; } = 1;
+	public static int AmountStarsRequired { get; set; } = 1;
 
 	[Export] public string NotEnoughStarsMessage { get; set; } = "Not enough stars!";
 
@@ -73,6 +73,12 @@ public partial class Room : Node2D
 		_interactAnimation.Animation = "can_interact";
 		_interactAnimation.Play();
 		_interactionArea = GetNode<Area2D>("RoomUnlock");
+		if(EmployeeUnlockedName == "Musicien")
+		{
+			AmountStarsRequired = 0;
+
+        }
+
 		_defaultLabel = _unlockLabel.Text.Replace("{amount}",AmountStarsRequired.ToString()); //we store the default label text
 		_unlockLabel.Text = _defaultLabel;
 		_hitBoxArea = GetNode<StaticBody2D>("StaticBodyHitBox");
