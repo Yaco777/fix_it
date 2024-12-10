@@ -26,9 +26,9 @@ sprite_frames = ExtResource("2_i3gxa")
 animation = &"can_interact"
 
 [node name="TextureRect" type="TextureRect" parent="."]
-offset_left = -201.0
+offset_left = -220.0
 offset_top = -266.0
-offset_right = 1405.0
+offset_right = 1532.0
 offset_bottom = 184.0
 scale = Vector2(0.25, 0.25)
 texture = ExtResource("3_a783j")
@@ -36,12 +36,13 @@ metadata/_edit_group_ = true
 
 [node name="Label" type="Label" parent="TextureRect"]
 layout_mode = 0
-offset_right = 1600.0
+offset_right = 1736.0
 offset_bottom = 340.0
 theme_override_font_sizes/font_size = 80
 text = "Hello"
 horizontal_alignment = 1
 vertical_alignment = 1
+autowrap_mode = 3
 
 [connection signal="body_entered" from="EmployeeArea" to="." method="OnBodyEntered"]
 [connection signal="body_exited" from="EmployeeArea" to="." method="OnBodyExited"]

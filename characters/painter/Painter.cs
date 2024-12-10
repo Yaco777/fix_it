@@ -43,8 +43,7 @@ public partial class Painter : Employee
     {
         "In a single brushstroke!",
         "I'm so clumsy",
-        "I will never fall asleep, there is no way...",
-        "Music soothes aches and pains!"
+        "I will never fall asleep, there is no way..."
     };
 
     private static readonly List<string> _stopWorkingMessages = new List<string>

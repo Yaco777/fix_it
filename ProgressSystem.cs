@@ -140,7 +140,7 @@ public partial class ProgressSystem : CanvasLayer
             "The music has stopped for the first time",
             40,
             () => musicien.CurrentState == Employee.EmployeeState.NotWorking, // Condition to unlock the achievement
-            1
+            3
         );
 
             var achievementMusicien2 = new Achievement(
@@ -201,7 +201,7 @@ public partial class ProgressSystem : CanvasLayer
                 "You can see in RGB!",
                 "You gaved back all the colors to the Painter at least one time",
                 40,
-                () => painter.firstTimeGettingRed && painter.firstTimeGettingBlue && painter.firstTimeGettingRed,
+                () => painter.firstTimeGettingRed && painter.firstTimeGettingBlue && painter.firstTimeGettingGreen,
                 3
             );
 
@@ -452,6 +452,7 @@ public partial class ProgressSystem : CanvasLayer
         if (!playerAchievements.Contains(achievement))
         {
             //the player got the achievement
+            achievement.Unlocked = true;
             playerAchievements.Add(achievement); //we add it 
             //AnimateProgress(achievement.NumberOfStars, _starsProgressBar); //circular animation
             _achievementDisplay.ShowAchievement(achievement);
@@ -533,6 +534,7 @@ public partial class ProgressSystem : CanvasLayer
 
         foreach (var achievement in playerAchievements)
         {
+            achievement.Unlocked = true;
             unlockedNames.Add(achievement);
         }
 
@@ -541,9 +543,9 @@ public partial class ProgressSystem : CanvasLayer
 
     public List<Achievement> GetAllAchievements()
     {
-        return new List<Achievement>
+        var list = new List<Achievement>
     {
-        new Achievement("After the last breath, only the silence remains", 1),
+        new Achievement("After the last breath, only the silence remains", 3),
         new Achievement("Music is the language of emotions", 1),
         new Achievement("The Symphony has started", 2),
         new Achievement("You can feel it", 3),
@@ -571,6 +573,15 @@ public partial class ProgressSystem : CanvasLayer
         new Achievement("Give light, and the darkness will disappear of itself", 3),
         new Achievement("Playing it safe is the riskiest choice we can make", 3)
     };
+        foreach(var a in list)
+        {
+            if(playerAchievements.Contains(a))
+            {
+                a.Unlocked = true;
+            }
+
+        }
+        return list;
     }
 
     public List<Achievement> GetLockedAchievements()

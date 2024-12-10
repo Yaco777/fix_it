@@ -10,7 +10,7 @@ public partial class Room : Node2D
 	[Export] public Texture2D ObjectTexture { get; set; }
 
 
-	[Export] public int AmountStarsRequired { get; set; } = 5;
+	private static int AmountStarsRequired { get; set; } = 1;
 
 	[Export] public string NotEnoughStarsMessage { get; set; } = "Not enough stars!";
 
@@ -89,7 +89,8 @@ public partial class Room : Node2D
 			if (_state != State.Unlocked)
 			{
 				_state = State.CanInteract;
-				_unlockLabel.Text = _defaultLabel;
+                _defaultLabel = _unlockLabel.Text.Replace("{amount}", AmountStarsRequired.ToString());
+                _unlockLabel.Text = _defaultLabel;
 			}
 			_playerInRange = true;
 			_interactAnimation.Visible = true;
@@ -142,7 +143,11 @@ public partial class Room : Node2D
 			_globalSignals.EmitCookUnlocked();
 		}
 		AddNewEmployee();
-	}
+		AmountStarsRequired += 2;
+        _defaultLabel = _unlockLabel.Text.Replace("{amount}", AmountStarsRequired.ToString());
+
+
+    }
 
 	private void AddNewEmployee()
 	{

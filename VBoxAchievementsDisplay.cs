@@ -24,7 +24,7 @@ public partial class VBoxAchievementsDisplay : VBoxContainer
         _optionButton = GetNode<OptionButton>("../../../OptionButton");
         _progressBar = GetNode<ProgressBar>("../../../ProgressBar");
         _progressSystem = GetNode<ProgressSystem>("../../../../../UI/ProgressSystem");
-        _exitArea = GetNode<Area2D>("../../../ExitSprite/ExitSpriteArea");
+        _exitArea = GetNode<Area2D>("../../../ExitSpriteArea");
         _canvasLayer = GetNode<CanvasLayer>("../../../..");
         _building = _canvasLayer.GetNode<Building>("../Building");
         _exitArea.InputEvent += HideAchievementsInput;
@@ -38,8 +38,17 @@ public partial class VBoxAchievementsDisplay : VBoxContainer
 
     private void ChangeVisibility(bool changeVisiblity)
     {
-        _canvasLayer.Visible = changeVisiblity;
+        if (_canvasLayer.Visible == changeVisiblity)
+        {
+            _canvasLayer.Visible = !_canvasLayer.Visible;
+        }
+        else
+        {
+            _canvasLayer.Visible = changeVisiblity;
+        }
+        
         _progressBar.Value = _building.GetNumberOfWorkDone();
+        
     }
 
     private void OnVisibilityChanged()
@@ -77,9 +86,11 @@ public partial class VBoxAchievementsDisplay : VBoxContainer
             list = _progressSystem.GetUnlockedAchievements();
         }
 
+        var i = 0;
         foreach (var item in list)
         {
-            AddOneAchievement(item);
+            AddOneAchievement(item, i);
+            i++;
         }
     }
 
@@ -105,37 +116,46 @@ public partial class VBoxAchievementsDisplay : VBoxContainer
     private void ShowAchievements() {
 
         var allAchievements = _progressSystem.GetAllAchievements();
+        var list = _progressSystem.GetUnlockedAchievements();
+        var i = 0;
         foreach(var achievement in allAchievements)
         {
-            AddOneAchievement(achievement);
+            if(list.Contains(achievement)) {
+                achievement.Unlocked = true;
+            }
+            AddOneAchievement(achievement, i);
+            i++;
         }
     }
 
-    private void AddOneAchievement(Achievement achievement)
+    private void AddOneAchievement(Achievement achievement, int index)
     {
         var hboxContainer = new HBoxContainer();
         hboxContainer.SizeFlagsHorizontal = SizeFlags.Fill;
-        var panel = new Panel();
+        var spriteContainer = new Control();
+        spriteContainer.SizeFlagsHorizontal = SizeFlags.ShrinkCenter; // Centre l'ensemble dans le HBox
+        spriteContainer.SizeFlagsVertical = SizeFlags.ShrinkCenter;
+
         var label = new Label();
 
         //sprite
         var sprite = new Sprite2D();
         var texture2D = achievement.GetTextureOfAchievement();
         sprite.Texture = texture2D;
-        sprite.Scale = new Vector2(0.2f,0.2f);
-        sprite.GlobalPosition = new Vector2(sprite.GlobalPosition.X + 800, sprite.GlobalPosition.Y+50);
-       
-        panel.AddChild(sprite);
-        panel.AddChild(label);
-        hboxContainer.AddChild(panel);
+        sprite.Scale = new Vector2(0.8f,0.8f);
+        sprite.GlobalPosition = new Vector2(sprite.GlobalPosition.X + 3500, sprite.GlobalPosition.Y);
+
+        spriteContainer.AddChild(sprite);
+        spriteContainer.AddChild(label);
         label.Text = achievement.Name;
         label.HorizontalAlignment = HorizontalAlignment.Center;
         label.VerticalAlignment = VerticalAlignment.Center;
         label.SetAnchorsPreset(LayoutPreset.FullRect);
-        panel.SizeFlagsHorizontal = SizeFlags.ExpandFill;
-        panel.CustomMinimumSize = new Vector2(panel.CustomMinimumSize.X, PanelSize);
-        label.AddThemeFontSizeOverride("font_size", 40);
+        label.GlobalPosition = new Vector2(label.GlobalPosition.X + 1500, label.GlobalPosition.Y - 50);
+        label.AddThemeFontSizeOverride("font_size", 120);
+        hboxContainer.AddChild(spriteContainer);
         AddChild(hboxContainer);
+        
 
     }
 

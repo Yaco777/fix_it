@@ -16,9 +16,16 @@ script = ExtResource("1_p615m")
 position = Vector2(0.5, 169)
 shape = SubResource("RectangleShape2D_oyqnr")
 
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, 20)
+texture = ExtResource("1_ia7nv")
+
+[node name="LadderSprite2" type="Sprite2D" parent="."]
+position = Vector2(0, 66)
+texture = ExtResource("1_ia7nv")
+
 [node name="LadderSprite" type="Sprite2D" parent="."]
-position = Vector2(0, 177.5)
-scale = Vector2(1, 1.98611)
+position = Vector2(0, 336.5)
 texture = ExtResource("1_ia7nv")
 
 [connection signal="body_entered" from="LadderArea" to="LadderArea" method="OnBodyEntered"]
