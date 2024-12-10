@@ -32,7 +32,7 @@ script = ExtResource("1_hioty")
 z_index = 10
 position = Vector2(3700, -1775)
 Speed = 700
-_defaultCooldown = 50
+_defaultCooldown = 20
 
 [node name="Camera" parent="Hero" instance=ExtResource("2_0u86b")]
 
@@ -80,7 +80,6 @@ EmployeeUnlockedName = "Security"
 position = Vector2(-4328, -500)
 scale = Vector2(1.25, 1.25)
 ObjectTexture = ExtResource("11_tpwba")
-AmountStarsRequired = 0
 EmployeeUnlockedName = "Accountant"
 
 [node name="TechnicienRoom" parent="Building/Rooms" instance=ExtResource("7_m7rb8")]
@@ -93,7 +92,6 @@ EmployeeUnlockedName = "Technician"
 position = Vector2(7927, -3594)
 scale = Vector2(1.25, 1.25)
 ObjectTexture = ExtResource("13_hxheh")
-AmountStarsRequired = 0
 EmployeeUnlockedName = "Cook"
 
 [node name="Ghosts" type="Node2D" parent="Building"]

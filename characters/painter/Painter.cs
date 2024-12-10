@@ -43,8 +43,7 @@ public partial class Painter : Employee
     {
         "In a single brushstroke!",
         "I'm so clumsy",
-        "I will never fall asleep, there is no way...",
-        "Music soothes aches and pains!"
+        "I will never fall asleep, there is no way..."
     };
 
     private static readonly List<string> _stopWorkingMessages = new List<string>
@@ -179,9 +178,9 @@ public partial class Painter : Employee
 
     private bool CheckNewColors()
     {
-        GD.Print("Unlock :" + NumberOfTimeWorked);
+       
         //we check if we need to unlock the second color
-        if (NumberOfTimeWorked == NumberOfWorkToUnlockedSecondColor)
+        if (_numberOfTimeWorked == NumberOfWorkToUnlockedSecondColor)
         {
             var allRemaingColors = new List<string>(REQUIRED_ITEMS);
             allRemaingColors.Remove(FirstBrush);
@@ -194,7 +193,7 @@ public partial class Painter : Employee
         }
         //we unlock the third color
 
-        if (NumberOfTimeWorked == NumberOfWorkToUnlockedThirdColor)
+        if (_numberOfTimeWorked == NumberOfWorkToUnlockedThirdColor)
         {
             ColorsUnlocked.Clear();
             CurrentColors.Clear();

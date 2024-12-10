@@ -59,9 +59,20 @@ public partial class GlobalSignals : Node2D
 	public delegate void ShowAchievementsEventHandler(bool shouldShow);
 
 	[Signal]
+	public delegate void ReverseAchievementsDisplayEventHandler(); //if the achievements are shown, they will be hidden
+
+	[Signal]
 	public delegate void StopAllInteractionsWhileCookminigameOpenEventHandler(bool shouldStop);
 
-	public void EmitStopAllInteractionsWhileCookminigameOpen(bool shouldStop)
+
+	public void EmitReverseAchievementsDisplay()
+	{
+		EmitSignal(SignalName.ReverseAchievementsDisplay);
+	}
+
+
+
+    public void EmitStopAllInteractionsWhileCookminigameOpen(bool shouldStop)
 	{
 		EmitSignal(SignalName.StopAllInteractionsWhileCookminigameOpen, shouldStop);
 	}

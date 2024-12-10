@@ -14,6 +14,7 @@ config/name="fixIt"
 run/main_scene="res://opening.tscn"
 config/features=PackedStringArray("4.3", "C#", "Forward Plus")
 config/icon="res://UI/Icone.png"
+config/windows_native_icon="res://Icone.ico"
 
 [display]
 

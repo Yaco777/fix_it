@@ -1,69 +1,35 @@
-[gd_scene load_steps=6 format=3 uid="uid://muqjui1qrko3"]
+[gd_scene load_steps=5 format=3 uid="uid://muqjui1qrko3"]
 
-[ext_resource type="Texture2D" uid="uid://bfjs7ynu8dk13" path="res://building/effects/delete.png" id="1_ulguj"]
+[ext_resource type="Texture2D" uid="uid://cc4u561ijbm4o" path="res://UI/AchievementsDisplay.png" id="1_sabyp"]
 [ext_resource type="Script" path="res://VBoxAchievementsDisplay.cs" id="2_vhaev"]
 [ext_resource type="Texture2D" uid="uid://bii2nsns68mo2" path="res://UI/AchL0.png" id="3_7qku7"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xv24h"]
-resource_local_to_scene = true
-bg_color = Color(0.45819, 0.641672, 0.627229, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-corner_radius_top_left = 40
-corner_radius_top_right = 40
-corner_radius_bottom_right = 40
-corner_radius_bottom_left = 40
-shadow_color = Color(0.305217, 0.194847, 1, 0.6)
-shadow_size = 5
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ckeky"]
 size = Vector2(730, 645)
 
 [node name="AchievementsDisplay" type="CanvasLayer"]
 
-[node name="AchievementRect" type="Panel" parent="."]
-z_index = 5
-offset_left = 129.0
-offset_top = 28.0
-offset_right = 1808.0
-offset_bottom = 1036.0
-size_flags_horizontal = 3
-mouse_filter = 1
-theme_override_styles/panel = SubResource("StyleBoxFlat_xv24h")
+[node name="AchievementRect" type="Sprite2D" parent="."]
+position = Vector2(907, 522)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("1_sabyp")
 
-[node name="Label" type="Label" parent="AchievementRect"]
-layout_mode = 0
-offset_left = 237.0
-offset_top = -3.0
-offset_right = 1442.0
-offset_bottom = 134.0
-theme_override_font_sizes/font_size = 72
-text = "Achivements"
-horizontal_alignment = 1
-vertical_alignment = 1
+[node name="ExitSpriteArea" type="Area2D" parent="AchievementRect"]
+position = Vector2(-10712, -2012)
+scale = Vector2(0.8, 0.8)
 
-[node name="ExitSprite" type="Sprite2D" parent="AchievementRect"]
-z_index = 10
-position = Vector2(93.0001, 75)
-scale = Vector2(0.2, 0.2)
-texture = ExtResource("1_ulguj")
-metadata/_edit_group_ = true
-
-[node name="ExitSpriteArea" type="Area2D" parent="AchievementRect/ExitSprite"]
-
-[node name="ExitSpriteCollision" type="CollisionShape2D" parent="AchievementRect/ExitSprite/ExitSpriteArea"]
-position = Vector2(0.000244141, 7.5)
+[node name="ExitSpriteCollision" type="CollisionShape2D" parent="AchievementRect/ExitSpriteArea"]
+position = Vector2(9485, 745)
 shape = SubResource("RectangleShape2D_ckeky")
 
 [node name="ScrollContainer" type="ScrollContainer" parent="AchievementRect"]
-layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = 181.0
-offset_bottom = -146.0
+offset_left = -3388.0
+offset_top = -1156.0
+offset_right = -3448.0
+offset_bottom = -2713.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
@@ -74,22 +40,21 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
 theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 10
+theme_override_constants/margin_top = 300
 theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 10
+theme_override_constants/margin_bottom = 300
 
 [node name="VBoxAchievementsDisplay" type="VBoxContainer" parent="AchievementRect/ScrollContainer/MarginContainer"]
 layout_mode = 2
 size_flags_vertical = 4
-theme_override_constants/separation = 12
+theme_override_constants/separation = 500
 script = ExtResource("2_vhaev")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="AchievementRect/ScrollContainer/MarginContainer/VBoxAchievementsDisplay"]
 layout_mode = 2
 
 [node name="Sprite2D" type="Sprite2D" parent="AchievementRect/ScrollContainer/MarginContainer/VBoxAchievementsDisplay/HBoxContainer"]
-position = Vector2(800, 0)
-scale = Vector2(0.2, 0.2)
+position = Vector2(3290, 44)
 texture = ExtResource("3_7qku7")
 
 [node name="Panel" type="Panel" parent="AchievementRect/ScrollContainer/MarginContainer/VBoxAchievementsDisplay/HBoxContainer"]
@@ -132,12 +97,11 @@ vertical_alignment = 1
 layout_mode = 2
 
 [node name="OptionButton" type="OptionButton" parent="AchievementRect"]
-layout_mode = 0
-offset_left = 1158.0
-offset_top = 9.0
-offset_right = 1601.0
-offset_bottom = 128.0
-theme_override_font_sizes/font_size = 60
+offset_left = 2484.0
+offset_top = -1580.0
+offset_right = 3060.0
+offset_bottom = -1407.0
+theme_override_font_sizes/font_size = 120
 alignment = 1
 selected = 0
 item_count = 3
@@ -148,11 +112,11 @@ popup/item_2/text = "Unlocked"
 popup/item_2/id = 2
 
 [node name="ProgressBar" type="ProgressBar" parent="AchievementRect"]
-layout_mode = 0
-offset_left = 191.0
-offset_top = 879.0
-offset_right = 1489.0
-offset_bottom = 980.0
+offset_left = -2832.0
+offset_top = 1512.0
+offset_right = -1534.0
+offset_bottom = 1613.0
+scale = Vector2(4, 4)
 theme_override_font_sizes/font_size = 60
 max_value = 18.0
 step = 1.0

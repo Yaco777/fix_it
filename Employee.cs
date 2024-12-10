@@ -27,7 +27,7 @@ public partial class Employee : Node2D
 	private int WAIT_TIME = 3; //the time the message will appear
 	public string NameOfEmployee { get; private set; }
 
-	public int NumberOfTimeWorked { get; private set; } //number of time this employee returned to work
+	public int _numberOfTimeWorked = 0; //number of time this employee returned to work
 
 
 	private double _maximumTimeBeforeStopWorking;
@@ -146,7 +146,7 @@ public partial class Employee : Node2D
 		if((int)_actualTimeBeforeStopWorking != _debug)
 		{
 			_debug = (int)_actualTimeBeforeStopWorking;
-            GD.Print(NameOfEmployee + " " + _actualTimeBeforeStopWorking);
+  
 
         }
 
@@ -182,7 +182,7 @@ public partial class Employee : Node2D
 
         if (newState == EmployeeState.Working)
 		{
-			NumberOfTimeWorked++;
+			_numberOfTimeWorked++;
 		}
 
 		if (CurrentState != newState)
@@ -335,11 +335,16 @@ public partial class Employee : Node2D
 
 	public void InitializeEmployee()
 	{
-		NumberOfTimeWorked = 0;
+		_numberOfTimeWorked = 0;
         _maximumTimeBeforeStopWorking = 30;
 		_actualTimeBeforeStopWorking = 30;
 
 
 
+	}
+
+	public int getNumberOfTimeWorked()
+	{
+		return _numberOfTimeWorked;
 	}
 }

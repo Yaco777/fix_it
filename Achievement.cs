@@ -12,6 +12,8 @@ public class Achievement
 
     public int Level { get; private set; }
 
+    public bool Unlocked { get; set; }
+
     public Achievement(string name, string description, int numberOfStars, Func<bool> predicate, int level)
     {
         Name = name;
@@ -19,6 +21,7 @@ public class Achievement
         NumberOfStars = numberOfStars;
         Condition = predicate;
         Level = level;
+        Unlocked = false;
     }
 
     public Achievement(string name, int level)
@@ -44,6 +47,11 @@ public class Achievement
 
     public Texture2D GetTextureOfAchievement()
     {
+        if(!Unlocked)
+        {
+            return GD.Load<Texture2D>("res://UI/AchL0.png");
+        }
+
         switch (Level)
         {
             case 0:
