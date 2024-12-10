@@ -67,17 +67,18 @@ sprite_frames = ExtResource("8_v3swt")
 animation = &"can_interact"
 
 [node name="TextureRect" type="TextureRect" parent="."]
-offset_left = -162.0
-offset_top = -246.0
-offset_right = 1444.0
-offset_bottom = 204.0
-scale = Vector2(0.2, 0.2)
+offset_left = -201.0
+offset_top = -271.0
+offset_right = 1405.0
+offset_bottom = 179.0
+scale = Vector2(0.25, 0.25)
 texture = ExtResource("9_u840t")
 
 [node name="Label" type="Label" parent="TextureRect"]
-layout_mode = 0
-offset_right = 1600.0
-offset_bottom = 340.0
+offset_left = 76.0
+offset_top = 44.0
+offset_right = 1528.0
+offset_bottom = 300.0
 theme_override_font_sizes/font_size = 80
 text = "Hello"
 horizontal_alignment = 1

@@ -51,6 +51,7 @@ corner_radius_bottom_left = 32
 [node name="UI" type="CanvasLayer"]
 script = ExtResource("1_hgs1d")
 NumberOfMinutesBeforeGameOver = 1
+GlassesUnlockedMessage = "Congrats! You unlocket the secret gift: some amazing glasses! Equip and unequip them pressing R!"
 
 [node name="NotebookSprite" type="Sprite2D" parent="."]
 visible = false
@@ -99,10 +100,11 @@ color = Color(1, 1, 1, 0)
 
 [node name="DialogRect" type="TextureRect" parent="."]
 visible = false
-offset_left = 5.0
-offset_top = 646.0
-offset_right = 1930.0
-offset_bottom = 1096.0
+offset_left = 7.0
+offset_top = 629.0
+offset_right = 1932.0
+offset_bottom = 1079.0
+scale = Vector2(0.99, 0.99)
 texture = ExtResource("4_u7l6w")
 expand_mode = 1
 

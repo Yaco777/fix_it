@@ -82,12 +82,12 @@ offset_top = -266.0
 offset_right = 1532.0
 offset_bottom = 184.0
 scale = Vector2(0.25, 0.25)
-texture = ExtResource("11_cdvcb")
+texture = ExtResource("11_2qnb2")
 metadata/_edit_group_ = true
 
 [node name="Label" type="Label" parent="TextureRect"]
 layout_mode = 0
-offset_right = 1736.0
+offset_right = 1600.0
 offset_bottom = 340.0
 theme_override_font_sizes/font_size = 80
 text = "Hello"
