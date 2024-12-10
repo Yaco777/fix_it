@@ -46,7 +46,7 @@ animation = &"can_interact"
 visible = false
 
 [node name="InteractionSprite" type="Sprite2D" parent="CanvasLayer"]
-position = Vector2(898, 494)
+position = Vector2(970, 617)
 rotation = -0.00117444
 scale = Vector2(0.4, 0.4)
 texture = ExtResource("5_whnv1")

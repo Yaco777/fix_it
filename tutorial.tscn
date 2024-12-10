@@ -57,10 +57,10 @@ Speed = 700
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="TextureRect" type="TextureRect" parent="CanvasLayer"]
-offset_left = 36.0
-offset_top = 695.0
-offset_right = 4613.0
-offset_bottom = 1615.0
+offset_left = 22.0
+offset_top = 690.0
+offset_right = 4599.0
+offset_bottom = 1610.0
 scale = Vector2(0.41, 0.41)
 texture = ExtResource("4_gwuq8")
 

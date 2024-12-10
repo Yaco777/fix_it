@@ -10,7 +10,7 @@ size = Vector2(730, 645)
 [node name="AchievementsDisplay" type="CanvasLayer"]
 
 [node name="AchievementRect" type="Sprite2D" parent="."]
-position = Vector2(907, 522)
+position = Vector2(958, 535)
 scale = Vector2(0.25, 0.25)
 texture = ExtResource("1_sabyp")
 
