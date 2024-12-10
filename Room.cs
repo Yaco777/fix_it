@@ -89,7 +89,7 @@ public partial class Room : Node2D
 			if (_state != State.Unlocked)
 			{
 				_state = State.CanInteract;
-                _defaultLabel = _unlockLabel.Text.Replace("{amount}", AmountStarsRequired.ToString());
+				_defaultLabel = "Do you want to unlock this room? You need at least " + AmountStarsRequired.ToString() + " stars";
                 _unlockLabel.Text = _defaultLabel;
 			}
 			_playerInRange = true;

@@ -24,6 +24,8 @@ public partial class UI : CanvasLayer
 	[Export]
 	public int NumberOfGhostsToSlay { get; set; } = 1;
 
+	private ProgressBar _ghostProgressBar;
+
 	private GlobalSignals _globalSignals;
 
 
@@ -32,8 +34,6 @@ public partial class UI : CanvasLayer
 	private Label _dialogLabel;
 
 	private AnimatedSprite2D _glassesWear;
-	
-	private Label _ghostCounterLabel;
 
 	private ProgressSystem _progressSystem;
 
@@ -120,12 +120,16 @@ public partial class UI : CanvasLayer
 		_endGameRect = GetNode<ColorRect>("EndGameRect");
 		_progressSystem = GetNode<ProgressSystem>("ProgressSystem");
 		_gameOverTimer = GetNode<Timer>("GameOverTimer");
-		_gameOverLabel = GetNode<Label>("TimeLeft/TimerLabel");
+		_ghostProgressBar = GetNode<ProgressBar>("GhostProgressBar");
+        
+        _gameOverLabel = GetNode<Label>("TimeLeft/TimerLabel");
 		_globalSignals.StopAllInteractionsWhileCookminigameOpen += ChangeCanInputLetters;
 		_endGameRect.Color = new Color(0,0, 0, 0);
 		_gameOverTimer.WaitTime = NumberOfMinutesBeforeGameOver * 60; //We convert it in seconds
 		_gameOverTimer.OneShot = true;
-		_gameOverTimer.Start();
+		_ghostProgressBar.Visible = false;
+		_ghostProgressBar.Value = 0;
+        _gameOverTimer.Start();
 
 		_globalSignals.CookUnlocked += ShowNotebook;
 		UpdateTimerLabel();
@@ -137,8 +141,6 @@ public partial class UI : CanvasLayer
 		_glassesWear.Visible = false;
 		_dialogRect.Visible = false;
 		_globalSignals.GlassesChange += UpdateGlassesLabel;
-		_ghostCounterLabel = GetNode<Label>("GhostCounterLabel");
-		_ghostCounterLabel.Visible = false; 
 		_globalSignals.GhostSlayed += OnGhostSlayed;
 
 
@@ -256,7 +258,7 @@ public partial class UI : CanvasLayer
 
 		if(Input.IsActionJustPressed("show_achievements") && _canInputLetters)
 		{
-			_globalSignals.EmitShowAchievements(true);
+			_globalSignals.EmitReverseAchievementsDisplay();
 		}
 
 	}
@@ -315,9 +317,11 @@ public partial class UI : CanvasLayer
 			_emptyGlass.Visible = false;
 			_dialogLabel.Text = GlassesUnlockedMessage;
 		}
-		
+		_ghostProgressBar.Visible = true;
 
-	}
+
+
+    }
 
 	private void UpdateGlassesLabel(bool isWearingGlasses)
 	{
@@ -333,9 +337,10 @@ public partial class UI : CanvasLayer
 	
 	public void OnGhostSlayed(string name)
 	{
+
 		_ghostsSlayed++;
-		_ghostCounterLabel.Text = "Ghosts Slayed: " + _ghostsSlayed;
-		_ghostCounterLabel.Visible = true; // Show the counter
+		_ghostProgressBar.Visible = true;
+        _ghostProgressBar.Value = _ghostsSlayed;
 		CheckEndGame();
 	}
 
@@ -349,7 +354,7 @@ public partial class UI : CanvasLayer
 			_dialogLabel.Text = EndGameMessage;
 			_objectIcon.Visible = false;
 			_glassesWear.Visible = false;
-			_ghostCounterLabel.Visible = false;
+			_ghostProgressBar.Visible = false;
 			_progressSystem.Visible = false;
 		
 

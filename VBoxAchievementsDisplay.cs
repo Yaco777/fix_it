@@ -34,19 +34,19 @@ public partial class VBoxAchievementsDisplay : VBoxContainer
         VisibilityChanged += OnVisibilityChanged; //when the visiblity change, we update the achievements
         _globalSignals = _canvasLayer.GetNode<GlobalSignals>("../GlobalSignals");
         _globalSignals.ShowAchievements += ChangeVisibility;
+        _globalSignals.ReverseAchievementsDisplay += ReverseVisiblity;
+    }
+
+    private void ReverseVisiblity()
+    {
+        ChangeVisibility(!_canvasLayer.Visible);
+        
     }
 
     private void ChangeVisibility(bool changeVisiblity)
     {
-        if (_canvasLayer.Visible == changeVisiblity)
-        {
-            _canvasLayer.Visible = !_canvasLayer.Visible;
-        }
-        else
-        {
-            _canvasLayer.Visible = changeVisiblity;
-        }
-        
+        _canvasLayer.Visible = changeVisiblity;
+
         _progressBar.Value = _building.GetNumberOfWorkDone();
         
     }
@@ -166,4 +166,6 @@ public partial class VBoxAchievementsDisplay : VBoxContainer
     }
 
    
+
+
 }

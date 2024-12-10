@@ -145,8 +145,8 @@ _ghostTexture = ExtResource("16_dup2i")
 [node name="GhostSecurity" parent="Building/Ghosts" instance=ExtResource("18_28irl")]
 position = Vector2(1333, -1283)
 InteractionQuestion = " Where do frogs come from?
-1) The security room
 
+1) The security room
 2) A treehouse
 3) A pound
 4) A desert"

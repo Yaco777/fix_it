@@ -262,13 +262,16 @@ shape = SubResource("SegmentShape2D_nsgar")
 
 [node name="Ladder1" parent="Ladders" instance=ExtResource("2_2u2e5")]
 z_index = 5
-position = Vector2(1994, -1618)
+position = Vector2(1994, -1912)
+scale = Vector2(1.5, 1.5)
 
 [node name="Ladder3" parent="Ladders" instance=ExtResource("2_2u2e5")]
-position = Vector2(6054, -3244)
+position = Vector2(6054, -3476)
+scale = Vector2(1.5, 1.5)
 
 [node name="Ladder4" parent="Ladders" instance=ExtResource("2_2u2e5")]
-position = Vector2(6075, -1621.5)
+position = Vector2(6075, -1932.5)
+scale = Vector2(1.5, 1.5)
 
 [node name="Ladder2" parent="Ladders" instance=ExtResource("7_10blx")]
 position = Vector2(2866, -2549)

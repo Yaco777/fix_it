@@ -10,9 +10,19 @@ size = Vector2(730, 645)
 [node name="AchievementsDisplay" type="CanvasLayer"]
 
 [node name="AchievementRect" type="Sprite2D" parent="."]
-position = Vector2(907, 522)
+position = Vector2(958, 535)
 scale = Vector2(0.25, 0.25)
 texture = ExtResource("1_sabyp")
+offset_right = 1808.0
+offset_bottom = 1036.0
+size_flags_horizontal = 3
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_xv24h")
+offset_right = 1808.0
+offset_bottom = 1036.0
+size_flags_horizontal = 3
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_xv24h")
 
 [node name="ExitSpriteArea" type="Area2D" parent="AchievementRect"]
 position = Vector2(-10712, -2012)

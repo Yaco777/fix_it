@@ -129,7 +129,10 @@ public partial class Technician : Employee
         {
             _successPlayer.Play();
             ShowBackToWorkChat();
+            GD.Print("avant on a travail : " + _numberOfTimeWorked);
             SetState(EmployeeState.Working);
+            GD.Print("after : " + _numberOfTimeWorked);
+
 
         }
         else

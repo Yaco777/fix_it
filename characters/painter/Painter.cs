@@ -178,9 +178,9 @@ public partial class Painter : Employee
 
     private bool CheckNewColors()
     {
-        GD.Print("Unlock :" + NumberOfTimeWorked);
+       
         //we check if we need to unlock the second color
-        if (NumberOfTimeWorked == NumberOfWorkToUnlockedSecondColor)
+        if (_numberOfTimeWorked == NumberOfWorkToUnlockedSecondColor)
         {
             var allRemaingColors = new List<string>(REQUIRED_ITEMS);
             allRemaingColors.Remove(FirstBrush);
@@ -193,7 +193,7 @@ public partial class Painter : Employee
         }
         //we unlock the third color
 
-        if (NumberOfTimeWorked == NumberOfWorkToUnlockedThirdColor)
+        if (_numberOfTimeWorked == NumberOfWorkToUnlockedThirdColor)
         {
             ColorsUnlocked.Clear();
             CurrentColors.Clear();

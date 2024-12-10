@@ -59,19 +59,23 @@ shape = SubResource("RectangleShape2D_uiu4r")
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="TextureRect" type="TextureRect" parent="CanvasLayer"]
-offset_left = 229.0
-offset_right = 2971.0
-offset_bottom = 548.0
+offset_left = 268.0
+offset_top = 154.0
+offset_right = 3010.0
+offset_bottom = 702.0
 scale = Vector2(0.5, 0.5)
+size_flags_horizontal = 4
 texture = ExtResource("7_d68ql")
+metadata/_edit_use_anchors_ = true
 
 [node name="UnlockLabel" type="Label" parent="CanvasLayer"]
-offset_left = 283.0
-offset_top = 136.0
-offset_right = 1572.0
-offset_bottom = 235.0
+offset_left = 322.0
+offset_top = 290.0
+offset_right = 1611.0
+offset_bottom = 389.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 40
 text = "Do you want to unlock this room? You need at least {amount} stars"
 horizontal_alignment = 1
 vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
