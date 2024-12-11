@@ -217,8 +217,7 @@ public partial class UI : CanvasLayer
 					_endGameRect.Visible = true;
 					PlayEndingSound();
 					_gameOverLabel.Visible = false;
-
-					_gameOverTimer.WaitTime = 9999;
+					_gameOverTimer.Paused = true;
 					
 				  
 				 
