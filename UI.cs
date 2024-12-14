@@ -54,6 +54,9 @@ public partial class UI : CanvasLayer
 
 	private bool _canInputLetters = true;
 
+	private VBoxCookGame _cook;
+	private VBoxMarketingGame _accountant;
+
 
 
 
@@ -121,15 +124,15 @@ public partial class UI : CanvasLayer
 		_progressSystem = GetNode<ProgressSystem>("ProgressSystem");
 		_gameOverTimer = GetNode<Timer>("GameOverTimer");
 		_ghostProgressBar = GetNode<ProgressBar>("GhostProgressBar");
-        
-        _gameOverLabel = GetNode<Label>("TimeLeft/TimerLabel");
+		
+		_gameOverLabel = GetNode<Label>("TimeLeft/TimerLabel");
 		_globalSignals.StopAllInteractionsWhileCookminigameOpen += ChangeCanInputLetters;
 		_endGameRect.Color = new Color(0,0, 0, 0);
 		_gameOverTimer.WaitTime = NumberOfMinutesBeforeGameOver * 60; //We convert it in seconds
 		_gameOverTimer.OneShot = true;
 		_ghostProgressBar.Visible = false;
 		_ghostProgressBar.Value = 0;
-        _gameOverTimer.Start();
+		_gameOverTimer.Start();
 
 		_globalSignals.CookUnlocked += ShowNotebook;
 		UpdateTimerLabel();
@@ -142,7 +145,26 @@ public partial class UI : CanvasLayer
 		_dialogRect.Visible = false;
 		_globalSignals.GlassesChange += UpdateGlassesLabel;
 		_globalSignals.GhostSlayed += OnGhostSlayed;
+		
+		PackedScene accountantScene = (PackedScene)ResourceLoader.Load("res://characters/accountant/accountant.tscn");
+		_accountant = accountantScene.Instantiate<VBoxMarketingGame>();
+		AddChild(_accountant);
+		PackedScene cookScene = (PackedScene)ResourceLoader.Load("res://characters/cook/cook.tscn");
+		_cook = cookScene.Instantiate<VBoxCookGame>();
+		AddChild(_cook);
+		
+		if (_cook != null)
+		{
+			_cook.Connect("StartWorking", new Godot.Callable(this, nameof(OnCharacterStartedWorking)));
+			_cook.Connect("StopWorking", new Godot.Callable(this, nameof(OnCharacterStoppedWorking)));
+		}
 
+		if (_accountant != null)
+		{
+			_accountant.Connect("StartWorking", new Godot.Callable(this, nameof(OnCharacterStartedWorking)));
+			_accountant.Connect("StopWorking", new Godot.Callable(this, nameof(OnCharacterStoppedWorking)));
+		}
+		
 
 	}
 
@@ -166,11 +188,16 @@ public partial class UI : CanvasLayer
 		/**
 		 * Update the timer label according to the remaining time
 		 */
-		if (_gameOverTimer.TimeLeft > 0)
+		if (_gameOverTimer.IsStopped())
 		{
-			int minutes = Mathf.FloorToInt((float)_gameOverTimer.TimeLeft / 60);
-			int seconds = Mathf.FloorToInt((float)_gameOverTimer.TimeLeft % 60);
-			_gameOverLabel.Text = $"Time Left: {minutes:00}:{seconds:00}";
+			// Timer is stopped, display ?? : ??
+			_gameOverLabel.Text = "??:??";
+		}
+		else if (_gameOverTimer.TimeLeft > 0)
+		{
+				int minutes = Mathf.FloorToInt((float)_gameOverTimer.TimeLeft / 60);
+				int seconds = Mathf.FloorToInt((float)_gameOverTimer.TimeLeft % 60);
+				_gameOverLabel.Text = $"Time Left: {minutes:00}:{seconds:00}";
 		}
 		else 
 		{
@@ -246,7 +273,7 @@ public partial class UI : CanvasLayer
 				var endGameScene = GD.Load<PackedScene>("res://end_game_credits.tscn");
 				var endGame = (EndGameCredits)endGameScene.Instantiate();
 				CloseNotebookAndAchievements();
-                GetParent().AddChild(endGame);
+				GetParent().AddChild(endGame);
 				Visible = false;
 				
 			}
@@ -270,6 +297,20 @@ public partial class UI : CanvasLayer
 		_globalSignals.EmitShowAchievements(false);
 
 	}
+	
+	private void OnCharacterStoppedWorking()
+	{
+		// Stop the timer
+		_gameOverTimer.Stop();
+		UpdateTimerLabel(); // This will now set the label to ?? : ??
+	}
+
+	private void OnCharacterStartedWorking()
+	{
+		_gameOverTimer.Start();
+		UpdateTimerLabel(); 
+	}
+
 
 	private void  PlayEndingSound()
 	{
@@ -322,7 +363,7 @@ public partial class UI : CanvasLayer
 
 
 
-    }
+	}
 
 	private void UpdateGlassesLabel(bool isWearingGlasses)
 	{
@@ -341,7 +382,7 @@ public partial class UI : CanvasLayer
 
 		_ghostsSlayed++;
 		_ghostProgressBar.Visible = true;
-        _ghostProgressBar.Value = _ghostsSlayed;
+		_ghostProgressBar.Value = _ghostsSlayed;
 		CheckEndGame();
 	}
 
