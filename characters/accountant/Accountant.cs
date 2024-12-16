@@ -63,6 +63,7 @@ public partial class Accountant : Employee
 	{
 		base.StopWorking();
 		_marketingAnimation.Animation = "notWorking";
+		_globalSignals.EmitAccountantStopWorking();
 		_miniGameSuccess = false;
 
 	}

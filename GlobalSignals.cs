@@ -65,7 +65,15 @@ public partial class GlobalSignals : Node2D
 	public delegate void StopAllInteractionsWhileCookminigameOpenEventHandler(bool shouldStop);
 
 
-	public void EmitReverseAchievementsDisplay()
+	[Signal]
+	public delegate void AccountantStopWorkingEventHandler();
+
+	public void EmitAccountantStopWorking()
+	{
+		EmitSignal(SignalName.AccountantStopWorking);
+	}
+
+    public void EmitReverseAchievementsDisplay()
 	{
 		EmitSignal(SignalName.ReverseAchievementsDisplay);
 	}

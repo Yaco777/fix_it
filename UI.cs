@@ -54,12 +54,6 @@ public partial class UI : CanvasLayer
 
 	private bool _canInputLetters = true;
 
-	private VBoxCookGame _cook;
-	private VBoxMarketingGame _accountant;
-
-
-
-
 
 	[Export]
 	public string NotWearningGlasses { get; set; } = "Not wearing";
@@ -92,6 +86,8 @@ public partial class UI : CanvasLayer
 	private ColorRect _endGameRect;
 
 	private Camera2D _camera;
+
+	private bool _shouldHideTimer;
 
 	private enum State //this state is used to know if we need to show the message asking the player to wear the glasses
 	{
@@ -145,25 +141,10 @@ public partial class UI : CanvasLayer
 		_dialogRect.Visible = false;
 		_globalSignals.GlassesChange += UpdateGlassesLabel;
 		_globalSignals.GhostSlayed += OnGhostSlayed;
-		
-		PackedScene accountantScene = (PackedScene)ResourceLoader.Load("res://characters/accountant/accountant.tscn");
-		_accountant = accountantScene.Instantiate<VBoxMarketingGame>();
-		AddChild(_accountant);
-		PackedScene cookScene = (PackedScene)ResourceLoader.Load("res://characters/cook/cook.tscn");
-		_cook = cookScene.Instantiate<VBoxCookGame>();
-		AddChild(_cook);
-		
-		if (_cook != null)
-		{
-			_cook.Connect("StartWorking", new Godot.Callable(this, nameof(OnCharacterStartedWorking)));
-			_cook.Connect("StopWorking", new Godot.Callable(this, nameof(OnCharacterStoppedWorking)));
-		}
 
-		if (_accountant != null)
-		{
-			_accountant.Connect("StartWorking", new Godot.Callable(this, nameof(OnCharacterStartedWorking)));
-			_accountant.Connect("StopWorking", new Godot.Callable(this, nameof(OnCharacterStoppedWorking)));
-		}
+		//we connect the signals for the accountant
+		_globalSignals.MarketingMinigameSuccess += ShowTimer;
+		_globalSignals.AccountantStopWorking += HideTimer;
 		
 
 	}
@@ -182,16 +163,26 @@ public partial class UI : CanvasLayer
 		_emptyNotebook.Visible = false;
 	}
 
+	public void HideTimer()
+	{
+		_shouldHideTimer = true;
+	}
+
+	public void ShowTimer()
+	{
+		_shouldHideTimer = false;
+	}
+
 
 	private void UpdateTimerLabel()
 	{
 		/**
 		 * Update the timer label according to the remaining time
 		 */
-		if (_gameOverTimer.IsStopped())
+		if (_shouldHideTimer)
 		{
 			// Timer is stopped, display ?? : ??
-			_gameOverLabel.Text = "??:??";
+			_gameOverLabel.Text = "Time Left: ??:??";
 		}
 		else if (_gameOverTimer.TimeLeft > 0)
 		{
