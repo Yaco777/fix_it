@@ -47,7 +47,7 @@ public partial class Room : Node2D
 
 	[Export]
 
-	public int RoomPriceIncrease { get; set; } = 1;
+	public int RoomPriceIncrease { get; set; } = 0; //default = 2
 
 	private enum State
 	{
