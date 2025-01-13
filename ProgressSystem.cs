@@ -24,7 +24,7 @@ public partial class ProgressSystem : CanvasLayer
    
 
     [Export]
-    public int MaxStarsValue { get; set; } = 18;
+    public int MaxStarsValue { get; set; } = 12; //we can put back 18 if we need
 
     [Export]
     private int MaxProgressValue { get; set; } = 100; //not used anymore

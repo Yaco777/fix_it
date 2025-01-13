@@ -191,7 +191,7 @@ public partial class EndGameCredits : CanvasLayer
                 _label.Text = "Tools used:\nGodot\nVisual Studio (code)\nBlender\nIllustrator\nAfter Effect";
                 break;
             case State.BETA_TESTERS:
-                _label.Text = "Beta testers:\n Name1\nName2\nName3\nName4";
+                _label.Text = "Beta testers:\n Alexis J.\nClement H.\nName3\nName4";
                 break;
             case State.END_CREDITS:
                 _label.Text = ""; // Clear the text
