@@ -45,6 +45,10 @@ public partial class Room : Node2D
 
 	private GlobalSignals _globalSignals;
 
+	[Export]
+
+	public int RoomPriceIncrease { get; set; } = 1;
+
 	private enum State
 	{
 		CanInteract,
@@ -149,7 +153,7 @@ public partial class Room : Node2D
 			_globalSignals.EmitCookUnlocked();
 		}
 		AddNewEmployee();
-		AmountStarsRequired += 2;
+		AmountStarsRequired += RoomPriceIncrease;
         _defaultLabel = _unlockLabel.Text.Replace("{amount}", AmountStarsRequired.ToString());
 
 

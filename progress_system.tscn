@@ -10,6 +10,7 @@
 
 [node name="ProgressSystem" type="CanvasLayer"]
 script = ExtResource("1_n1j43")
+MaxStarsValue = 6
 WaitTimeBeforeLevelUp = 3.0
 
 [node name="StarsPlayer" type="AudioStreamPlayer" parent="."]
